@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: ${DATASOURCE_URL}
+        username:  ${DATASOURCE_USER}
+        password: ${DATASOURCE_PASS}
+
+logging:
+    level:
+        root: info

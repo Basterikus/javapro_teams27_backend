@@ -1,0 +1,1 @@
+insert into country (id, title) values (1, 'Russia')

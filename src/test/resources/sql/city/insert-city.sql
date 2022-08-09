@@ -1,0 +1,1 @@
+insert into city (id, title) values (1, 'Moscow', 1), (2, 'Samara', 1)

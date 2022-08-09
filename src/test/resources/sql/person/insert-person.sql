@@ -1,0 +1,1 @@
+insert into person (first_name, last_name, reg_date, birth_date, email, phone, password, photo, about, city_id, confirmation_code, is_approved, messages_permission, last_online_time, is_blocked) values ('Alex','Fred','2007-01-01','2007-01-01','qwerty@mail.com','89999999999','123456','http://www.photo.com','about',null,123456,true,'string','2007-01-01',false);

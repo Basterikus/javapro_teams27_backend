@@ -24,5 +24,6 @@ public class Person {
     private MessagesPermission messagesPermission; // enum
     private LocalDateTime lastOnlineTime;
     private Boolean isBlocked;
-    
+    private String token;
+
 }

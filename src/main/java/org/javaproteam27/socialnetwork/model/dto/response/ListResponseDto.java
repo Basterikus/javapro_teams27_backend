@@ -19,7 +19,7 @@ public class ListResponseDto<T> {
     
     public ListResponseDto(String error, int offset, int perPage, List<T> data) {
         this.error = error;
-        this.timestamp = System.currentTimeMillis() / 1000;
+        this.timestamp = System.currentTimeMillis();
         this.total = data.size();
         this.offset = offset;
         this.perPage = perPage;

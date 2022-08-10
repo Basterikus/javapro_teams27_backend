@@ -3,6 +3,7 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -31,7 +32,7 @@ public class PersonRepository {
         person.setCityId(rs.getInt("city_id"));
         person.setConfirmationCode(rs.getInt("confirmation_code"));
         person.setIsApproved(rs.getBoolean("is_approved"));
-        person.setMessagesPermission(rs.getString("messages_permission"));
+        person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));
         person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
         person.setIsBlocked(rs.getBoolean("is_blocked"));
         
@@ -42,6 +43,7 @@ public class PersonRepository {
     
     
     public void save(Person person) {
+        
         String sql = "insert into person(first_name, last_name, reg_date, birth_date, email, phone, " +
                 "password, photo, about, city_id, confirmation_code, is_approved, messages_permission, " +
                 "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -52,16 +54,21 @@ public class PersonRepository {
                 person.getIsBlocked());
     }
     
-    public Person findByToken(String token) {
-        throw new EntityNotFoundException("token = " + token);
-    }
-    
     public Person findById(int id) {
         try {
             String sql = "select * from person where id = ?";
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("person_id = " + id);
+        }
+    }
+    
+    public Person findByEmail(String email) {
+        try {
+            String sql = "select * from person where email like ?";
+            return jdbcTemplate.queryForObject(sql, rowMapper, email);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person_email = " + email);
         }
     }
     

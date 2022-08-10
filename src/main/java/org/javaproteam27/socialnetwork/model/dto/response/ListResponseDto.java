@@ -8,16 +8,16 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ListResponseDto {
+public class ListResponseDto<T> {
     
     private String error;
     private long timestamp;
     private int total;
     private int offset;
     private int perPage;
-    private List<PersonDto> data;
+    private List<T> data;
     
-    public ListResponseDto(String error, int offset, int perPage, List<PersonDto> data) {
+    public ListResponseDto(String error, int offset, int perPage, List<T> data) {
         this.error = error;
         this.timestamp = System.currentTimeMillis() / 1000;
         this.total = data.size();

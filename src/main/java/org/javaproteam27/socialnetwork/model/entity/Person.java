@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.model.entity;
 
 import lombok.Data;
+import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
 import java.time.LocalDateTime;
 
@@ -20,9 +21,8 @@ public class Person {
     private Integer cityId;
     private Integer confirmationCode;
     private Boolean isApproved;
-    private String messagesPermission; // enum
+    private MessagesPermission messagesPermission; // enum
     private LocalDateTime lastOnlineTime;
     private Boolean isBlocked;
-    private String token; // added. delete in the future
     
 }

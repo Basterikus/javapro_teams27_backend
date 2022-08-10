@@ -35,6 +35,7 @@ public class FriendshipRepository {
     
     
     public void save(Friendship friendship) {
+        
         String sql = "insert into friendship(status_id, sent_time, src_person_id, dst_person_id) " +
                 "values (?,?,?,?)";
         jdbcTemplate.update(sql, friendship.getStatusId(), friendship.getSentTime(),

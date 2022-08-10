@@ -35,11 +35,10 @@ public class FriendsService {
     private final CountryRepository countryRepository;
     
     
-    public ListResponseDto getRecommendations(int id, int offset, int itemPerPage) {
+    public ListResponseDto<PersonDto> getRecommendations(String email, int offset, int itemPerPage) {
         
-        // условный метод для получения id пользователя для которого нужно получить рекомендации
-//        Integer myId = personRepository.findByToken(token).getId();
-        Integer myId = id;
+        Person person = personRepository.findByEmail(email);
+        Integer myId = person.getId();
         
         List<Integer> myFriendsIds = getMyFriendsIds(myId);
         List<Integer> friendsIdsForFriends = getFriendsIdsForFriends(myFriendsIds, myId);
@@ -117,7 +116,7 @@ public class FriendsService {
                 .collect(Collectors.toList());
     }
     
-    private ListResponseDto getResultJson(List<Person> persons, int offset, int itemPerPage) {
+    private ListResponseDto<PersonDto> getResultJson(List<Person> persons, int offset, int itemPerPage) {
         
         List<PersonDto> data = persons.stream()
                 .map(person -> {
@@ -144,7 +143,7 @@ public class FriendsService {
                 })
                 .collect(Collectors.toList());
         
-        return new ListResponseDto("", offset, itemPerPage, data);
+        return new ListResponseDto<>("", offset, itemPerPage, data);
     }
     
 }

@@ -1,1 +1,2 @@
-insert into country (id, title) values (1, 'Russia')
+INSERT INTO "country" ("id", "title") VALUES
+	(1, 'Russia');

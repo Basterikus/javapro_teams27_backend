@@ -11,6 +11,6 @@ public class FriendshipStatus {
     private int id;
     private LocalDateTime time;
     private String name;
-    private FriendshipStatusCode code; // enum
+    private FriendshipStatusCode code;
     
 }

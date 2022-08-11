@@ -21,7 +21,7 @@ public class Person {
     private Integer cityId;
     private Integer confirmationCode;
     private Boolean isApproved;
-    private MessagesPermission messagesPermission; // enum
+    private MessagesPermission messagesPermission;
     private LocalDateTime lastOnlineTime;
     private Boolean isBlocked;
     private String token;

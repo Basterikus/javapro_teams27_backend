@@ -1,13 +1,12 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.javaproteam27.socialnetwork.model.entity.Person;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 public class ListResponseDto<T> {
     
     private String error;

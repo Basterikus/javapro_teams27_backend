@@ -18,7 +18,7 @@ public class FriendsController {
     private final FriendsService friendsService;
     
     @GetMapping("/recommendations")
-    private ResponseEntity<ListResponseDto<PersonDto>> recommendations(@RequestParam("email") String email,
+    private ResponseEntity<ListResponseDto<PersonDto>> getRecommendations(@RequestParam("email") String email,
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
             @RequestParam(value = "perPage", required = false, defaultValue = "10") int itemPerPage) {
         

@@ -10,11 +10,6 @@ import org.javaproteam27.socialnetwork.model.entity.City;
 import org.javaproteam27.socialnetwork.model.entity.Country;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
-import org.javaproteam27.socialnetwork.repository.CityRepository;
-import org.javaproteam27.socialnetwork.repository.CountryRepository;
-import org.javaproteam27.socialnetwork.repository.FriendshipRepository;
-import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
-import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,16 +23,16 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class FriendsService {
     
-    private final PersonRepository personRepository;
-    private final FriendshipRepository friendshipRepository;
-    private final FriendshipStatusRepository friendshipStatusRepository;
-    private final CityRepository cityRepository;
-    private final CountryRepository countryRepository;
+    private final PersonService personService;
+    private final FriendshipService friendshipService;
+    private final FriendshipStatusService friendshipStatusService;
+    private final CityService cityService;
+    private final CountryService countryService;
     
     
     public ListResponseDto<PersonDto> getRecommendations(String email, int offset, int itemPerPage) {
         
-        Person person = personRepository.findByEmail(email);
+        Person person = personService.findByEmail(email);
         Integer myId = person.getId();
         
         List<Integer> myFriendsIds = getMyFriendsIds(myId);
@@ -52,7 +47,7 @@ public class FriendsService {
     
     private List<Integer> getMyFriendsIds(Integer myId) {
         
-        return friendshipRepository
+        return friendshipService
                 .findByPersonIdAndStatus(myId, FriendshipStatusCode.FRIEND).stream()
                 .flatMap(friendship -> Stream.of(
                         friendship.getSrcPersonId(), friendship.getDstPersonId()
@@ -64,7 +59,7 @@ public class FriendsService {
     private List<Integer> getFriendsIdsForFriends(List<Integer> friendsIds, Integer myId) {
 
         return friendsIds.stream()
-                .flatMap(id -> friendshipRepository
+                .flatMap(id -> friendshipService
                         .findByPersonIdAndStatus(id, FriendshipStatusCode.FRIEND).stream()
                         .flatMap(fs -> Stream.of(fs.getSrcPersonId(), fs.getDstPersonId()))
                         .filter(personId -> !friendsIds.contains(personId))
@@ -105,7 +100,7 @@ public class FriendsService {
         return limitedRecommendations.stream()
                 .map(id -> {
                     try {
-                        return Optional.of(personRepository.findById(id));
+                        return Optional.of(personService.findById(id));
                     } catch (EntityNotFoundException e) {
                         return Optional.empty();
                     }
@@ -121,8 +116,8 @@ public class FriendsService {
         List<PersonDto> data = persons.stream()
                 .map(person -> {
                     
-                    City city = cityRepository.findById(person.getCityId());
-                    Country country = countryRepository.findById(city.getCountryId());
+                    City city = cityService.findById(person.getCityId());
+                    Country country = countryService.findById(city.getCountryId());
                     
                     return PersonDto.builder()
                             .id(person.getId())

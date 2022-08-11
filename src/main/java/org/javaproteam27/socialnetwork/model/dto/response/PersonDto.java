@@ -1,15 +1,12 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import org.javaproteam27.socialnetwork.model.entity.Person;
+import lombok.Data;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class PersonDto {
     

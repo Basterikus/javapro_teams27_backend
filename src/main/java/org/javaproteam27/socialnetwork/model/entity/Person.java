@@ -1,20 +1,14 @@
 package org.javaproteam27.socialnetwork.model.entity;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "person")
 @Data
-@RequiredArgsConstructor
 public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    
+    private Integer id;
     private String firstName;
     private String lastName;
     private LocalDateTime regDate;
@@ -27,14 +21,9 @@ public class Person {
     private Integer cityId;
     private Integer confirmationCode;
     private Boolean isApproved;
-    private String messagesPermission;
+    private MessagesPermission messagesPermission; // enum
     private LocalDateTime lastOnlineTime;
     private Boolean isBlocked;
     private String token;
 
-
-    public Person(int id, String email) {
-        this.id = id;
-        this.email = email;
-    }
 }

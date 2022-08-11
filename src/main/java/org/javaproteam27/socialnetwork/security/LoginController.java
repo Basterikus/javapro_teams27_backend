@@ -15,7 +15,7 @@ public class LoginController {
     @GetMapping("/api/v1/auth/login")
     public String getToken(){
         AvailabilityUser availabilityUser = new AvailabilityUser(jdbcTemplate);
-        String email = "asdasd@mail.ru";
+        String email = "alex@mail.com";
         if (availabilityUser.checkUser(email)){
             System.out.println("true");
             return jwtTokenProvider.createToken(email);

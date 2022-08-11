@@ -1,6 +1,5 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.javaproteam27.socialnetwork.model.entity.City;
@@ -41,6 +40,7 @@ public class PersonDto {
         messagesPermission = person.getMessagesPermission();
         lastOnlineTime = person.getLastOnlineTime();
         isBlocked = person.getIsBlocked();
+        token=null;
     }
 
     public void setExampleToLogin(){

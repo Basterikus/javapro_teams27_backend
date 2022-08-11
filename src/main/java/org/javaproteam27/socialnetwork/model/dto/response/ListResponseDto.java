@@ -1,9 +1,11 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 @Data
+@AllArgsConstructor
 public class ListResponseDto<T> {
     private String error;
     private Long timestamp;
@@ -12,3 +14,12 @@ public class ListResponseDto<T> {
     private Integer perPage;
     private List<T> data;
 }
+
+    /*{
+            "error": "string",
+            "timestamp": 1559751301818,
+            "total": 0,
+            "offset": 0,
+            "perPage": 20,
+            "data": [ PostDto postDto ]
+    }*/

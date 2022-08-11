@@ -18,6 +18,7 @@ public class PostDto {
     private Long time;
     private PersonDto author;
     private String title;
+    private String postText;
     private Boolean isBlocked;
     private Integer likes;
     private List<PostComment> postComments;

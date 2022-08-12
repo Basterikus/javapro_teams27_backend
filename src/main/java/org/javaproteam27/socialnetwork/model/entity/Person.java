@@ -18,7 +18,7 @@ public class Person {
     private String password;
     private String photo;
     private String about;
-    private String town;
+    private Integer cityId;
     private Integer confirmationCode;
     private Boolean isApproved;
     private MessagesPermission messagesPermission; // enum

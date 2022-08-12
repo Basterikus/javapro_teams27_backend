@@ -5,7 +5,6 @@ import lombok.Value;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Value
 public class LoginDataRs {
@@ -22,7 +21,8 @@ public class LoginDataRs {
     String phone;
     String photo;
     String about;
-    String town;
+    CityDto cityRs;
+    CountryDto countryRs;
     @JsonProperty("messages_permission")
     MessagesPermission messagesPermission;
     @JsonProperty("last_online_time")

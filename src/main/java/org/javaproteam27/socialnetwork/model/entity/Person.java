@@ -24,7 +24,7 @@ public class Person {
     private String password;
     private String photo;
     private String about;
-    private Integer cityId;
+    private String town;
     private Integer confirmationCode;
     private Boolean isApproved;
     private String messagesPermission;

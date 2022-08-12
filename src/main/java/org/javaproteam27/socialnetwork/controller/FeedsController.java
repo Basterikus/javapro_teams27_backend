@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/feeds")
 @RequiredArgsConstructor
-public class FeedsRestApiController {
+public class FeedsController {
     private final PostService postService;
 
     @GetMapping("")

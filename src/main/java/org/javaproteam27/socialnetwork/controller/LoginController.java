@@ -4,9 +4,8 @@ import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
 import org.javaproteam27.socialnetwork.model.dto.response.LoginRs;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.LogoutRs;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.javaproteam27.socialnetwork.model.dto.response.PersonDto;
+import org.springframework.web.bind.annotation.*;
 import org.javaproteam27.socialnetwork.service.LoginService;
 
 @RestController
@@ -23,5 +22,10 @@ public class LoginController {
     @PostMapping("/api/v1/auth/logout")
     public LogoutRs logout() {
         return loginService.logout();
+    }
+
+    @GetMapping("/api/v1/users/me")
+    public PersonDto profileResponse(@RequestHeader("Authorization") String token) {
+        return loginService.profileResponse(token);
     }
 }

@@ -28,11 +28,12 @@ public class AvailabilityUser {
         String sql = "SELECT * FROM person";
         List<Person> persons = jdbcTemplate.query(
                 sql,
-                (rs, rowNum) ->
-                        new Person(
-                                rs.getInt(ID),
-                                rs.getString(EMAIL)
-                        )
+                (rs, rowNum) -> {
+                    Person person = new Person();
+                    person.setId(rs.getInt(ID));
+                    person.setEmail(rs.getString(EMAIL));
+                    return person;
+                }
         );
         return persons;
     }

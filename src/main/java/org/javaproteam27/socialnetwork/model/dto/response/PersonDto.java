@@ -43,7 +43,7 @@ public class PersonDto {
         token=null;
     }
 
-    public void setExampleToLogin(){
+    public void setExampleToLogin(String token){
         id = 1;
         firstName = "Petr";
         lastName = "Ivanov";
@@ -58,6 +58,6 @@ public class PersonDto {
         messagesPermission = Person.MessagesPermissionType.All;
         lastOnlineTime = 1559751301818L;
         isBlocked = false;
-        token = "1q2e3e3r4t5";
+        this.token = token;
     }
 }

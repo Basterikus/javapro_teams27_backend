@@ -11,9 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostRepository {
     private final JdbcTemplate jdbcTemplate;
-    public List<Post> findPostsByPostText(String postText){
+    public List<Post> findPostsByPostText(){
         return jdbcTemplate.queryForList(
-                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
+                "SELECT * FROM post"
+//                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
                 , Post.class);
     }
 }

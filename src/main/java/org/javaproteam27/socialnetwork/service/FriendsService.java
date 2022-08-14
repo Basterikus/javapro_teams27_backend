@@ -124,22 +124,7 @@ public class FriendsService {
                     City city = cityRepository.findById(person.getCityId());
                     Country country = countryRepository.findById(city.getCountryId());
                     
-                    return PersonDto.builder()
-                            .id(person.getId())
-                            .firstName(person.getFirstName())
-                            .lastName(person.getLastName())
-                            .regDate(person.getRegDate())
-                            .birthDate(person.getBirthDate())
-                            .email(person.getEmail())
-                            .phone(person.getPhone())
-                            .photo(person.getPhoto())
-                            .about(person.getAbout())
-                            .city(new CityDto(city.getId(), city.getTitle()))
-                            .country(new CountryDto(country.getId(), country.getTitle()))
-                            .messagesPermission(person.getMessagesPermission())
-                            .lastOnlineTime(person.getLastOnlineTime())
-                            .isBlocked(person.getIsBlocked())
-                            .build();
+                    return new PersonDto(person);
                 })
                 .collect(Collectors.toList());
         

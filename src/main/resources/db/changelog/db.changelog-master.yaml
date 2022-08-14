@@ -27,3 +27,9 @@ databaseChangeLog:
       file: /db/changelog/migrations/013-create-friendship.sql
   - include:
       file: /db/changelog/migrations/014-create-user.sql
+  - include:
+      file: /db/changelog/migrations/015-create-city.sql
+  - include:
+      file: /db/changelog/migrations/016-create-country.sql
+  - include:
+      file: /db/changelog/migrations/017-edit-person.sql

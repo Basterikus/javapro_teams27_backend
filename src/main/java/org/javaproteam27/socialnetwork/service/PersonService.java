@@ -16,6 +16,10 @@ public class PersonService {
         return personRepository.findById(id);
     }
     
+    public Person getPersonById(Integer id){
+        return personRepository.getPersonById(id);
+    }
+    
     public Person findByEmail(String email) {
         return personRepository.findByEmail(email);
     }

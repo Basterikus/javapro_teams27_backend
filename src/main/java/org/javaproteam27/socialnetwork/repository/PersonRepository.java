@@ -12,11 +12,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class PersonRepository {
-    
+
     private final RowMapper<Person> rowMapper = (rs, rowNum) -> {
-        
+
         Person person = new Person();
-        
+
         person.setId(rs.getInt("id"));
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
@@ -33,15 +33,15 @@ public class PersonRepository {
         person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));
         person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
         person.setIsBlocked(rs.getBoolean("is_blocked"));
-        
+
         return person;
     };
-    
+
     private final JdbcTemplate jdbcTemplate;
-    
-    
+
+
     public void save(Person person) {
-        
+
         String sql = "insert into person(first_name, last_name, reg_date, birth_date, email, phone, " +
                 "password, photo, about, city_id, confirmation_code, is_approved, messages_permission, " +
                 "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -51,7 +51,7 @@ public class PersonRepository {
                 person.getIsApproved(), person.getMessagesPermission(), person.getLastOnlineTime(),
                 person.getIsBlocked());
     }
-    
+
     public Person findById(int id) {
         try {
             String sql = "select * from person where id = ?";
@@ -60,7 +60,7 @@ public class PersonRepository {
             throw new EntityNotFoundException("person id = " + id);
         }
     }
-    
+
     public Person findByEmail(String email) {
         try {
             String sql = "select * from person where email like ?";
@@ -69,7 +69,7 @@ public class PersonRepository {
             throw new EntityNotFoundException("person email = " + email);
         }
     }
-    
+
     public Integer count() {
         try {
             String sql = "select count(*) from person";
@@ -77,5 +77,8 @@ public class PersonRepository {
         } catch (EmptyResultDataAccessException e) {
             return 0; // todo обработать исключение
         }
+    }
+    public Person getPersonById(Integer id){
+        return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
     }
 }

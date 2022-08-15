@@ -57,6 +57,16 @@ public class LoginServiceImpl implements LoginService {
         return new LogoutRs("", new Date(), new LogoutDataRs("ok"));
     }
 
+    @Override
+    public PersonDto profileResponse(String token) {
+        String email = jwtTokenProvider.getUsername(token);
+        Person person = personRepository.findByEmail(email);
+        City city = cityRepository.findById(person.getCityId());
+        Country country = countryRepository.findById(city.getCountryId());
+        return new PersonDto(person);
+    }
+
+
     private String getToken(String email) {
         return jwtTokenProvider.createToken(email);
     }

@@ -1,11 +1,11 @@
 package org.javaproteam27.socialnetwork.model.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class Country {
+public class PostLike {
     private Integer id;
-    private String title;
+    private Long time;
+    private Integer personId;
+    private Integer postId;
 }

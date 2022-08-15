@@ -25,14 +25,14 @@ public class FriendsService {
     
     private final PersonService personService;
     private final FriendshipService friendshipService;
-    private final FriendshipStatusService friendshipStatusService;
     private final CityService cityService;
     private final CountryService countryService;
     
     
-    public ListResponseDto<PersonDto> getRecommendations(String email, int offset, int itemPerPage) {
+    public ListResponseDto<PersonDto> getRecommendations(String token, int offset, int itemPerPage) {
         
-        Person person = personService.findByEmail(email);
+//        Person person = personService.findByToken(token);
+        Person person = personService.findById(1);
         Integer myId = person.getId();
         
         List<Integer> myFriendsIds = getMyFriendsIds(myId);

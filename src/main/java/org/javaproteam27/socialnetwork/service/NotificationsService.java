@@ -16,12 +16,12 @@ public class NotificationsService {
     private final PersonService personService;
     
     
-    public ListResponseDto<NotificationBaseDto> getNotifications(String email, int offset, int itemPerPage) {
+    public ListResponseDto<NotificationBaseDto> getNotifications(String token, int offset, int itemPerPage) {
 
         return new ListResponseDto<>("", offset, itemPerPage, List.of(notificationMock()));
     }
     
-    public ListResponseDto<NotificationBaseDto> markAsReadNotification(String email, int id, boolean all) {
+    public ListResponseDto<NotificationBaseDto> markAsReadNotification(String token, int id, boolean all) {
         
         int itemPerPage = all ? 20 : 1;
         return new ListResponseDto<>("", 0, itemPerPage, List.of(notificationMock()));

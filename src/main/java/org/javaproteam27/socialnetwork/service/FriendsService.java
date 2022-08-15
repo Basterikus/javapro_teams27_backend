@@ -119,7 +119,22 @@ public class FriendsService {
                     City city = cityService.findById(person.getCityId());
                     Country country = countryService.findById(city.getCountryId());
                     
-                    return new PersonDto(person);
+                    return PersonDto.builder()
+                            .id(person.getId())
+                            .firstName(person.getFirstName())
+                            .lastName(person.getLastName())
+                            .regDate(person.getRegDate())
+                            .birthDate(person.getBirthDate())
+                            .email(person.getEmail())
+                            .phone(person.getPhone())
+                            .photo(person.getPhoto())
+                            .about(person.getAbout())
+                            .city(new CityDto(city.getId(), city.getTitle()))
+                            .country(new CountryDto(country.getId(), country.getTitle()))
+                            .messagesPermission(person.getMessagesPermission())
+                            .lastOnlineTime(person.getLastOnlineTime())
+                            .isBlocked(person.getIsBlocked())
+                            .build();
                 })
                 .collect(Collectors.toList());
         

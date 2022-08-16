@@ -22,14 +22,11 @@ public class FeedsController {
             @RequestParam (name = "offset", defaultValue = "0") Integer offset,
             @RequestParam (name = "perPage", defaultValue = "20") Integer itemPerPage) {
         String error = "errorString from DB???";
-        Long timestamp = 0L;
         List<PostDto> data = postService.findPostsByPostText()
                 .stream().map(Post::convertToPostDto)
                 .collect(Collectors.toList());
         ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>(
                 error,
-                timestamp,
-                data.size(),
                 offset,
                 itemPerPage,
                 data);

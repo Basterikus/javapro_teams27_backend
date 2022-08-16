@@ -15,6 +15,6 @@ public class PersonService {
     }
 
     public Person getPersonById(Integer id){
-        return personRepository.getPersonById(id);
+        return personRepository.findById(id);
     }
 }

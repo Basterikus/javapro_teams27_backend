@@ -3,7 +3,6 @@ package org.javaproteam27.socialnetwork.model.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
 import java.time.LocalDateTime;
@@ -27,5 +26,5 @@ public class PersonDto {
     private MessagesPermission messagesPermission;
     private LocalDateTime lastOnlineTime;
     private boolean isBlocked;
-    
+
 }

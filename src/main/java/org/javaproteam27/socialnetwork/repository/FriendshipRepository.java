@@ -3,15 +3,12 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
-import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -47,7 +44,7 @@ public class FriendshipRepository {
             String sql = "select * from friendship where src_person_id = ? or dst_person_id = ?";
             return jdbcTemplate.query(sql, rowMapper, id, id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("person_id = " + id);
+            throw new EntityNotFoundException("person id = " + id);
         }
     }
     
@@ -58,7 +55,7 @@ public class FriendshipRepository {
                     "where (src_person_id = ? or dst_person_id = ?) and code like ?";
             return jdbcTemplate.query(sql, rowMapper, id, id, statusCode.toString());
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("person_id = " + id);
+            throw new EntityNotFoundException("person id = " + id + " and status = " + statusCode);
         }
     }
     

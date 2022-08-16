@@ -31,7 +31,7 @@ public class CityRepository {
             String sql = "select * from city where id = ?";
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("city_id = " + id);
+            throw new EntityNotFoundException("city id = " + id);
         }
     }
 }

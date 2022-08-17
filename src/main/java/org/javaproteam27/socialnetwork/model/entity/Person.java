@@ -4,17 +4,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "person")
 @Data
 @NoArgsConstructor
 public class Person {
-
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введено имя")
     private String firstName;
+    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
     private LocalDateTime regDate;
     private LocalDateTime birthDate;
+    @Email
     private String email;
     private String phone;
     private String password;
@@ -30,8 +39,7 @@ public class Person {
     private Boolean isBlocked;
     private String token;
 
-    public Person(int id, String email) {
-        this.id = id;
+    public Person(String email) {
         this.email = email;
     }
 }

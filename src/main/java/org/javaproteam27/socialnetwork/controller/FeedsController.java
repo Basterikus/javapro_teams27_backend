@@ -3,7 +3,6 @@ package org.javaproteam27.socialnetwork.controller;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDto;
 import org.javaproteam27.socialnetwork.model.dto.response.PostDto;
-import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +16,13 @@ import java.util.stream.Collectors;
 public class FeedsController {
     private final PostService postService;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<ListResponseDto<PostDto>> get(
             @RequestParam (name = "offset", defaultValue = "0") Integer offset,
             @RequestParam (name = "perPage", defaultValue = "20") Integer itemPerPage) {
-        String error = "errorString from DB???";
-        List<PostDto> data = postService.findPostsByPostText()
-                .stream().map(Post::convertToPostDto)
+        String error = "string";
+        List<PostDto> data = postService.findAllPosts()
+                .stream().map(postService::convertPostToPostDto)
                 .collect(Collectors.toList());
         ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>(
                 error,

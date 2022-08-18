@@ -6,13 +6,11 @@ import org.javaproteam27.socialnetwork.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-
-    public List<Post> findPostsByPostText(){
-        return postRepository.findPostsByPostText();
+    public List<Post> findAllPosts(){
+        return postRepository.findAllPosts();
     }
 }

@@ -59,7 +59,22 @@ public class LoginService {
         Person person = personRepository.findByEmail(email);
         City city = cityRepository.findById(person.getCityId());
         Country country = countryRepository.findById(city.getCountryId());
-        return new PersonDto(person);
+        return PersonDto.builder()
+                .id(person.getId())
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .regDate(person.getRegDate())
+                .birthDate(person.getBirthDate())
+                .email(person.getEmail())
+                .phone(person.getPhone())
+                .photo(person.getPhoto())
+                .about(person.getAbout())
+                .city(new CityDto(city))
+                .country(new CountryDto(country))
+                .messagesPermission(person.getMessagesPermission())
+                .lastOnlineTime(person.getLastOnlineTime())
+                .isBlocked(person.getIsBlocked())
+                .token(token).build();
     }
 
 

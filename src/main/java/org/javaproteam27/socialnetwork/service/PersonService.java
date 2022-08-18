@@ -15,11 +15,7 @@ public class PersonService {
     public Person findById(int id) {
         return personRepository.findById(id);
     }
-    
-    public Person getPersonById(Integer id){
-        return personRepository.findById(id);
-    }
-    
+
     public Person findByEmail(String email) {
         return personRepository.findByEmail(email);
     }

@@ -19,9 +19,4 @@ public class PersonService {
     public Person findByEmail(String email) {
         return personRepository.findByEmail(email);
     }
-    
-    public Integer count() {
-        return personRepository.count();
-    }
-    
 }

@@ -33,7 +33,7 @@ public class FriendshipStatusRepository {
             String sql = "select * from friendship_status where id = ?";
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("city_id = " + id);
+            throw new EntityNotFoundException("friendship_status id = " + id);
         }
     }
     

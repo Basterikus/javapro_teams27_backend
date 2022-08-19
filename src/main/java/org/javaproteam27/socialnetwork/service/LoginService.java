@@ -74,6 +74,7 @@ public class LoginService {
                 .messagesPermission(person.getMessagesPermission())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .isBlocked(person.getIsBlocked())
+                .info("123")
                 .token(token).build();
     }
 

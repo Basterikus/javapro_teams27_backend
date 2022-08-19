@@ -26,11 +26,14 @@ public class FeedsController {
         List<PostDto> data = postService.findAllPosts()
                 .stream().map(postDtoService::initialize)
                 .collect(Collectors.toList());
-        ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>(
-                error,
-                offset,
-                itemPerPage,
-                data);
-        return ResponseEntity.ok(postsResponseDto);
+        return ResponseEntity.ok(new ListResponseDto<>(error, 0, 20, data));
+        /*ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>();
+        postsResponseDto.setError("string");
+        postsResponseDto.setTimestamp(0L);
+        postsResponseDto.setTotal(0);
+        postsResponseDto.setOffset(0);
+        postsResponseDto.setPerPage(0);
+        postsResponseDto.setData(data);
+        return (postsResponseDto);*/
     }
 }

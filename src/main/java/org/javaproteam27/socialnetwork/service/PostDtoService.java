@@ -24,7 +24,7 @@ public class PostDtoService {
                 .likes(postLikeService.getCountByPostId(post.getId()))
                 .tags(new ArrayList<>())    //TODO: Add post2tag repository
                 .postComments(postCommentService.getPostCommentsByPostId(post.getId()))
-                .type("NEW")                //TODO: "POSTED???"
+                .type("POSTED")                //TODO: "POSTED???"
                 .postText(post.getPostText())
                 .isBlocked(post.getIsBlocked()).myLike(false)
                 .build();

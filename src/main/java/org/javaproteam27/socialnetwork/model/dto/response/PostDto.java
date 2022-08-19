@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.Data;
 import org.javaproteam27.socialnetwork.model.entity.PostComment;
@@ -19,6 +20,8 @@ import java.util.List;
       "my_like": false*/
 @Data
 @Builder
+@JsonPropertyOrder({"id", "time", "author", "title", "likes", "tags", "comments",
+        "type", "post_text", "is_blocked", "my_like"})
 public class PostDto {
     private Integer id;
     private Long time;

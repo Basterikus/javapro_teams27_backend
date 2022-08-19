@@ -26,6 +26,7 @@ public class PersonDto {
     private MessagesPermission messagesPermission;
     private LocalDateTime lastOnlineTime;
     private boolean isBlocked;
+    private String info;
     String token;
 }
 

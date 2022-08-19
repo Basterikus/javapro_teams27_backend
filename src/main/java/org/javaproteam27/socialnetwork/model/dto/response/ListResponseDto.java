@@ -2,20 +2,26 @@ package org.javaproteam27.socialnetwork.model.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.javaproteam27.socialnetwork.model.entity.Person;
 
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ListResponseDto<T> {
 
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String error;
+//    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private long timestamp;
+//    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int total;
+//    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int offset;
+//    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int perPage;
     private List<T> data;
 

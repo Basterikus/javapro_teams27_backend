@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.javaproteam27.socialnetwork.model.entity.PostComment;
 
+import java.time.LocalDateTime;
 import java.util.List;
         /*"id": 6,
       "time": 1649367846506,
@@ -22,10 +23,10 @@ import java.util.List;
 @Builder
 @JsonPropertyOrder({"id", "time", "author", "title", "likes", "tags", "comments",
         "type", "post_text", "is_blocked", "my_like"})
-public class PostDto {
+public class PostDtoRs {
     private Integer id;
-    private Long time;
-    private PostAuthorDto author;
+    private LocalDateTime time;
+    private PostAuthorDtoRs author;
     private String title;
     private Integer likes;
     private List<String> tags;

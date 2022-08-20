@@ -1,10 +1,11 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.PostDto;
+import org.javaproteam27.socialnetwork.model.dto.response.PostDtoRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Service
@@ -15,10 +16,11 @@ public class PostDtoService {
     private final PostLikeService postLikeService;
     private final PostAuthorDtoService postAuthorDtoService;
 
-    public PostDto initialize(Post post){
-        return PostDto.builder()
+    public PostDtoRs initialize(Post post){
+        Timestamp timestamp = new Timestamp(post.getTime());
+        return PostDtoRs.builder()
                 .id(post.getId())
-                .time(post.getTime())
+                .time(timestamp.toLocalDateTime())
                 .author(postAuthorDtoService.initialize(personService.findById(post.getAuthorId())))
                 .title(post.getTitle())
                 .likes(postLikeService.getCountByPostId(post.getId()))

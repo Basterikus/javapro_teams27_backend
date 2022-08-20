@@ -5,18 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListResponseDto<T> {
+public class ListResponseDtoRs<T> {
 
 //    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String error;
 //    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    private long timestamp;
+    private LocalDateTime timestamp;
 //    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int total;
 //    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -25,9 +26,9 @@ public class ListResponseDto<T> {
     private int perPage;
     private List<T> data;
 
-    public ListResponseDto(String error, int offset, int perPage, List<T> data) {
+    public ListResponseDtoRs(String error, int offset, int perPage, List<T> data) {
         this.error = error;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = LocalDateTime.now();//System.currentTimeMillis();
         this.total = data.size();
         this.offset = offset;
         this.perPage = perPage;

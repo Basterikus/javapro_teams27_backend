@@ -1,8 +1,8 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDto;
-import org.javaproteam27.socialnetwork.model.dto.response.PostDto;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDtoRs;
+import org.javaproteam27.socialnetwork.model.dto.response.PostDtoRs;
 import org.javaproteam27.socialnetwork.service.PostDtoService;
 import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +19,14 @@ public class FeedsController {
     private final PostDtoService postDtoService;
 
     @GetMapping()
-    public ResponseEntity<ListResponseDto<PostDto>> get(
+    public ResponseEntity<ListResponseDtoRs<PostDtoRs>> get(
             @RequestParam (name = "offset", defaultValue = "0") Integer offset,
             @RequestParam (name = "perPage", defaultValue = "20") Integer itemPerPage) {
         String error = "string";
-        List<PostDto> data = postService.findAllPosts()
+        List<PostDtoRs> data = postService.findAllPosts()
                 .stream().map(postDtoService::initialize)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new ListResponseDto<>(error, 0, 20, data));
+        return ResponseEntity.ok(new ListResponseDtoRs<>(error, offset, itemPerPage, data));
         /*ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>();
         postsResponseDto.setError("string");
         postsResponseDto.setTimestamp(0L);

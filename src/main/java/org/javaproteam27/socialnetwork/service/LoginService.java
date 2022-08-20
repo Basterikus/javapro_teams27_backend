@@ -23,6 +23,8 @@ public class LoginService {
     private final PersonRepository personRepository;
     private final CityRepository cityRepository;
     private final CountryRepository countryRepository;
+    private final CityService cityService;
+    private final CountryService countryService;
 
     public LoginRs login(LoginRq loginRq) {
         String email = loginRq.getEmail();
@@ -69,12 +71,12 @@ public class LoginService {
                 .phone(person.getPhone())
                 .photo(person.getPhoto())
                 .about(person.getAbout())
-                .city(new CityDto(city))
-                .country(new CountryDto(country))
-                .messagesPermission(person.getMessagesPermission())
+                .city(cityService.findById(person.getCityId()).getTitle())
+                .country(countryService.findById(
+                                cityService.findById(person.getCityId()).getCountryId())
+                        .getTitle()).messagesPermission(person.getMessagesPermission())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .isBlocked(person.getIsBlocked())
-                .info("123")
                 .token(token).build();
     }
 

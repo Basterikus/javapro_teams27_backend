@@ -43,9 +43,9 @@ public class PostAuthorDtoRs {
     private LocalDateTime birthDate;
     @JsonProperty("messages_permission")
     private MessagesPermission messagePermission;
-    @JsonProperty("last_online_time")
+    /*@JsonProperty("last_online_time")
     private LocalDateTime lastOnlineTime;
-    private String info;
+    private String info;*/
     @JsonProperty("is_blocked")
     private Boolean isBlocked;
     @JsonProperty("is_deleted")

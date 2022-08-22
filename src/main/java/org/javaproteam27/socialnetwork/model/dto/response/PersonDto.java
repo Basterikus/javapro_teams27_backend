@@ -24,7 +24,7 @@ public class PersonDto {
     private String about;
     private CityDto city;
     private CountryDto country;
-    private MessagesPermission messagesPermission;
+    private String messagesPermission;
     private LocalDateTime lastOnlineTime;
     private boolean isBlocked;
     

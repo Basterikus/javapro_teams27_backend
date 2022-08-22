@@ -32,7 +32,7 @@ public class PersonRepository {
         person.setCityId(rs.getInt("city_id"));
         person.setConfirmationCode(rs.getInt("confirmation_code"));
         person.setIsApproved(rs.getBoolean("is_approved"));
-        person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));
+        person.setMessagesPermission("messages_permission");
         person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
         person.setIsBlocked(rs.getBoolean("is_blocked"));
 

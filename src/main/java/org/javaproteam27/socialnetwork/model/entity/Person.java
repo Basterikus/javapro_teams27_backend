@@ -9,8 +9,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "person")
 @Data
 @NoArgsConstructor
 public class Person {

@@ -29,7 +29,7 @@ public class PersonDto {
     private String about;
     private CityDto city;
     private CountryDto country;
-    private String messagesPermission;
+    private MessagesPermission messagesPermission;
     private LocalDateTime lastOnlineTime;
     private boolean isBlocked;
     String token;

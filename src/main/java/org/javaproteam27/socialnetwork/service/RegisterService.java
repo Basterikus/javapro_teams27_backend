@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.AssertTrue;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 @Service
@@ -27,7 +28,10 @@ public class RegisterService {
         Person person = new Person();
         person.setEmail(request.getEmail());
         person.setFirstName(request.getFirstName());
-        person.setLastName(person.getLastName());
+        person.setLastName(request.getLastName());
+        person.setRegDate(LocalDateTime.now());
+        person.setPassword(request.getPasswd1());
+        person.setIsApproved(true);  // добавить проверку почты
         personRepository.save(person);
 
         // добавить сохранение и проверку кода

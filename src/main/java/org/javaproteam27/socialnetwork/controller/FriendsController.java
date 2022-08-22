@@ -20,9 +20,9 @@ public class FriendsController {
     
     @GetMapping("/recommendations")
     private ResponseEntity<ListResponseDto<PersonDto>> getRecommendations(
-            @RequestHeader(value = "Authorization", required = false, defaultValue = "") String token,
-            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
-            @RequestParam(value = "perPage", required = false, defaultValue = "10") int itemPerPage) {
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "perPage", defaultValue = "10") int itemPerPage) {
         
         ListResponseDto<PersonDto> recommendations = friendsService.getRecommendations(token, offset, itemPerPage);
         return ResponseEntity.ok(recommendations);

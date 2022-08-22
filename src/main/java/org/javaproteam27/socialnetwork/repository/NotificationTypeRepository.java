@@ -2,8 +2,8 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.mapper.NotificationTypeMapper;
 import org.javaproteam27.socialnetwork.model.entity.NotificationType;
-import org.javaproteam27.socialnetwork.model.enums.NotificationTypeCode;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,17 +13,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class NotificationTypeRepository {
     
-    RowMapper<NotificationType> rowMapper = (rs, rowNum) -> {
-    
-        NotificationType notificationType = new NotificationType();
-        
-        notificationType.setId(rs.getInt("id"));
-        notificationType.setCode(NotificationTypeCode.valueOf(rs.getString("code")));
-        notificationType.setName(rs.getString("name"));
-        
-        return notificationType;
-    };
-    
+    private final RowMapper<NotificationType> rowMapper;
     private final JdbcTemplate jdbcTemplate;
     
     

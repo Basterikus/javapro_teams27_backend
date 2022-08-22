@@ -30,7 +30,7 @@ public class CountryRepository {
             String sql = "select * from country where id = ?";
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("country_id = " + id);
+            throw new EntityNotFoundException("country id = " + id);
         }
     }
 }

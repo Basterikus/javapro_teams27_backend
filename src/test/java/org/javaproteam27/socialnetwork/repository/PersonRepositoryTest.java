@@ -1,25 +1,18 @@
 package org.javaproteam27.socialnetwork.repository;
 
-import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlMergeMode;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
-//@RequiredArgsConstructor
 @SpringBootTest
 @ActiveProfiles("test")
-//@SqlMergeMode(SqlMergeMode.MergeMode.MERGE)
-//@Sql(value = "/sql/person/insert-person.sql", executionPhase = BEFORE_TEST_METHOD)
 public class PersonRepositoryTest {
     
     @Autowired
@@ -54,7 +47,7 @@ public class PersonRepositoryTest {
         person.setCityId(null);
         person.setConfirmationCode(123456);
         person.setIsApproved(true);
-        person.setMessagesPermission("string");
+        person.setMessagesPermission(MessagesPermission.ALL);
         person.setLastOnlineTime(LocalDateTime.of(2012, 7, 12, 12, 12));
         person.setIsBlocked(false);
         

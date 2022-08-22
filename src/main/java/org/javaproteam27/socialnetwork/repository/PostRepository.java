@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ import java.util.List;
 public class PostRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public int addPost(LocalDateTime time, int authorId, String title, String postText) throws PostNotAddedException {
+    public int addPost(long time, int authorId, String title, String postText) throws PostNotAddedException {
         //insert into post (id, time, author_id, title, post_text, is_blocked)
         // values (2, TIMESTAMP '2022-04-07 21:45:38', 2, 'ivan title example', 'ivan post text example', false);
 //        Integer updateReturnValue = 0;
@@ -29,7 +28,7 @@ public class PostRepository {
             jdbcTemplate.update("INSERT INTO post (id, time, author_id, title, post_text) " +
                             "VALUES (?, ?, ?, ?, ?)"
                     , id
-                    , Timestamp.valueOf(time)
+                    , new Timestamp(time)
                     , authorId
                     , title
                     , postText);
@@ -52,9 +51,9 @@ public class PostRepository {
                     .build();
         }
     }
-    public List<Post> findAllPosts(){
+    public List<Post> findAllPublishedPosts(){
         try {
-            return jdbcTemplate.query("SELECT * FROM post",new PostMapper());
+            return jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP",new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
         } catch (DataAccessException exception){
             //TODO: add logging;

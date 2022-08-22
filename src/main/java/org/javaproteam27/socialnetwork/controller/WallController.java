@@ -24,7 +24,7 @@ public class WallController {
             return ResponseEntity.ok(new PostResponseDtoRs("string", postDtoRs, null, null));
         } catch (PostNotAddedException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new PostResponseDtoRs("invalid_request", null, e.getMessage(), null)); //TODO: Не знаю как оттестировать
+                    .body(new PostResponseDtoRs("invalid_request", null, e.getMessage(), null));
         }
     }
 }

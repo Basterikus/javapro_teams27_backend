@@ -7,11 +7,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.PostDtoRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.TimeZone;
 
 @Service
 @RequiredArgsConstructor
@@ -23,11 +19,11 @@ public class PostDtoService {
     private final PostService postService;
 
     public PostDtoRs initialize(Post post){
-        Timestamp timestamp = new Timestamp(post.getTime());
-        String type = (timestamp.after(new Timestamp(System.currentTimeMillis()))) ? "QUEUED" : "POSTED";
+        long timestamp = post.getTime();
+        String type = (timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED";
         return PostDtoRs.builder()
                 .id(post.getId())
-                .time(timestamp.toLocalDateTime())
+                .time(timestamp)//.toLocalDateTime())
                 .author(postAuthorDtoService.initialize(personService.findById(post.getAuthorId())))
                 .title(post.getTitle())
                 .likes(postLikeService.getCountByPostId(post.getId()))
@@ -40,8 +36,8 @@ public class PostDtoService {
     }
 
     public PostDtoRs publishPost(Long publishDateUet, PostDtoRq postDtoRq, Integer authorId) throws PostNotAddedException {
-        LocalDateTime publishDateTime = (publishDateUet == null) ? LocalDateTime.now() :
-                LocalDateTime.ofInstant(Instant.ofEpochMilli(publishDateUet),TimeZone.getDefault().toZoneId());
+        long publishDateTime = (publishDateUet == null) ? System.currentTimeMillis() : publishDateUet;
+                //LocalDateTime.ofInstant(Instant.ofEpochMilli(publishDateUet),TimeZone.getDefault().toZoneId());
         int id = postService.addPost(publishDateTime, authorId, postDtoRq.getTitle(), postDtoRq.getPostText());
         String type = (publishDateUet == null) ? "POSTED" : "QUEUED";
         return PostDtoRs.builder()

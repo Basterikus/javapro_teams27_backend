@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
-import java.time.LocalDateTime;
 
 @Value
 public class PostResponseDtoRs {
@@ -15,5 +14,5 @@ public class PostResponseDtoRs {
     @JsonProperty("error_description")
     String errorDescription;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    LocalDateTime timestamp;
+    Long timestamp;
 }

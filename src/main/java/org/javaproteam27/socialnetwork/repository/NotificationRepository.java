@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.mapper.NotificationMapper;
 import org.javaproteam27.socialnetwork.model.entity.Notification;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,20 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationRepository {
     
-    RowMapper<Notification> rowMapper = (rs, rowNum) -> {
-        
-        Notification notification = new Notification();
-        
-        notification.setId(rs.getInt("id"));
-        notification.setTypeId(rs.getInt("type_id"));
-        notification.setSentTime(rs.getTimestamp("sent_time").toLocalDateTime());
-        notification.setPersonId(rs.getInt("person_id"));
-        notification.setEntityId(rs.getInt("entity_id"));
-        notification.setContact(rs.getString("contact"));
-        
-        return notification;
-    };
-    
+    private final RowMapper<Notification> rowMapper;
     private final JdbcTemplate jdbcTemplate;
     
     

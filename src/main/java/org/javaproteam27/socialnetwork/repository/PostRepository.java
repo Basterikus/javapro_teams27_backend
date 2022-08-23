@@ -3,13 +3,11 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.PostNotAddedException;
 import org.javaproteam27.socialnetwork.model.entity.Post;
+import org.javaproteam27.socialnetwork.repository.rawmapper.PostMapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,20 +65,6 @@ public class PostRepository {
             return null;
         }
         return post;
-    }
-
-    private static final class PostMapper implements RowMapper<Post> {
-        @Override
-        public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-            return Post.builder()
-                    .id(resultSet.getInt("id"))
-                    .time(resultSet.getTimestamp("time").getTime())
-                    .authorId(resultSet.getInt("author_id"))
-                    .title(resultSet.getString("title"))
-                    .postText(resultSet.getString("post_text"))
-                    .isBlocked(resultSet.getBoolean("is_blocked"))
-                    .build();
-        }
     }
     public List<Post> findAllPublishedPosts(){
         try {

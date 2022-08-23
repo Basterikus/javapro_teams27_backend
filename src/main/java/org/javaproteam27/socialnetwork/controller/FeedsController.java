@@ -18,7 +18,7 @@ public class FeedsController {
     private final PostService postService;
     private final PostDtoService postDtoService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<ListResponseDtoRs<PostDtoRs>> get(
             @RequestParam (name = "offset", defaultValue = "0") Integer offset,
             @RequestParam (name = "perPage", defaultValue = "20") Integer itemPerPage) {
@@ -26,13 +26,5 @@ public class FeedsController {
                 .stream().map(postDtoService::initialize)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(new ListResponseDtoRs<>("", offset, itemPerPage, data));
-        /*ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>();
-        postsResponseDto.setError("string");
-        postsResponseDto.setTimestamp(0L);
-        postsResponseDto.setTotal(0);
-        postsResponseDto.setOffset(0);
-        postsResponseDto.setPerPage(0);
-        postsResponseDto.setData(data);
-        return (postsResponseDto);*/
     }
 }

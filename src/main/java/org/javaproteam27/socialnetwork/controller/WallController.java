@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class WallController {
     private final PostDtoService postDtoService;
     private final PostService postService;
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<PostResponseDtoRs> publishPost(
             @RequestParam(required = false) Long publish_date,
             @RequestBody PostDtoRq postDtoRq,
@@ -29,7 +29,7 @@ public class WallController {
                     null, postDtoRs.getTime())); //System.currentTimeMillis()
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<ListResponseDtoRs> getUserPosts(
             @PathVariable(value = "id") int authorId,
             @RequestParam (defaultValue = "0") int offset,

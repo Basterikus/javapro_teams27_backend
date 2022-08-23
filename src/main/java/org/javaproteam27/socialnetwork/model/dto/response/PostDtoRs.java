@@ -24,7 +24,7 @@ import java.util.List;
         "type", "post_text", "is_blocked", "my_like"})
 public class PostDtoRs {
     private Integer id;
-    private long time;
+    private Long time;
     private PostAuthorDtoRs author;
     private String title;
     private Integer likes;

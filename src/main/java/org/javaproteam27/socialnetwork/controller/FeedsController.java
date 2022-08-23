@@ -22,11 +22,10 @@ public class FeedsController {
     public ResponseEntity<ListResponseDtoRs<PostDtoRs>> get(
             @RequestParam (name = "offset", defaultValue = "0") Integer offset,
             @RequestParam (name = "perPage", defaultValue = "20") Integer itemPerPage) {
-        String error = "string";
         List<PostDtoRs> data = postService.findAllPosts()
                 .stream().map(postDtoService::initialize)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new ListResponseDtoRs<>(error, offset, itemPerPage, data));
+        return ResponseEntity.ok(new ListResponseDtoRs<>("", offset, itemPerPage, data));
         /*ListResponseDto<PostDto> postsResponseDto = new ListResponseDto<>();
         postsResponseDto.setError("string");
         postsResponseDto.setTimestamp(0L);

@@ -38,6 +38,37 @@ public class PostRepository {
         }
     }
 
+    public List<Post> findAllUsersPosts(int authorId) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId,new PostMapper());
+            //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
+        } catch (DataAccessException exception){
+            //TODO: add logging;
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean deletePostById(int postId) {
+        return jdbcTemplate.update("DELETE FROM post WHERE id = ?", postId) == 1;
+    }
+
+    public boolean updatePostById(int postId, String title, String postText) {
+        return jdbcTemplate.update("UPDATE post SET title = ?, post_text = ? WHERE id = ?"
+                , title, postText, postId) == 1;
+    }
+
+    public Post findPostById(int postId) {
+        Post post;
+        try {
+            post = jdbcTemplate.queryForObject("SELECT * FROM post WHERE id = ?"
+                    , new Object[]{postId}, new PostMapper());
+        }
+        catch (DataAccessException exception){
+            return null;
+        }
+        return post;
+    }
+
     private static final class PostMapper implements RowMapper<Post> {
         @Override
         public Post mapRow(ResultSet resultSet, int i) throws SQLException {

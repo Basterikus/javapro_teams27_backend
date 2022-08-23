@@ -1,8 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.handler.exception.PostNotAddedException;
-import org.javaproteam27.socialnetwork.model.dto.request.PostDtoRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PostDtoRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.springframework.stereotype.Service;
@@ -16,9 +14,10 @@ public class PostDtoService {
     private final PostCommentService postCommentService;
     private final PostLikeService postLikeService;
     private final PostAuthorDtoService postAuthorDtoService;
-    private final PostService postService;
+    //private final PostService postService;
 
     public PostDtoRs initialize(Post post){
+        if (post == null) return null;
         long timestamp = post.getTime();
         String type = (timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED";
         return PostDtoRs.builder()
@@ -33,24 +32,5 @@ public class PostDtoService {
                 .postText(post.getPostText())
                 .isBlocked(post.getIsBlocked()).myLike(false)
                 .build();
-    }
-
-    public PostDtoRs publishPost(Long publishDateUet, PostDtoRq postDtoRq, Integer authorId) throws PostNotAddedException {
-        long publishDateTime = (publishDateUet == null) ? System.currentTimeMillis() : publishDateUet;
-                //LocalDateTime.ofInstant(Instant.ofEpochMilli(publishDateUet),TimeZone.getDefault().toZoneId());
-        int id = postService.addPost(publishDateTime, authorId, postDtoRq.getTitle(), postDtoRq.getPostText());
-        String type = (publishDateUet == null) ? "POSTED" : "QUEUED";
-        return PostDtoRs.builder()
-                .id(id)
-                .time(publishDateTime)
-                .author(postAuthorDtoService.initialize(personService.findById(authorId)))
-                .title(postDtoRq.getTitle())
-                .likes(0)
-                .tags(postDtoRq.getTags())
-                .postComments(new ArrayList<>())
-                .type(type)
-                .postText(postDtoRq.getPostText())
-                .isBlocked(false)
-                .myLike(false).build();
     }
 }

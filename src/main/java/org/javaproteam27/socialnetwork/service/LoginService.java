@@ -61,7 +61,8 @@ public class LoginService {
         Person person = personRepository.findByEmail(email);
         City city = cityRepository.findById(person.getCityId());
         Country country = countryRepository.findById(city.getCountryId());
-        return PersonRs.builder().firstName(person.getFirstName())
+        return PersonRs.builder().id(person.getId())
+                .firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .regDate(person.getRegDate())
                 .birthDate(person.getBirthDate())

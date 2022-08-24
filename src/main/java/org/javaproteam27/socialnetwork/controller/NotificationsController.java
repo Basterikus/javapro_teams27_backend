@@ -21,9 +21,9 @@ public class NotificationsController {
     
     @GetMapping
     public ResponseEntity<ListResponseRs<NotificationBaseRs>> getNotifications(
-            @RequestHeader(value = "Authorization", required = false, defaultValue = "") String token,
-            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
-            @RequestParam(value = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "itemPerPage", defaultValue = "10") int itemPerPage) {
         
         ListResponseRs<NotificationBaseRs> notifications = notificationsService.getNotifications(token, offset, itemPerPage);
         return ResponseEntity.ok(notifications);
@@ -31,9 +31,9 @@ public class NotificationsController {
     
     @PutMapping
     public ResponseEntity<ListResponseRs<NotificationBaseRs>> markAsReadNotification(
-            @RequestHeader(value = "Authorization", required = false, defaultValue = "") String token,
-            @RequestParam(value = "id", required = false, defaultValue = "0") int id,
-            @RequestParam(value = "all", required = false, defaultValue = "false") boolean all) {
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "id", defaultValue = "0") int id,
+            @RequestParam(value = "all", defaultValue = "false") boolean all) {
         
         ListResponseRs<NotificationBaseRs> notifications = notificationsService.markAsReadNotification(token, id, all);
         return ResponseEntity.ok(notifications);

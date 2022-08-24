@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.mapper.FriendshipMapper;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -15,19 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FriendshipRepository {
     
-    private final RowMapper<Friendship> rowMapper = (rs, rowNum) -> {
-    
-        Friendship friendship = new Friendship();
-        
-        friendship.setId(rs.getInt("id"));
-        friendship.setStatusId(rs.getInt("status_id"));
-        friendship.setSentTime(rs.getTimestamp("sent_time").toLocalDateTime());
-        friendship.setSrcPersonId(rs.getInt("src_person_id"));
-        friendship.setDstPersonId(rs.getInt("dst_person_id"));
-        
-        return friendship;
-    };
-    
+    private final RowMapper<Friendship> rowMapper;
     private final JdbcTemplate jdbcTemplate;
     
     

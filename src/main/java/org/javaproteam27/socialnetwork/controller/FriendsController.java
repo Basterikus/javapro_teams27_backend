@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDtoRs;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDto;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonDto;
 import org.javaproteam27.socialnetwork.service.FriendsService;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ public class FriendsController {
     private final FriendsService friendsService;
     
     @GetMapping("/recommendations")
-    private ResponseEntity<ListResponseDtoRs<PersonDto>> getRecommendations(
-            @RequestHeader(value = "Authorization", required = false, defaultValue = "") String token,
-            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
-            @RequestParam(value = "perPage", required = false, defaultValue = "10") int itemPerPage) {
+    private ResponseEntity<ListResponseDto<PersonDto>> getRecommendations(
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "perPage", defaultValue = "10") int itemPerPage) {
         
-        ListResponseDtoRs<PersonDto> recommendations = friendsService.getRecommendations(token, offset, itemPerPage);
+        ListResponseDto<PersonDto> recommendations = friendsService.getRecommendations(token, offset, itemPerPage);
         return ResponseEntity.ok(recommendations);
     }
 }

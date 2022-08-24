@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.mapper.CityMapper;
 import org.javaproteam27.socialnetwork.model.entity.City;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,17 +13,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class CityRepository {
     
-    private final RowMapper<City> rowMapper = (rs, rowNum) -> {
-        
-        City city = new City();
-        
-        city.setId(rs.getInt("id"));
-        city.setTitle(rs.getString("title"));
-        city.setCountryId(rs.getInt("country_id"));
-        
-        return city;
-    };
-    
+    private final RowMapper<City> rowMapper;
     private final JdbcTemplate jdbcTemplate;
     
     

@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDto;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDtoRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseDto;
 import org.javaproteam27.socialnetwork.service.NotificationsService;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +20,22 @@ public class NotificationsController {
     private final NotificationsService notificationsService;
     
     @GetMapping
-    public ResponseEntity<ListResponseDto<NotificationBaseDto>> getNotifications(
+    public ResponseEntity<ListResponseDtoRs<NotificationBaseDto>> getNotifications(
             @RequestHeader("Authorization") String token,
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "itemPerPage", defaultValue = "10") int itemPerPage) {
         
-        ListResponseDto<NotificationBaseDto> notifications = notificationsService.getNotifications(token, offset, itemPerPage);
+        ListResponseDtoRs<NotificationBaseDto> notifications = notificationsService.getNotifications(token, offset, itemPerPage);
         return ResponseEntity.ok(notifications);
     }
     
     @PutMapping
-    public ResponseEntity<ListResponseDto<NotificationBaseDto>> markAsReadNotification(
+    public ResponseEntity<ListResponseDtoRs<NotificationBaseDto>> markAsReadNotification(
             @RequestHeader("Authorization") String token,
             @RequestParam(value = "id", defaultValue = "0") int id,
             @RequestParam(value = "all", defaultValue = "false") boolean all) {
         
-        ListResponseDto<NotificationBaseDto> notifications = notificationsService.markAsReadNotification(token, id, all);
+        ListResponseDtoRs<NotificationBaseDto> notifications = notificationsService.markAsReadNotification(token, id, all);
         return ResponseEntity.ok(notifications);
     }
     

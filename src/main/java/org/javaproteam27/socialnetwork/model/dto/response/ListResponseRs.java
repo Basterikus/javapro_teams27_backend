@@ -1,25 +1,29 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.javaproteam27.socialnetwork.model.entity.Person;
 
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class ListResponseDto<T> {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ListResponseRs<T> {
 
     private String error;
-    private long timestamp;
-    private int total;
-    private int offset;
-    private int perPage;
+    private Long timestamp;
+    private Integer total;
+    private Integer offset;
+    private Integer perPage;
     private List<T> data;
+    @JsonProperty("error_description")
+    private String errorDescription;
 
-    public ListResponseDto(String error, int offset, int perPage, List<T> data) {
+    public ListResponseRs(String error, int offset, int perPage, List<T> data) {
         this.error = error;
         this.timestamp = System.currentTimeMillis();
         this.total = data.size();

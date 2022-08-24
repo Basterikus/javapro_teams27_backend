@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 //@JsonRootName("author")
-public class PostAuthorDto {
+public class PostAuthorRs {
     private Integer id;
     private String email;
     private String phone;

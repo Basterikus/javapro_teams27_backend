@@ -1,8 +1,8 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDto;
-import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseDto;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
+import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseRs;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,27 +16,27 @@ public class NotificationsService {
     private final PersonService personService;
     
     
-    public ListResponseDto<NotificationBaseDto> getNotifications(String token, int offset, int itemPerPage) {
+    public ListResponseRs<NotificationBaseRs> getNotifications(String token, int offset, int itemPerPage) {
 
-        return new ListResponseDto<>("", offset, itemPerPage, List.of(notificationMock()));
+        return new ListResponseRs<>("", offset, itemPerPage, List.of(notificationMock()));
     }
     
-    public ListResponseDto<NotificationBaseDto> markAsReadNotification(String token, int id, boolean all) {
+    public ListResponseRs<NotificationBaseRs> markAsReadNotification(String token, int id, boolean all) {
         
         int itemPerPage = all ? 20 : 1;
-        return new ListResponseDto<>("", 0, itemPerPage, List.of(notificationMock()));
+        return new ListResponseRs<>("", 0, itemPerPage, List.of(notificationMock()));
     }
     
-    private NotificationBaseDto notificationMock() {
+    private NotificationBaseRs notificationMock() {
     
-        NotificationBaseDto notificationBaseDto = new NotificationBaseDto();
+        NotificationBaseRs notificationBaseRs = new NotificationBaseRs();
     
-        notificationBaseDto.setId(1);
-        notificationBaseDto.setTypeId(1);
-        notificationBaseDto.setSentTime(System.currentTimeMillis());
-        notificationBaseDto.setEntityId(1);
-        notificationBaseDto.setInfo("Какой-то текст");
+        notificationBaseRs.setId(1);
+        notificationBaseRs.setTypeId(1);
+        notificationBaseRs.setSentTime(System.currentTimeMillis());
+        notificationBaseRs.setEntityId(1);
+        notificationBaseRs.setInfo("Какой-то текст");
         
-        return notificationBaseDto;
+        return notificationBaseRs;
     }
 }

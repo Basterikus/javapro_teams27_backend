@@ -1,7 +1,8 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.handler.InvalidRequestException;
+import org.javaproteam27.socialnetwork.aop.DebugLogger;
+import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.model.entity.City;
@@ -17,6 +18,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
+@DebugLogger
 public class LoginService {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -41,8 +43,8 @@ public class LoginService {
                     person.getPhone(),
                     person.getPhoto(),
                     person.getAbout(),
-                    new CityDto(city.getId(), city.getTitle()),
-                    new CountryDto(country.getId(), country.getTitle()),
+                    new CityRs(city.getId(), city.getTitle()),
+                    new CountryRs(country.getId(), country.getTitle()),
                     person.getMessagesPermission(),
                     person.getLastOnlineTime(),
                     person.getIsBlocked(),
@@ -54,14 +56,12 @@ public class LoginService {
         return new LogoutRs("", new Date(), new LogoutDataRs("ok"));
     }
 
-    public PersonDto profileResponse(String token) {
+    public PersonRs profileResponse(String token) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
         City city = cityRepository.findById(person.getCityId());
         Country country = countryRepository.findById(city.getCountryId());
-        return PersonDto.builder()
-                .id(person.getId())
-                .firstName(person.getFirstName())
+        return PersonRs.builder().firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .regDate(person.getRegDate())
                 .birthDate(person.getBirthDate())
@@ -69,12 +69,12 @@ public class LoginService {
                 .phone(person.getPhone())
                 .photo(person.getPhoto())
                 .about(person.getAbout())
-                .city(new CityDto(city))
-                .country(new CountryDto(country))
+                .city(new CityRs(city.getId(), city.getTitle()))
+                .country(new CountryRs(country.getId(), country.getTitle()))
                 .messagesPermission(person.getMessagesPermission())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .isBlocked(person.getIsBlocked())
-                .token(token).build();
+                .token(person.getToken()).build();
     }
 
 

@@ -19,10 +19,10 @@ import java.util.List;
       "my_like": false*/
 @Data
 @Builder
-public class PostDto {
+public class PostRs {
     private Integer id;
     private Long time;
-    private PostAuthorDto author;
+    private PostAuthorRs author;
     private String title;
     private Integer likes;
     private List<String> tags;

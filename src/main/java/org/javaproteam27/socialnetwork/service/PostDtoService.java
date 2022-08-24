@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.PostDto;
+import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ public class PostDtoService {
     private final PostLikeService postLikeService;
     private final PostAuthorDtoService postAuthorDtoService;
 
-    public PostDto initialize(Post post){
-        return PostDto.builder()
+    public PostRs initialize(Post post){
+        return PostRs.builder()
                 .id(post.getId())
                 .time(post.getTime())
                 .author(postAuthorDtoService.initialize(personService.findById(post.getAuthorId())))

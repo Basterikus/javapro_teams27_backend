@@ -1,14 +1,13 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.request.RegisterRQ;
-import org.javaproteam27.socialnetwork.model.dto.response.RegisterRS;
+import org.javaproteam27.socialnetwork.model.dto.request.RegisterRq;
+import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.constraints.AssertTrue;
 import java.util.HashMap;
@@ -21,9 +20,9 @@ public class RegisterService {
     private String pass1;
     private String pass2;
 
-    public ResponseEntity<RegisterRS> postRegister(RegisterRQ request) {
+    public ResponseEntity<RegisterRs> postRegister(RegisterRq request) {
 
-        RegisterRS registerRS = new RegisterRS();
+        RegisterRs registerRS = new RegisterRs();
         checkPassword(request.getPasswd1(), request.getPasswd2());
         Person person = new Person();
         person.setEmail(request.getEmail());

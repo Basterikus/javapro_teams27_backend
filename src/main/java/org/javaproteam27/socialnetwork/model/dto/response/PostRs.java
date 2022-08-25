@@ -22,10 +22,10 @@ import java.util.List;
 @Builder
 @JsonPropertyOrder({"id", "time", "author", "title", "likes", "tags", "comments",
         "type", "post_text", "is_blocked", "my_like"})
-public class PostDtoRs {
+public class PostRs {
     private Integer id;
     private Long time;
-    private PostAuthorDtoRs author;
+    private PostAuthorRs author;
     private String title;
     private Integer likes;
     private List<String> tags;

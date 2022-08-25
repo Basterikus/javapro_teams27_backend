@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.request.PostDtoRq;
+import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +14,9 @@ public class WallController {
     @PostMapping
     public ResponseEntity<?> publishPost(
             @RequestParam(required = false) Long publish_date,
-            @RequestBody PostDtoRq postDtoRq,
+            @RequestBody PostRq postRq,
             @PathVariable(value = "id") int authorId){
-        return postService.publishPost(publish_date, postDtoRq, authorId);
+        return postService.publishPost(publish_date, postRq, authorId);
     }
 
     @GetMapping

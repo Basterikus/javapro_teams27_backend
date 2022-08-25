@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
-public class PostDtoRq {
+public class PostRq {
     String title;
     @JsonProperty("post_text")
     String postText;

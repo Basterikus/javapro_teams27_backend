@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.request.PostDtoRq;
+import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +18,8 @@ public class PostsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePost(@PathVariable(value = "id") int postId,
-                                                        @RequestBody PostDtoRq postDtoRq){
+                                                        @RequestBody PostRq postRq){
         //TODO: ADD TAGS!!!
-        return postService.updatePost(postId, postDtoRq.getTitle(), postDtoRq.getPostText());
+        return postService.updatePost(postId, postRq.getTitle(), postRq.getPostText());
     }
 }

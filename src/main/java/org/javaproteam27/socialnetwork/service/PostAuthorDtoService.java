@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.PostAuthorDtoRs;
+import org.javaproteam27.socialnetwork.model.dto.response.PostAuthorRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +12,8 @@ import java.time.ZoneId;
 public class PostAuthorDtoService {
     private final CityService cityService;
     private final CountryService countryService;
-    public PostAuthorDtoRs initialize(Person person){
-        return PostAuthorDtoRs.builder()
+    public PostAuthorRs initialize(Person person){
+        return PostAuthorRs.builder()
                 .id(person.getId())
                 .email(person.getEmail())
                 .phone(person.getPhone())

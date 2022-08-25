@@ -26,7 +26,7 @@ import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 //@JsonRootName("author")
 @JsonPropertyOrder({"id", "email", "phone", "city", "country", "first_name", "last_name",
         "reg_date", "birth_date", "messages_permission", "is_blocked", "is_deleted"})
-public class PostAuthorDtoRs {
+public class PostAuthorRs {
     private Integer id;
     private String email;
     private String phone;

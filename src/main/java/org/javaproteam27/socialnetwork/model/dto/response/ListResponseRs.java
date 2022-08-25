@@ -8,6 +8,8 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
 public class ListResponseRs<T> {
 
     private String error;

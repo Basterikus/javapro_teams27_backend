@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ListResponseDtoRs<T> {
+public class ListResponseRs<T> {
 
     private String error;
     private long timestamp;
@@ -16,7 +16,7 @@ public class ListResponseDtoRs<T> {
     private int perPage;
     private List<T> data;
 
-    public ListResponseDtoRs(String error, int offset, int perPage, List<T> data) {
+    public ListResponseRs(String error, int offset, int perPage, List<T> data) {
         this.error = error;
         this.timestamp = System.currentTimeMillis();//LocalDateTime.now()
         this.total = data.size();

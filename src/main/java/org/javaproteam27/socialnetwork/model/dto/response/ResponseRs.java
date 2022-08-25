@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 //@Builder
-public class ResponseDtoRs<T> {
+public class ResponseRs<T> {
     private String error;
     private long timestamp;
     private int offset;
@@ -16,7 +16,7 @@ public class ResponseDtoRs<T> {
     @JsonProperty("error_description")
     String errorDescription;
 
-    public ResponseDtoRs(String error, int offset, int perPage, T data) {
+    public ResponseRs(String error, int offset, int perPage, T data) {
         this.error = error;
         this.offset = offset;
         this.perPage = perPage;
@@ -24,7 +24,7 @@ public class ResponseDtoRs<T> {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public ResponseDtoRs(String error, T data, String errorDescription){
+    public ResponseRs(String error, T data, String errorDescription){
         this.error = error;
         this.data = data;
         this.errorDescription = errorDescription;

@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @GetMapping("/api/v1/users/me")
-    public ResponseEntity<ResponseDtoRs<PersonDto>> profileResponse(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(@RequestHeader("Authorization") String token) {
         return loginService.profileResponse(token);
     }
 }

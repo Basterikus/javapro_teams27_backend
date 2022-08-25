@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class PersonDto {
+public class PersonRs {
 
     private int id;
     @JsonProperty("first_name")

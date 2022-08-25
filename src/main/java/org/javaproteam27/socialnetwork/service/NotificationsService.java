@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDtoRs;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseDto;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +16,15 @@ public class NotificationsService {
     private final PersonService personService;
     
     
-    public ListResponseDtoRs<NotificationBaseDto> getNotifications(String token, int offset, int itemPerPage) {
+    public ListResponseRs<NotificationBaseDto> getNotifications(String token, int offset, int itemPerPage) {
 
-        return new ListResponseDtoRs<>("", offset, itemPerPage, List.of(notificationMock()));
+        return new ListResponseRs<>("", offset, itemPerPage, List.of(notificationMock()));
     }
     
-    public ListResponseDtoRs<NotificationBaseDto> markAsReadNotification(String token, int id, boolean all) {
+    public ListResponseRs<NotificationBaseDto> markAsReadNotification(String token, int id, boolean all) {
         
         int itemPerPage = all ? 20 : 1;
-        return new ListResponseDtoRs<>("", 0, itemPerPage, List.of(notificationMock()));
+        return new ListResponseRs<>("", 0, itemPerPage, List.of(notificationMock()));
     }
     
     private NotificationBaseDto notificationMock() {

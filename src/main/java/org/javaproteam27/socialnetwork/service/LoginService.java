@@ -27,17 +27,17 @@ public class LoginService {
     private final CityService cityService;
     private final CountryService countryService;
 
-    public ResponseEntity<ResponseDtoRs<PersonDto>> profileResponse(String token)  {
+    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(String token)  {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
-        PersonDto personDto =  PersonDto.builder().id(person.getId()).firstName(person.getFirstName()).
+        PersonRs personRs =  PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
                 lastName(person.getLastName()).regDate(person.getRegDate()).birthDate(person.getBirthDate()).
                 email(person.getEmail()).phone(person.getPhone()).photo(person.getPhoto()).about(person.getAbout()).
                 city(cityService.findById(person.getCityId()).getTitle()).country(countryService.findById(
                                 cityService.findById(person.getCityId()).getCountryId()).
                         getTitle()).messagesPermission(person.getMessagesPermission()).
                 lastOnlineTime(person.getLastOnlineTime()).isBlocked(person.getIsBlocked()).token(token).build();
-        return ResponseEntity.ok(new ResponseDtoRs<>("string", 0, 20, personDto));
+        return ResponseEntity.ok(new ResponseRs<>("string", 0, 20, personRs));
     }
 
     public LoginRs login(LoginRq loginRq) {
@@ -57,8 +57,8 @@ public class LoginService {
                     person.getPhone(),
                     person.getPhoto(),
                     person.getAbout(),
-                    new CityDto(city.getId(), city.getTitle()),
-                    new CountryDto(country.getId(), country.getTitle()),
+                    new CityRs(city.getId(), city.getTitle()),
+                    new CountryRs(country.getId(), country.getTitle()),
                     person.getMessagesPermission(),
                     person.getLastOnlineTime(),
                     person.getIsBlocked(),

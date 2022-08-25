@@ -1,4 +1,4 @@
-package org.javaproteam27.socialnetwork.repository.rawmapper;
+package org.javaproteam27.socialnetwork.repository.mapper;
 
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.springframework.jdbc.core.RowMapper;

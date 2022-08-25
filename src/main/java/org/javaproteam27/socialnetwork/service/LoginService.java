@@ -11,6 +11,7 @@ import org.javaproteam27.socialnetwork.repository.CityRepository;
 import org.javaproteam27.socialnetwork.repository.CountryRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,6 +26,19 @@ public class LoginService {
     private final CountryRepository countryRepository;
     private final CityService cityService;
     private final CountryService countryService;
+
+    public ResponseEntity<ResponseDtoRs<PersonDto>> profileResponse(String token)  {
+        String email = jwtTokenProvider.getUsername(token);
+        Person person = personRepository.findByEmail(email);
+        PersonDto personDto =  PersonDto.builder().id(person.getId()).firstName(person.getFirstName()).
+                lastName(person.getLastName()).regDate(person.getRegDate()).birthDate(person.getBirthDate()).
+                email(person.getEmail()).phone(person.getPhone()).photo(person.getPhoto()).about(person.getAbout()).
+                city(cityService.findById(person.getCityId()).getTitle()).country(countryService.findById(
+                                cityService.findById(person.getCityId()).getCountryId()).
+                        getTitle()).messagesPermission(person.getMessagesPermission()).
+                lastOnlineTime(person.getLastOnlineTime()).isBlocked(person.getIsBlocked()).token(token).build();
+        return ResponseEntity.ok(new ResponseDtoRs<>("string", 0, 20, personDto));
+    }
 
     public LoginRs login(LoginRq loginRq) {
         String email = loginRq.getEmail();
@@ -54,30 +68,6 @@ public class LoginService {
 
     public LogoutRs logout() {
         return new LogoutRs("", new Date(), new LogoutDataRs("ok"));
-    }
-
-    public PersonDto profileResponse(String token) {
-        String email = jwtTokenProvider.getUsername(token);
-        Person person = personRepository.findByEmail(email);
-        City city = cityRepository.findById(person.getCityId());
-        Country country = countryRepository.findById(city.getCountryId());
-        return PersonDto.builder()
-                .id(person.getId())
-                .firstName(person.getFirstName())
-                .lastName(person.getLastName())
-                .regDate(person.getRegDate())
-                .birthDate(person.getBirthDate())
-                .email(person.getEmail())
-                .phone(person.getPhone())
-                .photo(person.getPhoto())
-                .about(person.getAbout())
-                .city(cityService.findById(person.getCityId()).getTitle())
-                .country(countryService.findById(
-                                cityService.findById(person.getCityId()).getCountryId())
-                        .getTitle()).messagesPermission(person.getMessagesPermission())
-                .lastOnlineTime(person.getLastOnlineTime())
-                .isBlocked(person.getIsBlocked())
-                .token(token).build();
     }
 
 

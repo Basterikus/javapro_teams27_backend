@@ -9,7 +9,7 @@ import java.util.HashMap;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
-public class RegisterRS {
+public class RegisterRs {
 
     private String error;
 

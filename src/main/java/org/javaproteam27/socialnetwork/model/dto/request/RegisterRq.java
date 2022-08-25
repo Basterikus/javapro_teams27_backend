@@ -1,10 +1,9 @@
 package org.javaproteam27.socialnetwork.model.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class RegisterRQ {
+public class RegisterRq {
 
     private String email;
     private String passwd1;

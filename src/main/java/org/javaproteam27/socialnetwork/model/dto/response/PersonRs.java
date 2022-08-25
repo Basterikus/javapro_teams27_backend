@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class PersonDto {
+public class PersonRs {
 
     private int id;
     @JsonProperty("first_name")
@@ -26,8 +26,8 @@ public class PersonDto {
     private String phone;
     private String photo;
     private String about;
-    private CityDto city;
-    private CountryDto country;
+    private CityRs city;
+    private CountryRs country;
     @JsonProperty("messages_permission")
     private MessagesPermission messagesPermission;
     @JsonProperty("last_online_time")

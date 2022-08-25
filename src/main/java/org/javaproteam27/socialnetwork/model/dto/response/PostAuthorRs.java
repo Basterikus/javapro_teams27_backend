@@ -1,11 +1,11 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.Data;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
-import java.time.LocalDateTime;
 
 /*"author": {
         "id": 2,
@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 //@JsonRootName("author")
+@JsonPropertyOrder({"id", "email", "phone", "city", "country", "first_name", "last_name",
+        "reg_date", "birth_date", "messages_permission", "is_blocked", "is_deleted"})
 public class PostAuthorRs {
     private Integer id;
     private String email;
@@ -35,9 +37,9 @@ public class PostAuthorRs {
     @JsonProperty("last_name")
     private String lastName;
     @JsonProperty("reg_date")
-    private LocalDateTime regDate;
+    private long regDate;
     @JsonProperty("birth_date")
-    private LocalDateTime birthDate;
+    private long birthDate;
     @JsonProperty("messages_permission")
     private MessagesPermission messagePermission;
     @JsonProperty("is_blocked")

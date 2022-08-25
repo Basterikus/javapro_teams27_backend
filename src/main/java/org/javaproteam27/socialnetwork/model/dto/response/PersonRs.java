@@ -26,8 +26,8 @@ public class PersonRs {
     private String phone;
     private String photo;
     private String about;
-    private CityRs city;
-    private CountryRs country;
+    private String city;
+    private String country;
     @JsonProperty("messages_permission")
     private MessagesPermission messagesPermission;
     @JsonProperty("last_online_time")

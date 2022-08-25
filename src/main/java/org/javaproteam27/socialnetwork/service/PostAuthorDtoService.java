@@ -5,6 +5,8 @@ import org.javaproteam27.socialnetwork.model.dto.response.PostAuthorRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
+
 @Service
 @RequiredArgsConstructor
 public class PostAuthorDtoService {
@@ -21,8 +23,8 @@ public class PostAuthorDtoService {
                         .getTitle())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
-                .regDate(person.getRegDate())
-                .birthDate(person.getBirthDate())
+                .regDate(person.getRegDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli())
+                .birthDate(person.getBirthDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli())
                 .messagePermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
                 .isDeleted(false)   //TODO: ???

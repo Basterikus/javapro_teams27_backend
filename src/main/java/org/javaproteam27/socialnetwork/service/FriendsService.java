@@ -2,8 +2,6 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
-import org.javaproteam27.socialnetwork.model.dto.response.CityRs;
-import org.javaproteam27.socialnetwork.model.dto.response.CountryRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.City;
@@ -129,8 +127,8 @@ public class FriendsService {
                             .phone(person.getPhone())
                             .photo(person.getPhoto())
                             .about(person.getAbout())
-                            .city(new CityRs(city.getId(), city.getTitle()))
-                            .country(new CountryRs(country.getId(), country.getTitle()))
+                            .city(city.getTitle())
+                            .country(country.getTitle())
                             .messagesPermission(person.getMessagesPermission())
                             .lastOnlineTime(person.getLastOnlineTime())
                             .isBlocked(person.getIsBlocked())

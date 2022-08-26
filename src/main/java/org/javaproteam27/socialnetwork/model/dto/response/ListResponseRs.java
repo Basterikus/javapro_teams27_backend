@@ -2,16 +2,14 @@ package org.javaproteam27.socialnetwork.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
 public class ListResponseRs<T> {
 
     private String error;
@@ -25,7 +23,7 @@ public class ListResponseRs<T> {
 
     public ListResponseRs(String error, int offset, int perPage, List<T> data) {
         this.error = error;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = System.currentTimeMillis();//LocalDateTime.now()
         this.total = data.size();
         this.offset = offset;
         this.perPage = perPage;

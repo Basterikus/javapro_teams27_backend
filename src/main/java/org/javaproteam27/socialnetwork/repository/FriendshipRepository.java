@@ -47,5 +47,26 @@ public class FriendshipRepository {
             throw new EntityNotFoundException("person id = " + id + " and status = " + statusCode);
         }
     }
-    
+
+
+    public void delete(Friendship friendship) {
+        try {
+            String sql = "delete from friendship where src_person_id = " + friendship.getSrcPersonId() + " AND  dst_person_id = " + friendship.getDstPersonId();
+            jdbcTemplate.update(sql);
+        }catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + friendship.getSrcPersonId() + " or " + friendship.getDstPersonId());
+        }
+
+    }
+
+    public List<Friendship> findByFriendShip(int srcPersonId, int dstPersonId){
+        try {
+            String sql = "select * from friendship where src_person_id = ? and dst_person_id = ?";
+            return jdbcTemplate.query(sql,rowMapper,srcPersonId,dstPersonId);
+        }catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + srcPersonId + " or " + dstPersonId);
+        }
+    }
+
+
 }

@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class PersonRepository {
@@ -57,5 +59,16 @@ public class PersonRepository {
     }
     public Person getPersonById(Integer id){
         return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
+    }
+    public List<Person> getFriendsPersonById(Integer id){
+        try {
+            String sql = "SELECT * FROM friendship f\n" +
+                    "join friendship_status fs on fs.id=f.status_id\n" +
+                    "join person p on f.dst_person_id=p.id\n" +
+                    "where fs.code = 'FRIEND' and src_person_id = ?";
+            return jdbcTemplate.query(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + id);
+        }
     }
 }

@@ -28,16 +28,10 @@ public class Person {
     private String photo;
     private String about;
     private Integer cityId;
-    private City city;
-    private Country country;
     private Integer confirmationCode;
     private Boolean isApproved;
     private MessagesPermission messagesPermission;
     private LocalDateTime lastOnlineTime;
     private Boolean isBlocked;
     private String token;
-
-    public Person(String email) {
-        this.email = email;
-    }
 }

@@ -1,30 +1,33 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
-import org.javaproteam27.socialnetwork.model.dto.response.CaptchaRs;
-import org.javaproteam27.socialnetwork.model.dto.response.LoginRs;
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.aop.InfoLogger;
+import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
+import org.javaproteam27.socialnetwork.model.dto.response.LoginRs;
 import org.javaproteam27.socialnetwork.model.dto.response.LogoutRs;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonDto;
-import org.javaproteam27.socialnetwork.service.CaptchaService;
-import org.springframework.web.bind.annotation.*;
 import org.javaproteam27.socialnetwork.service.LoginService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/auth/")
+@InfoLogger
 public class LoginController {
 
     private final LoginService loginService;
     private final CaptchaService captchaService;
 
-    @PostMapping("/api/v1/auth/login")
+    @PostMapping("login")
     public LoginRs login(@RequestBody LoginRq loginRq) {
         return loginService.login(loginRq);
     }
 
-    @PostMapping("/api/v1/auth/logout")
+    @PostMapping("logout")
     public LogoutRs logout() {
         return loginService.logout();
     }

@@ -35,8 +35,7 @@ public class UserService {
         person.setPhone(request.getPhone());
         // фото
         person.setAbout(request.getAbout());
-        person.setCity(cityRepository.findById(request.getTownId()));
-        person.setCountry(countryRepository.findById(request.getCountryId()));
+        person.setCityId(request.getTownId());
         person.setMessagesPermission(MessagesPermission.valueOf(request.getMessagesPermission()));
 
         return ResponseEntity.ok(response);

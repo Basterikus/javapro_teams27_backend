@@ -28,9 +28,9 @@ public class UserDto {
 
     private String about;
 
-    private CityDto city;
+    private CityRs city;
 
-    private CountryDto country;
+    private CountryRs country;
 
     @JsonProperty("messages_permission")
     private String messagesPermission;

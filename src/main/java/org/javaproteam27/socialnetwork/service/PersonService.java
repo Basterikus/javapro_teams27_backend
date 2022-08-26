@@ -6,6 +6,9 @@ import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +29,12 @@ public class PersonService {
         return personRepository.findByEmail(email);
     }
 
+    public Person getAuthorizedPerson() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        JwtUser jwtUser = (JwtUser) auth.getPrincipal();
+        Person person = personRepository.findByEmail(jwtUser.getUsername());
+        return person;
+    }
     public ListResponseRs<PersonRs> findPerson(String firstName, String lastName, Integer ageFrom, Integer ageTo, Integer cityId, int offset, int itemPerPage) {
 
         return getResultJson(personRepository.findPeople(firstName, lastName, ageFrom, ageTo, cityId), offset, itemPerPage);

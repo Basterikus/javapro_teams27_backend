@@ -62,6 +62,18 @@ public class PersonRepository {
         return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
     }
 
+    public List<Person> getFriendsPersonById(Integer id){
+        try {
+            String sql = "SELECT * FROM friendship f\n" +
+                    "join friendship_status fs on fs.id=f.status_id\n" +
+                    "join person p on f.dst_person_id=p.id\n" +
+                    "where fs.code = 'FRIEND' and src_person_id = ?";
+            return jdbcTemplate.query(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + id);
+        }
+    }
+
     public List<Person> findPeople (String firstName, String lastName, Integer ageFrom, Integer ageTo, Integer cityId) {
 
         ArrayList<String> queryParts = new ArrayList<>();

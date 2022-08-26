@@ -7,6 +7,8 @@ import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.AssertTrue;
@@ -30,7 +32,9 @@ public class RegisterService {
         person.setFirstName(request.getFirstName());
         person.setLastName(request.getLastName());
         person.setRegDate(LocalDateTime.now());
-        person.setPassword(request.getPasswd1());
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        person.setPassword(passwordEncoder.encode(request.getPasswd1()));
         person.setIsApproved(true);  // добавить проверку почты
         personRepository.save(person);
 

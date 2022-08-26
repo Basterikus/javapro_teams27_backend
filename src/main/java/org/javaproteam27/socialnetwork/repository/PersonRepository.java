@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -60,6 +61,7 @@ public class PersonRepository {
     public Person getPersonById(Integer id){
         return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
     }
+
     public List<Person> getFriendsPersonById(Integer id){
         try {
             String sql = "SELECT * FROM friendship f\n" +
@@ -70,5 +72,33 @@ public class PersonRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("person id = " + id);
         }
+    }
+
+    public List<Person> findPeople (String firstName, String lastName, Integer ageFrom, Integer ageTo, Integer cityId) {
+
+        ArrayList<String> queryParts = new ArrayList<>();
+
+        if(firstName != null) {
+            queryParts.add("first_name = '" + firstName + "'");
+        }
+
+        if(lastName != null) {
+            queryParts.add("last_name = '" + lastName + "'");
+        }
+
+        if(ageFrom != null) {
+            queryParts.add("date_part('year', age(birth_date))::int > " + ageFrom);
+        }
+
+        if(ageTo != null) {
+            queryParts.add("date_part('year', age(birth_date))::int < " + ageTo);
+        }
+
+        if(cityId != null) {
+            queryParts.add("city_id = " + cityId);
+        }
+
+        String buildQuery = "SELECT * FROM person WHERE " + String.join(" AND ", queryParts) + ";";
+        return jdbcTemplate.query(buildQuery, rowMapper);
     }
 }

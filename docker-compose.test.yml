@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+
+    test:
+        build: ./test
+        depends_on:
+            - postgres
+            - social-backend
+            - social-frontend

@@ -5,4 +5,5 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM openjdk:11-slim
 COPY --from=builder /usr/src/app/target/social-network-0.0.1-SNAPSHOT.jar social-network.jar
-CMD java -jar social-network.jar --spring.profiles.active=$PROFILE
+CMD java -jar social-network.jar
+# --spring.profiles.active=$PROFILE

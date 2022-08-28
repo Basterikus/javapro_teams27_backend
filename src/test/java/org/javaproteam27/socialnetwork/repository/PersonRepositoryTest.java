@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@SpringBootTest
+@SpringBootTest
 @ActiveProfiles("test")
 public class PersonRepositoryTest {
     
     @Autowired
     private PersonRepository personRepository;
     
-   // @Test
+    @Test
     void save_shouldSavePerson_whenFieldsCorrectAndNotExists() {
         int preSaveCount = 0;
         int expectedCount = 1;

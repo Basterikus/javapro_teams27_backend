@@ -1,7 +1,8 @@
 stages:
     - build
-    - push
-    - test
+#    - push
+    - maven-test
+    - url-test
     - cleanup
     - deploy
 
@@ -11,32 +12,68 @@ build:
         - social
     script:
         - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID .
+    rules:
+        - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 
-push:
-    stage: push
+
+#push:
+#    stage: push
+#    tags:
+#        - social
+#    before_script:
+#        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#    script:
+#        - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
+
+maven-test:
+    stage: maven-test
     tags:
         - social
-    before_script:
-        - docker login -u
     script:
-        - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
+        - mvn verify
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - target/surefire-reports/TEST-*.xml
+                - target/failsafe-reports/TEST-*.xml
 
-test:
-    stage: test
+url-test:
+    stage: url-test
     tags:
         - social
     image:
-        name: docker/compose:1.23.2
+        name: docker/compose:1.25.0
         entrypoint: [""]
     variables:
-        - DOCKER_HOST:
+        DOCKER_HOST: tcp://195.133.48.174:22
+    before_script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     script:
-        -
+        - docker-compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from test
+
+cleanup:
+    stage: cleanup
+    tags:
+        - social
+    image:
+        name: docker/compose:1.25.0
+        entrypoint: [""]
+    variables:
+        DOCKER_HOST: tcp://195.133.48.174:22
+    script:
+        - docker-compose down
+    when: always
 
 deploy:
     stage: deploy
     tags:
         - social
+    image:
+        name: docker/compose:1.25.0
+        entrypoint: [""]
+    variables:
+        DOCKER_HOST: tcp://195.133.48.174:22
     script:
-        - docker run --name social-backend -p 8086:8086 $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
+        - docker-compose -f docker-compose.prod.yml up -d
 

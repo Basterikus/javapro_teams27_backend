@@ -6,10 +6,13 @@ import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
+import org.javaproteam27.socialnetwork.repository.CommentRepository;
 import org.javaproteam27.socialnetwork.repository.PostRepository;
+import org.javaproteam27.socialnetwork.repository.TagRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final PostDtoService postDtoService;
+    private final TagRepository tagRepository;
+    private final CommentRepository commentRepository;
 
     public ResponseEntity<?> findAllPosts(int offset, int itemPerPage) {
         List<PostRs> data = postRepository.findAllPublishedPosts().stream().
@@ -33,7 +38,7 @@ public class PostService {
     }
 
     public ResponseEntity<?> deletePost(int postId) {
-        if (postRepository.deletePostById(postId)) {
+        if (tagRepository.deleteTagsByPostId(postId)&&(postRepository.deletePostById(postId))) {
             return ResponseEntity.ok(new ResponseRs("", PostRs.builder().id(postId).build(),
                     null));
         }
@@ -41,8 +46,8 @@ public class PostService {
                 null, ""));
     }
 
-    public ResponseEntity<?> updatePost(int postId, String title, String postText) {
-        if (postRepository.updatePostById(postId, title, postText))
+    public ResponseEntity<?> updatePost(int postId, String title, String postText, ArrayList<String> tags) {
+        if ((tagRepository.updateTagsPostId(postId, tags))&&(postRepository.updatePostById(postId, title, postText)))
         {
             return ResponseEntity.ok(new ResponseRs("", PostRs.builder().id(postId).build(),
                         null));
@@ -56,9 +61,12 @@ public class PostService {
         long publishDateTime = (publishDate == null) ? System.currentTimeMillis() : publishDate;
         PostRs postRs;
         //LocalDateTime.ofInstant(Instant.ofEpochMilli(publishDateUet),TimeZone.getDefault().toZoneId());
-        int id = postRepository.addPost(publishDateTime, authorId, postRq.getTitle(), postRq.getPostText());
-        if (id >= 0) {
-            postRs = postDtoService.initialize(postRepository.findPostById(id));
+        int postId = postRepository.addPost(publishDateTime, authorId, postRq.getTitle(), postRq.getPostText());
+        if (postId >= 0) {
+            postRq.getTags().forEach(tag -> {
+                tagRepository.addTag(tag, postId);
+            });
+            postRs = postDtoService.initialize(postRepository.findPostById(postId));
             return ResponseEntity.ok(new ResponseRs("", postRs,
                     null)); //System.currentTimeMillis()
         }
@@ -66,4 +74,10 @@ public class PostService {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    /*public ResponseRs<CommentRs> addComment(int postId, String commentText, Integer parentId) {
+//        Integer parentId = postRepository.getUserId(postId);
+        commentRepository.addComment(postId, commentText, parentId);
+
+    }*/
 }

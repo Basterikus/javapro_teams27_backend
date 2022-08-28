@@ -69,4 +69,14 @@ public class PostRepository {
             return new ArrayList<>();
         }
     }
+
+    /*public Integer getUserId(int postId) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT author_id FROM post WHERE id = ?", new Object[]{postId},
+                    (rs, rowNum) -> rs.getInt("author_id"));
+        }
+        catch (DataAccessException exception){
+            return null;
+        }
+    }*/
 }

@@ -3,9 +3,8 @@ package org.javaproteam27.socialnetwork.service;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
+import org.javaproteam27.socialnetwork.repository.TagRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +13,7 @@ public class PostDtoService {
     private final PostCommentService postCommentService;
     private final PostLikeService postLikeService;
     private final PostAuthorDtoService postAuthorDtoService;
+    private final TagRepository tagRepository;
     //private final PostService postService;
 
     public PostRs initialize(Post post){
@@ -26,7 +26,7 @@ public class PostDtoService {
                 .author(postAuthorDtoService.initialize(personService.findById(post.getAuthorId())))
                 .title(post.getTitle())
                 .likes(postLikeService.getCountByPostId(post.getId()))
-                .tags(new ArrayList<>())    //TODO: Add post2tag repository
+                .tags(tagRepository.findTagsByPostId(post.getId()))
                 .postComments(postCommentService.getPostCommentsByPostId(post.getId()))
                 .type(type)
                 .postText(post.getPostText())

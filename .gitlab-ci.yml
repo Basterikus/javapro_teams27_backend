@@ -72,8 +72,8 @@ deploy:
     image:
         name: docker/compose:1.25.0
         entrypoint: [""]
-    variables:
-        DOCKER_HOST: tcp://195.133.48.174:22
+#    variables:
+#        DOCKER_HOST: tcp://195.133.48.174:22
     script:
         - docker-compose -f docker-compose.prod.yml up -d
 

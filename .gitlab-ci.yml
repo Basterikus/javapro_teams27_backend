@@ -1,6 +1,14 @@
 image: docker:git
+
+variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+
 services:
     - docker:dind
+
+before_script:
+    - docker info
 
 stages:
     - build
@@ -9,7 +17,7 @@ stages:
     - cleanup
     - deploy
 
-build:
+docker-build:
     stage: build
     tags:
         - social-docker

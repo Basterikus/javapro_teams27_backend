@@ -13,8 +13,8 @@ before_script:
 stages:
     - build
 #    - maven-test
-    - url-test
-    - cleanup
+#    - url-test
+#    - cleanup
     - deploy
 
 docker-build:
@@ -38,32 +38,32 @@ docker-build:
 #            junit:
 #                - target/surefire-reports/TEST-*.xml
 
-url-test:
-    stage: url-test
-    tags:
-        - social-docker
-    image:
-        name: docker/compose:1.25.0
-        entrypoint: [""]
-    variables:
-        DOCKER_HOST: tcp://195.133.48.174:22
-    before_script:
-        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    script:
-        - docker-compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from test
-
-cleanup:
-    stage: cleanup
-    tags:
-        - social-docker
-    image:
-        name: docker/compose:1.25.0
-        entrypoint: [""]
-    variables:
-        DOCKER_HOST: tcp://195.133.48.174:22
-    script:
-        - docker-compose down
-    when: always
+#url-test:
+#    stage: url-test
+#    tags:
+#        - social-docker
+#    image:
+#        name: docker/compose:1.25.0
+#        entrypoint: [""]
+#    variables:
+#        DOCKER_HOST: tcp://195.133.48.174
+#    before_script:
+#        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#    script:
+#        - docker-compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from test
+#
+#cleanup:
+#    stage: cleanup
+#    tags:
+#        - social-docker
+#    image:
+#        name: docker/compose:1.25.0
+#        entrypoint: [""]
+#    variables:
+#        DOCKER_HOST: tcp://195.133.48.174
+#    script:
+#        - docker-compose down
+#    when: always
 
 deploy:
     stage: deploy

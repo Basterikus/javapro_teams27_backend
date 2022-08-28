@@ -1,8 +1,9 @@
-#image: maven:3.8.6-jdk-11-slim
+image: docker:git
+services:
+    - docker:dind
 
 stages:
     - build
-#    - push
     - maven-test
     - url-test
     - cleanup
@@ -11,26 +12,16 @@ stages:
 build:
     stage: build
     tags:
-        - social-linux
+        - social-docker
     script:
         - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID ./
     rules:
         - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 
-
-#push:
-#    stage: push
-#    tags:
-#        - social
-#    before_script:
-#        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-#    script:
-#        - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
-
 maven-test:
     stage: maven-test
     tags:
-        - social-linux
+        - social-docker
     script:
         - mvn verify
     artifacts:
@@ -43,7 +34,7 @@ maven-test:
 url-test:
     stage: url-test
     tags:
-        - social-linux
+        - social-docker
     image:
         name: docker/compose:1.25.0
         entrypoint: [""]
@@ -57,7 +48,7 @@ url-test:
 cleanup:
     stage: cleanup
     tags:
-        - social-linux
+        - social-docker
     image:
         name: docker/compose:1.25.0
         entrypoint: [""]
@@ -70,7 +61,7 @@ cleanup:
 deploy:
     stage: deploy
     tags:
-        - social-linux
+        - social-docker
     image:
         name: docker/compose:1.25.0
         entrypoint: [""]

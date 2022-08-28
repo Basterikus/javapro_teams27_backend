@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class CountryRepository {
     
-    private final RowMapper<Country> rowMapper;
+    private final RowMapper<Country> rowMapper = new CountryMapper();
     private final JdbcTemplate jdbcTemplate;
     
     

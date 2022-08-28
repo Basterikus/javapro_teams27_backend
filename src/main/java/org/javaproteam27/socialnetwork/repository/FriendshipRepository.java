@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FriendshipRepository {
     
-    private final RowMapper<Friendship> rowMapper;
+    private final RowMapper<Friendship> rowMapper = new FriendshipMapper();
     private final JdbcTemplate jdbcTemplate;
     
     

@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
 
@@ -18,7 +18,7 @@ services:
             - ${HOME}/docker/volumes/postgres:/var/lib/postgresql/data
         healthcheck:
             test: ["CMD-SHELL", "pg_isready"]
-            start_period: 1s
+#            start_period: 1s
             interval: 5s
             timeout: 5s
             retries: 5
@@ -39,11 +39,10 @@ services:
             DATASOURCE_USER: ${DATASOURCE_USER:-javapro}
             DATASOURCE_PASS: ${DATASOURCE_PASS:-admin}
         depends_on:
-            postgres:
-                condition: service_healthy
+            - postgres
         healthcheck:
             test: ["CMD-SHELL", "curl -f http://localhost:8086 || exit 1"]
-            start_period: 1s
+#            start_period: 1s
             interval: 5s
             timeout: 5s
             retries: 5
@@ -55,5 +54,4 @@ services:
         ports:
             - "8080:8080"
         depends_on:
-            social-backend:
-                condition: service_healthy
+            - social-backend

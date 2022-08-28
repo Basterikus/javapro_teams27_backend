@@ -12,9 +12,8 @@ before_script:
 
 stages:
     - build
-#    - maven-test
-#    - url-test
-#    - cleanup
+    - test
+    - cleanup
     - deploy
 
 docker-build:
@@ -26,44 +25,47 @@ docker-build:
     rules:
         - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 
-#maven-test:
-#    stage: maven-test
-#    tags:
-#        - social-docker
-#    script:
-#        - mvn verify
-#    artifacts:
-#        when: always
-#        reports:
-#            junit:
-#                - target/surefire-reports/TEST-*.xml
+maven-test:
+    stage: test
+    tags:
+        - social-docker
+    script:
+        - mvn verify
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - target/surefire-reports/TEST-*.xml
+    allow_failure: true
 
-#url-test:
-#    stage: url-test
-#    tags:
-#        - social-docker
-#    image:
-#        name: docker/compose:1.25.0
-#        entrypoint: [""]
-#    variables:
-#        DOCKER_HOST: tcp://195.133.48.174
-#    before_script:
-#        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-#    script:
-#        - docker-compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from test
-#
-#cleanup:
-#    stage: cleanup
-#    tags:
-#        - social-docker
-#    image:
-#        name: docker/compose:1.25.0
-#        entrypoint: [""]
-#    variables:
-#        DOCKER_HOST: tcp://195.133.48.174
-#    script:
-#        - docker-compose down
-#    when: always
+url-test:
+    stage: test
+    tags:
+        - social-docker
+    image:
+        name: docker/compose:1.25.0
+        entrypoint: [""]
+    variables:
+        DOCKER_HOST: tcp://195.133.48.174
+    before_script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    script:
+        - docker-compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from test
+    allow_failure: true
+
+cleanup:
+    stage: cleanup
+    tags:
+        - social-docker
+    image:
+        name: docker/compose:1.25.0
+        entrypoint: [""]
+    variables:
+        DOCKER_HOST: tcp://195.133.48.174
+    script:
+        - docker-compose down
+    when: always
+    allow_failure: true
 
 deploy:
     stage: deploy

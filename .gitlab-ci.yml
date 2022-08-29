@@ -41,7 +41,7 @@ variables:
 #        - docker push axelration/social-backend:latest
 
 build:
-    image: openjdk:11-slim
+    image: alpine
     stage: build
     tags:
         - social-docker
@@ -58,7 +58,7 @@ build:
         - aleksei
 
 deploy:
-    image: openjdk:11-slim
+    image: alpine
     stage: deploy
     tags:
         - social-docker

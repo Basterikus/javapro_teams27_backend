@@ -5,8 +5,9 @@ stages:
 
 variables:
     CONTAINER_NAME: social-backend
-    TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
-    TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+    REGISTRY: registry.skillbox.ru
+    TAG_LATEST: $CI_COMMIT_REF_NAME:latest
+    TAG_COMMIT: $CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
 
 test:
     image: maven:3.8.6-jdk-11-slim
@@ -18,6 +19,11 @@ test:
         - echo "TAG_LATEST"
         - sleep 120
         - mvn clean test
+#    artifacts:
+#        when: always
+#        reports:
+#            junit:
+#                - target/surefire-reports/TEST-*.xml
 
 build:
     image: docker:20.10.17
@@ -28,7 +34,7 @@ build:
         - docker:dind
     script:
         - docker build -t $TAG_COMMIT -t $TAG_LATEST .
-        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $REGISTRY
         - docker push $TAG_COMMIT
         - docker push $TAG_LATEST
 
@@ -40,8 +46,8 @@ deploy:
     script:
         - chmod og= $ID_RSA
         - apk update && apk add openssh-client
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker push $TAG_COMMIT"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $REGISTRY"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
         - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f $CONTAINER_NAME || true"
         - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8086:8086 --name $CONTAINER_NAME $TAG_COMMIT"
     environment:

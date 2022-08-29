@@ -15,7 +15,7 @@
 
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>src/main/resources/logs/archived/info-logger-%d{yyyy-MM-dd}.%i.log
+            <fileNamePattern>src/main/resources/logs/archived/info-logger-%d{dd-MM-yyyy}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -34,7 +34,7 @@
 
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>src/main/resources/logs/archived/debug-logger-%d{yyyy-MM-dd}.%i.log
+            <fileNamePattern>src/main/resources/logs/archived/debug-logger-%d{dd-MM-yyyy}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

@@ -15,8 +15,6 @@ test:
     tags:
         - social-docker
     script:
-        - echo "$TAG_COMMIT"
-        - echo "$TAG_LATEST"
         - mvn clean test
 #    artifacts:
 #        when: always
@@ -30,7 +28,7 @@ build:
     tags:
         - social-docker
     services:
-        - docker:dind
+        - docker:20.10.17-dind
     script:
         - docker build -t $TAG_COMMIT -t $TAG_LATEST .
         - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $REGISTRY

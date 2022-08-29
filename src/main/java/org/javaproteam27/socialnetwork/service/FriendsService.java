@@ -2,14 +2,13 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
-import org.javaproteam27.socialnetwork.model.dto.response.CityRs;
-import org.javaproteam27.socialnetwork.model.dto.response.CountryRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.City;
 import org.javaproteam27.socialnetwork.model.entity.Country;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
+import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class FriendsService {
     private final FriendshipService friendshipService;
     private final CityService cityService;
     private final CountryService countryService;
-    
+    private final PersonRepository personRepository;
     
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
         
@@ -129,8 +128,8 @@ public class FriendsService {
                             .phone(person.getPhone())
                             .photo(person.getPhoto())
                             .about(person.getAbout())
-                            .city(new CityRs(city.getId(), city.getTitle()))
-                            .country(new CountryRs(country.getId(), country.getTitle()))
+                            .city(city.getTitle())
+                            .country(country.getTitle())
                             .messagesPermission(person.getMessagesPermission())
                             .lastOnlineTime(person.getLastOnlineTime())
                             .isBlocked(person.getIsBlocked())
@@ -139,6 +138,11 @@ public class FriendsService {
                 .collect(Collectors.toList());
         
         return new ListResponseRs<>("", offset, itemPerPage, data);
+    }
+    public ListResponseRs<PersonRs> getListFriends(String name, int offset, int itemPerPage){
+        List<Person> person = personRepository.getFriendsPersonById(personService.getAuthorizedPerson().getId());
+
+        return getResultJson(person,offset,itemPerPage);
     }
     
 }

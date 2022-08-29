@@ -23,22 +23,39 @@ variables:
 #            junit:
 #                - target/surefire-reports/TEST-*.xml
 
+#build:
+#    image: docker:20.10.17
+#    stage: build
+#    tags:
+#        - social-docker
+#    services:
+#        - name: docker:20.10.17-dind
+#          command: ["--tsl=false"]
+#    variables:
+#        DOCKER_HOST: tcp://docker:2375
+#        DOCKER_DRIVER: overlay2
+#        DOCKER_TSL_CERTDIR: ""
+#    script:
+#        - docker build -t axelration/social-backend:latest .
+#        - docker login -u axelration -p vmnxttya5r2c registry-1.docker-io
+#        - docker push axelration/social-backend:latest
+
 build:
-    image: docker:20.10.17
-    stage: build
+    image: openjdk:11-slim
+    stage: deploy
     tags:
         - social-docker
-    services:
-        - name: docker:20.10.17-dind
-          command: ["--tsl=false"]
-    variables:
-        DOCKER_HOST: tcp://docker:2375
-        DOCKER_DRIVER: overlay2
-        DOCKER_TSL_CERTDIR: ""
     script:
-        - docker build -t axelration/social-backend:latest .
-        - docker login -u axelration -p vmnxttya5r2c registry-1.docker-io
-        - docker push axelration/social-backend:latest
+        - chmod og= $ID_RSA
+        - apk update && apk add openssh-client
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker build -t axelration/social-backend:latest ."
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u axelration -p vmnxttya5r2c registry-1.docker-io"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker push axelration/social-backend:latest"
+    environment:
+        name: prod
+        url: http://195.133.48.174
+    only:
+        - aleksei
 
 deploy:
     image: openjdk:11-slim

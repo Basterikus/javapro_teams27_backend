@@ -16,8 +16,7 @@ test:
         - social-docker
     script:
         - echo "$TAG_COMMIT"
-        - echo "TAG_LATEST"
-        - sleep 120
+        - echo "$TAG_LATEST"
         - mvn clean test
 #    artifacts:
 #        when: always

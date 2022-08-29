@@ -5,7 +5,7 @@ stages:
 
 variables:
     CONTAINER_NAME: social-backend
-#    DOCKER_REGISTRY: registry-1.docker-io
+#    DOCKER_REGISTRY: registry-1.docker.io
     TAG_LATEST: $DOCKER_USER/$CI_COMMIT_REF_NAME:latest
     TAG_COMMIT: axelration/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
 
@@ -30,14 +30,14 @@ build:
         - social-docker
     services:
         - name: docker:20.10.17-dind
-          command: ["--tsl=false"]
+#          command: ["--tsl=false"]
     variables:
         DOCKER_HOST: tcp://docker:2375
         DOCKER_DRIVER: overlay2
         DOCKER_TSL_CERTDIR: ""
     script:
         - docker build -t $TAG_COMMIT .
-        - docker login -u axelration -p vmnxttya5r2c
+        - docker login -u axelration -p vmnxttya5r2c registry-1.docker-io
         - docker push $TAG_COMMIT
 
 deploy:

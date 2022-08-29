@@ -11,26 +11,16 @@ before_script:
     - docker info
 
 stages:
-    - build
     - test
-    - cleanup
+    - build
     - deploy
-
-docker-build:
-    stage: build
-    tags:
-        - social-docker
-    script:
-        - docker build -t $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID ./
-    rules:
-        - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 
 maven-test:
     stage: test
     tags:
         - social-docker
     script:
-        - mvn verify
+        - mvn clear test
     artifacts:
         when: always
         reports:
@@ -38,34 +28,14 @@ maven-test:
                 - target/surefire-reports/TEST-*.xml
     allow_failure: true
 
-url-test:
-    stage: test
+build:
+    stage: build
     tags:
         - social-docker
-    image:
-        name: docker/compose:1.25.0
-        entrypoint: [""]
-    variables:
-        DOCKER_HOST: tcp://195.133.48.174
-    before_script:
-        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     script:
-        - docker-compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from test
-    allow_failure: true
-
-cleanup:
-    stage: cleanup
-    tags:
-        - social-docker
-    image:
-        name: docker/compose:1.25.0
-        entrypoint: [""]
-    variables:
-        DOCKER_HOST: tcp://195.133.48.174
-    script:
-        - docker-compose down
-    when: always
-    allow_failure: true
+        - docker build -t $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID ./
+    rules:
+        - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 
 deploy:
     stage: deploy
@@ -77,5 +47,5 @@ deploy:
 #    variables:
 #        DOCKER_HOST: tcp://195.133.48.174:22
     script:
-        - docker-compose -f docker-compose.prod.yml up -d
+        - docker
 

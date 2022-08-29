@@ -1,5 +1,5 @@
 stages:
-    - test
+#    - test
     - build
     - deploy
 
@@ -10,13 +10,13 @@ variables:
     TAG_COMMIT: axelration/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
 
 
-test:
-    image: maven:3.8.6-jdk-11-slim
-    stage: test
-    tags:
-        - social-docker
-    script:
-        - mvn clean test
+#test:
+#    image: maven:3.8.6-jdk-11-slim
+#    stage: test
+#    tags:
+#        - social-docker
+#    script:
+#        - mvn clean test
 #    artifacts:
 #        when: always
 #        reports:
@@ -30,7 +30,7 @@ build:
         - social-docker
     services:
         - name: docker:20.10.17-dind
-#          command: ["--tsl=false"]
+          command: ["--tsl=false"]
     variables:
         DOCKER_HOST: tcp://docker:2375
         DOCKER_DRIVER: overlay2

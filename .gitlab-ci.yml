@@ -30,10 +30,9 @@ build:
     services:
         - docker:20.10.17-dind
     script:
-        - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+        - docker build -t $TAG_COMMIT .
         - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $REGISTRY
         - docker push $TAG_COMMIT
-        - docker push $TAG_LATEST
 
 deploy:
     image: openjdk:11-slim

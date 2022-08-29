@@ -36,9 +36,9 @@ build:
         DOCKER_DRIVER: overlay2
         DOCKER_TSL_CERTDIR: ""
     script:
-        - docker build -t $TAG_COMMIT .
+        - docker build -t axelration/social-backend:latest .
         - docker login -u axelration -p vmnxttya5r2c registry-1.docker-io
-        - docker push $TAG_COMMIT
+        - docker push axelration/social-backend:latest
 
 deploy:
     image: openjdk:11-slim
@@ -49,9 +49,9 @@ deploy:
         - chmod og= $ID_RSA
         - apk update && apk add openssh-client
         - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u axelration -p vmnxttya5r2c"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull axelration/social-backend:latest"
         - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f $CONTAINER_NAME || true"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8086:8086 --name $CONTAINER_NAME $TAG_COMMIT"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8086:8086 --name $CONTAINER_NAME axelration/social-backend:latest"
     environment:
         name: prod
         url: http://195.133.48.174

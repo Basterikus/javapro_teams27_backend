@@ -1,51 +1,40 @@
-image: docker:20.10.17
-
-services:
-    - docker:20.10.17-dind
-
-variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-
-before_script:
-    - docker info
-
 stages:
     - test
     - build
     - deploy
 
-maven-test:
-    stage: test
-    tags:
-        - social-docker
-    script:
-        - mvn clear test
-    artifacts:
-        when: always
-        reports:
-            junit:
-                - target/surefire-reports/TEST-*.xml
-    allow_failure: true
+variables:
+    CONTAINER_NAME: social-backend
+    TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+    TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
 
 build:
+    image: docker:20.10.17
     stage: build
     tags:
         - social-docker
+    services:
+        - docker:dind
     script:
-        - docker build -t $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID ./
-    rules:
-        - if: "$CI_COMMIT_BRANCH == 'aleksei'"
+        - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker push $TAG_COMMIT
+        - docker push $TAG_LATEST
 
 deploy:
+    image: openjdk:11-slim
     stage: deploy
     tags:
         - social-docker
-    image:
-        name: docker/compose:1.25.0
-        entrypoint: [""]
-#    variables:
-#        DOCKER_HOST: tcp://195.133.48.174:22
     script:
-        - docker
-
+        - chmod og= $ID_RSA
+        - apk update && apk add openssh-client
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker push $TAG_COMMIT"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f $CONTAINER_NAME || true"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8086:8086 --name $CONTAINER_NAME $TAG_COMMIT"
+    environment:
+        name: prod
+        url: http://195.133.48.174
+    only:
+        - aleksei

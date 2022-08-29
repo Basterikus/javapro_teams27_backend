@@ -36,7 +36,7 @@ public class YandexDisk {
 
     private void archivedLogsUpload (ProgressListener progressListener, RestClient yaDisk) throws ServerException,
             IOException {
-        var archivedFiles = new File("src/main/resources/logs/archived").listFiles();
+        var archivedFiles = new File("logs/archived").listFiles();
         if (archivedFiles != null) {
             for (File file : archivedFiles) {
                 var fileName = file.getName();
@@ -50,11 +50,11 @@ public class YandexDisk {
     private void logsUpload (ProgressListener progressListener, RestClient yaDisk) throws ServerException,
             IOException {
         Link infoLoggerLink = yaDisk.getUploadLink("logs/info-logger.log", true);
-        File infoLoggerFile = new File("src/main/resources/logs/info-logger.log");
+        File infoLoggerFile = new File("logs/info-logger.log");
         yaDisk.uploadFile(infoLoggerLink, true, infoLoggerFile, progressListener);
 
         Link debugLoggerLink = yaDisk.getUploadLink("logs/debug-logger.log", true);
-        File debugLoggerFile = new File("src/main/resources/logs/debug-logger.log");
+        File debugLoggerFile = new File("logs/debug-logger.log");
         yaDisk.uploadFile(debugLoggerLink, true, debugLoggerFile, progressListener);
     }
 

@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final CityService cityService;
+    private final CountryService countryService;
 
 
     public Person findById(int id) {
@@ -55,5 +57,23 @@ public class PersonService {
                 .collect(Collectors.toList());
 
         return new ListResponseRs<>("", offset, itemPerPage, data);
+    }
+
+    public PersonRs initialize(Integer personId){
+
+        Person person = findById(personId);
+        return PersonRs.builder()
+                .id(person.getId())
+                .email(person.getEmail())
+                .phone(person.getPhone())
+                .city(cityService.findById(person.getCityId()).getTitle())
+                .country(countryService.findById(cityService.findById(person.getCityId()).getCountryId()).getTitle())
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .regDate(person.getRegDate())
+                .birthDate(person.getBirthDate())
+                .messagesPermission(person.getMessagesPermission())
+                .isBlocked(person.getIsBlocked())
+                .build();
     }
 }

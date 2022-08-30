@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.Data;
-import org.javaproteam27.socialnetwork.model.entity.PostComment;
 
 import java.util.List;
         /*"id": 6,
@@ -25,12 +24,12 @@ import java.util.List;
 public class PostRs {
     private Integer id;
     private Long time;
-    private PostAuthorRs author;
+    private PersonRs author;
     private String title;
     private Integer likes;
     private List<String> tags;
     @JsonProperty("comments")
-    private List<PostComment> postComments;
+    private List<CommentRs> commentRs;
     private String type;
     @JsonProperty("post_text")
     private String postText;

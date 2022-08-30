@@ -18,7 +18,7 @@ variables:
 test:
     stage: test
     tags:
-        - social
+        - social-server
     script:
         - cd /root/javapro_teams27_backend
         - mvn clean test

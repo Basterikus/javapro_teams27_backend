@@ -2,13 +2,8 @@ server:
     port: 8086
 
 spring:
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        url: ${DATASOURCE_URL}
-        username: ${DATASOURCE_USER}
-        password: ${DATASOURCE_PASS}
-    liquibase:
-        enabled: true
+    profiles:
+        active: anton_m
 
 logging:
     level:

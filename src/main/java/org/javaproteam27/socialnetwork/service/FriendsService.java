@@ -30,7 +30,6 @@ public class FriendsService {
     
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
         
-//        Person person = personService.findByToken(token);
         Person person = personService.findById(1);
         Integer myId = person.getId();
         

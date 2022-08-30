@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class CityRepository {
     
-    private final RowMapper<City> rowMapper;
+    private final RowMapper<City> rowMapper = new CityMapper();
     private final JdbcTemplate jdbcTemplate;
     
     

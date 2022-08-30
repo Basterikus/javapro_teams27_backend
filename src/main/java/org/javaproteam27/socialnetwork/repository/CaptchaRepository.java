@@ -44,8 +44,10 @@ public class CaptchaRepository {
 
 
     public Captcha findByCode(String code) {
-        return jdbcTemplate.queryForObject(
-                "SELECT * FROM captcha WHERE code = ?", rowMapper, Captcha.class);
+        Captcha captcha;
+        captcha = jdbcTemplate.queryForObject("SELECT * FROM captcha WHERE code = ?", new Object[]{code},
+                rowMapper);
+        return captcha;
     }
 
     public List<Captcha> findAll() {

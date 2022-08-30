@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class NotificationTypeRepository {
     
-    private final RowMapper<NotificationType> rowMapper;
+    private final RowMapper<NotificationType> rowMapper = new NotificationTypeMapper();
     private final JdbcTemplate jdbcTemplate;
     
     

@@ -41,8 +41,9 @@ public class RegisterService {
 
 
     public ResponseEntity<RegisterRs> postRegister(RegisterRq request) {
-
         RegisterRs registerRS = new RegisterRs();
+        HashMap<String, String> data = new HashMap<>();
+
         captchaSecret1 = captchaRepository.findByCode(request.getCode()).getSecretCode();
         captchaSecret2 = request.getCodeSecret();
         password1 = request.getPasswd1();
@@ -50,7 +51,11 @@ public class RegisterService {
 
         // Проверка введенных данных
         checkPassword();
-        checkCaptcha();
+        if (!checkCaptcha()) {
+            registerRS.setError("invalid_captcha");
+            registerRS.setErrorDescription("невверно введена капча");
+            return new ResponseEntity<>(registerRS, HttpStatus.BAD_REQUEST);
+        }
         email = request.getEmail();
         firstName = request.getFirstName();
         lastName = request.getLastName();
@@ -67,7 +72,6 @@ public class RegisterService {
         // ответ успешной регистрации
         registerRS.setError("string");
         registerRS.setTimestamp(System.currentTimeMillis());
-        HashMap<String, String> data = new HashMap<>();
         data.put( "message","ok");
         registerRS.setData(data);
 

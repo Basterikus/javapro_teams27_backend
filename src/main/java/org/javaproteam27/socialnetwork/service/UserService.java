@@ -1,6 +1,8 @@
 package org.javaproteam27.socialnetwork.service;
 
+import com.yandex.disk.rest.RestClient;
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.config.YandexDiskConfig;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
 import org.javaproteam27.socialnetwork.model.dto.response.UserRs;
@@ -23,8 +25,7 @@ public class UserService {
 
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final CountryRepository countryRepository;
-    private final CityRepository cityRepository;
+
 
     public ResponseEntity<UserRs> editUser(UserRq request, String token) {
         UserRs response = new UserRs();
@@ -33,6 +34,7 @@ public class UserService {
         person.setLastName(request.getLastName());
         person.setBirthDate(LocalDateTime.ofEpochSecond(request.getBirthDate(), 0, ZoneOffset.UTC));
         person.setPhone(request.getPhone());
+
         // фото
         person.setAbout(request.getAbout());
         person.setCityId(request.getTownId());

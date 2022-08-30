@@ -1,0 +1,57 @@
+version: "3.3"
+
+services:
+
+    postgres:
+        container_name: postgres
+        image: postgres:alpine
+        restart: always
+        expose:
+            - "5432"
+#        ports:
+#            - "5432:5432"
+        environment:
+            POSTGRES_DB: ${DATASOURCE_DB:-social}
+            POSTGRES_USER: ${DATASOURCE_USER:-javapro}
+            POSTGRES_PASSWORD: ${DATASOURCE_PASS:-admin}
+        volumes:
+            - ${HOME}/docker/volumes/postgres:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready"]
+#            start_period: 1s
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+    social-backend:
+        container_name: social-backend
+        image: social-backend
+        restart: always
+        build:
+            context: .
+#        expose:
+#            - "8086"
+        ports:
+            - "8086:8086"
+        environment:
+            PROFILE: ${PROFILE:-aleksei}
+            DATASOURCE_URL: ${DATASOURCE_URL:-jdbc:postgresql://host.docker.internal:5432/}${DATASOURCE_DB:-social}
+            DATASOURCE_USER: ${DATASOURCE_USER:-javapro}
+            DATASOURCE_PASS: ${DATASOURCE_PASS:-admin}
+        depends_on:
+            - postgres
+        healthcheck:
+            test: ["CMD-SHELL", "curl -f http://localhost:8086 || exit 1"]
+#            start_period: 1s
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+    social-frontend:
+        container_name: social-frontend
+        image: chuchos/javapro_frontend27
+        restart: always
+        ports:
+            - "8080:8080"
+        depends_on:
+            - social-backend

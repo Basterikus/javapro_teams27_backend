@@ -5,6 +5,9 @@ stages:
     - build
     - deploy
 
+variables:
+    IMAGE_NAME: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
+
 #clone:
 #    stage: clone
 #    tags:
@@ -12,25 +15,25 @@ stages:
 #    script:
 #        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
-test:
-    stage: test
-    tags:
-        - social
-    script:
-#        - cd /root/javapro_teams27_backend
-        - mvn clean test
-    allow_failure: true
+#test:
+#    stage: test
+#    tags:
+#        - social
+#    script:
+##        - cd /root/javapro_teams27_backend
+#        - mvn clean test
+#    allow_failure: true
 
 
-cleanup:
-    stage: cleanup
-    tags:
-        - social
-    script:
-        - docker stop javapro_teams27_backend
-        - docker container prune
-        - docker image rm javapro_teams27_backend
-    allow_failure: true
+#cleanup:
+#    stage: cleanup
+#    tags:
+#        - social
+#    script:
+#        - docker stop javapro_teams27_backend
+#        - docker container prune
+#        - docker image rm javapro_teams27_backend
+#    allow_failure: true
 
 
 build:
@@ -39,7 +42,7 @@ build:
         - social
     script:
 #        - cd /root/javapro_teams27_backend
-        - docker build -t javapro_teams27_backend:$CI_PIPELINE_ID .
+        - docker build -t IMAGE_NAME ./
     only:
         - aleksei
 
@@ -49,6 +52,6 @@ deploy:
         - social
     script:
 #        - cd /root/javapro_teams27_backend
-        - docker run -d -p 8086:8086 --name javapro_teams27_backend:$CI_PIPELINE_ID
+        - docker run -d -p 8086:8086 --name IMAGE_NAME
     only:
         - aleksei

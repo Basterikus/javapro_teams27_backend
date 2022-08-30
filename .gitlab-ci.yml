@@ -19,7 +19,7 @@ stages:
 docker-build:
     stage: build
     tags:
-        - social-docker
+        - social-server-2
     script:
         - docker build -t IMAGE_NAME ./
     rules:
@@ -28,7 +28,7 @@ docker-build:
 push:
     stage: push
     tags:
-        - social-docker
+        - social-server-2
     before_script:
         - docker login -u axelration -p dckr_pat_IIHDrvsHHR-fLbTpvKz2OaktrTs
     script:
@@ -38,7 +38,7 @@ push:
 deploy:
     stage: deploy
     tags:
-        - social-docker
+        - social-server-2
     variables:
         DOCKER_HOST: tcp://195.133.48.174:22
     script:

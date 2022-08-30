@@ -109,4 +109,47 @@ public class PersonRepository {
         String buildQuery = "SELECT * FROM person WHERE " + String.join(" AND ", queryParts) + ";";
         return jdbcTemplate.query(buildQuery, rowMapper);
     }
+
+    public List<Person> getFriendsPersonById(String name,Integer id){
+        try {
+            String sql;
+            if (name != null && name.length() != 0){
+                sql = "SELECT * FROM person p \n" +
+                        "join friendship f on f.dst_person_id = p.id\n" +
+                        "join friendship_status fs on fs.id = f.status_id\n" +
+                        "where fs.code = 'FRIEND' and src_person_id = ?" +
+                        "and first_name like '%" + name  +"%'";
+            }else {
+                sql = "SELECT * FROM person p \n" +
+                        "join friendship f on f.dst_person_id = p.id\n" +
+                        "join friendship_status fs on fs.id = f.status_id\n" +
+                        "where fs.code = 'FRIEND' and src_person_id = ?";
+            }
+
+            return jdbcTemplate.query(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + id);
+        }
+    }
+
+    public List<Person> getApplicationsFriendsPersonById(String name,Integer id){
+        try {
+            String sql;
+            if (name != null && name.length() != 0){
+                sql = "SELECT * FROM person p \n" +
+                        "join friendship f on f.dst_person_id = p.id\n" +
+                        "join friendship_status fs on fs.id = f.status_id\n" +
+                        "where fs.code = 'REQUEST' and src_person_id = ?" +
+                        "and first_name like '%" + name  +"%'";
+            }else {
+                sql = "SELECT * FROM person p \n" +
+                        "join friendship f on f.dst_person_id = p.id\n" +
+                        "join friendship_status fs on fs.id = f.status_id\n" +
+                        "where fs.code = 'REQUEST' and src_person_id = ?";
+            }
+            return jdbcTemplate.query(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + id);
+        }
+    }
 }

@@ -41,15 +41,14 @@ public class FriendshipService {
 
         friendshipRepository.save(friendship);
 
-        String error = "string";
-        HashMap<String,String> aa= new HashMap<>();
-        aa.put("message","ok");
+        String error = "";
+        HashMap<String,String> messageMap= new HashMap<>();
+        messageMap.put("message","ok");
 
-        FriendshipRs postsResponseDto = new FriendshipRs(
+        return new FriendshipRs(
                 error,
                 localDateTime,
-                aa);
-        return postsResponseDto;
+                messageMap);
     }
 
 

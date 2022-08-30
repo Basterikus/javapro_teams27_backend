@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,14 +27,34 @@ public class FriendshipStatusService {
 
         FriendshipStatus friendshipStatus = new FriendshipStatus();
         friendshipStatus.setTime(localDateTime);
-        friendshipStatus.setName(FriendshipStatusCode.REQUEST.name());
+//        friendshipStatus.setName(FriendshipStatusCode.REQUEST.name());
         friendshipStatus.setCode(FriendshipStatusCode.REQUEST);
         return friendshipStatusRepository.save(friendshipStatus);
     }
 
-    public FriendshipRs deleteStatus(int id, int dstPersonId){
+    public FriendshipRs updateStatus(Integer srcPersonId, Integer id, FriendshipStatusCode friendshipStatusCode){
 
-        for (Friendship friendship : friendshipService.findByFriendShip(id, dstPersonId)){
+        List<FriendshipStatus> friendshipStatusList = friendshipStatusRepository.getApplicationsFriendshipStatus(srcPersonId, id);
+
+        for (FriendshipStatus friendshipStatus : friendshipStatusList) {
+            friendshipStatusRepository.updateCode(friendshipStatus.getId(),friendshipStatusCode);
+        }
+
+        String error = "";
+        HashMap<String,String> messageMap = new HashMap<>();
+        messageMap.put("message","ok");
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        return new FriendshipRs(
+                error,
+                localDateTime,
+                messageMap);
+    }
+
+
+
+    public FriendshipRs deleteStatus(List<Friendship> friendshipList){
+        for (Friendship friendship : friendshipList){
             FriendshipStatus friendshipStatus = new FriendshipStatus();
             friendshipStatus.setId(friendship.getStatusId());
             friendshipStatusRepository.delete(friendshipStatus);

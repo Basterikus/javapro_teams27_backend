@@ -27,7 +27,7 @@ public class PersonRepository {
                 "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, person.getFirstName(), person.getLastName(), person.getRegDate(),
                 person.getBirthDate(), person.getEmail(), person.getPhone(), person.getPassword(),
-                person.getPhoto(), person.getAbout(), person.getCityId(), person.getConfirmationCode(),
+                person.getPhoto(), person.getAbout(), person.getCity(), person.getConfirmationCode(),
                 person.getIsApproved(), person.getMessagesPermission(), person.getLastOnlineTime(),
                 person.getIsBlocked());
     }
@@ -62,7 +62,10 @@ public class PersonRepository {
         return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
     }
 
-    public List<Person> findPeople (String firstName, String lastName, Integer ageFrom, Integer ageTo, Integer cityId) {
+    public List<Person> findPeople (Person authorizedPerson, String firstName, String lastName, Integer ageFrom,
+                                    Integer ageTo, String city, String country) {
+
+        //TODO: JOOQ + Filter blocked people
 
         ArrayList<String> queryParts = new ArrayList<>();
 
@@ -82,8 +85,12 @@ public class PersonRepository {
             queryParts.add("date_part('year', age(birth_date))::int < " + ageTo);
         }
 
-        if(cityId != null) {
-            queryParts.add("city_id = " + cityId);
+        if(city != null) {
+            queryParts.add("city = '" + city + "'");
+        }
+
+        if(country != null) {
+            queryParts.add("country = '" + country + "'");
         }
 
         String buildQuery = "SELECT * FROM person WHERE " + String.join(" AND ", queryParts) + ";";

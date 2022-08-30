@@ -1,4 +1,4 @@
 spring:
     profiles:
-        active: anton_m
+        active: karina
 

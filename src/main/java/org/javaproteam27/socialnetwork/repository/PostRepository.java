@@ -8,6 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +26,9 @@ public class PostRepository {
         try {
             int id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post", Integer.class) + 1;
             jdbcTemplate.update("INSERT INTO post (id, time, author_id, title, post_text) " +
-                            "VALUES (?, ?, ?, ?, ?)", id, new Timestamp(time), authorId, title, postText);
+                    "VALUES (?, ?, ?, ?, ?)", id, new Timestamp(time), authorId, title, postText);
             return id;
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             //throw new PostNotAddedException(exception.getMessage());
             return -1;
         }
@@ -35,7 +38,7 @@ public class PostRepository {
         try {
             return jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId,
                     new PostMapper());
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             return new ArrayList<>();
         }
     }
@@ -54,19 +57,42 @@ public class PostRepository {
         try {
             post = jdbcTemplate.queryForObject("SELECT * FROM post WHERE id = ?"
                     , new Object[]{postId}, new PostMapper());
-        }
-        catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             return null;
         }
         return post;
     }
-    public List<Post> findAllPublishedPosts(){
+
+    public List<Post> findAllPublishedPosts() {
         try {
-            return jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP",new PostMapper());
+            return jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP", new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             //TODO: add logging;
             return new ArrayList<>();
         }
+    }
+
+    public List<Post> findPost(String text, Long dateFrom, Long dateTo) {
+        ArrayList<String> queryParts = new ArrayList<>();
+
+        if (text != null) {
+            queryParts.add("post_text LIKE '%" + text + "%'");
+        }
+
+        if (dateFrom != null) {
+            LocalDate dateFromParsed =
+                    Instant.ofEpochMilli(dateFrom).atZone(ZoneId.systemDefault()).toLocalDate();
+            queryParts.add("time > '" + dateFromParsed + "'::date");
+        }
+
+        if (dateTo != null) {
+            LocalDate dateToParsed =
+                    Instant.ofEpochMilli(dateTo).atZone(ZoneId.systemDefault()).toLocalDate();
+            queryParts.add("time < '" + dateToParsed + "'::date");
+        }
+
+        String buildQuery = "SELECT * FROM post WHERE " + String.join(" AND ", queryParts) + ";";
+        return jdbcTemplate.query(buildQuery, new PostMapper());
     }
 }

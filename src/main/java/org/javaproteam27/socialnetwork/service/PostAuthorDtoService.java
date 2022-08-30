@@ -17,9 +17,9 @@ public class PostAuthorDtoService {
                 .id(person.getId())
                 .email(person.getEmail())
                 .phone(person.getPhone())
-                .city(cityService.findById(person.getCityId()).getTitle())
+                .city(cityService.findByTitle(person.getCity()).getTitle())
                 .country(countryService.findById(
-                                cityService.findById(person.getCityId()).getCountryId())
+                                cityService.findByTitle(person.getCity()).getCountryId())
                         .getTitle())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())

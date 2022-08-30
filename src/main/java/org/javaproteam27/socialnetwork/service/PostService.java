@@ -66,4 +66,11 @@ public class PostService {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    public ResponseEntity<?> findPost (String text, Long dateFrom, Long dateTo, int offset, int itemPerPage) {
+
+        List<PostRs> data = postRepository.findPost(text, dateFrom, dateTo).stream().
+                map(postDtoService::initialize).collect(Collectors.toList());
+        return ResponseEntity.ok(new ListResponseRs<>("", offset, itemPerPage, data));
+    }
 }

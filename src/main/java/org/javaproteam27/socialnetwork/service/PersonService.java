@@ -6,6 +6,9 @@ import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +29,19 @@ public class PersonService {
         return personRepository.findByEmail(email);
     }
 
-    public ListResponseRs<PersonRs> findPerson(String firstName, String lastName, Integer ageFrom, Integer ageTo, Integer cityId, int offset, int itemPerPage) {
+    public ListResponseRs<PersonRs> findPerson(String firstName, String lastName, Integer ageFrom, Integer ageTo,
+                                               String city, String country, int offset, int itemPerPage) {
 
-        return getResultJson(personRepository.findPeople(firstName, lastName, ageFrom, ageTo, cityId), offset, itemPerPage);
+        Person authorizedPerson = getAuthorizedPerson();
+        return getResultJson(personRepository.findPeople(authorizedPerson, firstName, lastName, ageFrom, ageTo, city,
+                        country),
+                offset, itemPerPage);
+    }
+
+    public Person getAuthorizedPerson() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        JwtUser jwtUser = (JwtUser) auth.getPrincipal();
+        return personRepository.findByEmail(jwtUser.getUsername());
     }
 
     private ListResponseRs<PersonRs> getResultJson(List<Person> people, int offset, int itemPerPage) {
@@ -42,6 +55,8 @@ public class PersonService {
                         .about(person.getAbout())
                         .phone(person.getPhone())
                         .lastOnlineTime(person.getLastOnlineTime())
+                        .country(person.getCountry())
+                        .city(person.getCity())
                         .build())
                 .collect(Collectors.toList());
 

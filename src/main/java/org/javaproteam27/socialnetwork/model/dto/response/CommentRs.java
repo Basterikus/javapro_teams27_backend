@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -7,16 +8,16 @@ import lombok.Data;
 @Data
 @Builder
 public class CommentRs {
-    @JsonProperty("parent_id")
-    Integer parentId;
-    @JsonProperty("comment_text")
-    String commentText;
-    Integer id;
+    private Integer id;
+    private Long time;
     @JsonProperty("post_id")
-    Integer postId;
-    Long time;
+    private Integer postId;
+    @JsonProperty("parent_id")
+    private Integer parentId;
     @JsonProperty("author_id")
-    Integer authorId;
+    private Integer authorId;
+    @JsonProperty("comment_text")
+    private String commentText;
     @JsonProperty("is_blocked")
-    Boolean isBlocked;
+    private Boolean isBlocked;
 }

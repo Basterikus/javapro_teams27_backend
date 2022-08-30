@@ -8,5 +8,6 @@ public class CommentRq {
     @JsonProperty("parent_id")
     Integer parentId;
     @JsonProperty("comment_text")
+    //@JsonProperty(defaultValue = null)
     String commentText;
 }

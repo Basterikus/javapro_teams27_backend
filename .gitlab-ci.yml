@@ -26,17 +26,17 @@ docker-build:
     rules:
         - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 
-push:
-    stage: push
-    tags:
-        - docker-runner
-
-
-    allow_failure: true
-
-deploy:
-    stage: deploy
-    tags:
-        - docker-runner
+#push:
+#    stage: push
+#    tags:
+#        - docker-runner
+#
+#
+#    allow_failure: true
+#
+#deploy:
+#    stage: deploy
+#    tags:
+#        - docker-runner
 
 

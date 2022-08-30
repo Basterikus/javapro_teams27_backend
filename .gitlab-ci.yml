@@ -15,14 +15,14 @@ variables:
 #    script:
 #        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
-test:
-    stage: test
-    tags:
-        - social-server-2
-    script:
-        - cd /root/javapro_teams27_backend
-        - mvn clean test
-    allow_failure: true
+#test:
+#    stage: test
+#    tags:
+#        - social-server-2
+#    script:
+#        - cd /root/javapro_teams27_backend
+#        - mvn clean test
+#    allow_failure: true
 
 
 #cleanup:
@@ -44,7 +44,7 @@ build:
 #        - cd /root/javapro_teams27_backend
         - whoami
         - pwd
-        - docker build -t IMAGE_NAME ./
+#        - docker build -t IMAGE_NAME ./
     only:
         - aleksei
 
@@ -53,7 +53,8 @@ deploy:
     tags:
         - social-server-2
     script:
+        - echo "Testing"
 #        - cd /root/javapro_teams27_backend
-        - docker run -d -p 8086:8086 --name IMAGE_NAME
+#        - docker run -d -p 8086:8086 --name IMAGE_NAME
     only:
         - aleksei

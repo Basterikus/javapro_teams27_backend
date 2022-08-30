@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введено имя")
     private String firstName;
     @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
@@ -29,7 +29,8 @@ public class Person {
     private String password;
     private String photo;
     private String about;
-    private Integer cityId;
+    private String city;
+    private String country;
     private Integer confirmationCode;
     private Boolean isApproved;
     private MessagesPermission messagesPermission;

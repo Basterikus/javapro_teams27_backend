@@ -1,76 +1,51 @@
 stages:
-#    - test
+    - clone
+    - test
+    - cleanup
     - build
     - deploy
 
-variables:
-    CONTAINER_NAME: social-backend
-#    DOCKER_REGISTRY: registry-1.docker.io
-    TAG_LATEST: $DOCKER_USER/$CI_COMMIT_REF_NAME:latest
-    TAG_COMMIT: axelration/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+clone:
+    stage: clone
+    tags:
+        - social-network
+    script:
+        - cd /root
+        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
+test:
+    stage: test
+    tags:
+        - social-network
+    script:
+        - cd /root/javapro_teams27_backend
+        - mvn clean test
 
-#test:
-#    image: maven:3.8.6-jdk-11-slim
-#    stage: test
-#    tags:
-#        - social-docker
-#    script:
-#        - mvn clean test
-#    artifacts:
-#        when: always
-#        reports:
-#            junit:
-#                - target/surefire-reports/TEST-*.xml
-
-#build:
-#    image: docker:20.10.17
-#    stage: build
-#    tags:
-#        - social-docker
-#    services:
-#        - name: docker:20.10.17-dind
-#          command: ["--tsl=false"]
-#    variables:
-#        DOCKER_HOST: tcp://docker:2375
-#        DOCKER_DRIVER: overlay2
-#        DOCKER_TSL_CERTDIR: ""
-#    script:
-#        - docker build -t axelration/social-backend:latest .
-#        - docker login -u axelration -p vmnxttya5r2c registry-1.docker-io
-#        - docker push axelration/social-backend:latest
+cleanup:
+    stage: cleanup
+    tags:
+        - social-network
+    script:
+        - docker stop javapro_teams27_backend
+        - docker container prune
+        - docker image rm javapro_teams27_backend
 
 build:
-    image: alpine
     stage: build
     tags:
         - social-docker
     script:
-#        - chmod og=$ID_RSA
-        - apk update && apk add openssh-client
-        - ssh -i $ID_RSA $SERVER_USER@$SERVER_IP "docker build -t axelration/social-backend:latest ."
-        - ssh -i $ID_RSA $SERVER_USER@$SERVER_IP "docker login -u axelration -p vmnxttya5r2c registry-1.docker-io"
-        - ssh -i $ID_RSA $SERVER_USER@$SERVER_IP "docker push axelration/social-backend:latest"
-    environment:
-        name: prod
-        url: http://195.133.48.174
+        - cd /root/javapro_teams27_backend
+        - docker build -t javapro_teams27_backend:$CI_PIPELINE_ID .
     only:
         - aleksei
 
 deploy:
-    image: alpine
     stage: deploy
     tags:
-        - social-docker
+        - social-network
     script:
-#        - chmod og=$ID_RSA
-        - apk update && apk add openssh-client
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u axelration -p vmnxttya5r2c"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull axelration/social-backend:latest"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f $CONTAINER_NAME || true"
-        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8086:8086 --name $CONTAINER_NAME axelration/social-backend:latest"
-    environment:
-        name: prod
-        url: http://195.133.48.174
+        - cd /root/javapro_teams27_backend
+        - docker run -d -p 8086:8086 --name javapro_teams27_backend:$CI_PIPELINE_ID
     only:
         - aleksei

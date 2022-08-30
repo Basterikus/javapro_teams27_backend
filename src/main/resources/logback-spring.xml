@@ -7,39 +7,37 @@
 
     <appender name="InfoLoggerFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>src/main/resources/logs/info-logger.log</file>
+        <file>logs/info-logger.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </encoder>
 
         <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>src/main/resources/logs/archived/info-logger-%d{yyyy-MM-dd}.%i.log
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/info-logger-%d{dd-MM-yyyy}.%i.log
             </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxHistory>1</maxHistory>
                 <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+                <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
     <appender name="DebugLoggerFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>src/main/resources/logs/debug-logger.log</file>
+        <file>logs/debug-logger.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </encoder>
 
         <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>src/main/resources/logs/archived/debug-logger-%d{yyyy-MM-dd}.%i.log
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/debug-logger-%d{dd-MM-yyyy}.%i.log
             </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxHistory>1</maxHistory>
                 <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+                <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 

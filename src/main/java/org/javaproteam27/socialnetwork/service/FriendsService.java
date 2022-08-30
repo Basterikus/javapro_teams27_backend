@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.model.entity.City;
 import org.javaproteam27.socialnetwork.model.entity.Country;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
+import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class FriendsService {
     private final FriendshipService friendshipService;
     private final CityService cityService;
     private final CountryService countryService;
-    
+    private final PersonRepository personRepository;
     
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
         
@@ -137,6 +138,11 @@ public class FriendsService {
                 .collect(Collectors.toList());
         
         return new ListResponseRs<>("", offset, itemPerPage, data);
+    }
+    public ListResponseRs<PersonRs> getListFriends(String name, int offset, int itemPerPage){
+        List<Person> person = personRepository.getFriendsPersonById(personService.getAuthorizedPerson().getId());
+
+        return getResultJson(person,offset,itemPerPage);
     }
     
 }

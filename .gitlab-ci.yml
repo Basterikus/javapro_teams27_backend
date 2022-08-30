@@ -1,24 +1,26 @@
 stages:
-    - clone
+#    - clone
     - test
     - cleanup
     - build
     - deploy
 
-clone:
-    stage: clone
-    tags:
-        - social
-    script:
-        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+#clone:
+#    stage: clone
+#    tags:
+#        - social
+#    script:
+#        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test
     tags:
         - social
     script:
-        - cd /root/javapro_teams27_backend
+#        - cd /root/javapro_teams27_backend
         - mvn clean test
+    allow_failure: true
+
 
 cleanup:
     stage: cleanup
@@ -28,6 +30,8 @@ cleanup:
         - docker stop javapro_teams27_backend
         - docker container prune
         - docker image rm javapro_teams27_backend
+    allow_failure: true
+
 
 build:
     stage: build

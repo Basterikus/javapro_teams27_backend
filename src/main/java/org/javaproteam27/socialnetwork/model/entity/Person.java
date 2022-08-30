@@ -12,16 +12,12 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
-    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введено имя")
     private String firstName;
-    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
     private LocalDateTime regDate;
     private LocalDateTime birthDate;
-    @Email
     private String email;
     private String phone;
     private String password;

@@ -6,4 +6,5 @@ import lombok.Data;
 public class CaptchaRs {
 
     private String image;
+    private String code;
 }

@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Service
 @RequiredArgsConstructor
@@ -24,21 +25,20 @@ public class CaptchaService {
 
     public CaptchaRs getCaptcha() throws IOException {
 
-        captchaRepository.findAll().forEach(captcha -> {
-            if (captcha.getTime().isBefore(LocalDateTime.now().minusHours(1))) {
-                captchaRepository.deleteProfileById(captcha.getId());
-            }
-        });
+//        captchaRepository.findAll().forEach(captcha -> {
+//            if (captcha.getTime().isBefore(LocalDateTime.now().minusHours(1))) {
+//                captchaRepository.deleteProfileById(captcha.getId());
+//            }
+//        });
+
         StringBuilder image = new StringBuilder("data:image/png;base64, ");
         CaptchaRs response = new CaptchaRs();
-        Captcha captcha = new Captcha();
-        LocalDateTime time = LocalDateTime.now();
         Cage cage = new GCage();
         String captchaCode = cage.getTokenGenerator().next();
         String secretCode = cage.getTokenGenerator().next();
 
         OutputStream os = new FileOutputStream("captcha.jpg", false);
-        cage.draw(captchaCode, os);
+        cage.draw(secretCode, os);
         os.flush();
         os.close();
 
@@ -47,11 +47,10 @@ public class CaptchaService {
         String encodedCaptcha = DatatypeConverter.printBase64Binary(captchaByte);
         image.append(encodedCaptcha);
 
-        captcha.setTime(time);
-        captcha.setCode(captchaCode);
-        captcha.setSecretCode(secretCode);
-        captchaRepository.save(captcha);
+        captchaRepository.addCaptcha(System.currentTimeMillis(), captchaCode, secretCode);
+
         response.setImage(image.toString());
+        response.setCode(captchaCode);
         return response;
     }
 }

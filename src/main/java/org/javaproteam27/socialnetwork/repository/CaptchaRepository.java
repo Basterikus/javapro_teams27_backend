@@ -3,11 +3,13 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.entity.Captcha;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -27,6 +29,18 @@ public class CaptchaRepository {
 
         return captcha;
     };
+
+    public int addCaptcha(long time, String code, String secretCode) {
+
+        try {
+            int id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM captcha", Integer.class) + 1;
+            jdbcTemplate.update("INSERT INTO captcha (id, time, code, secret_code) " +
+                    "VALUES (?, ?, ?, ?)", id, new Timestamp(time), code, secretCode);
+            return id;
+        } catch (DataAccessException exception){
+            return -1;
+        }
+    }
 
 
     public Captcha findByCode(String code) {

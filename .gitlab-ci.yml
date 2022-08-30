@@ -1,7 +1,7 @@
 stages:
 #    - clone
     - test
-    - cleanup
+#    - cleanup
     - build
     - deploy
 
@@ -15,14 +15,14 @@ variables:
 #    script:
 #        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
-#test:
-#    stage: test
-#    tags:
-#        - social
-#    script:
-##        - cd /root/javapro_teams27_backend
-#        - mvn clean test
-#    allow_failure: true
+test:
+    stage: test
+    tags:
+        - social
+    script:
+        - cd /root/javapro_teams27_backend
+        - mvn clean test
+    allow_failure: true
 
 
 #cleanup:

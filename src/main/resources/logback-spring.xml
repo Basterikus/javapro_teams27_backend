@@ -14,13 +14,12 @@
         </encoder>
 
         <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>logs/archived/info-logger-%d{dd-MM-yyyy}.%i.log
             </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxHistory>1</maxHistory>
                 <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+                <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
@@ -33,13 +32,12 @@
         </encoder>
 
         <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>logs/archived/debug-logger-%d{dd-MM-yyyy}.%i.log
             </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxHistory>1</maxHistory>
                 <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+                <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 

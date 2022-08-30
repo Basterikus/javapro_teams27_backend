@@ -19,7 +19,7 @@ public class CommentService {
         Integer authorId = personService.getAuthorizedPerson().getId();
         Long time = System.currentTimeMillis();
         Integer commentId = commentRepository.addComment(postId, commentText, parentId, authorId, time);
-        parentId = (parentId == -1) ? commentId : parentId;
+        parentId = (parentId == null) ? commentId : parentId;
         CommentRs data = CommentRs.builder().id(commentId).commentText(commentText).postId(postId).authorId(authorId)
                 .time(time).isBlocked(false).parentId(parentId).build();
         return new ResponseRs<>("", data, null);

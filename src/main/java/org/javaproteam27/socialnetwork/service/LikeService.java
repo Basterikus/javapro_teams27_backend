@@ -14,8 +14,11 @@ public class LikeService {
     private final LikeRepository likeRepository;
     private final PersonService personService;
 
-    public ResponseRs<LikeRs> addPostLike(Integer postId){
+    public ResponseRs<LikeRs> addPostLike(String type, Integer postId){
 
+        if (!type.equals("Post")){
+            return null;
+        }
         Long time = System.currentTimeMillis();
         Integer personId = personService.getAuthorizedPerson().getId();
         likeRepository.addPostLike(time, personId, postId);
@@ -33,8 +36,11 @@ public class LikeService {
         return likeRepository.deletePostLike(postId, userId);
     }
 
-    public ResponseRs<LikeRs> deletePostLike(Integer postId) {
+    public ResponseRs<LikeRs> deletePostLike(String type, Integer postId) {
 
+        if (!type.equals("Post")){
+            return null;
+        }
         Integer personId = personService.getAuthorizedPerson().getId();
         if (deletePostLikeTest(postId, personId)){
             LikeRs data = LikeRs.builder().likes(1).build();
@@ -48,8 +54,11 @@ public class LikeService {
         return likeRepository.getLikesByPostId(postId).size();
     }
 
-    public ResponseRs<LikeRs> getPostLikeList(Integer postId) {
+    public ResponseRs<LikeRs> getPostLikeList(String type, Integer postId) {
 
+        if (!type.equals("Post")){
+            return null;
+        }
         List<Integer> likes = likeRepository.getUserListLikedPost(postId);
         LikeRs data = LikeRs.builder().likes(likes.size()).users(likes).build();
         return new ResponseRs<>("", data, null);

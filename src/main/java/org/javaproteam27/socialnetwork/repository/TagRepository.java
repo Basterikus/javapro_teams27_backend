@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class TagRepository {
     private final JdbcTemplate jdbcTemplate;
     public Integer addTag(String tagString, int postId) {
@@ -25,6 +27,7 @@ public class TagRepository {
             }
             retValue = idTag;
         } catch (DataAccessException exception){
+            log.error(exception.getLocalizedMessage());
         }
         return retValue;
     }
@@ -43,6 +46,7 @@ public class TagRepository {
                     String.class)));
             retList = tags;
         } catch (DataAccessException exception){
+            log.error(exception.getLocalizedMessage());
         }
         return retList;
     }
@@ -60,6 +64,7 @@ public class TagRepository {
             });
             retValue = true;
         } catch (DataAccessException exception){
+            log.error(exception.getLocalizedMessage());
         }
         return retValue;
     }

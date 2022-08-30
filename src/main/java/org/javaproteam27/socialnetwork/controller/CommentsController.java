@@ -18,9 +18,7 @@ public class CommentsController {
     @PostMapping
     public ResponseEntity<ResponseRs<CommentRs>> createComment(@PathVariable(value = "id") int postId,
                                                                @RequestBody CommentRq commentRq){
-        if (commentRq.getParentId() == null) {
-            commentRq.setParentId(-1);
-        }
+
         ResponseRs<CommentRs> responseRs = commentService.addComment(postId, commentRq.getCommentText(), commentRq.getParentId());
         return ResponseEntity.ok(responseRs);
     }

@@ -16,33 +16,21 @@ public class LikesController {
 
     @PutMapping
     public ResponseEntity<ResponseRs<LikeRs>> putLike(@RequestBody LikeRq likeRq){
-        ResponseEntity<ResponseRs<LikeRs>> retValue = null;
-        if (likeRq.getType().equals("Post")){
-            ResponseRs<LikeRs> responseRs = likeService.addPostLike(likeRq.getItemId());
-            retValue = ResponseEntity.ok(responseRs);
-        }
-        return retValue;
+        ResponseRs<LikeRs> responseRs = likeService.addPostLike(likeRq.getType(), likeRq.getItemId());
+        return ResponseEntity.ok(responseRs);
     }
 
     @DeleteMapping
     public ResponseEntity<ResponseRs<LikeRs>> deleteLike(@RequestParam("item_id") Integer itemId,
                                                          @RequestParam String type){
-        ResponseEntity<ResponseRs<LikeRs>> retValue = null;
-        if (type.equals("Post")){
-            ResponseRs<LikeRs> responseRs = likeService.deletePostLike(itemId);
-            retValue = ResponseEntity.ok(responseRs);
-        }
-        return retValue;
+        ResponseRs<LikeRs> responseRs = likeService.deletePostLike(type, itemId);
+        return ResponseEntity.ok(responseRs);
     }
 
     @GetMapping
     public ResponseEntity<ResponseRs<LikeRs>> getLikeList(@RequestParam("item_id") Integer itemId,
                                                           @RequestParam String type){
-        ResponseEntity<ResponseRs<LikeRs>> retValue = null;
-        if (type.equals("Post")){
-            ResponseRs<LikeRs> responseRs = likeService.getPostLikeList(itemId);
-            retValue = ResponseEntity.ok(responseRs);
-        }
-        return retValue;
+        ResponseRs<LikeRs> responseRs = likeService.getPostLikeList(type, itemId);
+        return ResponseEntity.ok(responseRs);
     }
 }

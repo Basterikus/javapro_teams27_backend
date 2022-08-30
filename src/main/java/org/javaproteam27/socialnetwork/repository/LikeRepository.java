@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class LikeRepository {
     private final JdbcTemplate jdbcTemplate;
 
@@ -22,6 +24,7 @@ public class LikeRepository {
             jdbcTemplate.update("INSERT INTO post_like " + "VALUES (?, ?, ?, ?)",
                     idLike, new Timestamp(time), personId, postId);
         } catch (DataAccessException exception){
+            log.error(exception.getLocalizedMessage());
         }
         return idLike;
     }
@@ -32,6 +35,7 @@ public class LikeRepository {
             retValue = (jdbcTemplate.update("DELETE FROM post_like WHERE post_id = " + postId +
                     " AND person_id = " + userId) == 1);
         } catch (DataAccessException exception) {
+            log.error(exception.getLocalizedMessage());
         }
         return retValue;
     }
@@ -43,6 +47,7 @@ public class LikeRepository {
                             + personId + " AND post_id = " + postId,
                     (rs, rowNum) -> rs.getInt("id"));
         } catch (DataAccessException exception){
+            log.error(exception.getLocalizedMessage());
         }
         return retList;
     }
@@ -54,6 +59,7 @@ public class LikeRepository {
             retList = jdbcTemplate.query("SELECT id FROM post_like WHERE post_id = " + postId,
                     (rs, rowNum) -> rs.getInt("id"));
         } catch (DataAccessException exception){
+            log.error(exception.getLocalizedMessage());
         }
         return retList;
     }
@@ -64,6 +70,7 @@ public class LikeRepository {
             retList = jdbcTemplate.query("SELECT person_id FROM post_like WHERE post_id = " + postId,
                     (rs, rowNum) -> rs.getInt("person_id"));
         } catch (DataAccessException exception) {
+            log.error(exception.getLocalizedMessage());
         }
         return retList;
     }

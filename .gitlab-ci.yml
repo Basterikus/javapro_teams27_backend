@@ -18,7 +18,7 @@ variables:
 test:
     stage: test
     tags:
-        - social-server
+        - social-server-2
     script:
         - cd /root/javapro_teams27_backend
         - mvn clean test
@@ -39,7 +39,7 @@ test:
 build:
     stage: build
     tags:
-        - social-server
+        - social-server-2
     script:
 #        - cd /root/javapro_teams27_backend
         - whoami
@@ -51,7 +51,7 @@ build:
 deploy:
     stage: deploy
     tags:
-        - social-server
+        - social-server-2
     script:
 #        - cd /root/javapro_teams27_backend
         - docker run -d -p 8086:8086 --name IMAGE_NAME

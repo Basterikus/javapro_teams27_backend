@@ -42,6 +42,8 @@ build:
         - social-server
     script:
 #        - cd /root/javapro_teams27_backend
+        - whoami
+        - pwd
         - docker build -t IMAGE_NAME ./
     only:
         - aleksei

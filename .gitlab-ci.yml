@@ -39,7 +39,7 @@ variables:
 build:
     stage: build
     tags:
-        - social
+        - social-server
     script:
 #        - cd /root/javapro_teams27_backend
         - docker build -t IMAGE_NAME ./
@@ -49,7 +49,7 @@ build:
 deploy:
     stage: deploy
     tags:
-        - social
+        - social-server
     script:
 #        - cd /root/javapro_teams27_backend
         - docker run -d -p 8086:8086 --name IMAGE_NAME

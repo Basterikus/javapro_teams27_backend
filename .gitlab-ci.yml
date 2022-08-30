@@ -20,9 +20,9 @@ docker-build:
     script:
         - docker build -t $IMAGE_NAME ./
         - docker login -u axelration -p dckr_pat_IIHDrvsHHR-fLbTpvKz2OaktrTs
-        - docker push $IMAGE_NAME
-        - docker pull $IMAGE_NAME
-        - docker run -d -p 8086:8086 --name backend
+#        - docker push $IMAGE_NAME
+#        - docker pull $IMAGE_NAME
+        - docker run -d -p 8086:8086 --name backend $IMAGE_NAME
     rules:
         - if: "$CI_COMMIT_BRANCH == 'aleksei'"
 

@@ -8,7 +8,7 @@ stages:
 clone:
     stage: clone
     tags:
-        - social-network
+        - social
     script:
         - cd /root
         - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
@@ -16,7 +16,7 @@ clone:
 test:
     stage: test
     tags:
-        - social-network
+        - social
     script:
         - cd /root/javapro_teams27_backend
         - mvn clean test
@@ -24,7 +24,7 @@ test:
 cleanup:
     stage: cleanup
     tags:
-        - social-network
+        - social
     script:
         - docker stop javapro_teams27_backend
         - docker container prune
@@ -33,7 +33,7 @@ cleanup:
 build:
     stage: build
     tags:
-        - social-docker
+        - social
     script:
         - cd /root/javapro_teams27_backend
         - docker build -t javapro_teams27_backend:$CI_PIPELINE_ID .
@@ -43,7 +43,7 @@ build:
 deploy:
     stage: deploy
     tags:
-        - social-network
+        - social
     script:
         - cd /root/javapro_teams27_backend
         - docker run -d -p 8086:8086 --name javapro_teams27_backend:$CI_PIPELINE_ID

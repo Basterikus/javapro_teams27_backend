@@ -35,8 +35,8 @@ public class LoginService {
         PersonRs personRs =  PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
                 lastName(person.getLastName()).regDate(person.getRegDate()).birthDate(person.getBirthDate()).
                 email(person.getEmail()).phone(person.getPhone()).photo(person.getPhoto()).about(person.getAbout()).
-                city(cityService.findById(person.getCityId()).getTitle()).country(countryService.findById(
-                                cityService.findById(person.getCityId()).getCountryId()).
+                city(cityService.findByTitle(person.getCity()).getTitle()).country(countryService.findById(
+                                cityService.findByTitle(person.getCity()).getCountryId()).
                         getTitle()).messagesPermission(person.getMessagesPermission()).
                 lastOnlineTime(person.getLastOnlineTime()).isBlocked(person.getIsBlocked()).token(token).build();
         return ResponseEntity.ok(new ResponseRs<>("string", 0, 20, personRs));
@@ -48,7 +48,7 @@ public class LoginService {
         Person person = personRepository.findByEmail(email);
         if (person.getPassword().contains(password)) {
             String token = getToken(email);
-            City city = cityRepository.findById(person.getCityId());
+            City city = cityRepository.findByTitle(person.getCity());
             Country country = countryRepository.findById(city.getCountryId());
             return new LoginRs("", new Date(), new LoginDataRs(person.getId(),
                     person.getFirstName(),

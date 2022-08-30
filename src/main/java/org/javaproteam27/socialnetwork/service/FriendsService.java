@@ -115,7 +115,7 @@ public class FriendsService {
         List<PersonRs> data = persons.stream()
                 .map(person -> {
                     
-                    City city = cityService.findById(person.getCityId());
+                    City city = cityService.findByTitle(person.getCity());
                     Country country = countryService.findById(city.getCountryId());
                     
                     return PersonRs.builder()

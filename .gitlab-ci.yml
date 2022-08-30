@@ -26,9 +26,8 @@ push:
     stage: push
     tags:
         - docker-runner
-    before_script:
-        - docker login -u axelration -p dckr_pat_IIHDrvsHHR-fLbTpvKz2OaktrTs
     script:
+        - docker login -u axelration -p dckr_pat_IIHDrvsHHR-fLbTpvKz2OaktrTs
         - docker push $IMAGE_NAME
     allow_failure: true
 
@@ -36,8 +35,6 @@ deploy:
     stage: deploy
     tags:
         - docker-runner
-    variables:
-        DOCKER_HOST: tcp://195.133.48.174:22
     script:
         - docker pull $IMAGE_NAME
         - docker run -d -p 8086:8086 --name backend

@@ -9,6 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -83,4 +87,28 @@ public class PostRepository {
         }
         return retList;
     }
+
+    public List<Post> findPost(String text, Long dateFrom, Long dateTo) {
+        ArrayList<String> queryParts = new ArrayList<>();
+
+        if (text != null) {
+            queryParts.add("post_text LIKE '%" + text + "%'");
+        }
+
+        if (dateFrom != null) {
+            LocalDate dateFromParsed =
+                    Instant.ofEpochMilli(dateFrom).atZone(ZoneId.systemDefault()).toLocalDate();
+            queryParts.add("time > '" + dateFromParsed + "'::date");
+        }
+
+        if (dateTo != null) {
+            LocalDate dateToParsed =
+                    Instant.ofEpochMilli(dateTo).atZone(ZoneId.systemDefault()).toLocalDate();
+            queryParts.add("time < '" + dateToParsed + "'::date");
+        }
+
+        String buildQuery = "SELECT * FROM post WHERE " + String.join(" AND ", queryParts) + ";";
+        return jdbcTemplate.query(buildQuery, new PostMapper());
+    }
+
 }

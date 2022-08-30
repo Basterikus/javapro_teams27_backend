@@ -24,16 +24,18 @@ public class UserController {
     private final LoginService loginService;
 
     @GetMapping("/search")
-    private ResponseEntity<ListResponseRs<PersonRs>> searchPeople(
+    public ResponseEntity<ListResponseRs<PersonRs>> searchPeople(
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName,
             @RequestParam(value = "ageFrom", required = false) Integer ageFrom,
             @RequestParam(value = "ageTo", required = false) Integer ageTo,
-            @RequestParam(value = "cityId", required = false) Integer cityId,
+            @RequestParam(value = "city", required = false) String city,
+            @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
             @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage) {
 
-        return ResponseEntity.ok(personService.findPerson(firstName, lastName, ageFrom, ageTo, cityId, offset, itemPerPage));
+        return ResponseEntity.ok(personService.findPerson(firstName, lastName, ageFrom, ageTo, city, country,
+                offset, itemPerPage));
     }
 
     @GetMapping("me")

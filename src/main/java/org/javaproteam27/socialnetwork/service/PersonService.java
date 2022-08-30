@@ -31,15 +31,19 @@ public class PersonService {
         return personRepository.findByEmail(email);
     }
 
+    public ListResponseRs<PersonRs> findPerson(String firstName, String lastName, Integer ageFrom, Integer ageTo,
+                                               String city, String country, int offset, int itemPerPage) {
+
+        Person authorizedPerson = getAuthorizedPerson();
+        return getResultJson(personRepository.findPeople(authorizedPerson, firstName, lastName, ageFrom, ageTo, city,
+                        country),
+                offset, itemPerPage);
+    }
+
     public Person getAuthorizedPerson() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         JwtUser jwtUser = (JwtUser) auth.getPrincipal();
-        Person person = personRepository.findByEmail(jwtUser.getUsername());
-        return person;
-    }
-    public ListResponseRs<PersonRs> findPerson(String firstName, String lastName, Integer ageFrom, Integer ageTo, Integer cityId, int offset, int itemPerPage) {
-
-        return getResultJson(personRepository.findPeople(firstName, lastName, ageFrom, ageTo, cityId), offset, itemPerPage);
+        return personRepository.findByEmail(jwtUser.getUsername());
     }
 
     private ListResponseRs<PersonRs> getResultJson(List<Person> people, int offset, int itemPerPage) {
@@ -53,6 +57,8 @@ public class PersonService {
                         .about(person.getAbout())
                         .phone(person.getPhone())
                         .lastOnlineTime(person.getLastOnlineTime())
+                        .country(person.getCountry())
+                        .city(person.getCity())
                         .build())
                 .collect(Collectors.toList());
 
@@ -66,8 +72,8 @@ public class PersonService {
                 .id(person.getId())
                 .email(person.getEmail())
                 .phone(person.getPhone())
-                .city(cityService.findById(person.getCityId()).getTitle())
-                .country(countryService.findById(cityService.findById(person.getCityId()).getCountryId()).getTitle())
+                .city(cityService.findByTitle(person.getCity()).getTitle())
+                .country(countryService.findById(cityService.findByTitle(person.getCity()).getCountryId()).getTitle())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .regDate(person.getRegDate())

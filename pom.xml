@@ -81,6 +81,14 @@
 			<version>2.7.3</version>
 		</dependency>
 
+		<!-- Yandex Disk -->
+		<dependency>
+			<groupId>com.yandex.android</groupId>
+			<artifactId>disk-restapi-sdk</artifactId>
+			<version>1.03</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

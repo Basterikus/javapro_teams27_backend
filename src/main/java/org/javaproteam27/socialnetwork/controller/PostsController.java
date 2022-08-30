@@ -12,16 +12,16 @@ import java.text.SimpleDateFormat;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/post/{id}")
+@RequestMapping("api/v1/post")
 public class PostsController {
     private final PostService postService;
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseRs<PostRs>> deletePost(@PathVariable(value = "id") int postId){
         ResponseRs<PostRs> responseRs = postService.deletePost(postId);
         return ResponseEntity.ok(responseRs);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseRs<PostRs>> updatePost(@PathVariable(value = "id") int postId,
                                                         @RequestBody PostRq postRq){
         ResponseRs<PostRs> responseRs = postService.updatePost(postId, postRq.getTitle(),

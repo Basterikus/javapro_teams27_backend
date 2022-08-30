@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.javaproteam27.socialnetwork.repository.PostRepository;
 import org.javaproteam27.socialnetwork.repository.TagRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class PostService {
                 .myLike(likeService.isPostLikedByUser(personService.getAuthorizedPerson().getId(), post.getId()))
                 .build();
     }
-    
+
     public ListResponseRs<PostRs> findAllPosts(int offset, int itemPerPage) {
         List<Post> posts = postRepository.findAllPublishedPosts();
         List<PostRs> data = (posts != null) ? posts.stream().map(this::convertToPostRs).
@@ -85,8 +86,10 @@ public class PostService {
 
     public ResponseEntity<?> findPost (String text, Long dateFrom, Long dateTo, int offset, int itemPerPage) {
 
-        List<PostRs> data = postRepository.findPost(text, dateFrom, dateTo).stream().
-                map(postDtoService::initialize).collect(Collectors.toList());
+        List<Post> postsFound = postRepository.findPost(text, dateFrom, dateTo);
+        List<PostRs> data = (postsFound != null) ? postsFound.stream().map(this::convertToPostRs).
+                collect(Collectors.toList()) : null;
+
         return ResponseEntity.ok(new ListResponseRs<>("", offset, itemPerPage, data));
     }
 }

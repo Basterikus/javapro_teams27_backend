@@ -38,7 +38,7 @@ build:
     tags:
         - social
     script:
-        - cd /root/javapro_teams27_backend
+#        - cd /root/javapro_teams27_backend
         - docker build -t javapro_teams27_backend:$CI_PIPELINE_ID .
     only:
         - aleksei
@@ -48,7 +48,7 @@ deploy:
     tags:
         - social
     script:
-        - cd /root/javapro_teams27_backend
+#        - cd /root/javapro_teams27_backend
         - docker run -d -p 8086:8086 --name javapro_teams27_backend:$CI_PIPELINE_ID
     only:
         - aleksei

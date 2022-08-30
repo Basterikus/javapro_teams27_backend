@@ -10,8 +10,8 @@ clone:
     tags:
         - social
     script:
-        - cd /root
-        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+        - sudo cd /root
+        - sudo git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test

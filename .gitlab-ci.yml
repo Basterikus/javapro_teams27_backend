@@ -8,17 +8,17 @@ stages:
 variables:
     IMAGE_NAME: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
 
-#clone:
-#    stage: clone
-#    tags:
-#        - social
-#    script:
-#        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+clone:
+    stage: clone
+    tags:
+        - social
+    script:
+        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test
     tags:
-        - social-server-2
+        - docker-runner
     script:
 #        - cd /root/javapro_teams27_backend
         - mvn clean test
@@ -39,11 +39,11 @@ test:
 build:
     stage: build
     tags:
-        - social-server-2
+        - docker-runner
     script:
 #        - cd /root/javapro_teams27_backend
-        - whoami
-        - pwd
+#        - whoami
+#        - pwd
         - docker build -t $IMAGE_NAME ./
     only:
         - aleksei
@@ -51,7 +51,7 @@ build:
 deploy:
     stage: deploy
     tags:
-        - social-server-2
+        - docker-runner
     script:
 #        - cd /root/javapro_teams27_backend
         - docker run -d -p 8086:8086 --name $IMAGE_NAME

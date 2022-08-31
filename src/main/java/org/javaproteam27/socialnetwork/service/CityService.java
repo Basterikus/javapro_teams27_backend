@@ -12,8 +12,8 @@ public class CityService {
     private final CityRepository cityRepository;
     
     
-    public City findById(int id) {
-        return cityRepository.findById(id);
+    public City findByTitle(String city) {
+        return cityRepository.findByTitle(city);
     }
     
 }

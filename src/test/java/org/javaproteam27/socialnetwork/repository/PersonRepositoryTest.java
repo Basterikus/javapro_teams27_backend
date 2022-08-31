@@ -44,7 +44,7 @@ public class PersonRepositoryTest {
         person.setPassword("123456");
         person.setPhoto("http://www.photo.com");
         person.setAbout("about");
-        person.setCityId(null);
+        person.setCity(null);
         person.setConfirmationCode(123456);
         person.setIsApproved(true);
         person.setMessagesPermission(MessagesPermission.ALL);

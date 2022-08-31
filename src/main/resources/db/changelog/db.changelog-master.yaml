@@ -34,6 +34,8 @@ databaseChangeLog:
   - include:
       file: /db/changelog/migrations/017-edit-person.sql
   - include:
-      file: /db/changelog/migrations/018-edit-person.sql
+      file: /db/changelog/migrations/018-edit-person-city-country.sql
   - include:
-      file: /db/changelog/migrations/019-create-captcha.sql
+      file: /db/changelog/migrations/019-edit-person.sql
+  - include:
+      file: /db/changelog/migrations/020-create-captcha.sql

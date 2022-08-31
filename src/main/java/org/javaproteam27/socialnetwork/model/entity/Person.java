@@ -23,7 +23,8 @@ public class Person {
     private String password;
     private String photo;
     private String about;
-    private Integer cityId;
+    private String city;
+    private String country;
     private Integer confirmationCode;
     private Boolean isApproved;
     private MessagesPermission messagesPermission;

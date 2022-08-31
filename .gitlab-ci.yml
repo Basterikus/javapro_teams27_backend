@@ -1,5 +1,5 @@
 stages:
-    #    - clone
+    - clone
     - test
     - build
     - deploy
@@ -7,12 +7,12 @@ stages:
 variables:
     IMAGE_NAME: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
 
-#clone:
-#    stage: clone
-#    tags:
-#        - social
-#    script:
-#        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+clone:
+    stage: clone
+    tags:
+        - social
+    script:
+        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test

@@ -23,7 +23,7 @@ public class PersonRepository {
     public void save(Person person) {
 
         String sql = "insert into person(first_name, last_name, reg_date, birth_date, email, phone, " +
-                "password, photo, about, city_id, confirmation_code, is_approved, messages_permission, " +
+                "password, photo, about, city, confirmation_code, is_approved, messages_permission, " +
                 "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, person.getFirstName(), person.getLastName(), person.getRegDate(),
                 person.getBirthDate(), person.getEmail(), person.getPhone(), person.getPassword(),

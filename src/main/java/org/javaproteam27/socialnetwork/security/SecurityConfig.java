@@ -70,4 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
 }

@@ -22,7 +22,7 @@ test:
     tags:
         - social-server-2
     script:
-        - cd root/javapro_teams27_backend
+        - cd ~/javapro_teams27_backend
         - mvn clean test
 
 build:
@@ -30,7 +30,7 @@ build:
     tags:
         - social-server-2
     script:
-        - cd /root/javapro_teams27_backend
+        - cd ~/javapro_teams27_backend
         - docker build -t $IMAGE_NAME ./
     only:
         - aleksei
@@ -40,7 +40,7 @@ deploy:
     tags:
         - social-server-2
     script:
-        - cd /root/javapro_teams27_backend
+        - cd ~/javapro_teams27_backend
         - docker run -d -p 8086:8086 --name CONTAINER_NAME $IMAGE_NAME
     only:
         - aleksei

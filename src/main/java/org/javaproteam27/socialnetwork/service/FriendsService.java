@@ -2,14 +2,13 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
-import org.javaproteam27.socialnetwork.model.dto.response.CityDto;
-import org.javaproteam27.socialnetwork.model.dto.response.CountryDto;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseDto;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonDto;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
+import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.City;
 import org.javaproteam27.socialnetwork.model.entity.Country;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
+import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -27,9 +26,9 @@ public class FriendsService {
     private final FriendshipService friendshipService;
     private final CityService cityService;
     private final CountryService countryService;
+    private final PersonRepository personRepository;
     
-    
-    public ListResponseDto<PersonDto> getRecommendations(String token, int offset, int itemPerPage) {
+    public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
         
         Person person = personService.findById(1);
         Integer myId = person.getId();
@@ -110,15 +109,15 @@ public class FriendsService {
                 .collect(Collectors.toList());
     }
     
-    private ListResponseDto<PersonDto> getResultJson(List<Person> persons, int offset, int itemPerPage) {
+    private ListResponseRs<PersonRs> getResultJson(List<Person> persons, int offset, int itemPerPage) {
         
-        List<PersonDto> data = persons.stream()
+        List<PersonRs> data = persons.stream()
                 .map(person -> {
                     
-                    City city = cityService.findById(person.getCityId());
+                    City city = cityService.findByTitle(person.getCity());
                     Country country = countryService.findById(city.getCountryId());
                     
-                    return PersonDto.builder()
+                    return PersonRs.builder()
                             .id(person.getId())
                             .firstName(person.getFirstName())
                             .lastName(person.getLastName())
@@ -128,8 +127,8 @@ public class FriendsService {
                             .phone(person.getPhone())
                             .photo(person.getPhoto())
                             .about(person.getAbout())
-                            .city(new CityDto(city.getId(), city.getTitle()))
-                            .country(new CountryDto(country.getId(), country.getTitle()))
+                            .city(city.getTitle())
+                            .country(country.getTitle())
                             .messagesPermission(person.getMessagesPermission())
                             .lastOnlineTime(person.getLastOnlineTime())
                             .isBlocked(person.getIsBlocked())
@@ -137,7 +136,19 @@ public class FriendsService {
                 })
                 .collect(Collectors.toList());
         
-        return new ListResponseDto<>("", offset, itemPerPage, data);
+        return new ListResponseRs<>("", offset, itemPerPage, data);
+    }
+
+    public ListResponseRs<PersonRs> getListFriends(String name, int offset, int itemPerPage){
+        List<Person> person = personRepository.getFriendsPersonById(name,personService.getAuthorizedPerson().getId());
+
+        return getResultJson(person,offset,itemPerPage);
+    }
+
+    public ListResponseRs<PersonRs> getListApplicationsFriends(String name, int offset, int itemPerPage){
+
+        List<Person> personList = personRepository.getApplicationsFriendsPersonById(name,personService.getAuthorizedPerson().getId());
+        return getResultJson(personList,offset,itemPerPage);
     }
     
 }

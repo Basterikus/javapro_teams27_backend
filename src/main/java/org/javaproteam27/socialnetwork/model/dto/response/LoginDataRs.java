@@ -21,8 +21,8 @@ public class LoginDataRs {
     String phone;
     String photo;
     String about;
-    CityDto cityRs;
-    CountryDto countryRs;
+    CityRs cityRs;
+    CountryRs countryRs;
     @JsonProperty("messages_permission")
     MessagesPermission messagesPermission;
     @JsonProperty("last_online_time")

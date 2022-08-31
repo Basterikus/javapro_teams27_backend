@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
     private static final String REGISTER_ENDPOINT = "/api/v1/account/register";
     private static final String PASSWORD_RECOVERY_ENDPOINT = "/api/v1/account/password/recovery";
-
+    private static final String CAPTCHA_ENDPOINT = "/api/v1/auth/captcha";
 
 
     @Bean
@@ -49,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(MAIN_ENDPOINT,STATIC_ENDPOINT,LOGIN_ENDPOINT,REGISTER_ENDPOINT,PASSWORD_RECOVERY_ENDPOINT).permitAll()
+                .antMatchers(MAIN_ENDPOINT,STATIC_ENDPOINT,LOGIN_ENDPOINT,REGISTER_ENDPOINT,PASSWORD_RECOVERY_ENDPOINT,
+                        CAPTCHA_ENDPOINT).permitAll()
 //                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -60,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.applyPermitDefaultValues();
-        configuration.setAllowedOrigins(List.of("http://localhost:8086","195.133.48.174:8086"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8080","195.133.48.174:8086","http://localhost:8086","http://localhost:8081"));
+
         configuration.setAllowedMethods(List.of("*"));
 //        configuration.setExposedHeaders();
         configuration.setAllowCredentials(true);

@@ -139,10 +139,17 @@ public class FriendsService {
         
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
+
     public ListResponseRs<PersonRs> getListFriends(String name, int offset, int itemPerPage){
-        List<Person> person = personRepository.getFriendsPersonById(personService.getAuthorizedPerson().getId());
+        List<Person> person = personRepository.getFriendsPersonById(name,personService.getAuthorizedPerson().getId());
 
         return getResultJson(person,offset,itemPerPage);
+    }
+
+    public ListResponseRs<PersonRs> getListApplicationsFriends(String name, int offset, int itemPerPage){
+
+        List<Person> personList = personRepository.getApplicationsFriendsPersonById(name,personService.getAuthorizedPerson().getId());
+        return getResultJson(personList,offset,itemPerPage);
     }
     
 }

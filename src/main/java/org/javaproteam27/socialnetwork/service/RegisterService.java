@@ -7,6 +7,7 @@ import org.javaproteam27.socialnetwork.model.entity.Captcha;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -25,6 +26,7 @@ public class RegisterService {
 
     private final PersonRepository personRepository;
     private final CaptchaRepository captchaRepository;
+    private final JwtTokenProvider jwtTokenProvider;
     private String captchaSecret1;
     private String captchaSecret2;
     private String password1;
@@ -66,7 +68,7 @@ public class RegisterService {
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setRegDate(LocalDateTime.now());
-        person.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(request.getPasswd1()));
+        person.setPassword(request.getPasswd1());
         person.setIsApproved(true);  // добавить проверку почты
         personRepository.save(person);
         // ответ успешной регистрации

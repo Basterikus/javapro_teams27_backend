@@ -24,8 +24,6 @@ public class LoginService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final PersonRepository personRepository;
-    private final CityRepository cityRepository;
-    private final CountryRepository countryRepository;
     private final CityService cityService;
     private final CountryService countryService;
 
@@ -48,8 +46,8 @@ public class LoginService {
         Person person = personRepository.findByEmail(email);
         if (person.getPassword().contains(password)) {
             String token = getToken(email);
-            City city = cityRepository.findByTitle(person.getCity());
-            Country country = countryRepository.findById(city.getCountryId());
+//            City city = cityRepository.findByTitle(person.getCity());
+//            Country country = countryRepository.findById(city.getCountryId());
             return new LoginRs("", new Date(), new LoginDataRs(person.getId(),
                     person.getFirstName(),
                     person.getLastName(),
@@ -59,10 +57,11 @@ public class LoginService {
                     person.getPhone(),
                     person.getPhoto(),
                     person.getAbout(),
-                    new CityRs(city.getId(), city.getTitle()),
-                    new CountryRs(country.getId(), country.getTitle()),
-                    person.getMessagesPermission(),
-                    person.getLastOnlineTime(),
+                    null, null, null, null,
+//                    new CityRs(city.getId(), city.getTitle()),
+//                    new CountryRs(country.getId(), country.getTitle()),
+//                    person.getMessagesPermission(),
+//                    person.getLastOnlineTime(),
                     person.getIsBlocked(),
                     token));
         } else throw new InvalidRequestException("Incorrect password");

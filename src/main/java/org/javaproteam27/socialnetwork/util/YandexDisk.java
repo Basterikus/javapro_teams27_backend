@@ -10,6 +10,7 @@ import com.yandex.disk.rest.json.Link;
 import com.yandex.disk.rest.json.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.javaproteam27.socialnetwork.config.YandexDiskConfig;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,6 +28,7 @@ import java.util.Date;
 public class YandexDisk {
 
     private final YandexDiskConfig yandexDiskConfig;
+    private String photoUploadPass = "photo/";
 
 //    @Scheduled(initialDelay = 6000, fixedRateString = "PT12H")
 //    @Async

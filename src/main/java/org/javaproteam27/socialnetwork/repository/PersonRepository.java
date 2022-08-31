@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonRepository {
 
-    private final RowMapper<Person> rowMapper;
+    private final RowMapper<Person> rowMapper = new PersonMapper();
     private final JdbcTemplate jdbcTemplate;
 
 

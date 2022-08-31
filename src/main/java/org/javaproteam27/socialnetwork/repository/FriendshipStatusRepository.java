@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FriendshipStatusRepository {
     
-    private final RowMapper<FriendshipStatus> rowMapper;
+    private final RowMapper<FriendshipStatus> rowMapper = new FriendshipStatusMapper();
     private final JdbcTemplate jdbcTemplate;
     
     

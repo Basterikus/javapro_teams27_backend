@@ -11,7 +11,7 @@ variables:
 clone:
     stage: clone
     tags:
-        - social
+        - docker-runner
     script:
         - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 

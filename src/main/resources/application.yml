@@ -8,6 +8,8 @@ spring:
 logging:
     level:
         root: info
+    profiles:
+        active: prod
 
 yandexprofile:
     login: javaproteams27@yandex.ru

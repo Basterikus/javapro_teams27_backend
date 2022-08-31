@@ -15,7 +15,7 @@ clone:
     script:
         - whoami
         - pwd
-        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+        - git clone ssh://git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test

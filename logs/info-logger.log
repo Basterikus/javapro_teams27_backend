@@ -1,0 +1,294 @@
+2022-08-30 15:42:48 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 63663 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-30 15:42:48 [main] INFO  o.j.s.SocialNetworkApplication - No active profile set, falling back to default profiles: default
+2022-08-30 15:42:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 15:42:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-30 15:42:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-08-30 15:42:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 15:42:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-30 15:42:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2ms. Found 0 JPA repository interfaces.
+2022-08-30 15:42:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-30 15:42:49 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-30 15:42:49 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-30 15:42:49 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-30 15:42:49 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-30 15:42:49 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 511 ms
+2022-08-30 15:42:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-30 15:42:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-08-30 15:42:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 15:42:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 15:42:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-08-30 15:42:49 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-08-30 15:42:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-08-30 15:42:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-08-30 15:42:49 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-08-30 15:42:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-08-30 15:42:49 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-08-30 15:42:49 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-30 15:42:49 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-08-30 15:42:49 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-30 15:42:49 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-08-30 15:42:49 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-30 15:42:49 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 15:42:50 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-30 15:42:50 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-30 15:42:50 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-08-30 15:42:50 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c863996, org.springframework.security.web.context.SecurityContextPersistenceFilter@62cad0e8, org.springframework.security.web.header.HeaderWriterFilter@1766b7, org.springframework.web.filter.CorsFilter@1000303a, org.springframework.security.web.authentication.logout.LogoutFilter@71b9b035, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@c1050f2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e9c59ed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5f49c09d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@46763680, org.springframework.security.web.session.SessionManagementFilter@207fce87, org.springframework.security.web.access.ExceptionTranslationFilter@1313dea8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7545cb17]
+2022-08-30 15:42:50 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-08-30 15:42:50 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-08-30 15:42:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-08-30 15:42:50 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 1.866 seconds (JVM running for 2.203)
+2022-08-30 15:42:53 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-30 15:42:53 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-08-30 15:42:53 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2022-08-30 15:42:58 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-08-30 15:42:58 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-30 15:42:58 [SpringContextShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 15:42:58 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-08-30 15:42:58 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-08-30 17:24:19 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 67289 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-30 17:24:19 [main] INFO  o.j.s.SocialNetworkApplication - No active profile set, falling back to default profiles: default
+2022-08-30 17:24:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:24:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-30 17:24:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-08-30 17:24:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:24:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-30 17:24:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2ms. Found 0 JPA repository interfaces.
+2022-08-30 17:24:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-30 17:24:20 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:24:20 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-30 17:24:20 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-30 17:24:20 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-30 17:24:20 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 505 ms
+2022-08-30 17:24:20 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-30 17:24:20 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is java.lang.RuntimeException: Driver org.postgresql.Driver claims to not accept jdbcUrl, ${DATASOURCE_URL}
+2022-08-30 17:24:20 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2022-08-30 17:24:20 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-08-30 17:24:20 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is java.lang.RuntimeException: Driver org.postgresql.Driver claims to not accept jdbcUrl, ${DATASOURCE_URL}
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:311)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1109)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:869)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:402)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1247)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1236)
+	at org.javaproteam27.socialnetwork.SocialNetworkApplication.main(SocialNetworkApplication.java:12)
+Caused by: java.lang.RuntimeException: Driver org.postgresql.Driver claims to not accept jdbcUrl, ${DATASOURCE_URL}
+	at com.zaxxer.hikari.util.DriverDataSource.<init>(DriverDataSource.java:110)
+	at com.zaxxer.hikari.pool.PoolBase.initializeDataSource(PoolBase.java:325)
+	at com.zaxxer.hikari.pool.PoolBase.<init>(PoolBase.java:114)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:108)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:311)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1858)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1795)
+	... 19 common frames omitted
+2022-08-30 17:42:01 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 68650 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-30 17:42:01 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: karina
+2022-08-30 17:42:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:42:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-30 17:42:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-08-30 17:42:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:42:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-30 17:42:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2ms. Found 0 JPA repository interfaces.
+2022-08-30 17:42:02 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-30 17:42:02 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:42:02 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-30 17:42:02 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-30 17:42:02 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-30 17:42:02 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 503 ms
+2022-08-30 17:42:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-30 17:42:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-08-30 17:42:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:42:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:42:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-08-30 17:42:02 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-08-30 17:42:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-08-30 17:42:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-08-30 17:42:02 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-08-30 17:42:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-08-30 17:42:02 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-08-30 17:42:02 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-30 17:42:02 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-08-30 17:42:02 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-30 17:42:02 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-08-30 17:42:03 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-30 17:42:03 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:42:03 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-30 17:42:03 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:42:03 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-08-30 17:42:03 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2110b756, org.springframework.security.web.context.SecurityContextPersistenceFilter@1107cbd8, org.springframework.security.web.header.HeaderWriterFilter@31c87223, org.springframework.web.filter.CorsFilter@33e09baf, org.springframework.security.web.authentication.logout.LogoutFilter@21bf94d3, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@4fc165f6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@25ee6683, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72f112d1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4c02f50, org.springframework.security.web.session.SessionManagementFilter@4c5d934b, org.springframework.security.web.access.ExceptionTranslationFilter@43a8dd9b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@37635407]
+2022-08-30 17:42:03 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-08-30 17:42:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:42:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-08-30 17:42:03 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 1.825 seconds (JVM running for 2.09)
+2022-08-30 17:42:07 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-30 17:42:07 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-08-30 17:42:07 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2022-08-30 17:42:07 [http-nio-8086-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2022-08-30 17:42:24 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-08-30 17:42:24 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:42:24 [SpringContextShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:42:24 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-08-30 17:42:24 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-08-30 17:43:23 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 68743 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-30 17:43:23 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: karina
+2022-08-30 17:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-30 17:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-08-30 17:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-30 17:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3ms. Found 0 JPA repository interfaces.
+2022-08-30 17:43:24 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-30 17:43:24 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:43:24 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-30 17:43:24 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-30 17:43:24 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-30 17:43:24 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 515 ms
+2022-08-30 17:43:24 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-30 17:43:24 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-08-30 17:43:24 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:43:24 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:43:24 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-08-30 17:43:24 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-08-30 17:43:24 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-08-30 17:43:24 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-08-30 17:43:24 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-08-30 17:43:24 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-08-30 17:43:24 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-08-30 17:43:24 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-30 17:43:24 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-08-30 17:43:24 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-30 17:43:24 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-08-30 17:43:25 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-30 17:43:25 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:43:25 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-30 17:43:25 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:43:25 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-08-30 17:43:25 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@53e1cd6b, org.springframework.security.web.context.SecurityContextPersistenceFilter@66227940, org.springframework.security.web.header.HeaderWriterFilter@4b9187de, org.springframework.web.filter.CorsFilter@7ceb432c, org.springframework.security.web.authentication.logout.LogoutFilter@6cde3dac, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@545b5ed0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c197f46, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@44f433db, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f143176, org.springframework.security.web.session.SessionManagementFilter@4528a8bf, org.springframework.security.web.access.ExceptionTranslationFilter@6b09fcda, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3bad0efd]
+2022-08-30 17:43:25 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-08-30 17:43:25 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:43:25 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-08-30 17:43:25 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 1.889 seconds (JVM running for 2.114)
+2022-08-30 17:43:28 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-30 17:43:28 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-08-30 17:43:28 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2022-08-30 17:43:28 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], arguments: [] 
+2022-08-30 17:43:28 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], return: [it's not ok] 
+2022-08-30 17:43:43 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-08-30 17:43:43 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:43:43 [SpringContextShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:43:43 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-08-30 17:43:43 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-08-30 17:43:45 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 68780 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-30 17:43:45 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: karina
+2022-08-30 17:43:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:43:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-30 17:43:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-08-30 17:43:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:43:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-30 17:43:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3ms. Found 0 JPA repository interfaces.
+2022-08-30 17:43:45 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-30 17:43:45 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:43:45 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-30 17:43:45 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-30 17:43:45 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-30 17:43:45 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 485 ms
+2022-08-30 17:43:45 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-30 17:43:45 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-08-30 17:43:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:43:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:43:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-08-30 17:43:45 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-08-30 17:43:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-08-30 17:43:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-08-30 17:43:45 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-08-30 17:43:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-08-30 17:43:45 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-08-30 17:43:46 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-30 17:43:46 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-08-30 17:43:46 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-30 17:43:46 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-08-30 17:43:46 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-30 17:43:46 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:43:46 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-30 17:43:46 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:43:46 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-08-30 17:43:46 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@627b5e5b, org.springframework.security.web.context.SecurityContextPersistenceFilter@150eab74, org.springframework.security.web.header.HeaderWriterFilter@1c7159d5, org.springframework.web.filter.CorsFilter@211ffbd0, org.springframework.security.web.authentication.logout.LogoutFilter@3adbfd16, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@545b5ed0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@610640e3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@233d40da, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@472d201, org.springframework.security.web.session.SessionManagementFilter@ffb8f15, org.springframework.security.web.access.ExceptionTranslationFilter@31906cb2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@46763680]
+2022-08-30 17:43:46 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-08-30 17:43:46 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:43:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-08-30 17:43:46 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 1.737 seconds (JVM running for 2.008)
+2022-08-30 17:43:48 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-30 17:43:48 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-08-30 17:43:48 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2022-08-30 17:43:48 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], arguments: [] 
+2022-08-30 17:43:48 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], return: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE4NzQyMjgsImV4cCI6MTY2MTg3NzgyOH0.IBrTBURRxb_AEA0Q2n7JmZpGni4D5HGfkXOi2-gQYEE] 
+2022-08-30 17:44:01 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, null, null, null, null, Russia, 0, 20] 
+2022-08-30 17:44:01 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1661874241732, total=3, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@3ece023, org.javaproteam27.socialnetwork.model.dto.response.PersonRs@1823b631, org.javaproteam27.socialnetwork.model.dto.response.PersonRs@1c962be1], errorDescription=null),[]>] 
+2022-08-30 17:45:37 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-08-30 17:45:37 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:45:37 [SpringContextShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:45:37 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-08-30 17:45:37 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-08-30 17:49:31 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 69130 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-30 17:49:31 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: karina
+2022-08-30 17:49:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:49:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-30 17:49:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9ms. Found 0 JDBC repository interfaces.
+2022-08-30 17:49:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-30 17:49:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-30 17:49:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3ms. Found 0 JPA repository interfaces.
+2022-08-30 17:49:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-30 17:49:31 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:49:31 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-30 17:49:31 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-30 17:49:31 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-30 17:49:31 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 514 ms
+2022-08-30 17:49:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-30 17:49:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-08-30 17:49:32 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:49:32 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-30 17:49:32 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-08-30 17:49:32 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-08-30 17:49:32 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-08-30 17:49:32 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-08-30 17:49:32 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-08-30 17:49:32 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-08-30 17:49:32 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-08-30 17:49:32 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-30 17:49:32 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-08-30 17:49:32 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-30 17:49:32 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-08-30 17:49:32 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-30 17:49:32 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:49:32 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-30 17:49:32 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:49:32 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-08-30 17:49:32 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@eba64a9, org.springframework.security.web.context.SecurityContextPersistenceFilter@157002b7, org.springframework.security.web.header.HeaderWriterFilter@746cb25d, org.springframework.web.filter.CorsFilter@53e1cd6b, org.springframework.security.web.authentication.logout.LogoutFilter@10e542f3, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@4fc165f6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f49c09d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@25ee6683, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7ceb432c, org.springframework.security.web.session.SessionManagementFilter@4471f216, org.springframework.security.web.access.ExceptionTranslationFilter@316975be, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4f55da9b]
+2022-08-30 17:49:32 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-08-30 17:49:32 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-08-30 17:49:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-08-30 17:49:32 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 1.82 seconds (JVM running for 2.058)
+2022-08-30 17:49:38 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-30 17:49:38 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-08-30 17:49:38 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2022-08-30 17:49:47 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-08-30 17:49:47 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-30 17:49:47 [SpringContextShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-30 17:49:47 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-08-30 17:49:47 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

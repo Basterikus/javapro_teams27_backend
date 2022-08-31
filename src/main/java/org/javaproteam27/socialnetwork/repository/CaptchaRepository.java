@@ -33,6 +33,11 @@ public class CaptchaRepository {
     public int addCaptcha(long time, String code, String secretCode) {
 
         try {
+            if(jdbcTemplate.queryForObject("SELECT MAX(id) FROM captcha", Integer.class) == null) {
+                jdbcTemplate.update("INSERT INTO captcha (id, time, code, secret_code) " +
+                        "VALUES (?, ?, ?, ?)", 1, new Timestamp(time), code, secretCode);
+                return 1;
+            }
             int id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM captcha", Integer.class) + 1;
             jdbcTemplate.update("INSERT INTO captcha (id, time, code, secret_code) " +
                     "VALUES (?, ?, ?, ?)", id, new Timestamp(time), code, secretCode);

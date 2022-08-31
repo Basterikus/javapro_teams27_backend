@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.mapper.CityMapper;
 import org.javaproteam27.socialnetwork.model.entity.City;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

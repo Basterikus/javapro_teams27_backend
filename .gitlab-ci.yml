@@ -1,42 +1,61 @@
-image: docker:20.10.17
-
-services:
-    - docker:20.10.17-dind
-
-variables:
-    IMAGE_NAME: axelration/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-
 stages:
+#    - clone
+    - test
+#    - cleanup
     - build
-    - push
     - deploy
 
-docker-build:
+variables:
+    IMAGE_NAME: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
+
+#clone:
+#    stage: clone
+#    tags:
+#        - social
+#    script:
+#        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+
+test:
+    stage: test
+    tags:
+        - social-server-2
+    script:
+#        - cd /root/javapro_teams27_backend
+        - mvn clean test
+    allow_failure: true
+
+
+#cleanup:
+#    stage: cleanup
+#    tags:
+#        - social
+#    script:
+#        - docker stop javapro_teams27_backend
+#        - docker container prune
+#        - docker image rm javapro_teams27_backend
+#    allow_failure: true
+
+
+build:
     stage: build
     tags:
-        - docker-runner
+        - social-server-2
     script:
+#        - cd /root/javapro_teams27_backend
+        - whoami
+        - pwd
         - docker build -t $IMAGE_NAME ./
-        - docker login -u axelration -p dckr_pat_IIHDrvsHHR-fLbTpvKz2OaktrTs
-#        - docker push $IMAGE_NAME
-#        - docker pull $IMAGE_NAME
-        - docker run -d -p 8086:8086 --name backend $IMAGE_NAME
-    rules:
-        - if: "$CI_COMMIT_BRANCH == 'aleksei'"
+    only:
+        - aleksei
 
-#push:
-#    stage: push
-#    tags:
-#        - docker-runner
-#
-#
-#    allow_failure: true
-#
-#deploy:
-#    stage: deploy
-#    tags:
-#        - docker-runner
+deploy:
+    stage: deploy
+    tags:
+        - social-server-2
+    script:
+#        - cd /root/javapro_teams27_backend
+        - docker run -d -p 8086:8086 --name $IMAGE_NAME
+    only:
+        - aleksei
 
 

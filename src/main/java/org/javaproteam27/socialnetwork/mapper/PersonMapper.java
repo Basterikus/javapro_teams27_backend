@@ -19,7 +19,7 @@ public class PersonMapper implements RowMapper<Person> {
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
-        person.setBirthDate(rs.getTimestamp("birth_date").toLocalDateTime());
+//        person.setBirthDate(rs.getTimestamp("birth_date").toLocalDateTime());
         person.setEmail(rs.getString("email"));
         person.setPhone(rs.getString("phone"));
         person.setPassword(rs.getString("password"));
@@ -28,8 +28,8 @@ public class PersonMapper implements RowMapper<Person> {
         person.setCity(rs.getString("city"));
         person.setConfirmationCode(rs.getInt("confirmation_code"));
         person.setIsApproved(rs.getBoolean("is_approved"));
-        person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));
-        person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
+//        person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));
+//        person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
         person.setIsBlocked(rs.getBoolean("is_blocked"));
     
         return person;

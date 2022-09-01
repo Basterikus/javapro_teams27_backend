@@ -8,8 +8,6 @@ import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/post")
@@ -26,6 +24,12 @@ public class PostsController {
                                                         @RequestBody PostRq postRq){
         ResponseRs<PostRs> responseRs = postService.updatePost(postId, postRq.getTitle(),
                 postRq.getPostText(), postRq.getTags());
+        return ResponseEntity.ok(responseRs);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseRs<PostRs>> getPost(@PathVariable(value = "id") int postId){
+        ResponseRs<PostRs> responseRs = postService.getPost(postId);
         return ResponseEntity.ok(responseRs);
     }
 

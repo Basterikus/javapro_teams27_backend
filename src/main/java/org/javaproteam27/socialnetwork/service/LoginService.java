@@ -5,11 +5,7 @@ import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
-import org.javaproteam27.socialnetwork.model.entity.City;
-import org.javaproteam27.socialnetwork.model.entity.Country;
 import org.javaproteam27.socialnetwork.model.entity.Person;
-import org.javaproteam27.socialnetwork.repository.CityRepository;
-import org.javaproteam27.socialnetwork.repository.CountryRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +20,6 @@ public class LoginService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final PersonRepository personRepository;
-    private final CityService cityService;
-    private final CountryService countryService;
 
     public ResponseEntity<ResponseRs<PersonRs>> profileResponse(String token)  {
         String email = jwtTokenProvider.getUsername(token);
@@ -33,9 +27,7 @@ public class LoginService {
         PersonRs personRs =  PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
                 lastName(person.getLastName()).regDate(person.getRegDate()).birthDate(person.getBirthDate()).
                 email(person.getEmail()).phone(person.getPhone()).photo(person.getPhoto()).about(person.getAbout()).
-                city(cityService.findByTitle(person.getCity()).getTitle()).country(countryService.findById(
-                                cityService.findByTitle(person.getCity()).getCountryId()).
-                        getTitle()).messagesPermission(person.getMessagesPermission()).
+                city(person.getCity()).country(person.getCountry()).messagesPermission(person.getMessagesPermission()).
                 lastOnlineTime(person.getLastOnlineTime()).isBlocked(person.getIsBlocked()).token(token).build();
         return ResponseEntity.ok(new ResponseRs<>("string", 0, 20, personRs));
     }

@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepository;
-    private final CityService cityService;
-    private final CountryService countryService;
-
 
     public Person findById(int id) {
         return personRepository.findById(id);
@@ -72,8 +69,8 @@ public class PersonService {
                 .id(person.getId())
                 .email(person.getEmail())
                 .phone(person.getPhone())
-                .city(cityService.findByTitle(person.getCity()).getTitle())
-                .country(countryService.findById(cityService.findByTitle(person.getCity()).getCountryId()).getTitle())
+                .city(person.getCity())
+                .country(person.getCountry())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .regDate(person.getRegDate())

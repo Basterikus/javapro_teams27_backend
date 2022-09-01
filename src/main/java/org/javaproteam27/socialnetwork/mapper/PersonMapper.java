@@ -26,6 +26,7 @@ public class PersonMapper implements RowMapper<Person> {
         person.setPhoto(rs.getString("photo"));
         person.setAbout(rs.getString("about"));
         person.setCity(rs.getString("city"));
+        person.setCountry(rs.getString("country"));
         person.setConfirmationCode(rs.getInt("confirmation_code"));
         person.setIsApproved(rs.getBoolean("is_approved"));
 //        person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));

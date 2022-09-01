@@ -1,0 +1,49 @@
+2022-08-27 18:19:46 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 16126 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-08-27 18:19:46 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: karina
+2022-08-27 18:19:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-27 18:19:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-08-27 18:19:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-08-27 18:19:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-27 18:19:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-27 18:19:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2ms. Found 0 JPA repository interfaces.
+2022-08-27 18:19:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-08-27 18:19:46 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-08-27 18:19:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-08-27 18:19:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-08-27 18:19:46 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-08-27 18:19:46 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 541 ms
+2022-08-27 18:19:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-08-27 18:19:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-08-27 18:19:47 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-27 18:19:47 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-08-27 18:19:47 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-08-27 18:19:47 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-08-27 18:19:47 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-08-27 18:19:47 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-08-27 18:19:47 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-08-27 18:19:47 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-08-27 18:19:47 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-08-27 18:19:47 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-27 18:19:47 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-08-27 18:19:47 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-27 18:19:47 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-08-27 18:19:47 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-27 18:19:47 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-27 18:19:47 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-27 18:19:47 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-27 18:19:47 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-08-27 18:19:47 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@14abde3e, org.springframework.security.web.context.SecurityContextPersistenceFilter@139e291e, org.springframework.security.web.header.HeaderWriterFilter@4dba2d07, org.springframework.web.filter.CorsFilter@7e38f55, org.springframework.security.web.authentication.logout.LogoutFilter@10e7ade5, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5f7eee96, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29922188, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@40cb19d5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@334d96af, org.springframework.security.web.session.SessionManagementFilter@7105d271, org.springframework.security.web.access.ExceptionTranslationFilter@3e9053b3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4eef2522]
+2022-08-27 18:19:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-08-27 18:19:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-08-27 18:19:47 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 1.856 seconds (JVM running for 2.117)
+2022-08-27 18:20:03 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-27 18:20:03 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-08-27 18:20:03 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2022-08-27 18:20:54 [http-nio-8086-exec-5] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], arguments: [LoginRq(email=test@mail.ru, password=testtest)] 
+2022-08-27 18:20:55 [http-nio-8086-exec-5] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], return: [LoginRs(error=, timestamp=Sat Aug 27 18:20:55 CEST 2022, data=LoginDataRs(id=1, firstName=Test, lastName=Test, regDate=2011-05-16T15:36:38, birthDate=2001-05-16T15:36:38, email=test@mail.ru, phone=+7(111)1111111, photo=null, about=)), cityRs=CityRs(id=1, title=Moscow), countryRs=CountryRs(id=1, title=Russia), messagesPermission=ALL, lastOnlineTime=2022-08-16T15:36:38, isBlocked=false, token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE2MTcyNTUsImV4cCI6MTY2MTYyMDg1NX0.bWjE_huVlvGNkMhVeV0bWXOJfzvSHj73vJiWgPvSZT8))] 
+2022-08-27 18:20:55 [http-nio-8086-exec-7] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE2MTcyNTUsImV4cCI6MTY2MTYyMDg1NX0.bWjE_huVlvGNkMhVeV0bWXOJfzvSHj73vJiWgPvSZT8] 
+2022-08-27 18:20:55 [http-nio-8086-exec-7] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], return: [<200 OK OK,ResponseRs(error=string, timestamp=1661617255078, offset=0, perPage=20, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@2739aae0, errorDescription=null),[]>] 
+2022-08-27 18:21:59 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-27 18:21:59 [SpringContextShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-27 18:21:59 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-08-27 18:21:59 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

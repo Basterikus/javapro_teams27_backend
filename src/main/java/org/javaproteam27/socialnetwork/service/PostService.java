@@ -92,4 +92,10 @@ public class PostService {
 
         return ResponseEntity.ok(new ListResponseRs<>("", offset, itemPerPage, data));
     }
+
+    public ResponseRs<PostRs> getPost(int postId) {
+        Post post = postRepository.findPostById(postId);
+        PostRs data = (post != null) ? convertToPostRs(post) : null;
+        return new ResponseRs<>("", data, null);
+    }
 }

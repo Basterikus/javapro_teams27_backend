@@ -5,6 +5,7 @@ import com.yandex.disk.rest.ProgressListener;
 import com.yandex.disk.rest.RestClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.javaproteam27.socialnetwork.config.YandexDiskConfig;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class YandexDisk {
 
     private final YandexDiskConfig yandexDiskConfig;
+    private String photoUploadPass = "photo/";
 
     public RestClient getRestClient() {
         Credentials credentials = new Credentials(yandexDiskConfig.getLogin(), yandexDiskConfig.getToken());

@@ -11,5 +11,6 @@ public class RegisterRq {
     private String firstName;
     private String lastName;
     private String code;
+    private String codeSecret;
 
 }

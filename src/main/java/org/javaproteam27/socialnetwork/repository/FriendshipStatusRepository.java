@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.mapper.FriendshipStatusMapper;
 import org.javaproteam27.socialnetwork.model.entity.FriendshipStatus;
+import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class FriendshipStatusRepository {
     
-    private final RowMapper<FriendshipStatus> rowMapper;
+    private final RowMapper<FriendshipStatus> rowMapper = new FriendshipStatusMapper();
     private final JdbcTemplate jdbcTemplate;
     
     
@@ -47,6 +49,23 @@ public class FriendshipStatusRepository {
         }, keyHolder);
 
         return keyHolder.getKey().intValue();
+    }
+
+    public List<FriendshipStatus> getApplicationsFriendshipStatus(Integer srcPersonId, Integer id){
+        try {
+            String sql = "SELECT * FROM friendship_status fs\n" +
+                    "join friendship f  on fs.id= f.status_id\n" +
+                    "where fs.code = 'REQUEST' and src_person_id = ? and dst_person_id = ?";
+            return jdbcTemplate.query(sql, rowMapper,srcPersonId, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + id + " or " + srcPersonId);
+        }
+    }
+
+    public void updateCode(Integer id, FriendshipStatusCode friendshipStatusCode) {
+
+        String sql = "UPDATE friendship_status SET code = ? where id = ?";
+        jdbcTemplate.update(sql,friendshipStatusCode.name(),id);
     }
 
     public void delete(FriendshipStatus friendshipStatus) {

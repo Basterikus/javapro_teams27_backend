@@ -30,7 +30,6 @@ public class FriendsService {
     
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
         
-//        Person person = personService.findByToken(token);
         Person person = personService.findById(1);
         Integer myId = person.getId();
         
@@ -115,7 +114,7 @@ public class FriendsService {
         List<PersonRs> data = persons.stream()
                 .map(person -> {
                     
-                    City city = cityService.findById(person.getCityId());
+                    City city = cityService.findByTitle(person.getCity());
                     Country country = countryService.findById(city.getCountryId());
                     
                     return PersonRs.builder()
@@ -139,10 +138,17 @@ public class FriendsService {
         
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
+
     public ListResponseRs<PersonRs> getListFriends(String name, int offset, int itemPerPage){
-        List<Person> person = personRepository.getFriendsPersonById(personService.getAuthorizedPerson().getId());
+        List<Person> person = personRepository.getFriendsPersonById(name,personService.getAuthorizedPerson().getId());
 
         return getResultJson(person,offset,itemPerPage);
+    }
+
+    public ListResponseRs<PersonRs> getListApplicationsFriends(String name, int offset, int itemPerPage){
+
+        List<Person> personList = personRepository.getApplicationsFriendsPersonById(name,personService.getAuthorizedPerson().getId());
+        return getResultJson(personList,offset,itemPerPage);
     }
     
 }

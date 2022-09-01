@@ -9,17 +9,15 @@ import java.util.HashMap;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
+@JsonInclude(NON_NULL)
 public class RegisterRs {
 
     private String error;
 
-    @JsonInclude(NON_NULL)
     private long timestamp;
 
-    @JsonInclude(NON_NULL)
     private HashMap<String, String> data;
 
-    @JsonInclude(NON_NULL)
     @JsonProperty("error_description")
     private String errorDescription;
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationRepository {
     
-    private final RowMapper<Notification> rowMapper;
+    private final RowMapper<Notification> rowMapper = new NotificationMapper();
     private final JdbcTemplate jdbcTemplate;
     
     

@@ -13,16 +13,16 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class CityRepository {
     
-    private final RowMapper<City> rowMapper;
+    private final RowMapper<City> rowMapper = new CityMapper();
     private final JdbcTemplate jdbcTemplate;
     
     
-    public City findById(int id) {
+    public City findByTitle(String city) {
         try {
-            String sql = "select * from city where id = ?";
-            return jdbcTemplate.queryForObject(sql, rowMapper, id);
+            String sql = "select * from city where title = ?";
+            return jdbcTemplate.queryForObject(sql, rowMapper, city);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("city id = " + id);
+            throw new EntityNotFoundException("city = " + city);
         }
     }
 }

@@ -1,0 +1,15 @@
+server:
+    port: 8086
+
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://host.docker.internal:5432/social
+        username: javapro
+        password: admin
+    liquibase:
+        enabled: true
+
+logging:
+    level:
+        root: info

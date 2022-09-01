@@ -3,7 +3,7 @@ server:
 
 spring:
     profiles:
-        active: anton_m
+        active: anton_ch
 
 logging:
     level:
@@ -14,3 +14,6 @@ logging:
 yandexprofile:
     login: javaproteams27@yandex.ru
     token: y0_AgAAAABkHWYcAAhcJAAAAADNMMSQdTIhTbQjRfCCNvyw30mWw_U7WIY
+
+logsupload:
+    enabled: false

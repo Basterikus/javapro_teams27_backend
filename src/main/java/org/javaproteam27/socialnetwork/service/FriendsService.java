@@ -114,8 +114,6 @@ public class FriendsService {
         List<PersonRs> data = persons.stream()
                 .map(person -> {
                     
-
-                    
                     return PersonRs.builder()
                             .id(person.getId())
                             .firstName(person.getFirstName())

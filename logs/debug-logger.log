@@ -4061,6 +4061,7 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+<<<<<<< HEAD
 2022-09-01 08:14:16 [http-nio-8086-exec-2] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2Rhc2QyQG1haWwucnUiLCJpYXQiOjE2NjIwMDg2MDgsImV4cCI6MTY2MjAxMjIwOH0.r6YUSQnza1n5Q0J58tH8xDgEOVMdorHG6960AsDQFm8] 
 2022-09-01 08:14:16 [http-nio-8086-exec-2] DEBUG DebugLogging - An error has occurred
 org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entity with city = 1 not found.
@@ -4069,6 +4070,18 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+=======
+2022-09-01 08:31:47 [http-nio-8086-exec-3] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [login], arguments: [LoginRq(email=test@mail.ru, password=testtest)] 
+2022-09-01 08:31:47 [http-nio-8086-exec-3] DEBUG DebugLogging - Response = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [login], return: [LoginRs(error=, timestamp=Thu Sep 01 08:31:47 IRKT 2022, data=LoginDataRs(id=1, firstName=Test, lastName=Test, regDate=2011-05-16T15:36:38, birthDate=null, email=test@mail.ru, phone=+7(111)1111111, photo=null, about=)), cityRs=null, countryRs=null, messagesPermission=null, lastOnlineTime=null, isBlocked=false, token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE5OTIzMDcsImV4cCI6MTY2MTk5NTkwN30.ZVCBqc3oi4A-HgUG3ZJ3Ig6m4YsGxev8zDGFiRSq5iY))] 
+2022-09-01 08:31:47 [http-nio-8086-exec-5] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE5OTIzMDcsImV4cCI6MTY2MTk5NTkwN30.ZVCBqc3oi4A-HgUG3ZJ3Ig6m4YsGxev8zDGFiRSq5iY] 
+2022-09-01 08:31:47 [http-nio-8086-exec-5] DEBUG DebugLogging - An error has occurred
+org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entity with city = 1 not found.
+	at org.javaproteam27.socialnetwork.aop.LoggerAspect.debugLogger(LoggerAspect.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+>>>>>>> dev
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
 	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
@@ -4078,7 +4091,11 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+<<<<<<< HEAD
 	at org.javaproteam27.socialnetwork.service.LoginService$$EnhancerBySpringCGLIB$$508a59b.profileResponse(<generated>)
+=======
+	at org.javaproteam27.socialnetwork.service.LoginService$$EnhancerBySpringCGLIB$$12d89573.profileResponse(<generated>)
+>>>>>>> dev
 	at org.javaproteam27.socialnetwork.controller.UserController.profileResponse(UserController.java:43)
 	at org.javaproteam27.socialnetwork.controller.UserController$$FastClassBySpringCGLIB$$86306e1.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
@@ -4088,9 +4105,15 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)
 	at org.javaproteam27.socialnetwork.aop.LoggerAspect.infoLogger(LoggerAspect.java:33)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+<<<<<<< HEAD
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+=======
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+>>>>>>> dev
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
 	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
 	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
@@ -4100,11 +4123,19 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+<<<<<<< HEAD
 	at org.javaproteam27.socialnetwork.controller.UserController$$EnhancerBySpringCGLIB$$705fefa7.profileResponse(<generated>)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+=======
+	at org.javaproteam27.socialnetwork.controller.UserController$$EnhancerBySpringCGLIB$$7e2fdf7f.profileResponse(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+>>>>>>> dev
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
@@ -4186,6 +4217,7 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+<<<<<<< HEAD
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
@@ -4579,3 +4611,15 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:831)
+=======
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-01 08:44:39 [http-nio-8086-exec-9] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [login], arguments: [LoginRq(email=test@mail.ru, password=testtest)] 
+2022-09-01 08:44:39 [http-nio-8086-exec-9] DEBUG DebugLogging - Response = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [login], return: [LoginRs(error=, timestamp=Thu Sep 01 08:44:39 IRKT 2022, data=LoginDataRs(id=1, firstName=Test, lastName=Test, regDate=2011-05-16T15:36:38, birthDate=null, email=test@mail.ru, phone=+7(111)1111111, photo=null, about=)), cityRs=null, countryRs=null, messagesPermission=null, lastOnlineTime=null, isBlocked=false, token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE5OTMwNzksImV4cCI6MTY2MTk5NjY3OX0.IoerW8PlYAjIDvb1sWjRYawdX7HLFlqOMiKgcwsfHdM))] 
+2022-09-01 08:44:39 [http-nio-8086-exec-1] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE5OTMwNzksImV4cCI6MTY2MTk5NjY3OX0.IoerW8PlYAjIDvb1sWjRYawdX7HLFlqOMiKgcwsfHdM] 
+2022-09-01 08:44:39 [http-nio-8086-exec-1] DEBUG DebugLogging - Response = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [profileResponse], return: [<200 OK OK,ResponseRs(error=string, timestamp=1661993079150, offset=0, perPage=20, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@389249a4, errorDescription=null),[]>] 
+2022-09-01 08:53:59 [http-nio-8086-exec-5] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjE5OTMwNzksImV4cCI6MTY2MTk5NjY3OX0.IoerW8PlYAjIDvb1sWjRYawdX7HLFlqOMiKgcwsfHdM] 
+2022-09-01 08:53:59 [http-nio-8086-exec-5] DEBUG DebugLogging - Response = path: [org.javaproteam27.socialnetwork.service.LoginService], method: [profileResponse], return: [<200 OK OK,ResponseRs(error=string, timestamp=1661993639645, offset=0, perPage=20, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@b7c15c6, errorDescription=null),[]>] 
+>>>>>>> dev

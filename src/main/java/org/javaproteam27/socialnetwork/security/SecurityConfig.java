@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.applyPermitDefaultValues();
-        configuration.setAllowedOrigins(List.of("195.133.48.174:8080","195.133.48.174:8080",
+        configuration.setAllowedOrigins(List.of("195.133.48.174:8086","195.133.48.174:8080",
                 "http://localhost:8080",
                 "http://localhost:8086",
                 "http://localhost:8081"));

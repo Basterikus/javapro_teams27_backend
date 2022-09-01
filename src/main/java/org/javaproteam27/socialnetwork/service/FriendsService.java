@@ -114,8 +114,7 @@ public class FriendsService {
         List<PersonRs> data = persons.stream()
                 .map(person -> {
                     
-                    City city = cityService.findByTitle(person.getCity());
-                    Country country = countryService.findById(city.getCountryId());
+
                     
                     return PersonRs.builder()
                             .id(person.getId())
@@ -127,8 +126,8 @@ public class FriendsService {
                             .phone(person.getPhone())
                             .photo(person.getPhoto())
                             .about(person.getAbout())
-                            .city(city.getTitle())
-                            .country(country.getTitle())
+                            .city(person.getCity())
+                            .country(person.getCountry())
                             .messagesPermission(person.getMessagesPermission())
                             .lastOnlineTime(person.getLastOnlineTime())
                             .isBlocked(person.getIsBlocked())

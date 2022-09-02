@@ -19,7 +19,7 @@ public class LikeService {
         if (!type.equals("Post")){
             return null;
         }
-        Long time = System.currentTimeMillis();
+        long time = System.currentTimeMillis();
         Integer personId = personService.getAuthorizedPerson().getId();
         likeRepository.addPostLike(time, personId, postId);
         Integer likesCount = getCountByPostId(postId);

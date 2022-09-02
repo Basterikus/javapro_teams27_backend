@@ -24,10 +24,10 @@ public class PostRepository {
     public Integer addPost(long time, int authorId, String title, String postText) {
         Integer postId = null;
         try {
-            postId = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post", Integer.class);
-            postId = (postId != null) ? ++postId : 0;
-            jdbcTemplate.update("INSERT INTO post (id, time, author_id, title, post_text) " +
-                            "VALUES (?, ?, ?, ?, ?)", postId, new Timestamp(time), authorId, title, postText);
+            jdbcTemplate.update("INSERT INTO post (time, author_id, title, post_text) " +
+                            "VALUES (?, ?, ?, ?)", new Timestamp(time), authorId, title, postText);
+            postId = jdbcTemplate.queryForObject("SELECT id FROM post WHERE author_id = " + authorId +
+                    " AND title = '" + title + "' AND post_text = '" + postText + "'", Integer.class);
         } catch (DataAccessException exception){
             log.error(exception.getLocalizedMessage());
         }
@@ -45,7 +45,7 @@ public class PostRepository {
         return retList;
     }
 
-    public boolean deletePostById(int postId) {
+    public Boolean deletePostById(int postId) {
         Boolean retValue = null;
         try {
             retValue = (jdbcTemplate.update("DELETE FROM post WHERE id = ?", postId) == 1);
@@ -55,7 +55,7 @@ public class PostRepository {
         return retValue;
     }
 
-    public boolean updatePostById(int postId, String title, String postText) {
+    public Boolean updatePostById(int postId, String title, String postText) {
         Boolean retValue = null;
         try {
             retValue = (jdbcTemplate.update("UPDATE post SET title = ?, post_text = ? WHERE id = ?", title,

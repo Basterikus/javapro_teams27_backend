@@ -16,17 +16,13 @@ import java.util.List;
 public class LikeRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public Integer addPostLike(Long time, Integer personId, Integer postId){
-        Integer idLike = null;
+    public void addPostLike(long time, Integer personId, Integer postId){
         try {
-            idLike = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post_like", Integer.class);
-            idLike = (idLike != null) ? ++idLike : 0;
-            jdbcTemplate.update("INSERT INTO post_like " + "VALUES (?, ?, ?, ?)",
-                    idLike, new Timestamp(time), personId, postId);
+            jdbcTemplate.update("INSERT INTO post_like (time, person_id, post_id) " + "VALUES (?, ?, ?)",
+                    new Timestamp(time), personId, postId);
         } catch (DataAccessException exception){
             log.error(exception.getLocalizedMessage());
         }
-        return idLike;
     }
 
     public Boolean deletePostLike(Integer postId, Integer userId){

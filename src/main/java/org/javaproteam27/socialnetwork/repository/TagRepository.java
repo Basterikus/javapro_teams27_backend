@@ -17,15 +17,20 @@ public class TagRepository {
     public Integer addTag(String tagString, int postId) {
         Integer retValue = null;
         try {
-            Integer idTag = jdbcTemplate.queryForObject("SELECT MAX(id) FROM tag", Integer.class);
-            idTag = (idTag != null) ? ++idTag : 0;
-            if (jdbcTemplate.update("INSERT INTO tag (id, tag) " + "VALUES (?, ?)", idTag, tagString) > 0) {
-                Integer idPost2tag = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post2tag", Integer.class);
-                idPost2tag = (idPost2tag != null) ? ++idPost2tag : 0;
-                jdbcTemplate.update("INSERT INTO post2tag (id, tag_id, post_id) " + "VALUES (?, ?, ?)",
-                        idPost2tag, idTag, postId);
+            /*Integer tagId = jdbcTemplate.queryForObject("SELECT MAX(id) FROM tag", Integer.class);
+            tagId = (tagId != null) ? ++tagId : 0;*/
+            Integer tagId;
+            List<Integer> idTags = jdbcTemplate.query("SELECT id FROM tag WHERE tag = '" + tagString + "'",
+                    (rs, rowNum) -> rs.getInt("id"));
+            if (idTags.isEmpty()) {
+                jdbcTemplate.update("INSERT INTO tag (tag) " + "VALUES (?)", tagString);
+                //TODO GET ID from INSERT!
+                tagId = jdbcTemplate.queryForObject("SELECT id FROM tag WHERE tag = '" + tagString + "'",
+                        Integer.class);
+            } else {
+                tagId = idTags.stream().findFirst().get();
             }
-            retValue = idTag;
+            jdbcTemplate.update("INSERT INTO post2tag (tag_id, post_id) " + "VALUES (?, ?)", tagId, postId);
         } catch (DataAccessException exception){
             log.error(exception.getLocalizedMessage());
         }

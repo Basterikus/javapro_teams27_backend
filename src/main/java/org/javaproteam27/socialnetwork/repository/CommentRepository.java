@@ -3,7 +3,7 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.javaproteam27.socialnetwork.mapper.CommentMapper;
-import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
+import org.javaproteam27.socialnetwork.model.entity.Comment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,12 +21,20 @@ public class CommentRepository {
 
         Integer retValue = null;
         try {
-            Integer idComment = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post_comment", Integer.class);
-            idComment = (idComment != null) ? ++idComment : 0;
-            parentId= (parentId == null) ? idComment : parentId;
-            if (jdbcTemplate.update("INSERT INTO post_comment " + "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    idComment, new Timestamp(time), postId, parentId, authorId, commentText, false) > 0) {
-                retValue = idComment; //(id, time, post_id, parent_id, author_id, comment_text, is_blocked)
+//            Integer test = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post_comment", Integer.class);
+//            parentId = (parentId == null) ? 0 : parentId;
+//            idComment = (idComment != null) ? ++idComment : 0;
+            if (jdbcTemplate.update("INSERT INTO post_comment (time, post_id, parent_id, " +
+                            "author_id, comment_text, is_blocked) " + "VALUES (?, ?, ?, ?, ?, ?)",
+                    new Timestamp(time), postId, parentId, authorId, commentText, false) > 0) {
+                if (parentId == null) { //TODO: GET ID FROM jdbcTemplate.update("INSERT INTO !!!
+                    retValue = jdbcTemplate.queryForObject("SELECT id FROM post_comment WHERE post_id = " + postId +
+                            " AND author_id = " + authorId + " AND comment_text = '" + commentText + "'", Integer.class); //(id, time, post_id, parent_id, author_id, comment_text, is_blocked)
+                } else {
+                    retValue = jdbcTemplate.queryForObject("SELECT id FROM post_comment WHERE post_id = " + postId +
+                            " AND parent_id = " + parentId + " AND author_id = " + authorId + " AND comment_text = '" +
+                            commentText + "'", Integer.class); //(id, time, post_id, parent_id, author_id, comment_text, is_blocked)
+                }
             }
         } catch (DataAccessException exception){
             log.error(exception.getLocalizedMessage());
@@ -34,9 +42,9 @@ public class CommentRepository {
         return retValue;
     }
 
-    public List<CommentRs> getAllCommentsByPostId(int postId) {
+    public List<Comment> getAllCommentsByPostId(int postId) {
 
-        List<CommentRs> retList = null;
+        List<Comment> retList = null;
         try {
             retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId,
                     new CommentMapper());

@@ -30,4 +30,9 @@ public class ResponseRs<T> {
         this.errorDescription = errorDescription;
         this.timestamp = System.currentTimeMillis();
     }
+
+    public ResponseRs(String error, String errorDescription){
+        this.error = error;
+        this.errorDescription = errorDescription;
+    }
 }

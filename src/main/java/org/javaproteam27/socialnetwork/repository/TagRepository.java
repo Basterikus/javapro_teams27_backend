@@ -1,9 +1,11 @@
 package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,30 +13,25 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class TagRepository {
     private final JdbcTemplate jdbcTemplate;
-    public Integer addTag(String tagString, int postId) {
-        Integer retValue = null;
+    public void addTag(String tagString, int postId) {
         try {
-            /*Integer tagId = jdbcTemplate.queryForObject("SELECT MAX(id) FROM tag", Integer.class);
-            tagId = (tagId != null) ? ++tagId : 0;*/
             Integer tagId;
             List<Integer> idTags = jdbcTemplate.query("SELECT id FROM tag WHERE tag = '" + tagString + "'",
                     (rs, rowNum) -> rs.getInt("id"));
             if (idTags.isEmpty()) {
-                jdbcTemplate.update("INSERT INTO tag (tag) " + "VALUES (?)", tagString);
-                //TODO GET ID from INSERT!
-                tagId = jdbcTemplate.queryForObject("SELECT id FROM tag WHERE tag = '" + tagString + "'",
-                        Integer.class);
+                String sqlInsertQuery = "INSERT INTO tag (tag) VALUES ('" + tagString + "')";
+                KeyHolder keyHolder = new GeneratedKeyHolder();
+                jdbcTemplate.update(connection -> connection.prepareStatement(sqlInsertQuery, new String[]{"id"}), keyHolder);
+                tagId = (Integer) keyHolder.getKey();
             } else {
                 tagId = idTags.stream().findFirst().get();
             }
             jdbcTemplate.update("INSERT INTO post2tag (tag_id, post_id) " + "VALUES (?, ?)", tagId, postId);
         } catch (DataAccessException exception){
-            log.error(exception.getLocalizedMessage());
+            throw new ErrorException(exception.getMessage());
         }
-        return retValue;
     }
 
     private List<Integer> getTagIdsByPostId(int postId) throws DataAccessException {
@@ -43,7 +40,7 @@ public class TagRepository {
     }
 
     public List<String> findTagsByPostId(int postId) {
-        List<String> retList = null;
+        List<String> retList;
         try {
             List<Integer> tagIds = getTagIdsByPostId(postId);
             ArrayList<String> tags = new ArrayList<>();
@@ -51,13 +48,13 @@ public class TagRepository {
                     String.class)));
             retList = tags;
         } catch (DataAccessException exception){
-            log.error(exception.getLocalizedMessage());
+            throw new ErrorException(exception.getMessage());
         }
         return retList;
     }
 
     public Boolean deleteTagsByPostId(int postId) {
-        Boolean retValue = null;
+        Boolean retValue;
         try {
             List<Integer> tagIds = getTagIdsByPostId(postId);
             if (tagIds.isEmpty()) {
@@ -69,7 +66,7 @@ public class TagRepository {
             });
             retValue = true;
         } catch (DataAccessException exception){
-            log.error(exception.getLocalizedMessage());
+            throw new ErrorException(exception.getMessage());
         }
         return retValue;
     }

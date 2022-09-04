@@ -1,19 +1,21 @@
 stages:
-    - clone
+#    - clone
     - test
     - build
+    - release
     - deploy
 
 variables:
-    IMAGE_NAME: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${CI_COMMIT_REF_SLUG}_backend.$CI_PIPELINE_ID
+    IMAGE_NAME_BUILD: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}_build:${CI_COMMIT_REF_SLUG}_backend.${CI_PIPELINE_ID}
+    IMAGE_NAME_RELEASE: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}_backend.${CI_PIPELINE_ID}
     CONTAINER_NAME: javapro_teams27_backend
 
-clone:
-    stage: clone
-    tags:
-        - social-server-2
-    script:
-        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
+#clone:
+#    stage: clone
+#    tags:
+#        - social-server-2
+#    script:
+#        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test
@@ -27,16 +29,23 @@ build:
     tags:
         - social-server-2
     script:
-        - docker build -t $IMAGE_NAME ./
+        - docker build -t $IMAGE_NAME_BUILD ./
     only:
         - aleksei
+
+release:
+    stage: release
+    tags:
+        - social-server-2
+    script:
+        - docker stop $CONTAINER_NAME
+        - docker container prune
+        - docker rmi $IMAGE_NAME_RELEASE
+        - docker tag $IMAGE_NAME_BUILD $IMAGE_NAME_RELEASE
 
 deploy:
     stage: deploy
     tags:
         - social-server-2
     script:
-        - docker run -d -p 8086:8086 --name $CONTAINER_NAME $IMAGE_NAME
-    only:
-        - aleksei
-
+        - docker run -d -p 8086:8086 --name $CONTAINER_NAME $IMAGE_NAME_RELEASE

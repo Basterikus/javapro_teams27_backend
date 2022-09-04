@@ -3,7 +3,7 @@ server:
 
 spring:
     profiles:
-        active: anton_ch
+        active: prod
 
 logging:
     level:

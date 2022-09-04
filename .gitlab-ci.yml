@@ -1,5 +1,4 @@
 stages:
-#    - clone
     - test
     - build
     - release
@@ -9,13 +8,6 @@ variables:
     IMAGE_NAME_BUILD: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:build
     IMAGE_NAME_RELEASE: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:latest
     CONTAINER_NAME: javapro_teams27_backend
-
-#clone:
-#    stage: clone
-#    tags:
-#        - social-server-2
-#    script:
-#        - git clone git@gitlab.skillbox.ru:javapro_team27/javapro_teams27_backend.git
 
 test:
     stage: test
@@ -30,9 +22,8 @@ build:
         - social-server-2
     script:
         - docker build -t $IMAGE_NAME_BUILD ./
-        - sleep 60
     only:
-        - aleksei
+        - dev
 
 release:
     stage: release
@@ -46,7 +37,6 @@ release:
         - docker tag $IMAGE_NAME_BUILD $IMAGE_NAME_RELEASE
     after_script:
         - docker rmi $IMAGE_NAME_BUILD
-        - sleep 60
 
 deploy:
     stage: deploy

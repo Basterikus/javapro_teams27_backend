@@ -6,7 +6,7 @@ stages:
     - deploy
 
 variables:
-    IMAGE_NAME_BUILD: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}.${CI_PIPELINE_ID}
+    IMAGE_NAME_BUILD: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:build
     IMAGE_NAME_RELEASE: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:latest
     CONTAINER_NAME: javapro_teams27_backend
 
@@ -30,6 +30,7 @@ build:
         - social-server-2
     script:
         - docker build -t $IMAGE_NAME_BUILD ./
+        - sleep 120
     only:
         - aleksei
 
@@ -39,10 +40,13 @@ release:
         - social-server-2
     before_script:
         - docker stop $CONTAINER_NAME || exit_code=0
-        - docker container prune || exit_code=0
+        - docker rm $CONTAINER_NAME || exit_code=0
         - docker rmi $IMAGE_NAME_RELEASE || exit_code=0
     script:
         - docker tag $IMAGE_NAME_BUILD $IMAGE_NAME_RELEASE
+    after_script:
+        - docker rmi $IMAGE_NAME_BUILD
+        - sleep 120
 
 deploy:
     stage: deploy

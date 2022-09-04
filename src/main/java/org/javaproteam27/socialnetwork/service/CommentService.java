@@ -36,25 +36,33 @@ public class CommentService {
                 lastName(person.getLastName()).photo(person.getPhoto()).build();
         Long time = System.currentTimeMillis();
         Integer commentId = commentRepository.addComment(postId, commentText, parentId, author.getId(), time);
-        parentId = (parentId == null) ? commentId : parentId;
         CommentRs data = CommentRs.builder().isDeleted(false).parentId(parentId).commentText(commentText).id(commentId).
                 postId(postId).time(time).author(author).isBlocked(false).subComments(new ArrayList<>()).build();
         return new ResponseRs<>("", data, null);
 
     }
 
-    public List<CommentRs> getCommentsByPostId(int postId) {
-        List<Comment> comments = commentRepository.getAllCommentsByPostId(postId);
-        return comments.stream().map(this::convertToCommentRs).collect(Collectors.toList());
+    public ResponseRs<CommentRs> editComment(int postId, int commentId, String commentText, Integer parentId){
+        Person person = personService.getAuthorizedPerson();
+        PersonRs author = PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
+                lastName(person.getLastName()).photo(person.getPhoto()).build();
+        Long time = System.currentTimeMillis();
+        commentRepository.editComment(postId, commentId, commentText, time);
+        CommentRs data = CommentRs.builder().isDeleted(false).parentId(parentId).commentText(commentText).id(commentId).
+                postId(postId).time(time).author(author).isBlocked(false).subComments(new ArrayList<>()).build();
+        return new ResponseRs<>("", data, null);
     }
 
     public ListResponseRs<CommentRs> getCommentsByPostIdInResponse(int postId, int offset, int itemPerPage) {
-        List<CommentRs> data = getCommentsByPostId(postId);
-        return new ListResponseRs<>("", offset, itemPerPage, data);
+        return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId));
     }
 
-    private Boolean deleteCommentTest(int postId, int commentId){
-        return commentRepository.deleteComment(postId, commentId);
+    public boolean deleteAllCommentsToPost(int postId) {
+        List<Comment> comments = commentRepository.getAllCommentsByPostId(postId);
+        if (comments.isEmpty())
+            return true;
+        return comments.stream().map(comment -> deleteCommentTest(postId, comment.getId())).
+                reduce((c1, c2) -> (c1 && c2)).get();
     }
 
     public ResponseRs<CommentRs> deleteComment(int postId, int commentId) {
@@ -65,11 +73,21 @@ public class CommentService {
         return responseRs;
     }
 
-    public boolean deleteAllCommentsToPost(int postId) {
-        List<CommentRs> comments = getCommentsByPostId(postId);
-        if (comments.isEmpty())
-            return true;
-        return comments.stream().map(commentRs -> deleteCommentTest(postId, commentRs.getId())).
-                reduce((c1, c2) -> (c1 && c2)).get();
+    private Boolean deleteCommentTest(int postId, int commentId){
+        return commentRepository.deleteComment(postId, commentId);
+    }
+
+    public List<CommentRs> InitializeCommentsToPost(Integer postId){
+        List<Comment> commentList = commentRepository.getAllCommentsByPostIdAndParentId(postId, null);
+        List<CommentRs> commentRsList = commentList.stream().map(this::convertToCommentRs).collect(Collectors.toList());
+        commentRsList.forEach(commentRs -> setSubCommentsToComments(commentRs, commentRs.getId()));
+        return commentRsList;
+    }
+
+    private void setSubCommentsToComments (CommentRs commentRs, Integer parentId) {
+        List<Comment> comments = commentRepository.getAllCommentsByPostIdAndParentId(commentRs.getPostId(), parentId);
+        List<CommentRs> subComments = comments.stream().map(this::convertToCommentRs).collect(Collectors.toList());
+        commentRs.setSubComments(subComments);
+        commentRs.getSubComments().forEach(commentRs1 -> setSubCommentsToComments(commentRs1, commentRs1.getId()));
     }
 }

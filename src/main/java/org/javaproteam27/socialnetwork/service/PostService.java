@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
+import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
@@ -25,11 +26,11 @@ public class PostService {
 
     private final PersonService personService;
 
-
     private PostRs convertToPostRs(Post post){
         if (post == null) return null;
         long timestamp = post.getTime();
         String type = (timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED";
+        List<CommentRs> comments = commentService.InitializeCommentsToPost(post.getId());
         return PostRs.builder()
                 .id(post.getId())
                 .time(timestamp)//.toLocalDateTime())
@@ -37,7 +38,7 @@ public class PostService {
                 .title(post.getTitle())
                 .likes(likeService.getCountByPostId(post.getId()))
                 .tags(tagRepository.findTagsByPostId(post.getId()))
-                .commentRs(commentService.getCommentsByPostId(post.getId()))
+                .commentRs(comments)
                 .type(type)
                 .postText(post.getPostText())
                 .isBlocked(post.getIsBlocked()).myLike(false)

@@ -32,8 +32,15 @@ public class CommentsController {
 
     @DeleteMapping("/{comment_id}")
     public ResponseRs<CommentRs> deleteComment(@PathVariable(value = "id") int postId,
-                                                               @PathVariable(value = "comment_id") int commentId){
+                                               @PathVariable(value = "comment_id") int commentId){
 
         return commentService.deleteComment(postId, commentId);
+    }
+
+    @PutMapping("/{comment_id}")
+    public ResponseRs<CommentRs> editComment(@PathVariable(value = "id") int postId,
+                                             @PathVariable(value = "comment_id") int commentId,
+                                             @RequestBody CommentRq commentRq){
+        return commentService.editComment(postId, commentId, commentRq.getCommentText(),commentRq.getParentId());
     }
 }

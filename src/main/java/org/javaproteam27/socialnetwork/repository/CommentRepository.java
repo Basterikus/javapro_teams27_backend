@@ -38,8 +38,20 @@ public class CommentRepository {
 
         List<Comment> retList;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId,
-                    new CommentMapper());
+            retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId, new CommentMapper());
+        } catch (DataAccessException exception){
+            throw new ErrorException(exception.getMessage());
+        }
+        return retList;
+    }
+
+    public List<Comment> getAllCommentsByPostIdAndParentId(Integer postId, Integer parentId) {
+
+        List<Comment> retList;
+        try {
+            String connector = (parentId == null) ? "is " : "= ";
+            retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId
+                    + " AND parent_id " + connector + parentId, new CommentMapper());
         } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
@@ -52,6 +64,17 @@ public class CommentRepository {
         try {
             retValue = (jdbcTemplate.update("DELETE FROM post_comment WHERE id = " + commentId +
                     " AND post_id = " + postId) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+        return retValue;
+    }
+
+    public Boolean editComment(int postId, int commentId, String commentText, Long time) {
+        Boolean retValue;
+        try {
+            retValue = (jdbcTemplate.update("UPDATE post_comment SET comment_text = ?, time = ? " +
+                            "WHERE id = ? AND post_id = ?", commentText, new Timestamp(time), commentId, postId) == 1);
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }

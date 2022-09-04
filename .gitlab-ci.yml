@@ -5,8 +5,8 @@ stages:
     - deploy
 
 variables:
-    IMAGE_NAME_BUILD: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:build
-    IMAGE_NAME_RELEASE: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:latest
+    IMAGE_NAME_COMMIT: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:build
+    IMAGE_NAME_LATEST: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:latest
     CONTAINER_NAME: javapro_teams27_backend
 
 test:
@@ -21,7 +21,7 @@ build:
     tags:
         - social-server-2
     script:
-        - docker build -t $IMAGE_NAME_BUILD ./
+        - docker build -t $IMAGE_NAME_COMMIT ./
     only:
         - dev
 
@@ -32,15 +32,19 @@ release:
     before_script:
         - docker stop $CONTAINER_NAME || exit_code=0
         - docker rm $CONTAINER_NAME || exit_code=0
-        - docker rmi $IMAGE_NAME_RELEASE || exit_code=0
+        - docker rmi $IMAGE_NAME_LATEST || exit_code=0
     script:
-        - docker tag $IMAGE_NAME_BUILD $IMAGE_NAME_RELEASE
+        - docker tag $IMAGE_NAME_COMMIT $IMAGE_NAME_LATEST
     after_script:
-        - docker rmi $IMAGE_NAME_BUILD
+        - docker rmi $IMAGE_NAME_COMMIT
+    only:
+        - dev
 
 deploy:
     stage: deploy
     tags:
         - social-server-2
     script:
-        - docker run -d -p 8086:8086 --name $CONTAINER_NAME $IMAGE_NAME_RELEASE
+        - docker run -d -p 8086:8086 --name $CONTAINER_NAME $IMAGE_NAME_LATEST
+    only:
+        - dev

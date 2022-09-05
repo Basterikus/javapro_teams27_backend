@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver
-        url: jdbc:postgresql://host.docker.internal:5432/social
+        url: jdbc:postgresql://195.133.48.174:5432/social
         username: javapro
         password: admin
     liquibase:

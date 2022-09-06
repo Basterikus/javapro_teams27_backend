@@ -3,18 +3,20 @@ package org.javaproteam27.socialnetwork.model.dto.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 //@Builder
 public class ResponseRs<T> {
     private String error;
-    private long timestamp;
-    private int offset;
-    private int perPage;
+    private Long timestamp;
+    private Integer offset;
+    private Integer perPage;
     private T data;
     @JsonProperty("error_description")
-    String errorDescription;
+    private String errorDescription;
 
     public ResponseRs(String error, int offset, int perPage, T data) {
         this.error = error;

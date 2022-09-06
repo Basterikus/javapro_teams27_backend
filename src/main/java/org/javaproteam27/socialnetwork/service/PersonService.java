@@ -32,9 +32,9 @@ public class PersonService {
                                                String city, String country, int offset, int itemPerPage) {
 
         Person authorizedPerson = getAuthorizedPerson();
-        return getResultJson(personRepository.findPeople(authorizedPerson, firstName, lastName, ageFrom, ageTo, city,
-                        country),
-                offset, itemPerPage);
+        List<Person> people = personRepository.findPeople(authorizedPerson, firstName, lastName,
+                ageFrom, ageTo, city, country);
+        return getResultJson(people, offset, itemPerPage);
     }
 
     public Person getAuthorizedPerson() {

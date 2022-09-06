@@ -30,6 +30,10 @@ public class CommentRs {
     private Boolean isDeleted;
     @JsonProperty("sub_comments")
     List<CommentRs> subComments;
+    @JsonProperty("sub_likes")
+    private Integer subLikes;
+    @JsonProperty("my_like")
+    private Boolean myLike;
 }
 
 

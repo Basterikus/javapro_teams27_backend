@@ -14,56 +14,46 @@ import java.util.List;
 public class LikeRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public void addPostLike(long time, Integer personId, Integer postId){
+    public void addLike(long time, Integer personId, Integer objectLikedId, String type) {
         try {
-            jdbcTemplate.update("INSERT INTO post_like (time, person_id, post_id) " + "VALUES (?, ?, ?)",
-                    new Timestamp(time), personId, postId);
+            jdbcTemplate.update("INSERT INTO post_like (time, person_id, post_id, type) " + "VALUES (?, ?, ?, ?)",
+                    new Timestamp(time), personId, objectLikedId, type);
         } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
     }
 
-    public Boolean deletePostLike(Integer postId, Integer userId){
-        Boolean retValue;
+    public void deleteLike(String type, Integer objectLikedId, Integer personId){
         try {
-            retValue = (jdbcTemplate.update("DELETE FROM post_like WHERE post_id = " + postId +
-                    " AND person_id = " + userId) == 1);
-        } catch (DataAccessException exception) {
+            if (personId != null){
+                jdbcTemplate.update("DELETE FROM post_like WHERE post_id = ? AND type = ? AND person_id = ?",
+                        objectLikedId, type, personId);
+            } else {
+                jdbcTemplate.update("DELETE FROM post_like WHERE post_id = ? AND type = ?",
+                        objectLikedId, type);
+            }
+        } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
-        return retValue;
     }
 
-    public List<Integer> getLikesByPersonId(Integer personId, Integer postId){
+    public List<Integer> getLikedUserList(Integer objectLikedId, String type) {
         List<Integer> retList;
         try {
-            retList = jdbcTemplate.query("SELECT id FROM post_like WHERE person_id = "
-                            + personId + " AND post_id = " + postId,
-                    (rs, rowNum) -> rs.getInt("id"));
-        } catch (DataAccessException exception){
+            retList = jdbcTemplate.query("SELECT person_id FROM post_like WHERE post_id = " + objectLikedId
+                            + " AND type = '" + type + "'", (rs, rowNum) -> rs.getInt("person_id"));
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return retList;
     }
 
-    public List<Integer> getLikesByPostId(Integer postId){
-
+    public List<Integer> isLikedByUser(Integer userId, Integer objectLikedId, String type) {
         List<Integer> retList;
         try {
-            retList = jdbcTemplate.query("SELECT id FROM post_like WHERE post_id = " + postId,
-                    (rs, rowNum) -> rs.getInt("id"));
+            retList = jdbcTemplate.query("SELECT id FROM post_like WHERE person_id = " + userId +
+                    " AND post_id = " + objectLikedId + " AND type = '" + type + "'", (rs, rowNum) -> rs.getInt("id"));
         } catch (DataAccessException exception){
-            throw new ErrorException(exception.getMessage());
-        }
-        return retList;
-    }
-
-    public List<Integer> getUserListLikedPost(Integer postId){
-        List<Integer> retList;
-        try {
-            retList = jdbcTemplate.query("SELECT person_id FROM post_like WHERE post_id = " + postId,
-                    (rs, rowNum) -> rs.getInt("person_id"));
-        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return retList;

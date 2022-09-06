@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class CommentService {
     private final PersonService personService;
     private final CommentRepository commentRepository;
+    private final LikeService likeService;
+    public final String COMMENT_MARKER = "Comment";
 
     private CommentRs convertToCommentRs(Comment comment) {
         Person person = personService.findById(comment.getAuthorId());
@@ -26,7 +28,9 @@ public class CommentService {
                 lastName(person.getLastName()).photo(person.getPhoto()).build();
         return CommentRs.builder().isDeleted(false).parentId(comment.getParentId()).
                 commentText(comment.getCommentText()).id(comment.getId()).postId(comment.getPostId()).
-                time(comment.getTime()).author(author).isBlocked(person.getIsBlocked()).subComments(new ArrayList<>()).
+                time(comment.getTime()).author(author).isBlocked(person.getIsBlocked()).subComments(new ArrayList<>())
+                .subLikes(likeService.countLikes(comment.getId(), COMMENT_MARKER))
+                .myLike(likeService.isLikedByUser(personService.getAuthorizedPerson().getId(), comment.getId(), COMMENT_MARKER)).
                 build();
     }
 
@@ -57,24 +61,18 @@ public class CommentService {
         return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId));
     }
 
-    public boolean deleteAllCommentsToPost(int postId) {
+    public void deleteAllCommentsToPost(int postId) {
         List<Comment> comments = commentRepository.getAllCommentsByPostId(postId);
         if (comments.isEmpty())
-            return true;
-        return comments.stream().map(comment -> deleteCommentTest(postId, comment.getId())).
-                reduce((c1, c2) -> (c1 && c2)).get();
+            return;
+        comments.forEach(comment -> deleteComment(postId, comment.getId()));
     }
 
     public ResponseRs<CommentRs> deleteComment(int postId, int commentId) {
-        ResponseRs<CommentRs> responseRs = null;
-        if (deleteCommentTest(postId, commentId)){
-            responseRs = new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
-        }
-        return responseRs;
-    }
 
-    private Boolean deleteCommentTest(int postId, int commentId){
-        return commentRepository.deleteComment(postId, commentId);
+        commentRepository.deleteComment(postId, commentId);
+        ResponseRs<CommentRs> responseRs = new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
+        return responseRs;
     }
 
     public List<CommentRs> InitializeCommentsToPost(Integer postId){

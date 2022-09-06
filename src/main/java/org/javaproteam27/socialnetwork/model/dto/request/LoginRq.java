@@ -1,9 +1,9 @@
 package org.javaproteam27.socialnetwork.model.dto.request;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class LoginRq {
-    String email;
-    String password;
+    private String email;
+    private String password;
 }

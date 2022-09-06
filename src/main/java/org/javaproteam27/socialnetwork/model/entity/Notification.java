@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.model.entity;
 
 import lombok.Data;
+import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 
 import java.time.LocalDateTime;
 
@@ -8,10 +9,11 @@ import java.time.LocalDateTime;
 public class Notification {
     
     private Integer id;
-    private Integer typeId;
+    private NotificationType notificationType;
     private LocalDateTime sentTime;
     private Integer personId;
     private Integer entityId;
     private String contact;
+    private boolean isRead;
     
 }

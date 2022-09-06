@@ -1,16 +1,14 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.response.FriendshipRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
-import org.javaproteam27.socialnetwork.service.FriendsService;
-import org.javaproteam27.socialnetwork.service.FriendshipService;
-import org.javaproteam27.socialnetwork.service.FriendshipStatusService;
-import org.javaproteam27.socialnetwork.service.PersonService;
+import org.javaproteam27.socialnetwork.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +23,7 @@ public class FriendsController {
     private final FriendshipStatusService friendshipStatusService;
     private final FriendshipService friendshipService;
     private final PersonService personService;
+    private final NotificationsService notificationsService;
     
     @GetMapping("/recommendations")
     private ResponseEntity<ListResponseRs<PersonRs>> getRecommendations(
@@ -51,10 +50,11 @@ public class FriendsController {
                                                     @RequestHeader(value = "Authorization") String token){
 
         int friendshipStatusId = friendshipStatusService.addStatus();
-
         Person person = personService.getAuthorizedPerson();
+        var friendship = friendshipService.addFriendShip(id, friendshipStatusId,person.getId());
+        notificationsService.createFriendshipNotification(id, friendshipStatusId);
 
-        return ResponseEntity.ok(friendshipService.addFriendShip(id, friendshipStatusId,person.getId()));
+        return ResponseEntity.ok(friendship);
     }
 
     @DeleteMapping("/{id}")

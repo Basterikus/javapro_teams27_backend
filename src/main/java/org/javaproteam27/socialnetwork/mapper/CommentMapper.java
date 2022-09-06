@@ -1,15 +1,15 @@
 package org.javaproteam27.socialnetwork.mapper;
 
-import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
+import org.javaproteam27.socialnetwork.model.entity.Comment;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CommentMapper implements RowMapper<CommentRs> {
+public class CommentMapper implements RowMapper<Comment> {
     @Override
-    public CommentRs mapRow(ResultSet resultSet, int i) throws SQLException {
-        return CommentRs.builder()
+    public Comment mapRow(ResultSet resultSet, int i) throws SQLException {
+        return Comment.builder()
                 .id(resultSet.getInt("id"))
                 .time(resultSet.getTimestamp("time").getTime())
                 .authorId(resultSet.getInt("author_id"))

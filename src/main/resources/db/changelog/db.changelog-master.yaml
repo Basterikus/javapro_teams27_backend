@@ -41,3 +41,5 @@ databaseChangeLog:
       file: /db/changelog/migrations/020-create-captcha.sql
   - include:
       file: /db/changelog/migrations/021-edit-notification.sql
+  - include:
+      file: db/changelog/migrations/022-edit-post-like.sql

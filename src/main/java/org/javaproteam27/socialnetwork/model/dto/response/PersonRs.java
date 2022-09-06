@@ -34,6 +34,6 @@ public class PersonRs {
     private LocalDateTime lastOnlineTime;
     @JsonProperty("is_blocked")
     private boolean isBlocked;
-    String token;
+    private String token;
 }
 

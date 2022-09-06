@@ -1,0 +1,7 @@
+ALTER TABLE IF EXISTS notification DROP CONSTRAINT fk_type;
+
+ALTER TABLE IF EXISTS notification RENAME COLUMN type_id TO notification_type;
+
+ALTER TABLE IF EXISTS notification ALTER COLUMN notification_type TYPE VARCHAR(255);
+
+ALTER TABLE IF EXISTS notification ADD COLUMN is_read BOOLEAN DEFAULT FALSE;

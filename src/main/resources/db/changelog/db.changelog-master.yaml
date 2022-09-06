@@ -42,4 +42,4 @@ databaseChangeLog:
   - include:
       file: /db/changelog/migrations/021-edit-notification.sql
   - include:
-      file: db/changelog/migrations/0021-edit-post-like.sql
+      file: db/changelog/migrations/022-edit-post-like.sql

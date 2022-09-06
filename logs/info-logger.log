@@ -9881,3 +9881,608 @@ org.javaproteam27.socialnetwork.handler.exception.ErrorException: PreparedStatem
 2022-09-06 18:49:47 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
 2022-09-06 18:49:47 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2022-09-06 18:49:47 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-06 19:18:46 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on MBP-Anton with PID 37877 (/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes started by anton in /Users/anton/IdeaProjects/javapro_teams27_backend)
+2022-09-06 19:18:46 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: anton_m
+2022-09-06 19:18:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-06 19:18:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33ms. Found 0 JDBC repository interfaces.
+2022-09-06 19:18:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-06 19:18:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-06 19:18:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-06 19:18:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-06 19:18:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-06 19:18:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1401 ms
+2022-09-06 19:18:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-06 19:18:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-06 19:18:48 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-06 19:18:48 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE IF EXISTS notification DROP CONSTRAINT fk_type;
+
+ALTER TABLE IF EXISTS notification RENAME COLUMN type_id TO notification_type;
+
+ALTER TABLE IF EXISTS notification ALTER COLUMN notification_type TYPE VARCHAR(255);
+
+ALTER TABLE IF EXISTS notification ADD COLUMN is_read BOOLEAN DEFAULT FALSE
+2022-09-06 19:18:48 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:18:48 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/021-edit-notification.sql::raw::includeAll ran successfully in 26ms
+2022-09-06 19:18:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MAX(ORDEREXECUTED) FROM public.databasechangelog
+2022-09-06 19:18:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/021-edit-notification.sql', NOW(), 22, '8:2dad3bf9b9017c9a1b05d37b1d136841', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481128635')
+2022-09-06 19:18:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE post_like ADD COLUMN type VARCHAR (255)
+2022-09-06 19:18:49 [main] ERROR liquibase.changelog.ChangeSet - Change Set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll failed.  Error: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+2022-09-06 19:18:49 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-06 19:18:49 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/controller/AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/service/RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+2022-09-06 19:18:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-06 19:18:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-06 19:18:49 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2022-09-06 19:18:49 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-09-06 19:18:49 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/controller/AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/service/RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:897)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:402)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1247)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1236)
+	at org.javaproteam27.socialnetwork.SocialNetworkApplication.main(SocialNetworkApplication.java:12)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/service/RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 20 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 34 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:311)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 48 common frames omitted
+Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:646)
+	at liquibase.changelog.visitor.UpdateVisitor.visit(UpdateVisitor.java:53)
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:83)
+	at liquibase.Liquibase.update(Liquibase.java:202)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1858)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1795)
+	... 61 common frames omitted
+Caused by: liquibase.exception.DatabaseException: ERROR: column "type" of relation "post_like" already exists [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:402)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:59)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:131)
+	at liquibase.database.AbstractJdbcDatabase.execute(AbstractJdbcDatabase.java:1276)
+	at liquibase.database.AbstractJdbcDatabase.executeStatements(AbstractJdbcDatabase.java:1258)
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:609)
+	... 69 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: column "type" of relation "post_like" already exists
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2553)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2285)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:323)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:481)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:401)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:322)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:308)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:284)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:279)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:398)
+	... 74 common frames omitted
+2022-09-06 19:21:09 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on MBP-Anton with PID 38056 (/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes started by anton in /Users/anton/IdeaProjects/javapro_teams27_backend)
+2022-09-06 19:21:09 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: anton_m
+2022-09-06 19:21:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-06 19:21:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29ms. Found 0 JDBC repository interfaces.
+2022-09-06 19:21:10 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-06 19:21:10 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-06 19:21:10 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-06 19:21:10 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-06 19:21:10 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-06 19:21:10 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1295 ms
+2022-09-06 19:21:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-06 19:21:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-06 19:21:11 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-06 19:21:11 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE IF EXISTS notification DROP CONSTRAINT fk_type;
+
+ALTER TABLE IF EXISTS notification RENAME COLUMN type_id TO notification_type;
+
+ALTER TABLE IF EXISTS notification ALTER COLUMN notification_type TYPE VARCHAR(255);
+
+ALTER TABLE IF EXISTS notification ADD COLUMN is_read BOOLEAN DEFAULT FALSE
+2022-09-06 19:21:11 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:21:11 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/021-edit-notification.sql::raw::includeAll ran successfully in 12ms
+2022-09-06 19:21:11 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MAX(ORDEREXECUTED) FROM public.databasechangelog
+2022-09-06 19:21:12 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/021-edit-notification.sql', NOW(), 22, '8:2dad3bf9b9017c9a1b05d37b1d136841', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481271464')
+2022-09-06 19:21:12 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE post_like ADD COLUMN type VARCHAR (255)
+2022-09-06 19:21:12 [main] ERROR liquibase.changelog.ChangeSet - Change Set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll failed.  Error: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+2022-09-06 19:21:12 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-06 19:21:12 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/controller/AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/service/RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+2022-09-06 19:21:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-06 19:21:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-06 19:21:12 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2022-09-06 19:21:12 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-09-06 19:21:12 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/controller/AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/service/RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:897)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:402)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1247)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1236)
+	at org.javaproteam27.socialnetwork.SocialNetworkApplication.main(SocialNetworkApplication.java:12)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/service/RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 20 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes/org/javaproteam27/socialnetwork/repository/PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 34 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:311)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 48 common frames omitted
+Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/migrations/022-edit-post-like.sql::raw::includeAll:
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:646)
+	at liquibase.changelog.visitor.UpdateVisitor.visit(UpdateVisitor.java:53)
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:83)
+	at liquibase.Liquibase.update(Liquibase.java:202)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1858)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1795)
+	... 61 common frames omitted
+Caused by: liquibase.exception.DatabaseException: ERROR: relation "post_like" does not exist [Failed SQL: (0) ALTER TABLE post_like ADD COLUMN type VARCHAR (255)]
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:402)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:59)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:131)
+	at liquibase.database.AbstractJdbcDatabase.execute(AbstractJdbcDatabase.java:1276)
+	at liquibase.database.AbstractJdbcDatabase.executeStatements(AbstractJdbcDatabase.java:1258)
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:609)
+	... 69 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "post_like" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2553)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2285)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:323)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:481)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:401)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:322)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:308)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:284)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:279)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:398)
+	... 74 common frames omitted
+2022-09-06 19:22:11 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on MBP-Anton with PID 38129 (/Users/anton/IdeaProjects/javapro_teams27_backend/target/classes started by anton in /Users/anton/IdeaProjects/javapro_teams27_backend)
+2022-09-06 19:22:11 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: anton_m
+2022-09-06 19:22:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-06 19:22:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19ms. Found 0 JDBC repository interfaces.
+2022-09-06 19:22:12 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-06 19:22:12 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-06 19:22:12 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-06 19:22:12 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-06 19:22:12 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-06 19:22:12 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1134 ms
+2022-09-06 19:22:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-06 19:22:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE public.databasechangeloglock (ID INTEGER NOT NULL, LOCKED BOOLEAN NOT NULL, LOCKGRANTED TIMESTAMP WITHOUT TIME ZONE, LOCKEDBY VARCHAR(255), CONSTRAINT DATABASECHANGELOGLOCK_PKEY PRIMARY KEY (ID))
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - DELETE FROM public.databasechangeloglock
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangeloglock (ID, LOCKED) VALUES (1, FALSE)
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-06 19:22:13 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-06 19:22:13 [main] INFO  l.c.StandardChangeLogHistoryService - Creating database history table with name: public.databasechangelog
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE public.databasechangelog (ID VARCHAR(255) NOT NULL, AUTHOR VARCHAR(255) NOT NULL, FILENAME VARCHAR(255) NOT NULL, DATEEXECUTED TIMESTAMP WITHOUT TIME ZONE NOT NULL, ORDEREXECUTED INTEGER NOT NULL, EXECTYPE VARCHAR(10) NOT NULL, MD5SUM VARCHAR(35), DESCRIPTION VARCHAR(255), COMMENTS VARCHAR(255), TAG VARCHAR(255), LIQUIBASE VARCHAR(20), CONTEXTS VARCHAR(255), LABELS VARCHAR(255), DEPLOYMENT_ID VARCHAR(10))
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-06 19:22:13 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE person (
+                        id SERIAL PRIMARY KEY,
+                        first_name VARCHAR (255) NOT NULL,
+                        last_name VARCHAR (255) NOT NULL,
+                        reg_date TIMESTAMP NOT NULL,
+                        birth_date TIMESTAMP,
+                        email VARCHAR (255) UNIQUE NOT NULL,
+                        phone VARCHAR(255) UNIQUE NOT NULL,
+                        password VARCHAR(255) NOT NULL,
+                        photo VARCHAR(255),
+                        about VARCHAR (255),
+                        town VARCHAR (255),
+                        confirmation_code INT,
+                        is_approved BOOLEAN DEFAULT FALSE NOT NULL,
+                        messages_permission VARCHAR (255),
+                        last_online_time TIMESTAMP,
+                        is_blocked BOOLEAN DEFAULT FALSE
+)
+2022-09-06 19:22:13 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:13 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/001-create-person.sql::raw::includeAll ran successfully in 14ms
+2022-09-06 19:22:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MAX(ORDEREXECUTED) FROM public.databasechangelog
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/001-create-person.sql', NOW(), 1, '8:d8a47b3d8b16c997c2a7b250c3a4237e', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post (
+                      id SERIAL PRIMARY KEY,
+                      time TIMESTAMP NOT NULL,
+                      author_id INT,
+                      title VARCHAR (255),
+                      post_text TEXT,
+                      is_blocked BOOLEAN DEFAULT FALSE,
+                      CONSTRAINT fk_person_post
+                            FOREIGN KEY (author_id)
+                                REFERENCES person (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/002-create-post.sql::raw::includeAll ran successfully in 6ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/002-create-post.sql', NOW(), 2, '8:fc69d8c690987de5b4633e57ccc9ab2c', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post_comment (
+                      id serial PRIMARY KEY,
+                      time TIMESTAMP NOT NULL,
+                      post_id INT,
+                      parent_id INT,
+                      author_id INT,
+                      comment_text TEXT,
+                      is_blocked BOOLEAN DEFAULT FALSE,
+                        CONSTRAINT fk_comment_parent
+                            FOREIGN KEY (parent_id)
+                                REFERENCES post_comment (id),
+                        CONSTRAINT fk_comment_person
+                            FOREIGN KEY (author_id)
+                                REFERENCES person (id),
+                        CONSTRAINT fk_comment_post
+                            FOREIGN KEY (post_id)
+                                REFERENCES post (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll ran successfully in 6ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/003-create-post-comment.sql', NOW(), 3, '8:dddf5fdf0c4519ce4574da4f4628cd6a', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post_like (
+                           id serial PRIMARY KEY,
+                           time TIMESTAMP NOT NULL,
+                           person_id INT,
+                           post_id INT,
+                           CONSTRAINT fk_person_like
+                                FOREIGN KEY (person_id)
+                                    REFERENCES person (id),
+                           CONSTRAINT fk_like_post
+                                FOREIGN KEY (post_id)
+                                    REFERENCES post (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/004-create-post-like.sql::raw::includeAll ran successfully in 3ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/004-create-post-like.sql', NOW(), 4, '8:566e57775c45060038f7516d7cd8e1f9', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post_file (
+                           id serial PRIMARY KEY,
+                           post_id INT,
+                           name VARCHAR (255),
+                           path VARCHAR (255),
+                           CONSTRAINT fk_file_post
+                                FOREIGN KEY (post_id)
+                                    REFERENCES post (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/005-create-post-file.sql::raw::includeAll ran successfully in 4ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/005-create-post-file.sql', NOW(), 5, '8:edc3764f1a66da59686e3c8691bd2b1d', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE tag (
+                     id serial PRIMARY KEY,
+                     tag VARCHAR (255)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/006-create-tag.sql::raw::includeAll ran successfully in 4ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/006-create-tag.sql', NOW(), 6, '8:222ae51bcf8e1ed784c85f698182a70c', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post2tag (
+                          id serial PRIMARY KEY,
+                          tag_id INT,
+                          post_id INT,
+                                CONSTRAINT fk_tag
+                                    FOREIGN KEY (tag_id)
+                                        REFERENCES tag (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/007-create-post2tag.sql::raw::includeAll ran successfully in 3ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/007-create-post2tag.sql', NOW(), 7, '8:d82ea7e5cc0ad1c4f9632f3ba7af0ee6', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE block_history (
+                               id serial PRIMARY KEY,
+                               time TIMESTAMP NOT NULL,
+                               person_id INT,
+                               post_id INT,
+                               comment_id INT,
+                               action VARCHAR (255),
+                               CONSTRAINT fk_block_person
+                                    FOREIGN KEY (person_id)
+                                        REFERENCES person (id),
+                               CONSTRAINT fk_block_post
+                                    FOREIGN KEY (post_id)
+                                        REFERENCES post (id),
+                               CONSTRAINT fk_block_comment
+                                    FOREIGN KEY (comment_id)
+                                        REFERENCES post_comment (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/008-create-block-history.sql::raw::includeAll ran successfully in 5ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/008-create-block-history.sql', NOW(), 8, '8:5b7f3ab9e19a135104d95fe2f1d21314', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE message (
+                         id serial PRIMARY KEY,
+                         time TIMESTAMP NOT NULL,
+                         author_id INT,
+                         recipient_id INT,
+                         message_text TEXT,
+                         read_status VARCHAR (255),
+                         CONSTRAINT fk_message_author
+                                FOREIGN KEY (author_id)
+                                    REFERENCES person (id),
+                         CONSTRAINT fk_message_recipient
+                                FOREIGN KEY (recipient_id)
+                                    REFERENCES person (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/009-create-message.sql::raw::includeAll ran successfully in 8ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/009-create-message.sql', NOW(), 9, '8:8c0bc5ef8b805672b0dd7dda093b8bce', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE notification_type (
+                                   id serial PRIMARY KEY,
+                                   code VARCHAR (255),
+                                   name VARCHAR (255)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/010-create-notification-type.sql::raw::includeAll ran successfully in 4ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/010-create-notification-type.sql', NOW(), 10, '8:b7558dfd41a18379d57872f6bac490a3', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE notification (
+                              id serial PRIMARY KEY,
+                              type_id INT,
+                              sent_time TIMESTAMP NOT NULL,
+                              person_id INT,
+                              entity_id INT,
+                              contact VARCHAR (255),
+                              CONSTRAINT fk_type
+                                    FOREIGN KEY (type_id)
+                                        REFERENCES notification_type (id),
+                              CONSTRAINT fk_person_notification
+                                    FOREIGN KEY (person_id)
+                                        REFERENCES person (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/011-create-notification.sql::raw::includeAll ran successfully in 6ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/011-create-notification.sql', NOW(), 11, '8:a416d9c6e2a4d6f548ab7de3b6760a4f', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE friendship_status (
+                                   id serial PRIMARY KEY,
+                                   time TIMESTAMP NOT NULL,
+                                   name VARCHAR (255),
+                                   code VARCHAR (255)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/012-create-friendship-status.sql::raw::includeAll ran successfully in 4ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/012-create-friendship-status.sql', NOW(), 12, '8:ff5787c37005ebf4cf4aba612f9a480b', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE friendship (
+                            id serial PRIMARY KEY,
+                            status_id INT,
+                            sent_time TIMESTAMP NOT NULL,
+                            src_person_id INT,
+                            dst_person_id INT,
+                            CONSTRAINT fk_friendship
+                                FOREIGN KEY (status_id)
+                                    REFERENCES friendship_status (id),
+                            CONSTRAINT fk_sender_person
+                                FOREIGN KEY (src_person_id)
+                                    REFERENCES person (id),
+                            CONSTRAINT fk_recipient_person
+                                FOREIGN KEY (dst_person_id)
+                                    REFERENCES person (id)
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/013-create-friendship.sql::raw::includeAll ran successfully in 5ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/013-create-friendship.sql', NOW(), 13, '8:678a9aff4585a850fe65e6830038e4db', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE "user" (
+                      id serial PRIMARY KEY,
+                      name VARCHAR (255) NOT NULL,
+                      e_mail VARCHAR (255),
+                      password VARCHAR (255) NOT NULL,
+                      type VARCHAR (255) NOT NULL
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/014-create-user.sql::raw::includeAll ran successfully in 3ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/014-create-user.sql', NOW(), 14, '8:346a89a13410da301b5097d7762fb1c1', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE city (
+                      id serial PRIMARY KEY,
+                      title VARCHAR (255) NOT NULL,
+                      country_id INT
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/015-create-city.sql::raw::includeAll ran successfully in 3ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/015-create-city.sql', NOW(), 15, '8:48226efc224da326e2ae33e05b0c7117', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE country (
+                      id serial PRIMARY KEY,
+                      title VARCHAR (255) NOT NULL
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/016-create-country.sql::raw::includeAll ran successfully in 3ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/016-create-country.sql', NOW(), 16, '8:669a9e2f3e66755fbbb86be41bec15c1', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE IF EXISTS person RENAME COLUMN town TO city_id;
+
+ALTER TABLE IF EXISTS person ALTER COLUMN city_id TYPE INT USING city_id::integer;
+
+ALTER TABLE IF EXISTS person ADD CONSTRAINT fk_city FOREIGN KEY (city_id) REFERENCES city (id)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/017-edit-person.sql::raw::includeAll ran successfully in 9ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/017-edit-person.sql', NOW(), 17, '8:f05d22edc873fc93d85bd47b31aad763', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE IF EXISTS person DROP CONSTRAINT fk_city;
+
+ALTER TABLE IF EXISTS person RENAME COLUMN city_id TO city;
+
+ALTER TABLE IF EXISTS person ALTER COLUMN city TYPE VARCHAR(255);
+
+ALTER TABLE IF EXISTS person ADD COLUMN country VARCHAR(255)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/018-edit-person-city-country.sql::raw::includeAll ran successfully in 8ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/018-edit-person-city-country.sql', NOW(), 18, '8:db1e7225cb97377b1fbd2980e31bc074', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE person ALTER COLUMN phone DROP NOT NULL
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/019-edit-person.sql::raw::includeAll ran successfully in 2ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/019-edit-person.sql', NOW(), 19, '8:1abbb265c2dd5d9732189f55f89398d7', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE captcha (
+                                   id serial PRIMARY KEY,
+                                   time TIMESTAMP NOT NULL,
+                                   code VARCHAR (255) NOT NULL,
+                                   secret_code VARCHAR (255) NOT NULL
+)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/020-create-captcha.sql::raw::includeAll ran successfully in 4ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/020-create-captcha.sql', NOW(), 20, '8:6c599d64a1ae8523bd6c322f9085d11a', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE IF EXISTS notification DROP CONSTRAINT fk_type;
+
+ALTER TABLE IF EXISTS notification RENAME COLUMN type_id TO notification_type;
+
+ALTER TABLE IF EXISTS notification ALTER COLUMN notification_type TYPE VARCHAR(255);
+
+ALTER TABLE IF EXISTS notification ADD COLUMN is_read BOOLEAN DEFAULT FALSE
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/021-edit-notification.sql::raw::includeAll ran successfully in 6ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/021-edit-notification.sql', NOW(), 21, '8:2dad3bf9b9017c9a1b05d37b1d136841', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE post_like ADD COLUMN type VARCHAR (255)
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-06 19:22:14 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet db/changelog/migrations/022-edit-post-like.sql::raw::includeAll ran successfully in 1ms
+2022-09-06 19:22:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', 'db/changelog/migrations/022-edit-post-like.sql', NOW(), 22, '8:18478cd0c62fdf70a1edc47161109f90', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '2481333152')
+2022-09-06 19:22:14 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-06 19:22:14 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-06 19:22:14 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-06 19:22:15 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c815478, org.springframework.security.web.context.SecurityContextPersistenceFilter@136a5572, org.springframework.security.web.header.HeaderWriterFilter@155cf9f6, org.springframework.web.filter.CorsFilter@1efa258e, org.springframework.security.web.authentication.logout.LogoutFilter@33da0fad, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@21de60a7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@10007fdc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@179e8859, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6ccd3cf1, org.springframework.security.web.session.SessionManagementFilter@520e6089, org.springframework.security.web.access.ExceptionTranslationFilter@308498a8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f726cf4]
+2022-09-06 19:22:15 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-06 19:22:15 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-06 19:22:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-06 19:22:15 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.548 seconds (JVM running for 5.003)
+2022-09-06 19:22:48 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-06 19:22:48 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-06 19:22:48 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-06 19:22:48 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

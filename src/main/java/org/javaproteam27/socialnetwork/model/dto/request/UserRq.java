@@ -23,12 +23,8 @@ public class UserRq {
     private String photoId;
 
     private String about;
-
-    @JsonProperty("town_id")
-    private int townId;
-
-    @JsonProperty("country_id")
-    private int countryId;
+    private String town;
+    private String country;
 
     @JsonProperty("messages_permission")
     private String messagesPermission;

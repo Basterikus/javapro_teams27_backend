@@ -34,10 +34,10 @@ public class UserService {
         person.setLastName(request.getLastName());
         person.setBirthDate(LocalDateTime.ofEpochSecond(request.getBirthDate(), 0, ZoneOffset.UTC));
         person.setPhone(request.getPhone());
-
-        // фото
         person.setAbout(request.getAbout());
-        person.setMessagesPermission(MessagesPermission.valueOf(request.getMessagesPermission()));
+        person.setCity(request.getTown());
+        person.setCity(request.getCountry());
+//        person.setMessagesPermission(MessagesPermission.valueOf(request.getMessagesPermission()));
 
         return ResponseEntity.ok(response);
     }

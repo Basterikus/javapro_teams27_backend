@@ -38,6 +38,8 @@ public class RegisterService {
     @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
 
+    private String defaultPhoto = "src/main/resources/images/default.jpg";
+
 
     public ResponseEntity<RegisterRs> postRegister(RegisterRq request) {
         RegisterRs registerRS = new RegisterRs();
@@ -66,6 +68,7 @@ public class RegisterService {
         person.setLastName(lastName);
         person.setRegDate(LocalDateTime.now());
         person.setPassword(request.getPassword1());
+        person.setPhoto(defaultPhoto);
         person.setIsApproved(true);  // добавить проверку почты
         personRepository.save(person);
         // ответ успешной регистрации

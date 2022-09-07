@@ -1,0 +1,1 @@
+ALTER TABLE post_like ADD COLUMN type VARCHAR (255);

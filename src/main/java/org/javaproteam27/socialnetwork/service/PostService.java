@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
+import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
@@ -22,26 +23,28 @@ public class PostService {
     private final TagRepository tagRepository;
     private final CommentService commentService;
     private final LikeService likeService;
+    private final String POST_MARKER = "Post";
 
     private final PersonService personService;
 
-
     private PostRs convertToPostRs(Post post){
+
         if (post == null) return null;
         long timestamp = post.getTime();
         String type = (timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED";
+        List<CommentRs> comments = commentService.InitializeCommentsToPost(post.getId());
         return PostRs.builder()
                 .id(post.getId())
                 .time(timestamp)//.toLocalDateTime())
                 .author(personService.initialize(post.getAuthorId()))
                 .title(post.getTitle())
-                .likes(likeService.getCountByPostId(post.getId()))
+                .likes(likeService.countLikes(post.getId(), POST_MARKER))
                 .tags(tagRepository.findTagsByPostId(post.getId()))
-                .commentRs(commentService.getCommentsByPostId(post.getId()))
+                .commentRs(comments)
                 .type(type)
                 .postText(post.getPostText())
                 .isBlocked(post.getIsBlocked()).myLike(false)
-                .myLike(likeService.isPostLikedByUser(personService.getAuthorizedPerson().getId(), post.getId()))
+                .myLike(likeService.isLikedByUser(personService.getAuthorizedPerson().getId(), post.getId(), POST_MARKER))
                 .build();
     }
 
@@ -61,14 +64,15 @@ public class PostService {
 
     public ResponseRs<PostRs> deletePost(int postId) {
 
-        ResponseRs<PostRs> retValue = null;
         tagRepository.deleteTagsByPostId(postId);
+        List<Integer> commentIds = commentService.InitializeCommentsToPost(postId).stream().
+                map(CommentRs::getId).collect(Collectors.toList());
+        commentIds.forEach(commentId -> likeService.deleteAllLikesByLikedObjectId(commentId,
+                commentService.COMMENT_MARKER));
+        likeService.deleteAllLikesByLikedObjectId(postId, POST_MARKER);
         commentService.deleteAllCommentsToPost(postId);
-        likeService.deletePostLikeTest(postId, null);
-        if (postRepository.deletePostById(postId)) {
-            retValue = new ResponseRs<>("", PostRs.builder().id(postId).build(),null);
-        }
-        return retValue;
+        postRepository.deletePostById(postId);
+        return new ResponseRs<>("", PostRs.builder().id(postId).build(),null);
     }
 
     public ResponseRs<PostRs> updatePost(int postId, String title, String postText, ArrayList<String> tags) {

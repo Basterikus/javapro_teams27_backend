@@ -16,21 +16,21 @@ public class LikesController {
 
     @PutMapping
     public ResponseEntity<ResponseRs<LikeRs>> putLike(@RequestBody LikeRq likeRq){
-        ResponseRs<LikeRs> responseRs = likeService.addPostLike(likeRq.getType(), likeRq.getItemId());
+        ResponseRs<LikeRs> responseRs = likeService.addLike(likeRq.getType(), likeRq.getItemId());
         return ResponseEntity.ok(responseRs);
     }
 
     @DeleteMapping
     public ResponseEntity<ResponseRs<LikeRs>> deleteLike(@RequestParam("item_id") Integer itemId,
                                                          @RequestParam String type){
-        ResponseRs<LikeRs> responseRs = likeService.deletePostLike(type, itemId);
+        ResponseRs<LikeRs> responseRs = likeService.deleteLike(type, itemId);
         return ResponseEntity.ok(responseRs);
     }
 
     @GetMapping
     public ResponseEntity<ResponseRs<LikeRs>> getLikeList(@RequestParam("item_id") Integer itemId,
                                                           @RequestParam String type){
-        ResponseRs<LikeRs> responseRs = likeService.getPostLikeList(type, itemId);
+        ResponseRs<LikeRs> responseRs = likeService.getLikeList(type, itemId);
         return ResponseEntity.ok(responseRs);
     }
 }

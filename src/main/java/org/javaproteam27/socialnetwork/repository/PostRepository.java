@@ -9,10 +9,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -27,8 +30,8 @@ public class PostRepository {
             postId = jdbcTemplate.queryForObject("SELECT MAX(id) FROM post", Integer.class);
             postId = (postId != null) ? ++postId : 0;
             jdbcTemplate.update("INSERT INTO post (id, time, author_id, title, post_text) " +
-                            "VALUES (?, ?, ?, ?, ?)", postId, new Timestamp(time), authorId, title, postText);
-        } catch (DataAccessException exception){
+                    "VALUES (?, ?, ?, ?, ?)", postId, new Timestamp(time), authorId, title, postText);
+        } catch (DataAccessException exception) {
             log.error(exception.getLocalizedMessage());
         }
         return postId;
@@ -39,7 +42,7 @@ public class PostRepository {
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId,
                     new PostMapper());
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             log.error(exception.getLocalizedMessage());
         }
         return retList;
@@ -49,7 +52,7 @@ public class PostRepository {
         Boolean retValue = null;
         try {
             retValue = (jdbcTemplate.update("DELETE FROM post WHERE id = ?", postId) == 1);
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             log.error(exception.getLocalizedMessage());
         }
         return retValue;
@@ -60,7 +63,7 @@ public class PostRepository {
         try {
             retValue = (jdbcTemplate.update("UPDATE post SET title = ?, post_text = ? WHERE id = ?", title,
                     postText, postId) == 1);
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             log.error(exception.getLocalizedMessage());
         }
         return retValue;
@@ -71,18 +74,18 @@ public class PostRepository {
         try {
             post = jdbcTemplate.queryForObject("SELECT * FROM post WHERE id = ?"
                     , new Object[]{postId}, new PostMapper());
-        }
-        catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             log.error(exception.getLocalizedMessage());
         }
         return post;
     }
-    public List<Post> findAllPublishedPosts(){
+
+    public List<Post> findAllPublishedPosts() {
         List<Post> retList = null;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP",new PostMapper());
+            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP", new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             log.error(exception.getLocalizedMessage());
         }
         return retList;
@@ -90,25 +93,38 @@ public class PostRepository {
 
     public List<Post> findPost(String text, Long dateFrom, Long dateTo) {
         ArrayList<String> queryParts = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
 
-        if (text != null) {
-            queryParts.add("post_text LIKE '%" + text + "%'");
-        }
+        queryParts.add("(post_text ILIKE '%" + text + "%' OR title ILIKE '%" + text + "%')");
 
         if (dateFrom != null) {
-            LocalDate dateFromParsed =
-                    Instant.ofEpochMilli(dateFrom).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateFromParsed = LocalDate.parse(dateFrom.toString(), formatter);
             queryParts.add("time > '" + dateFromParsed + "'::date");
         }
 
         if (dateTo != null) {
-            LocalDate dateToParsed =
-                    Instant.ofEpochMilli(dateTo).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateToParsed = LocalDate.parse(dateTo.toString(), formatter);
             queryParts.add("time < '" + dateToParsed + "'::date");
         }
 
-        String buildQuery = "SELECT * FROM post WHERE " + String.join(" AND ", queryParts) + ";";
+        String buildQuery = "SELECT * FROM post WHERE " +
+                String.join(" AND ", queryParts) + ";";
+
         return jdbcTemplate.query(buildQuery, new PostMapper());
     }
 
+    public List<Post> findPostByAuthor(String authorName) {
+        String sql = "SELECT * FROM post AS p JOIN person AS per ON per.id = p.author_id " +
+                "WHERE per.first_name = " + authorName;
+
+        return jdbcTemplate.query(sql, new PostMapper());
+    }
+
+    public List<Post> findPostsByTag(String tag) {
+        String sql = "SELECT * FROM post AS p\n" +
+                "JOIN post2tag AS pt ON p.id = pt.post_id\n" +
+                "JOIN tag AS t ON t.id = pt.tag_id\n" +
+                "WHERE tag = '" + tag + "';";
+        return jdbcTemplate.query(sql, new PostMapper());
+    }
 }

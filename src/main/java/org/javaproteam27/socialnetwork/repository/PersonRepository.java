@@ -1,16 +1,25 @@
 package org.javaproteam27.socialnetwork.repository;
 
+import ch.qos.logback.core.db.dialect.PostgreSQLDialect;
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.config.DatabaseConfig;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.mapper.PersonMapper;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.jooq.*;
+import org.jooq.impl.DSL;
+import org.jooq.impl.DefaultConfiguration;
+import org.jooq.tools.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.jooq.impl.DSL.field;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,12 +27,14 @@ public class PersonRepository {
 
     private final RowMapper<Person> rowMapper = new PersonMapper();
     private final JdbcTemplate jdbcTemplate;
+    private final DatabaseConfig databaseConfig;
+    private final DSLContext create;
 
     public void save(Person person) {
 
         String sql = "insert into person(first_name, last_name, reg_date, birth_date, email, phone, " +
                 "password, photo, about, city, country, confirmation_code, is_approved, messages_permission, " +
-                "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, person.getFirstName(), person.getLastName(), person.getRegDate(),
                 person.getBirthDate(), person.getEmail(), person.getPhone(), person.getPassword(),
                 person.getPhoto(), person.getAbout(), person.getCity(), person.getCountry(), person.getConfirmationCode(),
@@ -80,6 +91,7 @@ public class PersonRepository {
         //TODO: JOOQ + Filter blocked people
 
         ArrayList<String> queryParts = new ArrayList<>();
+
 
         if(firstName != null) {
             queryParts.add("first_name = '" + firstName + "'");

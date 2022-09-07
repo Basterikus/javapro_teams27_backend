@@ -13,22 +13,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/post")
 public class PostsController {
     private final PostService postService;
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseRs<PostRs>> deletePost(@PathVariable(value = "id") int postId){
+    public ResponseEntity<ResponseRs<PostRs>> deletePost(@PathVariable(value = "id") int postId) {
         ResponseRs<PostRs> responseRs = postService.deletePost(postId);
         return ResponseEntity.ok(responseRs);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseRs<PostRs>> updatePost(@PathVariable(value = "id") int postId,
-                                                        @RequestBody PostRq postRq){
+                                                         @RequestBody PostRq postRq) {
         ResponseRs<PostRs> responseRs = postService.updatePost(postId, postRq.getTitle(),
                 postRq.getPostText(), postRq.getTags());
         return ResponseEntity.ok(responseRs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseRs<PostRs>> getPost(@PathVariable(value = "id") int postId){
+    public ResponseEntity<ResponseRs<PostRs>> getPost(@PathVariable(value = "id") int postId) {
         ResponseRs<PostRs> responseRs = postService.getPost(postId);
         return ResponseEntity.ok(responseRs);
     }
@@ -42,5 +43,21 @@ public class PostsController {
             @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage) {
 
         return postService.findPost(text, dateFrom, dateTo, offset, itemPerPage);
+    }
+
+    @GetMapping("/authorpost")
+    public ResponseEntity<?> findPostByAuthor(
+            @RequestParam(value = "authorName", required = false) String authorName,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage) {
+        return postService.findPostByAuthor(authorName, offset, itemPerPage);
+    }
+
+    @GetMapping("/tags")
+    public ResponseEntity<?> getPostByTags(
+            @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage) {
+        return postService.findPostByTag(tag, offset, itemPerPage);
     }
 }

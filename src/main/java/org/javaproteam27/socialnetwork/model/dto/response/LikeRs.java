@@ -12,4 +12,5 @@ import java.util.List;
 public class LikeRs {
     private Integer likes;
     private List<Integer> users;
+//    TODO: добавить type
 }

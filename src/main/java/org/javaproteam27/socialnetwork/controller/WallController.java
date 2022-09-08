@@ -6,7 +6,6 @@ import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.service.PostService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,20 +14,20 @@ import org.springframework.web.bind.annotation.*;
 public class WallController {
     private final PostService postService;
     @PostMapping
-    public ResponseEntity<ResponseRs<PostRs>> publishPost(
+    public ResponseRs<PostRs> publishPost(
             @RequestParam(required = false) Long publish_date,
             @RequestBody PostRq postRq,
             @PathVariable(value = "id") int authorId){
-        ResponseRs<PostRs> responseRs = postService.publishPost(publish_date, postRq, authorId);
-        return ResponseEntity.ok(responseRs);
+
+        return postService.publishPost(publish_date, postRq, authorId);
     }
 
     @GetMapping
-    public ResponseEntity<ListResponseRs<PostRs>> getUserPosts(
+    public ListResponseRs<PostRs> getUserPosts(
             @PathVariable(value = "id") int authorId,
             @RequestParam (defaultValue = "0") int offset,
             @RequestParam (defaultValue = "20") int itemPerPage) {
-        ListResponseRs<PostRs> responseRs = postService.findAllUserPosts(authorId, offset, itemPerPage);
-        return ResponseEntity.ok(responseRs);
+
+        return postService.findAllUserPosts(authorId, offset, itemPerPage);
     }
 }

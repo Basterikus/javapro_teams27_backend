@@ -51,7 +51,7 @@ public class PersonRepository {
         }
     }
 
-    public List<Person> getFriendsPersonById(Integer id){
+    public List<Person> getFriendsPersonById(Integer id) {
         try {
             String sql = "SELECT * FROM friendship f\n" +
                     "join friendship_status fs on fs.id=f.status_id\n" +
@@ -81,39 +81,37 @@ public class PersonRepository {
             return 0; // todo обработать исключение
         }
     }
-    public Person getPersonById(Integer id){
+
+    public Person getPersonById(Integer id) {
         return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
     }
 
-    public List<Person> findPeople (Person authorizedPerson, String firstName, String lastName, Integer ageFrom,
-                                    Integer ageTo, String city, String country) {
-
-        //TODO: JOOQ + Filter blocked people
+    public List<Person> findPeople(Person authorizedPerson, String firstName, String lastName, Integer ageFrom,
+                                   Integer ageTo, String city, String country) {
 
         ArrayList<String> queryParts = new ArrayList<>();
 
-
-        if(firstName != null) {
+        if (firstName != null) {
             queryParts.add("first_name = '" + firstName + "'");
         }
 
-        if(lastName != null) {
+        if (lastName != null) {
             queryParts.add("last_name = '" + lastName + "'");
         }
 
-        if(ageFrom != null) {
+        if (ageFrom != null) {
             queryParts.add("date_part('year', age(birth_date))::int > " + ageFrom);
         }
 
-        if(ageTo != null) {
+        if (ageTo != null) {
             queryParts.add("date_part('year', age(birth_date))::int < " + ageTo);
         }
 
-        if(city != null) {
+        if (city != null) {
             queryParts.add("city = '" + city + "'");
         }
 
-        if(country != null) {
+        if (country != null) {
             queryParts.add("country = '" + country + "'");
         }
 
@@ -121,16 +119,16 @@ public class PersonRepository {
         return jdbcTemplate.query(buildQuery, rowMapper);
     }
 
-    public List<Person> getFriendsPersonById(String name,Integer id){
+    public List<Person> getFriendsPersonById(String name, Integer id) {
         try {
             String sql;
-            if (name != null && name.length() != 0){
+            if (name != null && name.length() != 0) {
                 sql = "SELECT * FROM person p \n" +
                         "join friendship f on f.dst_person_id = p.id\n" +
                         "join friendship_status fs on fs.id = f.status_id\n" +
                         "where fs.code = 'FRIEND' and src_person_id = ?" +
-                        "and first_name like '%" + name  +"%'";
-            }else {
+                        "and first_name like '%" + name + "%'";
+            } else {
                 sql = "SELECT * FROM person p \n" +
                         "join friendship f on f.dst_person_id = p.id\n" +
                         "join friendship_status fs on fs.id = f.status_id\n" +
@@ -143,16 +141,16 @@ public class PersonRepository {
         }
     }
 
-    public List<Person> getApplicationsFriendsPersonById(String name,Integer id){
+    public List<Person> getApplicationsFriendsPersonById(String name, Integer id) {
         try {
             String sql;
-            if (name != null && name.length() != 0){
+            if (name != null && name.length() != 0) {
                 sql = "SELECT * FROM person p \n" +
                         "join friendship f on f.dst_person_id = p.id\n" +
                         "join friendship_status fs on fs.id = f.status_id\n" +
                         "where fs.code = 'REQUEST' and src_person_id = ?" +
-                        "and first_name like '%" + name  +"%'";
-            }else {
+                        "and first_name like '%" + name + "%'";
+            } else {
                 sql = "SELECT * FROM person p \n" +
                         "join friendship f on f.dst_person_id = p.id\n" +
                         "join friendship_status fs on fs.id = f.status_id\n" +

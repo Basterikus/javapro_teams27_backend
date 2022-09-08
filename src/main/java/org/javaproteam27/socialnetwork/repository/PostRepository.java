@@ -121,10 +121,8 @@ public class PostRepository {
     }
 
     public List<Post> findPostsByTag(String tag) {
-        String sql = "SELECT * FROM post AS p\n" +
-                "JOIN post2tag AS pt ON p.id = pt.post_id\n" +
-                "JOIN tag AS t ON t.id = pt.tag_id\n" +
-                "WHERE tag = '" + tag + "';";
+        String sql = "SELECT * FROM post AS p JOIN post2tag AS pt ON p.id = pt.post_id\n" +
+                "JOIN tag AS t ON t.id = pt.tag_id WHERE tag = '" + tag + "';";
         return jdbcTemplate.query(sql, new PostMapper());
     }
 }

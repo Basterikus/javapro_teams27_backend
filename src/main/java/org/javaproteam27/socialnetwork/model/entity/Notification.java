@@ -10,7 +10,7 @@ public class Notification {
     
     private Integer id;
     private NotificationType notificationType;
-    private LocalDateTime sentTime;
+    private Long sentTime;
     private Integer personId;
     private Integer entityId;
     private String contact;

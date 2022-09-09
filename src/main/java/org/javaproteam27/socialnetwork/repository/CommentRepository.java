@@ -45,13 +45,16 @@ public class CommentRepository {
         return retList;
     }
 
-    public List<Comment> getAllCommentsByPostIdAndParentId(Integer postId, Integer parentId) {
+    public List<Comment> getAllCommentsByPostIdAndParentId(Integer postId, Integer parentId, Integer offset, Integer limit) {
 
         List<Comment> retList;
         try {
             String connector = (parentId == null) ? "is " : "= ";
-            retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId
-                    + " AND parent_id " + connector + parentId, new CommentMapper());
+            String sqlQuery = "SELECT * FROM post_comment WHERE post_id = " + postId + " AND parent_id "
+                    + connector + parentId;
+            sqlQuery = ((offset != null) && (limit != null)) ? sqlQuery + " LIMIT " + limit + " OFFSET " + offset
+                    : sqlQuery;
+            retList = jdbcTemplate.query(sqlQuery, new CommentMapper());
         } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }

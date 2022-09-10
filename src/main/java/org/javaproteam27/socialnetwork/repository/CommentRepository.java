@@ -38,7 +38,8 @@ public class CommentRepository {
 
         List<Comment> retList;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId, new CommentMapper());
+            retList = jdbcTemplate.query("SELECT * FROM post_comment WHERE post_id = " + postId
+                    + " AND is_deleted is false", new CommentMapper());
         } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
@@ -51,7 +52,7 @@ public class CommentRepository {
         try {
             String connector = (parentId == null) ? "is " : "= ";
             String sqlQuery = "SELECT * FROM post_comment WHERE post_id = " + postId + " AND parent_id "
-                    + connector + parentId;
+                    + connector + parentId + " AND is_deleted is false";
             sqlQuery = ((offset != null) && (limit != null)) ? sqlQuery + " LIMIT " + limit + " OFFSET " + offset
                     : sqlQuery;
             retList = jdbcTemplate.query(sqlQuery, new CommentMapper());
@@ -65,7 +66,7 @@ public class CommentRepository {
 
         Boolean retValue;
         try {
-            retValue = (jdbcTemplate.update("DELETE FROM post_comment WHERE id = " + commentId +
+            retValue = (jdbcTemplate.update("UPDATE post_comment SET is_deleted = true WHERE id = " + commentId +
                     " AND post_id = " + postId) == 1);
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());

@@ -28,7 +28,7 @@ public class FriendsService {
     private final CountryService countryService;
     private final PersonRepository personRepository;
     
-    public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
+    public ListResponseRs<PersonRs> getRecommendations(String token, Integer offset, Integer itemPerPage) {
         
         Person person = personService.findById(1);
         Integer myId = person.getId();
@@ -109,7 +109,7 @@ public class FriendsService {
                 .collect(Collectors.toList());
     }
     
-    private ListResponseRs<PersonRs> getResultJson(List<Person> persons, int offset, int itemPerPage) {
+    private ListResponseRs<PersonRs> getResultJson(List<Person> persons, Integer offset, Integer itemPerPage) {
         
         List<PersonRs> data = persons.stream()
                 .map(person -> {
@@ -136,13 +136,13 @@ public class FriendsService {
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
-    public ListResponseRs<PersonRs> getListFriends(String name, int offset, int itemPerPage){
+    public ListResponseRs<PersonRs> getListFriends(String name, Integer offset, Integer itemPerPage){
         List<Person> person = personRepository.getFriendsPersonById(name,personService.getAuthorizedPerson().getId());
 
         return getResultJson(person,offset,itemPerPage);
     }
 
-    public ListResponseRs<PersonRs> getListApplicationsFriends(String name, int offset, int itemPerPage){
+    public ListResponseRs<PersonRs> getListApplicationsFriends(String name, Integer offset, Integer itemPerPage){
 
         List<Person> personList = personRepository.getApplicationsFriendsPersonById(name,personService.getAuthorizedPerson().getId());
         return getResultJson(personList,offset,itemPerPage);

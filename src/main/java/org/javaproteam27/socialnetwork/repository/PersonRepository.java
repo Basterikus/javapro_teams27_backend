@@ -61,15 +61,13 @@ public class PersonRepository {
             throw new EntityNotFoundException("person email = " + email);
         }
     }
-
+    
     public Integer count() {
-        try {
-            String sql = "select count(*) from person";
-            return jdbcTemplate.queryForObject(sql, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            return 0; // todo обработать исключение
-        }
+        
+        String sql = "select count(*) from person";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
+    
     public Person getPersonById(Integer id){
         return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = " + id, Person.class);
     }

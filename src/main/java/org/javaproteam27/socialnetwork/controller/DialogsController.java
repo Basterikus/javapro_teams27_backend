@@ -8,7 +8,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.MessageRs;
 import org.javaproteam27.socialnetwork.model.dto.response.MessageSendRequestBodyRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
-import org.javaproteam27.socialnetwork.service.DialogService;
+import org.javaproteam27.socialnetwork.service.DialogsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,28 +28,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DialogsController {
     
-    private final DialogService dialogService;
+    private final DialogsService dialogsService;
     
     
     @GetMapping
     public ResponseEntity<ListResponseRs<DialogRs>> getDialogs(
-            @RequestParam("query") String query,
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "query", defaultValue = "") String query,
             @RequestParam(value = "offset", defaultValue = "0") Integer offset,
             @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage
     ) {
-        return ResponseEntity.ok(new ListResponseRs<>());
+        ListResponseRs<DialogRs> dialogs = dialogsService.getDialogs(token, query, offset, itemPerPage);
+        return ResponseEntity.ok(dialogs);
     }
     
     @PostMapping
-    public ResponseEntity<ListResponseRs<DialogRs>> createDialogs(
+    public ResponseEntity<ResponseRs<ComplexRs>> createDialogs(
+            @RequestHeader("Authorization") String token,
             @RequestBody DialogUserShortListDto userIds
     ) {
-        return ResponseEntity.ok(new ListResponseRs<>());
+        ResponseRs<ComplexRs> dialog = dialogsService.createDialog(token, userIds.getUserIds());
+        return ResponseEntity.ok(dialog);
     }
     
     @GetMapping("/unreaded")
-    public ResponseEntity<ResponseRs<ComplexRs>> getUnreaded() {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+    public ResponseEntity<ResponseRs<ComplexRs>> getUnreaded(
+            @RequestHeader("Authorization") String token
+    ) {
+        ResponseRs<ComplexRs> unreaded = dialogsService.getUnreaded(token);
+        return ResponseEntity.ok(unreaded);
     }
     
     @DeleteMapping("/{id}")

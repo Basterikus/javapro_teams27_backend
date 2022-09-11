@@ -39,3 +39,7 @@ databaseChangeLog:
       file: /db/changelog/migrations/019-edit-person.sql
   - include:
       file: /db/changelog/migrations/020-create-captcha.sql
+  - include:
+      file: /db/changelog/migrations/021-create-dialog.sql
+  - include:
+      file: /db/changelog/migrations/022-edit-message.sql

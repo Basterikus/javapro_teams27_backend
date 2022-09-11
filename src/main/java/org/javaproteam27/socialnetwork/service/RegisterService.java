@@ -3,20 +3,14 @@ package org.javaproteam27.socialnetwork.service;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.RegisterRq;
 import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
-import org.javaproteam27.socialnetwork.model.entity.Captcha;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -31,14 +25,8 @@ public class RegisterService {
     private String captchaSecret2;
     private String password1;
     private String password2;
-
-    @Email
     private String email;
-
-    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введено имя")
     private String firstName;
-
-    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
 
 
@@ -80,12 +68,10 @@ public class RegisterService {
         return new ResponseEntity<>(registerRS, HttpStatus.OK);
     }
 
-    @AssertTrue(message = "Пароли не совпадают")
     private boolean checkPassword() {
         return password1.equals(password2);
     }
 
-    @AssertTrue(message = "Неверно введен код с картинки")
     private boolean checkCaptcha() {
         return captchaSecret1.equals(captchaSecret2);
     }

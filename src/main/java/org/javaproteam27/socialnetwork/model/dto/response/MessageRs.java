@@ -2,12 +2,14 @@ package org.javaproteam27.socialnetwork.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.javaproteam27.socialnetwork.model.enums.ReadStatus;
 
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 public class MessageRs {
     
     private Integer id;

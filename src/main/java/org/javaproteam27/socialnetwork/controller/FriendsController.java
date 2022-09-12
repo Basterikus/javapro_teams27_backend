@@ -23,8 +23,7 @@ public class FriendsController {
     private final FriendshipStatusService friendshipStatusService;
     private final FriendshipService friendshipService;
     private final PersonService personService;
-    private final NotificationsService notificationsService;
-    
+
     @GetMapping("/recommendations")
     private ResponseEntity<ListResponseRs<PersonRs>> getRecommendations(
             @RequestHeader("Authorization") String token,
@@ -51,10 +50,8 @@ public class FriendsController {
 
         int friendshipStatusId = friendshipStatusService.addStatus();
         Person person = personService.getAuthorizedPerson();
-        var friendship = friendshipService.addFriendShip(id, friendshipStatusId,person.getId());
-        notificationsService.createFriendshipNotification(id, friendshipStatusId);
 
-        return ResponseEntity.ok(friendship);
+        return ResponseEntity.ok(friendshipService.addFriendShip(id, friendshipStatusId,person.getId()));
     }
 
     @DeleteMapping("/{id}")

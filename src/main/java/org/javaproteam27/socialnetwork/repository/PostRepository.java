@@ -40,7 +40,7 @@ public class PostRepository {
         List<Post> retList;
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId
-                    + " AND is_deleted is false" + " LIMIT " + limit + " OFFSET  " + offset, new PostMapper());
+                    + " AND is_deleted is false" + " LIMIT " + limit + " OFFSET " + offset, new PostMapper());
         } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }

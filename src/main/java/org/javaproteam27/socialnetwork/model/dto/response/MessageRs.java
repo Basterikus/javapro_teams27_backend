@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class MessageRs {
     
     private Integer id;
-    private LocalDateTime time;
+    private Long time;
     @JsonProperty("author_id")
     private Integer authorId;
     @JsonProperty("recipient_id")

@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class LoginExceptionHandler {
-    @ExceptionHandler
-    public ResponseEntity<ListResponseRs<T>> catchInvalidRequestException(InvalidRequestException e) {
-        log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new ListResponseRs<>("invalid_request", null, null,
-                null, null, null, e.getMessage()),
-                HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<ListResponseRs<T>> catchEntityNotFoundException(EntityNotFoundException e) {
-        log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new ListResponseRs<>("invalid_request", null, null,
-                null, null, null, e.getMessage()),
-                HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler
+//    public ResponseEntity<ListResponseRs<T>> catchInvalidRequestException(InvalidRequestException e) {
+//        log.error(e.getMessage(), e);
+//        return new ResponseEntity<>(new ListResponseRs<>("invalid_request", null, null,
+//                null, null, null, e.getMessage()),
+//                HttpStatus.BAD_REQUEST);
+//    }
+//
+//    @ExceptionHandler
+//    public ResponseEntity<ListResponseRs<T>> catchEntityNotFoundException(EntityNotFoundException e) {
+//        log.error(e.getMessage(), e);
+//        return new ResponseEntity<>(new ListResponseRs<>("invalid_request", null, null,
+//                null, null, null, e.getMessage()),
+//                HttpStatus.BAD_REQUEST);
+//    }
 }

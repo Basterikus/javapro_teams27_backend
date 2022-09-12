@@ -2,8 +2,10 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.handler.exception.UnableUpdateEntityException;
 import org.javaproteam27.socialnetwork.mapper.DialogMapper;
 import org.javaproteam27.socialnetwork.model.entity.Dialog;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -39,6 +41,17 @@ public class DialogRepository {
                 " values (?,?,?,?)";
         jdbcTemplate.update(sql, sortedIds.get(0), sortedIds.get(1),
                 dialog.getLastMessageId(), dialog.getLastActiveTime());
+    }
+    
+    public void update(Dialog dialog) {
+    
+        String sql = "update dialog set last_message_id = ?, last_active_time = ? where id = ?";
+    
+        try {
+            jdbcTemplate.update(sql, dialog.getLastMessageId(), dialog.getLastActiveTime(), dialog.getId());
+        } catch (DataAccessException e) {
+            throw new UnableUpdateEntityException("dialog id = " + dialog.getId());
+        }
     }
     
     public Dialog findById(Integer id) {
@@ -88,6 +101,16 @@ public class DialogRepository {
         }
     }
     
+    public void deleteById(Integer id) {
+    
+        String sql = "delete from dialog where id = ?";
+    
+        try {
+            jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            throw new UnableUpdateEntityException("dialog id = " + id);
+        }
+    }
     
 
 }

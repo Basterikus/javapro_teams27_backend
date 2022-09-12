@@ -1,29 +1,26 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
 import org.javaproteam27.socialnetwork.model.dto.response.ComplexRs;
 import org.javaproteam27.socialnetwork.model.dto.response.DialogRs;
-import org.javaproteam27.socialnetwork.model.dto.response.DialogUserShortListDto;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.MessageRs;
+import org.javaproteam27.socialnetwork.model.dto.response.MessageSendRequestBodyRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Dialog;
 import org.javaproteam27.socialnetwork.model.entity.Message;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.model.enums.ReadStatus;
 import org.javaproteam27.socialnetwork.repository.DialogRepository;
 import org.javaproteam27.socialnetwork.repository.MessageRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -35,60 +32,53 @@ public class DialogsService {
     private final JwtTokenProvider jwtTokenProvider;
     
     
+    private static MessageRs buildMessageRs(Message message) {
+        return MessageRs.builder()
+                .id(message.getId())
+                .time(message.getTime())
+                .authorId(message.getAuthorId())
+                .recipientId(message.getRecipientId())
+                .messageText(message.getMessageText())
+                .readStatus(message.getReadStatus())
+                .build();
+    }
+    
+    
     private Person getPerson(String token) {
         String email = jwtTokenProvider.getUsername(token);
         return personRepository.findByEmail(email);
     }
     
     
-    public ResponseRs<ComplexRs> getUnreaded(String token) {
+    public ResponseRs<ComplexRs> createDialog(String token, List<Integer> userIds) {
         
-        Integer personId = getPerson(token).getId();
-        Integer unreadedCount = messageRepository.getUnreadedCount(personId);
-        ComplexRs complexRs = ComplexRs.builder().count(unreadedCount).build();
+        Integer firstPersonId = getPerson(token).getId();
+        Integer secondPersonId = userIds.get(0);
         
-        return new ResponseRs<>(null, complexRs, null);
+        if (dialogRepository.existsByPersonIds(firstPersonId, secondPersonId)) {
+            throw new UnableCreateEntityException("dialog with person ids = " + firstPersonId +
+                    " and " + secondPersonId + " already exists");
+        }
+        
+        Dialog newDialog = Dialog.builder()
+                .firstPersonId(getPerson(token).getId())
+                .secondPersonId(userIds.get(0))
+                .lastActiveTime(System.currentTimeMillis())
+                .build();
+        
+        dialogRepository.save(newDialog);
+        Dialog dialog = dialogRepository.findByPersonIds(firstPersonId, secondPersonId);
+        ComplexRs data = ComplexRs.builder().id(dialog.getId()).build();
+        
+        return new ResponseRs<>(null, data, null);
     }
     
-    public ListResponseRs<DialogRs> getDialogs(String token, String query, Integer offset, Integer itemPerPage) {
+    public ListResponseRs<DialogRs> getDialogs(String token, Integer offset, Integer itemPerPage) {
         
         Person person = getPerson(token);
         Integer personId = person.getId();
-    
-        Stream<Dialog> dialogStream;
         
-        if (query != null && !query.isBlank()) {
-            
-            List<Person> persons = new ArrayList<>();
-            String[] splittedQuery = query.split(" ");
-            
-            switch (splittedQuery.length) {
-                case 1: {
-                    persons.addAll(personRepository.findPeople(person, splittedQuery[0], null,
-                            null, null, null, null));
-                    persons.addAll(personRepository.findPeople(person, null, splittedQuery[0],
-                            null, null, null, null));
-                    break;
-                }
-                case 2: {
-                    persons.addAll(personRepository.findPeople(person, splittedQuery[0], splittedQuery[1],
-                            null, null, null, null));
-                    persons.addAll(personRepository.findPeople(person, splittedQuery[1], splittedQuery[0],
-                            null, null, null, null));
-                    break;
-                }
-            }
-    
-            dialogStream = persons.stream()
-                    .distinct()
-                    .map(Person::getId)
-                    .map(id -> dialogRepository.findByPersonIds(personId, id));
-            
-        } else {
-            dialogStream = dialogRepository.findByPersonId(personId).stream();
-        }
-    
-        List<DialogRs> dialogRs = dialogStream
+        List<DialogRs> dialogRs = dialogRepository.findByPersonId(personId).stream()
                 .sorted(Comparator.reverseOrder())
                 .skip(offset)
                 .limit(itemPerPage)
@@ -96,14 +86,7 @@ public class DialogsService {
                 
                     Message message = messageRepository.findById(dialog.getId());
                 
-                    MessageRs messageRs = MessageRs.builder()
-                            .id(message.getId())
-                            .time(message.getTime())
-                            .authorId(message.getAuthorId())
-                            .recipientId(message.getRecipientId())
-                            .messageText(message.getMessageText())
-                            .readStatus(message.getReadStatus())
-                            .build();
+                    MessageRs messageRs = buildMessageRs(message);
                 
                     return DialogRs.builder()
                             .id(dialog.getId())
@@ -116,28 +99,108 @@ public class DialogsService {
         return new ListResponseRs<>("", offset, itemPerPage, dialogRs);
     }
     
-    public ResponseRs<ComplexRs> createDialog(String token, List<Integer> userIds) {
+    public ResponseRs<ComplexRs> getUnreaded(String token) {
+        
+        Integer personId = getPerson(token).getId();
+        Integer unreadedCount = messageRepository.getUnreadedCount(personId);
+        ComplexRs data = ComplexRs.builder().count(unreadedCount).build();
+        
+        return new ResponseRs<>(null, data, null);
+    }
     
-        Integer firstPersonId = getPerson(token).getId();
-        Integer secondPersonId = userIds.get(0);
-    
-        if (dialogRepository.existsByPersonIds(firstPersonId, secondPersonId)) {
-            throw new UnableCreateEntityException("dialog with person ids = " + firstPersonId +
-                    " and " + secondPersonId + " already exists");
-        }
+    public ResponseRs<ComplexRs> deleteDialog(Integer dialogId) {
         
-        Dialog newDialog = Dialog.builder()
-                .firstPersonId(getPerson(token).getId())
-                .secondPersonId(userIds.get(0))
-                .lastActiveTime(LocalDateTime.now())
-                .build();
+        Dialog dialog = dialogRepository.findById(dialogId);
+        dialog.setLastMessageId(null);
+        dialogRepository.save(dialog);
         
-        dialogRepository.save(newDialog);
-        Dialog dialog = dialogRepository.findByPersonIds(firstPersonId, secondPersonId);
-        ComplexRs complexRs = ComplexRs.builder().id(dialog.getId()).build();
+        messageRepository.deleteByDialogId(dialogId);
+        dialogRepository.deleteById(dialogId);
         
-        return new ResponseRs<>(null, complexRs, null);
+        ComplexRs data = ComplexRs.builder().id(dialogId).build();
+        
+        return new ResponseRs<>("", data, null);
     }
     
     
+    public ResponseRs<MessageRs> sendMessage(String token, Integer dialogId, MessageSendRequestBodyRs text) {
+        
+        Integer authorId = getPerson(token).getId();
+        Dialog dialog = dialogRepository.findById(dialogId);
+        Integer recipientId = dialog.getFirstPersonId().equals(authorId) ?
+                dialog.getSecondPersonId() :
+                dialog.getFirstPersonId();
+        
+        Message message = Message.builder()
+                .time(System.currentTimeMillis())
+                .authorId(authorId)
+                .recipientId(recipientId)
+                .messageText(text.getMessageText())
+                .readStatus(ReadStatus.SENT)
+                .dialogId(dialogId)
+                .build();
+        
+        Integer savedId = messageRepository.save(message);
+        message.setId(savedId);
+        
+        MessageRs data = buildMessageRs(message);
+        
+        return new ResponseRs<>("", data, null);
+    }
+    
+    public ListResponseRs<MessageRs> getMessagesByDialog(Integer id, Integer offset, Integer itemPerPage) {
+    
+        List<MessageRs> data = messageRepository.findByDialogId(id, offset, itemPerPage).stream()
+                .map(DialogsService::buildMessageRs)
+                .collect(Collectors.toList());
+        
+        return new ListResponseRs<>("", offset, itemPerPage, data);
+    }
+    
+    public ResponseRs<MessageRs> editMessage(Integer dialogId, Integer messageId, MessageSendRequestBodyRs text) {
+    
+        Message message = messageRepository.findById(messageId);
+        
+        message.setMessageText(text.getMessageText());
+        message.setReadStatus(ReadStatus.SENT);
+        
+        messageRepository.update(message);
+    
+        MessageRs data = buildMessageRs(message);
+    
+        return new ResponseRs<>("", data, null);
+    }
+    
+    public ResponseRs<ComplexRs> markAsReadMessage(Integer dialogId, Integer messageId) {
+    
+        Message message = messageRepository.findById(messageId);
+        
+        message.setReadStatus(ReadStatus.READ);
+    
+        messageRepository.update(message);
+        
+        ComplexRs data = ComplexRs.builder().message("ok").build();
+    
+        return new ResponseRs<>("", data, null);
+    }
+    
+    public ResponseRs<ComplexRs> deleteMessage(Integer dialogId, Integer messageId) {
+    
+        Message message = messageRepository.findById(messageId);
+        Dialog dialog = dialogRepository.findById(message.getDialogId());
+        List<Message> messageList = messageRepository.findByDialogId(dialog.getId(), 2, 1);
+        
+        if (messageList.isEmpty()) {
+            dialog.setLastMessageId(null);
+        } else {
+            dialog.setLastMessageId(messageList.get(0).getId());
+        }
+        
+        dialogRepository.update(dialog);
+        messageRepository.deleteById(messageId);
+        
+        ComplexRs data = ComplexRs.builder().messageId(messageId).build();
+    
+        return new ResponseRs<>("", data, null);
+    }
 }

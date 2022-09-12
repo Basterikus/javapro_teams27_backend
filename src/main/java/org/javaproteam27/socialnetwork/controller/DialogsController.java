@@ -31,105 +31,111 @@ public class DialogsController {
     private final DialogsService dialogsService;
     
     
-    @GetMapping
-    public ResponseEntity<ListResponseRs<DialogRs>> getDialogs(
-            @RequestHeader("Authorization") String token,
-            @RequestParam(value = "query", defaultValue = "") String query,
-            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
-            @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage
-    ) {
-        ListResponseRs<DialogRs> dialogs = dialogsService.getDialogs(token, query, offset, itemPerPage);
-        return ResponseEntity.ok(dialogs);
-    }
-    
     @PostMapping
     public ResponseEntity<ResponseRs<ComplexRs>> createDialogs(
             @RequestHeader("Authorization") String token,
             @RequestBody DialogUserShortListDto userIds
     ) {
-        ResponseRs<ComplexRs> dialog = dialogsService.createDialog(token, userIds.getUserIds());
-        return ResponseEntity.ok(dialog);
+        ResponseRs<ComplexRs> response = dialogsService.createDialog(token, userIds.getUserIds());
+        return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping
+    public ResponseEntity<ListResponseRs<DialogRs>> getDialogs(
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+            @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage
+    ) {
+        ListResponseRs<DialogRs> response = dialogsService.getDialogs(token, offset, itemPerPage);
+        return ResponseEntity.ok(response);
     }
     
     @GetMapping("/unreaded")
     public ResponseEntity<ResponseRs<ComplexRs>> getUnreaded(
             @RequestHeader("Authorization") String token
     ) {
-        ResponseRs<ComplexRs> unreaded = dialogsService.getUnreaded(token);
-        return ResponseEntity.ok(unreaded);
+        ResponseRs<ComplexRs> response = dialogsService.getUnreaded(token);
+        return ResponseEntity.ok(response);
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseRs<ComplexRs>> deleteDialog(
-            @PathVariable Integer number
+            @PathVariable Integer id
     ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+        ResponseRs<ComplexRs> response = dialogsService.deleteDialog(id);
+        return ResponseEntity.ok(response);
     }
     
-    @PutMapping("/{id}/users")
-    public ResponseEntity<ResponseRs<DialogUserShortListDto>> putUserToDialog(
-            @PathVariable Integer id,
-            @RequestBody DialogUserShortListDto userIds
-    ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
-    }
+//    @PutMapping("/{id}/users")
+//    public ResponseEntity<ResponseRs<DialogUserShortListDto>> putUserToDialog(
+//            @PathVariable Integer id,
+//            @RequestBody DialogUserShortListDto userIds
+//    ) {
+//        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+//    }
     
-    @DeleteMapping("/{id}/users")
-    public ResponseEntity<ResponseRs<DialogUserShortListDto>> deleteUsersFromDialog(
-            @PathVariable Integer id,
-            @RequestParam List<Integer> userIds
-    ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
-    }
-    
-    @GetMapping("/{id}/messages")
-    public ResponseEntity<ListResponseRs<MessageRs>> getMessages(
-            @PathVariable Integer id,
-            @RequestParam("query") String query,
-            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
-            @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage
-    ) {
-        return ResponseEntity.ok(new ListResponseRs<>());
-    }
+//    @DeleteMapping("/{id}/users")
+//    public ResponseEntity<ResponseRs<DialogUserShortListDto>> deleteUsersFromDialog(
+//            @PathVariable Integer id,
+//            @RequestParam("user_ids") List<Integer> userIds
+//    ) {
+//        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+//    }
     
     @PostMapping("/{id}/messages")
     public ResponseEntity<ResponseRs<MessageRs>> sendMessage(
+            @RequestHeader("Authorization") String token,
             @PathVariable Integer id,
             @RequestBody MessageSendRequestBodyRs text
     ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+        ResponseRs<MessageRs> response = dialogsService.sendMessage(token, id, text);
+        return ResponseEntity.ok(response);
     }
     
-    @DeleteMapping("/{dialog_id}/messages/{message_id}")
-    public ResponseEntity<ResponseRs<ComplexRs>> deleteMessage(
-            @PathVariable Integer dialogId,
-            @PathVariable Integer messageId
+    @GetMapping("/{id}/messages")
+    public ResponseEntity<ListResponseRs<MessageRs>> getMessagesByDialog(
+            @PathVariable Integer id,
+            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+            @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage
     ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+        ListResponseRs<MessageRs> response = dialogsService.getMessagesByDialog(id, offset, itemPerPage);
+        return ResponseEntity.ok(response);
     }
     
     @PutMapping("/{dialog_id}/messages/{message_id}")
     public ResponseEntity<ResponseRs<MessageRs>> editMessage(
-            @PathVariable Integer dialogId,
-            @PathVariable Integer messageId,
+            @PathVariable("dialog_id") Integer dialogId,
+            @PathVariable("message_id") Integer messageId,
             @RequestBody MessageSendRequestBodyRs text
     ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
-    }
-    
-    @PutMapping("/{dialog_id}/messages/{message_id}/recover")
-    public ResponseEntity<ResponseRs<MessageRs>> recoverMessage(
-            @PathVariable Integer dialogId,
-            @PathVariable Integer messageId
-    ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+        ResponseRs<MessageRs> response = dialogsService.editMessage(dialogId, messageId, text);
+        return ResponseEntity.ok(response);
     }
     
     @PutMapping("/{dialog_id}/messages/{message_id}/read")
     public ResponseEntity<ResponseRs<ComplexRs>> markAsReadMessage(
-            @PathVariable Integer dialogId,
-            @PathVariable Integer messageId
+            @PathVariable("dialog_id") Integer dialogId,
+            @PathVariable("message_id") Integer messageId
     ) {
-        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+        ResponseRs<ComplexRs> response = dialogsService.markAsReadMessage(dialogId, messageId);
+        return ResponseEntity.ok(response);
     }
+    
+    @DeleteMapping("/{dialog_id}/messages/{message_id}")
+    public ResponseEntity<ResponseRs<ComplexRs>> deleteMessage(
+            @PathVariable("dialog_id") Integer dialogId,
+            @PathVariable("message_id") Integer messageId
+    ) {
+        ResponseRs<ComplexRs> response = dialogsService.deleteMessage(dialogId, messageId);
+        return ResponseEntity.ok(response);
+    }
+    
+//    @PutMapping("/{dialog_id}/messages/{message_id}/recover")
+//    public ResponseEntity<ResponseRs<MessageRs>> recoverMessage(
+//            @PathVariable Integer dialogId,
+//            @PathVariable Integer messageId
+//    ) {
+//        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
+//    }
+
 }

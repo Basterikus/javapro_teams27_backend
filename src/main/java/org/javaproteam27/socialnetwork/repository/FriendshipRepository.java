@@ -53,22 +53,22 @@ public class FriendshipRepository {
         try {
             String sql = "delete from friendship where src_person_id = " + friendship.getSrcPersonId() + " AND  dst_person_id = " + friendship.getDstPersonId();
             jdbcTemplate.update(sql);
-        }catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("person id = " + friendship.getSrcPersonId() + " or " + friendship.getDstPersonId());
         }
 
     }
 
-    public List<Friendship> findByFriendShip(int srcPersonId, int dstPersonId){
+    public List<Friendship> findByFriendShip(int srcPersonId, int dstPersonId) {
         try {
             String sql = "select * from friendship where src_person_id = ? and dst_person_id = ?";
-            return jdbcTemplate.query(sql,rowMapper,srcPersonId,dstPersonId);
-        }catch (EmptyResultDataAccessException e) {
+            return jdbcTemplate.query(sql, rowMapper, srcPersonId, dstPersonId);
+        } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("person id = " + srcPersonId + " or " + dstPersonId);
         }
     }
 
-    public Friendship findByFriendShipStatus(int srcPersonId, int dstPersonId, int statusId) {
+    public Friendship findOneByIdAndFriendshipStatus(int srcPersonId, int dstPersonId, int statusId) {
         try {
             String sql = "select * from friendship where src_person_id = ? and dst_person_id = ? and status_id = ?";
             return jdbcTemplate.queryForObject(sql, rowMapper, srcPersonId, dstPersonId, statusId);
@@ -77,5 +77,23 @@ public class FriendshipRepository {
         }
     }
 
+    public List<Friendship> findAllFriendsByPersonId(Integer id) {
+        try {
+            String sql = "select * from friendship fs " +
+                    "join friendship_status fss on fs.status_id = fss.id " +
+                    "where (src_person_id = ?) and code like 'FRIEND'";
+            return jdbcTemplate.query(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person id = " + id);
+        }
+    }
 
+    public Friendship findById(Integer id) {
+        try {
+            String sql = "select * from friendship where id = ?";
+            return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("id = " + id);
+        }
+    }
 }

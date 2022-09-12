@@ -64,7 +64,7 @@ public class CommentService {
     }
 
     public ListResponseRs<CommentRs> getCommentsByPostIdInResponse(int postId, int offset, int itemPerPage) {
-        return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId));
+        return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId, offset, itemPerPage));
     }
 
     public void deleteAllCommentsToPost(int postId) {
@@ -77,19 +77,19 @@ public class CommentService {
     public ResponseRs<CommentRs> deleteComment(int postId, int commentId) {
 
         commentRepository.deleteComment(postId, commentId);
-        ResponseRs<CommentRs> responseRs = new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
-        return responseRs;
+        return new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
     }
 
-    public List<CommentRs> InitializeCommentsToPost(Integer postId){
-        List<Comment> commentList = commentRepository.getAllCommentsByPostIdAndParentId(postId, null);
+    public List<CommentRs> InitializeCommentsToPost(Integer postId, Integer offset, Integer limit){
+        List<Comment> commentList = commentRepository.getAllCommentsByPostIdAndParentId(postId, null, offset, limit);
         List<CommentRs> commentRsList = commentList.stream().map(this::convertToCommentRs).collect(Collectors.toList());
         commentRsList.forEach(commentRs -> setSubCommentsToComments(commentRs, commentRs.getId()));
         return commentRsList;
     }
 
     private void setSubCommentsToComments (CommentRs commentRs, Integer parentId) {
-        List<Comment> comments = commentRepository.getAllCommentsByPostIdAndParentId(commentRs.getPostId(), parentId);
+        List<Comment> comments = commentRepository.getAllCommentsByPostIdAndParentId(commentRs.getPostId(),
+                parentId, null, null);
         List<CommentRs> subComments = comments.stream().map(this::convertToCommentRs).collect(Collectors.toList());
         commentRs.setSubComments(subComments);
         commentRs.getSubComments().forEach(commentRs1 -> setSubCommentsToComments(commentRs1, commentRs1.getId()));

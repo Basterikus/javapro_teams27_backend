@@ -15,7 +15,7 @@ public class FeedsController {
     @GetMapping
     public ListResponseRs<PostRs> get(
             @RequestParam (name = "offset", defaultValue = "0") Integer offset,
-            @RequestParam (name = "perPage", defaultValue = "20") Integer itemPerPage) {
+            @RequestParam (name = "itemPerPage", defaultValue = "20") Integer itemPerPage) { //perPage
 
         return postService.findAllPosts(offset, itemPerPage);
     }

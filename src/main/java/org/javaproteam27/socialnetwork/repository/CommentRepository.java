@@ -1,10 +1,12 @@
 package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
 import org.javaproteam27.socialnetwork.mapper.CommentMapper;
 import org.javaproteam27.socialnetwork.model.entity.Comment;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -79,5 +81,14 @@ public class CommentRepository {
             throw new ErrorException(exception.getMessage());
         }
         return retValue;
+    }
+
+    public Comment getCommentById(int id) {
+        try {
+            String sql = "select * from post_comment where id = ?";
+            return jdbcTemplate.queryForObject(sql, new CommentMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("comment id = " + id);
+        }
     }
 }

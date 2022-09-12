@@ -13,3 +13,10 @@ spring:
 logging:
     level:
         root: info
+
+yandexprofile:
+    login: javaproteams27@yandex.ru
+    token: y0_AgAAAABkHWYcAAhcJAAAAADNMMSQdTIhTbQjRfCCNvyw30mWw_U7WIY
+
+logsupload:
+    enabled: false

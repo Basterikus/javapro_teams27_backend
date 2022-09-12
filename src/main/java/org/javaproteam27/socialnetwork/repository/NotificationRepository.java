@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -46,7 +47,7 @@ public class NotificationRepository {
         String sql = "insert into notification " +
                 "(notification_type, sent_time, person_id, entity_id, contact, is_read) values (?, ?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(sql, notification.getNotificationType().name(), notification.getSentTime(),
+        jdbcTemplate.update(sql, notification.getNotificationType().name(), new Timestamp(notification.getSentTime()),
                 notification.getPersonId(), notification.getEntityId(),
                 notification.getContact(), notification.isRead());
     }

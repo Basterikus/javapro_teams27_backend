@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class Notification {
-    
     private Integer id;
     private NotificationType notificationType;
     private Long sentTime;
@@ -15,5 +14,4 @@ public class Notification {
     private Integer entityId;
     private String contact;
     private boolean isRead;
-    
 }

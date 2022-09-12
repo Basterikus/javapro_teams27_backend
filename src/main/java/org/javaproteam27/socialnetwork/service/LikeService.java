@@ -3,6 +3,7 @@ package org.javaproteam27.socialnetwork.service;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.LikeRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import org.javaproteam27.socialnetwork.model.entity.PostLike;
 import org.javaproteam27.socialnetwork.repository.LikeRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class LikeService {
     private final LikeRepository likeRepository;
     private final PersonService personService;
+    private final NotificationsService notificationsService;
 
     public ResponseRs<LikeRs> addLike(String type, Integer objectLikedId){
 
@@ -21,7 +23,8 @@ public class LikeService {
         Integer personId = personService.getAuthorizedPerson().getId();
         Integer likesCount = null;
         List<Integer> userListLiked = null;
-        likeRepository.addLike(time, personId, objectLikedId, type);
+        int likeId = likeRepository.addLike(time, personId, objectLikedId, type);
+        notificationsService.createPostLikeNotification(likeId, time, objectLikedId, type);
         LikeRs data = LikeRs.builder().likes(1).users(Arrays.asList(personId)).build();
         return new ResponseRs<>("", data, null);
     }

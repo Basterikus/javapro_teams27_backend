@@ -5,6 +5,9 @@ target/
 !**/src/test/**/target/
 application.yml
 /logs
+/logs/debug-logger.log
+/logs/info-logger.log
+/logs/archived
 
 ### STS ###
 .apt_generated

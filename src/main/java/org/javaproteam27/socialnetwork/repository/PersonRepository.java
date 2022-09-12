@@ -2,7 +2,6 @@ package org.javaproteam27.socialnetwork.repository;
 
 import ch.qos.logback.core.db.dialect.PostgreSQLDialect;
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.config.DatabaseConfig;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.mapper.PersonMapper;
 import org.javaproteam27.socialnetwork.model.entity.Person;
@@ -27,8 +26,7 @@ public class PersonRepository {
 
     private final RowMapper<Person> rowMapper = new PersonMapper();
     private final JdbcTemplate jdbcTemplate;
-    private final DatabaseConfig databaseConfig;
-    private final DSLContext create;
+
 
     public void save(Person person) {
 

@@ -92,7 +92,7 @@ public class PostRepository {
         return retList;
     }
 
-    public List<Post> findPost(String text, Long dateFrom, Long dateTo) {
+    public List<Post> findPost(String text, Long dateFrom, Long dateTo, String authorName, List<String> tags) {
         ArrayList<String> queryParts = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
 
@@ -108,23 +108,20 @@ public class PostRepository {
             queryParts.add("time < '" + dateToParsed + "'::date");
         }
 
+//        if(authorName != null) {
+//            queryParts.add("SELECT * FROM post AS p JOIN person AS per ON per.id = p.author_id " +
+//                    "WHERE per.first_name = '" + authorName + "';");
+//        }
+//
+//        if(tags != null) {
+//            tags.forEach(tag -> queryParts.add("SELECT * FROM post AS p JOIN post2tag AS pt ON p.id = pt.post_id\n" +
+//                    "JOIN tag AS t ON t.id = pt.tag_id WHERE tag = '" + tag + "';"));
+//        }
+
         String buildQuery = "SELECT * FROM post WHERE " +
                 String.join(" AND ", queryParts) + ";";
 
         return jdbcTemplate.query(buildQuery, new PostMapper());
-    }
-
-    public List<Post> findPostByAuthor(String authorName) {
-        String sql = "SELECT * FROM post AS p JOIN person AS per ON per.id = p.author_id " +
-                "WHERE per.first_name = " + authorName;
-
-        return jdbcTemplate.query(sql, new PostMapper());
-    }
-
-    public List<Post> findPostsByTag(String tag) {
-        String sql = "SELECT * FROM post AS p JOIN post2tag AS pt ON p.id = pt.post_id\n" +
-                "JOIN tag AS t ON t.id = pt.tag_id WHERE tag = '" + tag + "';";
-        return jdbcTemplate.query(sql, new PostMapper());
     }
 
 }

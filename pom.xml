@@ -76,12 +76,6 @@
             <type>pom</type>
             <scope>import</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>3.17.3</version>
-        </dependency>
-
 
         <!-- AOP -->
         <dependency>

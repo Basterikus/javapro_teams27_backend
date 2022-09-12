@@ -23,6 +23,7 @@ public class PostService {
     private final TagRepository tagRepository;
     private final CommentService commentService;
     private final LikeService likeService;
+    private final NotificationsService notificationsService;
     private final String POST_MARKER = "Post";
 
     private final PersonService personService;
@@ -85,6 +86,7 @@ public class PostService {
         long publishDateTime = (publishDate == null) ? System.currentTimeMillis() : publishDate;
         int postId = postRepository.addPost(publishDateTime, authorId, postRq.getTitle(), postRq.getPostText());
         postRq.getTags().forEach(tag -> tagRepository.addTag(tag, postId));
+        notificationsService.createPostNotification(authorId, publishDateTime, postId);
         return (new ResponseRs<>("", convertToPostRs(postRepository.findPostById(postId)),null));
     }
 

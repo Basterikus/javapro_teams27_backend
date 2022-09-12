@@ -1,88 +1,51 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseRs;
+import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.Notification;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
-import org.javaproteam27.socialnetwork.repository.FriendshipRepository;
-import org.javaproteam27.socialnetwork.repository.NotificationRepository;
-import org.javaproteam27.socialnetwork.repository.PersonRepository;
-import org.javaproteam27.socialnetwork.repository.PostRepository;
+import org.javaproteam27.socialnetwork.repository.*;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@DebugLogger
 public class NotificationsService {
-    
-    private final NotificationService notificationService;
+
     private final PersonService personService;
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final NotificationRepository notificationRepository;
     private final FriendshipRepository friendshipRepository;
     private final PostRepository postRepository;
-    
-    
+    private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
+
+
     public ListResponseRs<NotificationBaseRs> getNotifications(String token, int offset, int itemPerPage) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
         var notificationList = notificationRepository.findByPersonId(person.getId());
+        var currentTime = System.currentTimeMillis();
 
         List<NotificationBaseRs> result = new ArrayList<>();
         for (Notification notification : notificationList) {
-            if (!notification.isRead()) {
+            if (!notification.isRead() && notification.getSentTime() < currentTime) {
                 result.add(getNotificationRs(notification));
             }
         }
         return new ListResponseRs<>("", offset, itemPerPage, result);
     }
 
-    public void createFriendshipNotification(int dstId, int friendshipStatusId) {
-        var person = personService.getAuthorizedPerson();
-        var friendship = friendshipRepository.findByFriendShipStatus(person.getId(),
-                dstId, friendshipStatusId);
-        createNotification(dstId, NotificationType.FRIEND_REQUEST, friendship.getId());
-    }
-
-    public void createPostNotification(int dstId, Long publishDate, int postId) {
-        var date = Instant.ofEpochMilli(publishDate).atZone(ZoneOffset.UTC).toLocalDateTime();
-        createNotification(dstId, NotificationType.POST, postId);
-    }
-
-//    public void createCommentOnPostNotification(int postId) {
-//
-//    }
-
-    private void createNotification(int dstId, NotificationType notificationType, int entityId) {
-        Notification notification = new Notification();
-        notification.setSentTime(LocalDateTime.now());
-        notification.setPersonId(dstId);
-        notification.setEntityId(entityId);
-        notification.setNotificationType(notificationType);
-        notification.setContact("");
-        notification.setRead(false);
-        notificationRepository.save(notification);
-    }
-
-    private NotificationBaseRs getNotificationRs(Notification notification) {
-        return NotificationBaseRs.builder()
-                .id(notification.getId())
-                .info("String")
-                .sentTime(notification.getSentTime().atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
-                .notificationType(notification.getNotificationType())
-                .entityId(notification.getEntityId())
-                .build();
-    }
-    
     public ListResponseRs<NotificationBaseRs> markAsReadNotification(String token, int id, boolean all) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
@@ -104,5 +67,100 @@ public class NotificationsService {
             result.add(getNotificationRs(notification));
         }
         return new ListResponseRs<>("", 0, itemPerPage, result);
+    }
+
+    public void createCommentNotification(int postId, Long sentTime, int commentId, Integer parentId) {
+        var postAuthor = postRepository.findPostById(postId).getAuthorId();
+        var personId = personService.getAuthorizedPerson().getId();
+        if (parentId != null) {
+            var commentAuthor = commentRepository.getCommentById(parentId).getAuthorId();
+            if (!Objects.equals(commentAuthor, postAuthor) && postAuthor != personId) {
+                createNotification(postAuthor, NotificationType.POST_COMMENT, commentId, sentTime);
+            }
+        } else if (postAuthor != personId) {
+            createNotification(postAuthor, NotificationType.POST_COMMENT, commentId, sentTime);
+        }
+    }
+
+    public void createSubCommentNotification(int parentId, Long sentTime, int commentId) {
+        var commentAuthor = commentRepository.getCommentById(parentId).getAuthorId();
+        var personId = personService.getAuthorizedPerson().getId();
+        if (commentAuthor != personId) {
+            createNotification(commentAuthor, NotificationType.COMMENT_COMMENT, commentId, sentTime);
+        }
+    }
+
+    public void createFriendshipNotification(int dstId, int friendshipStatusId, int srcId) {
+        var friendship = friendshipRepository.findOneByIdAndFriendshipStatus(srcId,
+                dstId, friendshipStatusId);
+        var sentTime = System.currentTimeMillis();
+        createNotification(dstId, NotificationType.FRIEND_REQUEST, friendship.getId(), sentTime);
+    }
+
+    public void createPostNotification(int authorId, Long publishDate, int postId) {
+        var friendList = friendshipRepository.findAllFriendsByPersonId(authorId);
+        for (Friendship friendship : friendList) {
+            var friendId = friendship.getDstPersonId();
+            createNotification(friendId, NotificationType.POST, postId, publishDate);
+        }
+    }
+
+    public void createPostLikeNotification(int likeId, Long time, int postId, String type) {
+        Integer personId = personService.getAuthorizedPerson().getId();
+        if (Objects.equals(type, "Post")) {
+            Integer authorId = postRepository.findPostById(postId).getAuthorId();
+            if (!authorId.equals(personId)) {
+                createNotification(authorId, NotificationType.POST_LIKE, likeId, time);
+            }
+        }
+        if (Objects.equals(type, "Comment")) {
+            Integer authorId = commentRepository.getCommentById(postId).getAuthorId();
+            if (!authorId.equals(personId)) {
+                createNotification(authorId, NotificationType.COMMENT_LIKE, likeId, time);
+            }
+        }
+    }
+
+    private void createNotification(int dstId, NotificationType notificationType, int entityId, Long sentTime) {
+        Notification notification = new Notification();
+        notification.setSentTime(sentTime);
+        notification.setPersonId(dstId);
+        notification.setEntityId(entityId);
+        notification.setNotificationType(notificationType);
+        notification.setContact("");
+        notification.setRead(false);
+        notificationRepository.save(notification);
+    }
+
+    private NotificationBaseRs getNotificationRs(Notification notification) {
+        return NotificationBaseRs.builder()
+                .id(notification.getId())
+                .info(getInfoFromType(notification))
+                .sentTime(notification.getSentTime())
+                .notificationType(notification.getNotificationType())
+                .entityId(notification.getEntityId())
+                .build();
+    }
+
+    private String getInfoFromType(Notification notification) {
+        int entityId = notification.getEntityId();
+        switch (notification.getNotificationType()) {
+            case POST: return postRepository.findPostById(entityId).getTitle();
+            case POST_COMMENT:
+            case COMMENT_COMMENT:
+                return commentRepository.getCommentById(entityId).getCommentText();
+            case FRIEND_REQUEST:
+                var personId = friendshipRepository.findById(entityId).getSrcPersonId();
+                return getFullNameFromPerson(personRepository.findById(personId));
+            case POST_LIKE:
+            case COMMENT_LIKE:
+                var postLikePersonId = likeRepository.findById(entityId).getPersonId();
+                return getFullNameFromPerson(personRepository.findById(postLikePersonId));
+        }
+        return null;
+    }
+
+    private String getFullNameFromPerson(Person person) {
+        return person.getFirstName() + " " + person.getLastName();
     }
 }

@@ -45,3 +45,7 @@ databaseChangeLog:
       file: db/changelog/migrations/022-edit-post-like.sql
   - include:
       file: db/changelog/migrations/023-edit-post-like.sql
+  - include:
+      file: db/changelog/migrations/0024-edit-post-and-post_comment.sql
+  - include:
+      file: db/changelog/migrations/025-edit-post_comment.sql

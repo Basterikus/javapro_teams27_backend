@@ -5,7 +5,8 @@ CREATE TABLE post_comment (
                       parent_id INT,
                       author_id INT,
                       comment_text TEXT,
-                      is_blocked BOOLEAN DEFAULT FALSE,
+                      is_blocked BOOLEAN DEFAULT FALSE
+                      is_deleted BOOLEAN DEFAULT FALSE,
                         CONSTRAINT fk_comment_parent
                             FOREIGN KEY (parent_id)
                                 REFERENCES post_comment (id),

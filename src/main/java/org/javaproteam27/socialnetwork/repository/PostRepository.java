@@ -31,7 +31,7 @@ public class PostRepository {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> connection.prepareStatement(sqlQuery, new String[]{"id"}), keyHolder);
             postId = (Integer) keyHolder.getKey();
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return postId;
@@ -42,7 +42,7 @@ public class PostRepository {
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId,
                     new PostMapper());
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return retList;
@@ -52,7 +52,7 @@ public class PostRepository {
         Boolean retValue;
         try {
             retValue = (jdbcTemplate.update("DELETE FROM post WHERE id = ?", postId) == 1);
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return retValue;
@@ -63,7 +63,7 @@ public class PostRepository {
         try {
             retValue = (jdbcTemplate.update("UPDATE post SET title = ?, post_text = ? WHERE id = ?", title,
                     postText, postId) == 1);
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return retValue;
@@ -74,18 +74,18 @@ public class PostRepository {
         try {
             post = jdbcTemplate.queryForObject("SELECT * FROM post WHERE id = ?"
                     , new Object[]{postId}, new PostMapper());
-        }
-        catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return post;
     }
-    public List<Post> findAllPublishedPosts(){
+
+    public List<Post> findAllPublishedPosts() {
         List<Post> retList;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP",new PostMapper());
+            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP", new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
 
@@ -95,30 +95,36 @@ public class PostRepository {
     public List<Post> findPost(String text, Long dateFrom, Long dateTo, String authorName, List<String> tags) {
         ArrayList<String> queryParts = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
+        StringBuilder query = new StringBuilder();
 
-        queryParts.add("(post_text ILIKE '%" + text + "%' OR title ILIKE '%" + text + "%')");
+        if (authorName != null) {
+            query.insert(0, " JOIN person AS per ON per.id = p.author_id");
+            query.append(" WHERE ");
+            queryParts.add("per.first_name = '" + authorName + "'");
+        } else {
+            query.append(" WHERE ");
+        }
+
+        if (tags != null) {
+            query.insert(0, " JOIN post2tag AS pt ON p.id = pt.post_id JOIN tag AS t ON t.id = pt.tag_id");
+
+            tags.forEach(tag -> queryParts.add("tag = '" + tag + "'"));
+        }
+        query.insert(0, "SELECT * FROM post AS p");
 
         if (dateFrom != null) {
             LocalDate dateFromParsed = LocalDate.parse(dateFrom.toString(), formatter);
-            queryParts.add("time > '" + dateFromParsed + "'::date");
+            queryParts.add("p.time > '" + dateFromParsed + "'::date");
         }
 
         if (dateTo != null) {
             LocalDate dateToParsed = LocalDate.parse(dateTo.toString(), formatter);
-            queryParts.add("time < '" + dateToParsed + "'::date");
+            queryParts.add("p.time < '" + dateToParsed + "'::date");
         }
 
-//        if(authorName != null) {
-//            queryParts.add("SELECT * FROM post AS p JOIN person AS per ON per.id = p.author_id " +
-//                    "WHERE per.first_name = '" + authorName + "';");
-//        }
-//
-//        if(tags != null) {
-//            tags.forEach(tag -> queryParts.add("SELECT * FROM post AS p JOIN post2tag AS pt ON p.id = pt.post_id\n" +
-//                    "JOIN tag AS t ON t.id = pt.tag_id WHERE tag = '" + tag + "';"));
-//        }
+        queryParts.add("(p.post_text ILIKE '%" + text + "%' OR p.title ILIKE '%" + text + "%')");
 
-        String buildQuery = "SELECT * FROM post WHERE " +
+        String buildQuery = query +
                 String.join(" AND ", queryParts) + ";";
 
         return jdbcTemplate.query(buildQuery, new PostMapper());

@@ -5,10 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.mapper.PersonMapper;
 import org.javaproteam27.socialnetwork.model.entity.Person;
-import org.jooq.*;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultConfiguration;
-import org.jooq.tools.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,8 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.jooq.impl.DSL.field;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -113,8 +108,28 @@ public class PersonRepository {
             queryParts.add("country = '" + country + "'");
         }
 
-        String buildQuery = "SELECT * FROM person WHERE " + String.join(" AND ", queryParts) + ";";
-        return jdbcTemplate.query(buildQuery, rowMapper);
+        String buildQuery = "SELECT * FROM person WHERE id != " + authorizedPerson.getId() + " AND "
+                + String.join(" AND ", queryParts) + ";";
+
+        List<Person> filtered = filterBlockedPeople(jdbcTemplate.query(buildQuery, rowMapper), authorizedPerson.getId());
+
+        return filtered;
+    }
+
+    private List<Person> filterBlockedPeople(List<Person> peopleFound, int authorizedPersonId) {
+
+        List<Person> blockedPeople = new ArrayList<>();
+
+        String query = "SELECT * FROM person as p JOIN friendship AS f ON p.id = f.dst_person_id\n" +
+                "JOIN friendship_status AS fs ON f.status_id = fs.id WHERE f.src_person_id = " + authorizedPersonId +
+                " AND f.dst_person_id = ? AND fs.code = 'BLOCKED';";
+
+        peopleFound.stream().map(person -> jdbcTemplate.query(query, rowMapper, person.getId()))
+                .forEach(blockedPeople::addAll);
+
+        peopleFound.removeAll(blockedPeople);
+
+        return peopleFound;
     }
 
     public List<Person> getFriendsPersonById(String name, Integer id) {

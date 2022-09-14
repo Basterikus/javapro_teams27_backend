@@ -80,7 +80,7 @@ public class PostRepository {
         return post;
     }
 
-    public List<Post> findAllPublishedPosts() {
+    public List<Post> findAllPublishedPosts(int offset, int limit){
         List<Post> retList;
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP " +
@@ -92,6 +92,7 @@ public class PostRepository {
 
         return retList;
     }
+
 
     public List<Post> findPost(String text, Long dateFrom, Long dateTo, String authorName, List<String> tags) {
         ArrayList<String> queryParts = new ArrayList<>();

@@ -37,12 +37,12 @@ public class PostRepository {
         return postId;
     }
 
-    public List<Post> findAllUserPosts(int authorId) {
+    public List<Post> findAllUserPosts(int authorId, int offset, int limit) {
         List<Post> retList;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId,
-                    new PostMapper());
-        } catch (DataAccessException exception) {
+            retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId
+                    + " AND is_deleted is false" + " LIMIT " + limit + " OFFSET " + offset, new PostMapper());
+        } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
         return retList;
@@ -51,8 +51,8 @@ public class PostRepository {
     public Boolean deletePostById(int postId) {
         Boolean retValue;
         try {
-            retValue = (jdbcTemplate.update("DELETE FROM post WHERE id = ?", postId) == 1);
-        } catch (DataAccessException exception) {
+            retValue = (jdbcTemplate.update("UPDATE post SET is_deleted = true WHERE id = ?", postId) == 1);
+        } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
         return retValue;
@@ -83,9 +83,10 @@ public class PostRepository {
     public List<Post> findAllPublishedPosts() {
         List<Post> retList;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP", new PostMapper());
+            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP " +
+                    "AND is_deleted is false LIMIT " + limit + " OFFSET " + offset,new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
-        } catch (DataAccessException exception) {
+        } catch (DataAccessException exception){
             throw new ErrorException(exception.getMessage());
         }
 

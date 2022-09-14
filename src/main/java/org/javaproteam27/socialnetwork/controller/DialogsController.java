@@ -66,22 +66,6 @@ public class DialogsController {
         return ResponseEntity.ok(response);
     }
     
-//    @PutMapping("/{id}/users")
-//    public ResponseEntity<ResponseRs<DialogUserShortListDto>> putUserToDialog(
-//            @PathVariable Integer id,
-//            @RequestBody DialogUserShortListDto userIds
-//    ) {
-//        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
-//    }
-    
-//    @DeleteMapping("/{id}/users")
-//    public ResponseEntity<ResponseRs<DialogUserShortListDto>> deleteUsersFromDialog(
-//            @PathVariable Integer id,
-//            @RequestParam("user_ids") List<Integer> userIds
-//    ) {
-//        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
-//    }
-    
     @PostMapping("/{id}/messages")
     public ResponseEntity<ResponseRs<MessageRs>> sendMessage(
             @RequestHeader("Authorization") String token,
@@ -129,13 +113,5 @@ public class DialogsController {
         ResponseRs<ComplexRs> response = dialogsService.deleteMessage(dialogId, messageId);
         return ResponseEntity.ok(response);
     }
-    
-//    @PutMapping("/{dialog_id}/messages/{message_id}/recover")
-//    public ResponseEntity<ResponseRs<MessageRs>> recoverMessage(
-//            @PathVariable Integer dialogId,
-//            @PathVariable Integer messageId
-//    ) {
-//        return ResponseEntity.ok(new ResponseRs<>(null, null, null));
-//    }
 
 }

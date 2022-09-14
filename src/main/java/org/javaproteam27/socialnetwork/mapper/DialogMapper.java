@@ -15,7 +15,8 @@ public class DialogMapper implements RowMapper<Dialog> {
                 .id(rs.getInt("id"))
                 .firstPersonId(rs.getInt("first_person_id"))
                 .secondPersonId(rs.getInt("second_person_id"))
-                .lastActiveTime(rs.getTimestamp("last_active_time").getTime())
+                .lastMessageId(rs.getInt("last_message_id"))
+                .lastActiveTime(rs.getTimestamp("last_active_time").toLocalDateTime())
                 .build();
     }
 }

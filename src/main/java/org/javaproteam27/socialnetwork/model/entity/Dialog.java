@@ -13,7 +13,7 @@ public class Dialog implements Comparable<Dialog> {
     private Integer firstPersonId;
     private Integer secondPersonId;
     private Integer lastMessageId;
-    private Long lastActiveTime;
+    private LocalDateTime lastActiveTime;
     
     
     @Override

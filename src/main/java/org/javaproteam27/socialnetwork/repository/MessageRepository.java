@@ -35,7 +35,7 @@ public class MessageRepository {
             
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             
-            ps.setTimestamp(1, new Timestamp(message.getTime()));
+            ps.setTimestamp(1, Timestamp.valueOf(message.getTime()));
             ps.setInt(2, message.getAuthorId());
             ps.setInt(3, message.getRecipientId());
             ps.setString(4, message.getMessageText());

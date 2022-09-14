@@ -17,7 +17,11 @@ import org.javaproteam27.socialnetwork.repository.MessageRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +39,7 @@ public class DialogsService {
     private static MessageRs buildMessageRs(Message message) {
         return MessageRs.builder()
                 .id(message.getId())
-                .time(message.getTime())
+                .time(Timestamp.valueOf(message.getTime()).getTime())
                 .authorId(message.getAuthorId())
                 .recipientId(message.getRecipientId())
                 .messageText(message.getMessageText())
@@ -63,7 +67,7 @@ public class DialogsService {
         Dialog newDialog = Dialog.builder()
                 .firstPersonId(getPerson(token).getId())
                 .secondPersonId(userIds.get(0))
-                .lastActiveTime(System.currentTimeMillis())
+                .lastActiveTime(LocalDateTime.now())
                 .build();
         
         dialogRepository.save(newDialog);
@@ -83,11 +87,14 @@ public class DialogsService {
                 .skip(offset)
                 .limit(itemPerPage)
                 .map(dialog -> {
-                
-                    Message message = messageRepository.findById(dialog.getId());
-                
-                    MessageRs messageRs = buildMessageRs(message);
-                
+                    MessageRs messageRs = null;
+                    Integer lastMessageId = dialog.getLastMessageId();
+    
+                    if (lastMessageId != null && lastMessageId != 0) {
+                        Message message = messageRepository.findById(lastMessageId);
+                        messageRs = buildMessageRs(message);
+                    }
+    
                     return DialogRs.builder()
                             .id(dialog.getId())
                             .unreadCount(messageRepository.getUnreadedCountByDialogId(dialog.getId()))
@@ -112,7 +119,7 @@ public class DialogsService {
         
         Dialog dialog = dialogRepository.findById(dialogId);
         dialog.setLastMessageId(null);
-        dialogRepository.save(dialog);
+        dialogRepository.update(dialog);
         
         messageRepository.deleteByDialogId(dialogId);
         dialogRepository.deleteById(dialogId);
@@ -121,7 +128,6 @@ public class DialogsService {
         
         return new ResponseRs<>("", data, null);
     }
-    
     
     public ResponseRs<MessageRs> sendMessage(String token, Integer dialogId, MessageSendRequestBodyRs text) {
         
@@ -132,7 +138,7 @@ public class DialogsService {
                 dialog.getFirstPersonId();
         
         Message message = Message.builder()
-                .time(System.currentTimeMillis())
+                .time(LocalDateTime.now())
                 .authorId(authorId)
                 .recipientId(recipientId)
                 .messageText(text.getMessageText())
@@ -142,6 +148,10 @@ public class DialogsService {
         
         Integer savedId = messageRepository.save(message);
         message.setId(savedId);
+        
+        dialog.setLastMessageId(savedId);
+        dialog.setLastActiveTime(LocalDateTime.now());
+        dialogRepository.update(dialog);
         
         MessageRs data = buildMessageRs(message);
         

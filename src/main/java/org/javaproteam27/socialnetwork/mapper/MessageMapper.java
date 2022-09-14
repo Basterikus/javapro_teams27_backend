@@ -14,7 +14,7 @@ public class MessageMapper implements RowMapper<Message> {
         
         return Message.builder()
                 .id(rs.getInt("id"))
-                .time(rs.getTimestamp("time").getTime())
+                .time(rs.getTimestamp("time").toLocalDateTime())
                 .authorId(rs.getInt("author_id"))
                 .recipientId(rs.getInt("recipient_id"))
                 .messageText(rs.getString("message_text"))

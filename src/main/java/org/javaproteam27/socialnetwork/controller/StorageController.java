@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import com.dropbox.core.DbxException;
 import com.yandex.disk.rest.exceptions.ServerException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.StorageRs;
@@ -19,10 +20,8 @@ public class StorageController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public StorageRs postStorage( @RequestHeader("Authorization") String token,
-                                  @RequestParam MultipartFile file) throws ServerException, IOException {
-        System.out.println(file.getName());
-        System.out.println(file.getContentType());
-        System.out.println(file.getOriginalFilename());;
+                                  @RequestParam MultipartFile file) throws ServerException, IOException, DbxException {
+        storageService.dropBoxUploadImages(file);
         return storageService.postStorage(file, token);
     }
 }

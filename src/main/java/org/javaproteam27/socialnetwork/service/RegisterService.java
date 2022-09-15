@@ -38,7 +38,7 @@ public class RegisterService {
     @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
 
-    private String defaultPhoto = "src/main/resources/images/default.jpg";
+    private String defaultPhoto = "https://dl.dropbox.com/s/ea3n2vw79u0s33u/default.jpg?dl=1";
 
 
     public ResponseEntity<RegisterRs> postRegister(RegisterRq request) {

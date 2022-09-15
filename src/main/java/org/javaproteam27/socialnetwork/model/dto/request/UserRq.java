@@ -15,7 +15,7 @@ public class UserRq {
     private String lastName;
 
     @JsonProperty("birth_date")
-    private long birthDate;
+    private String birthDate;
 
     private String phone;
 

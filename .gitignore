@@ -4,7 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 application.yml
-/logs
+*.log
+**/logs
 
 ### STS ###
 .apt_generated
@@ -20,8 +21,6 @@ application.yml
 *.iws
 *.iml
 *.ipr
-
-*.log
 
 ### NetBeans ###
 /nbproject/private/

@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
@@ -20,6 +21,7 @@ public class CommentService {
     private final PersonService personService;
     private final CommentRepository commentRepository;
     private final LikeService likeService;
+    private final NotificationsService notificationsService;
     public final String COMMENT_MARKER = "Comment";
 
     private CommentRs convertToCommentRs(Comment comment) {
@@ -40,6 +42,10 @@ public class CommentService {
                 lastName(person.getLastName()).photo(person.getPhoto()).build();
         Long time = System.currentTimeMillis();
         Integer commentId = commentRepository.addComment(postId, commentText, parentId, author.getId(), time);
+        notificationsService.createCommentNotification(postId, time, commentId, parentId);
+        if (parentId != null) {
+            notificationsService.createSubCommentNotification(parentId, time, commentId);
+        }
         CommentRs data = CommentRs.builder().isDeleted(false).parentId(parentId).commentText(commentText).id(commentId).
                 postId(postId).time(time).author(author).isBlocked(false).subComments(new ArrayList<>()).build();
         return new ResponseRs<>("", data, null);
@@ -58,7 +64,7 @@ public class CommentService {
     }
 
     public ListResponseRs<CommentRs> getCommentsByPostIdInResponse(int postId, int offset, int itemPerPage) {
-        return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId));
+        return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId, offset, itemPerPage));
     }
 
     public void deleteAllCommentsToPost(int postId) {
@@ -71,19 +77,19 @@ public class CommentService {
     public ResponseRs<CommentRs> deleteComment(int postId, int commentId) {
 
         commentRepository.deleteComment(postId, commentId);
-        ResponseRs<CommentRs> responseRs = new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
-        return responseRs;
+        return new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
     }
 
-    public List<CommentRs> InitializeCommentsToPost(Integer postId){
-        List<Comment> commentList = commentRepository.getAllCommentsByPostIdAndParentId(postId, null);
+    public List<CommentRs> InitializeCommentsToPost(Integer postId, Integer offset, Integer limit){
+        List<Comment> commentList = commentRepository.getAllCommentsByPostIdAndParentId(postId, null, offset, limit);
         List<CommentRs> commentRsList = commentList.stream().map(this::convertToCommentRs).collect(Collectors.toList());
         commentRsList.forEach(commentRs -> setSubCommentsToComments(commentRs, commentRs.getId()));
         return commentRsList;
     }
 
     private void setSubCommentsToComments (CommentRs commentRs, Integer parentId) {
-        List<Comment> comments = commentRepository.getAllCommentsByPostIdAndParentId(commentRs.getPostId(), parentId);
+        List<Comment> comments = commentRepository.getAllCommentsByPostIdAndParentId(commentRs.getPostId(),
+                parentId, null, null);
         List<CommentRs> subComments = comments.stream().map(this::convertToCommentRs).collect(Collectors.toList());
         commentRs.setSubComments(subComments);
         commentRs.getSubComments().forEach(commentRs1 -> setSubCommentsToComments(commentRs1, commentRs1.getId()));

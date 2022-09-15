@@ -11,6 +11,7 @@ import org.javaproteam27.socialnetwork.repository.PostRepository;
 import org.javaproteam27.socialnetwork.repository.TagRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class PostService {
     private final TagRepository tagRepository;
     private final CommentService commentService;
     private final LikeService likeService;
+    private final NotificationsService notificationsService;
     private final String POST_MARKER = "Post";
 
     private final PersonService personService;
@@ -32,7 +34,7 @@ public class PostService {
         if (post == null) return null;
         long timestamp = post.getTime();
         String type = (timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED";
-        List<CommentRs> comments = commentService.InitializeCommentsToPost(post.getId());
+        List<CommentRs> comments = commentService.InitializeCommentsToPost(post.getId(), null, null);
         return PostRs.builder()
                 .id(post.getId())
                 .time(timestamp)//.toLocalDateTime())
@@ -49,23 +51,24 @@ public class PostService {
     }
 
     public ListResponseRs<PostRs> findAllPosts(int offset, int itemPerPage) {
-        List<Post> posts = postRepository.findAllPublishedPosts();
+        List<Post> posts = postRepository.findAllPublishedPosts(offset, itemPerPage);
         List<PostRs> data = (posts != null) ? posts.stream().map(this::convertToPostRs).
                 collect(Collectors.toList()) : null;
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
     public ListResponseRs<PostRs> findAllUserPosts(int authorId, int offset, int itemPerPage) {
-        List<Post> posts = postRepository.findAllUserPosts(authorId);
+        List<Post> posts = postRepository.findAllUserPosts(authorId, offset, itemPerPage);
         List<PostRs> data = (posts != null) ? posts.stream().map(this::convertToPostRs).
                 collect(Collectors.toList()) : null;
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
+    @Transactional
     public ResponseRs<PostRs> deletePost(int postId) {
 
         tagRepository.deleteTagsByPostId(postId);
-        List<Integer> commentIds = commentService.InitializeCommentsToPost(postId).stream().
+        List<Integer> commentIds = commentService.InitializeCommentsToPost(postId, null, null).stream().
                 map(CommentRs::getId).collect(Collectors.toList());
         commentIds.forEach(commentId -> likeService.deleteAllLikesByLikedObjectId(commentId,
                 commentService.COMMENT_MARKER));
@@ -85,6 +88,7 @@ public class PostService {
         long publishDateTime = (publishDate == null) ? System.currentTimeMillis() : publishDate;
         int postId = postRepository.addPost(publishDateTime, authorId, postRq.getTitle(), postRq.getPostText());
         postRq.getTags().forEach(tag -> tagRepository.addTag(tag, postId));
+        notificationsService.createPostNotification(authorId, publishDateTime, postId);
         return (new ResponseRs<>("", convertToPostRs(postRepository.findPostById(postId)),null));
     }
 

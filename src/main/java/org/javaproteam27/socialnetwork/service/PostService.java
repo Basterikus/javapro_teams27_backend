@@ -92,9 +92,10 @@ public class PostService {
         return (new ResponseRs<>("", convertToPostRs(postRepository.findPostById(postId)),null));
     }
 
-    public ResponseEntity<?> findPost (String text, Long dateFrom, Long dateTo, int offset, int itemPerPage) {
+    public ResponseEntity<?> findPost (String text, Long dateFrom, Long dateTo, String authorName, List<String> tags,
+                                       int offset, int itemPerPage) {
 
-        List<Post> postsFound = postRepository.findPost(text, dateFrom, dateTo);
+        List<Post> postsFound = postRepository.findPost(text, dateFrom, dateTo, authorName, tags);
         List<PostRs> data = (postsFound != null) ? postsFound.stream().map(this::convertToPostRs).
                 collect(Collectors.toList()) : null;
 

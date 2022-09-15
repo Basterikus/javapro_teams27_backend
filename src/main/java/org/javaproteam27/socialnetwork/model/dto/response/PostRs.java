@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
@@ -21,6 +22,7 @@ import java.util.List;
 @Builder
 @JsonPropertyOrder({"id", "time", "author", "title", "likes", "tags", "comments",
         "type", "post_text", "is_blocked", "my_like"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostRs {
     private Integer id;
     private Long time;

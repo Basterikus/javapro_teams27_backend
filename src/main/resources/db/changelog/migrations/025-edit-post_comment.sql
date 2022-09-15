@@ -1,1 +1,0 @@
-ALTER TABLE post_comment ADD COLUMN is_deleted bool DEFAULT false;

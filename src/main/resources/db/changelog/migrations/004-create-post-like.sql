@@ -3,10 +3,8 @@ CREATE TABLE post_like (
                            time TIMESTAMP NOT NULL,
                            person_id INT,
                            post_id INT,
+                           type VARCHAR (255),
                            CONSTRAINT fk_person_like
                                 FOREIGN KEY (person_id)
-                                    REFERENCES person (id),
-                           CONSTRAINT fk_like_post
-                                FOREIGN KEY (post_id)
-                                    REFERENCES post (id)
+                                    REFERENCES person (id)
 );

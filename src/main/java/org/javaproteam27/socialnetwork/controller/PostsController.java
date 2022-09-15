@@ -8,11 +8,14 @@ import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/post")
 public class PostsController {
     private final PostService postService;
+
     @DeleteMapping("/{id}")
     public ResponseRs<PostRs> deletePost(@PathVariable(value = "id") int postId){
 
@@ -38,9 +41,11 @@ public class PostsController {
             @RequestParam(value = "text") String text,
             @RequestParam(value = "dateFrom", required = false) Long dateFrom,
             @RequestParam(value = "dateTo", required = false) Long dateTo,
+            @RequestParam(value = "authorName", required = false) String authorName,
+            @RequestParam(value = "tag", required = false) List<String> tags,
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
             @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage) {
 
-        return postService.findPost(text, dateFrom, dateTo, offset, itemPerPage);
+        return postService.findPost(text, dateFrom, dateTo, authorName, tags, offset, itemPerPage);
     }
 }

@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.DebugLogger;
+import org.javaproteam27.socialnetwork.model.dto.response.EntityAuthorRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseRs;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
@@ -139,13 +140,42 @@ public class NotificationsService {
                 .sentTime(notification.getSentTime())
                 .notificationType(notification.getNotificationType())
                 .entityId(notification.getEntityId())
+                .entityAuthor(getEntityAuthor(notification))
                 .build();
+    }
+
+    private EntityAuthorRs getEntityAuthor(Notification notification) {
+        int entityId = notification.getEntityId();
+        Integer authorId = null;
+        switch (notification.getNotificationType()) {
+            case POST:
+                authorId = postRepository.findPostById(entityId).getAuthorId();
+                break;
+            case POST_COMMENT:
+            case COMMENT_COMMENT:
+                authorId = commentRepository.getCommentById(entityId).getAuthorId();
+                break;
+            case FRIEND_REQUEST:
+                authorId = friendshipRepository.findById(entityId).getSrcPersonId();
+                break;
+            case POST_LIKE:
+            case COMMENT_LIKE:
+                authorId = likeRepository.findById(entityId).getPersonId();
+                break;
+        }
+        if (authorId != null) {
+            var person = personRepository.findById(authorId);
+            return EntityAuthorRs.builder().firstName(person.getFirstName()).lastName(person.getLastName())
+                    .photo(person.getPhoto()).build();
+        }
+        return null;
     }
 
     private String getInfoFromType(Notification notification) {
         int entityId = notification.getEntityId();
         switch (notification.getNotificationType()) {
-            case POST: return postRepository.findPostById(entityId).getTitle();
+            case POST:
+                return postRepository.findPostById(entityId).getTitle();
             case POST_COMMENT:
             case COMMENT_COMMENT:
                 return commentRepository.getCommentById(entityId).getCommentText();

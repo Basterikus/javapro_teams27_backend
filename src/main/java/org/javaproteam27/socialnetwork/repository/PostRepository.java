@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PostRepository {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> connection.prepareStatement(sqlQuery, new String[]{"id"}), keyHolder);
             postId = (Integer) keyHolder.getKey();
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return postId;
@@ -62,7 +63,7 @@ public class PostRepository {
         try {
             retValue = (jdbcTemplate.update("UPDATE post SET title = ?, post_text = ? WHERE id = ?", title,
                     postText, postId) == 1);
-        } catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return retValue;
@@ -73,12 +74,12 @@ public class PostRepository {
         try {
             post = jdbcTemplate.queryForObject("SELECT * FROM post WHERE id = ?"
                     , new Object[]{postId}, new PostMapper());
-        }
-        catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
         return post;
     }
+
     public List<Post> findAllPublishedPosts(int offset, int limit){
         List<Post> retList;
         try {
@@ -92,26 +93,42 @@ public class PostRepository {
         return retList;
     }
 
-    public List<Post> findPost(String text, Long dateFrom, Long dateTo) {
-        ArrayList<String> queryParts = new ArrayList<>();
 
-        if (text != null) {
-            queryParts.add("post_text LIKE '%" + text + "%'");
+    public List<Post> findPost(String text, Long dateFrom, Long dateTo, String authorName, List<String> tags) {
+        ArrayList<String> queryParts = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
+        StringBuilder query = new StringBuilder();
+
+        if (authorName != null) {
+            query.insert(0, " JOIN person AS per ON per.id = p.author_id");
+            query.append(" WHERE ");
+            queryParts.add("per.first_name = '" + authorName + "'");
+        } else {
+            query.append(" WHERE ");
         }
 
+        if (tags != null) {
+            query.insert(0, " JOIN post2tag AS pt ON p.id = pt.post_id JOIN tag AS t ON t.id = pt.tag_id");
+
+            tags.forEach(tag -> queryParts.add("tag = '" + tag + "'"));
+        }
+        query.insert(0, "SELECT * FROM post AS p");
+
         if (dateFrom != null) {
-            LocalDate dateFromParsed =
-                    Instant.ofEpochMilli(dateFrom).atZone(ZoneId.systemDefault()).toLocalDate();
-            queryParts.add("time > '" + dateFromParsed + "'::date");
+            LocalDate dateFromParsed = LocalDate.parse(dateFrom.toString(), formatter);
+            queryParts.add("p.time > '" + dateFromParsed + "'::date");
         }
 
         if (dateTo != null) {
-            LocalDate dateToParsed =
-                    Instant.ofEpochMilli(dateTo).atZone(ZoneId.systemDefault()).toLocalDate();
-            queryParts.add("time < '" + dateToParsed + "'::date");
+            LocalDate dateToParsed = LocalDate.parse(dateTo.toString(), formatter);
+            queryParts.add("p.time < '" + dateToParsed + "'::date");
         }
 
-        String buildQuery = "SELECT * FROM post WHERE " + String.join(" AND ", queryParts) + ";";
+        queryParts.add("(p.post_text ILIKE '%" + text + "%' OR p.title ILIKE '%" + text + "%')");
+
+        String buildQuery = query +
+                String.join(" AND ", queryParts) + ";";
+
         return jdbcTemplate.query(buildQuery, new PostMapper());
     }
 

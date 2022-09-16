@@ -3,14 +3,18 @@ package org.javaproteam27.socialnetwork.repository;
 import ch.qos.logback.core.db.dialect.PostgreSQLDialect;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
 import org.javaproteam27.socialnetwork.mapper.PersonMapper;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -173,5 +177,30 @@ public class PersonRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("person id = " + id);
         }
+    }
+
+    public Boolean editPerson(Person person) {
+        Boolean retValue;
+        try {
+            retValue = (jdbcTemplate.update("UPDATE person SET first_name = ?, last_name = ?, " +
+                    "birth_date = ?, phone = ?, about = ?, city = ?, country = ?, messages_permission = ? " +
+                    "WHERE id = ?", person.getFirstName(), person.getLastName(), person.getBirthDate(),
+                    person.getPhone(), person.getAbout(), person.getCity(), person.getCountry(),
+                    person.getMessagesPermission().toString(), person.getId()) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+        return retValue;
+    }
+
+    public Boolean savePhoto(Person person) {
+        Boolean retValue;
+        try {
+            retValue = (jdbcTemplate.update("UPDATE person SET photo = ? WHERE id = ?", person.getPhoto(),
+                    person.getId()) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+        return retValue;
     }
 }

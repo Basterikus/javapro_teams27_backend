@@ -99,7 +99,6 @@ public class PersonService {
         String birthDate = request.getBirthDate().split("T")[0];
         LocalDate date = LocalDate.parse(birthDate, formatter);
 
-        System.out.println(date);
         person.setBirthDate(LocalDateTime.of(date, LocalTime.of(0,0,0,0)));
         person.setPhone(request.getPhone());
         person.setAbout(request.getAbout());

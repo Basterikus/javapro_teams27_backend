@@ -3,9 +3,11 @@ package org.javaproteam27.socialnetwork.service;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.LikeRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import org.javaproteam27.socialnetwork.model.entity.PostLike;
 import org.javaproteam27.socialnetwork.repository.LikeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -13,60 +15,46 @@ import java.util.List;
 public class LikeService {
     private final LikeRepository likeRepository;
     private final PersonService personService;
+    private final NotificationsService notificationsService;
 
-    public ResponseRs<LikeRs> addPostLike(String type, Integer postId){
+    public ResponseRs<LikeRs> addLike(String type, Integer objectLikedId){
 
-        if (!type.equals("Post")){
-            return null;
-        }
-        Long time = System.currentTimeMillis();
+        long time = System.currentTimeMillis();
         Integer personId = personService.getAuthorizedPerson().getId();
-        likeRepository.addPostLike(time, personId, postId);
-        Integer likesCount = getCountByPostId(postId);
-        List<Integer> userListLikedPost = likeRepository.getUserListLikedPost(postId);
-        LikeRs data = LikeRs.builder().likes(likesCount).users(userListLikedPost).build();
+        Integer likesCount = null;
+        List<Integer> userListLiked = null;
+        int likeId = likeRepository.addLike(time, personId, objectLikedId, type);
+        notificationsService.createPostLikeNotification(likeId, time, objectLikedId, type);
+        LikeRs data = LikeRs.builder().likes(1).users(Arrays.asList(personId)).build();
         return new ResponseRs<>("", data, null);
     }
 
-    public boolean deletePostLikeTest(Integer postId, Integer userId) {
-        if (userId == null) {
-            List<Integer> users = likeRepository.getUserListLikedPost(postId);
-            users.forEach(user -> likeRepository.deletePostLike(postId, user));
-        }
-        return likeRepository.deletePostLike(postId, userId);
-    }
+    public ResponseRs<LikeRs> deleteLike(String type, Integer objectLikedId) {
 
-    public ResponseRs<LikeRs> deletePostLike(String type, Integer postId) {
-
-        if (!type.equals("Post")){
-            return null;
-        }
         Integer personId = personService.getAuthorizedPerson().getId();
-        if (deletePostLikeTest(postId, personId)){
-            LikeRs data = LikeRs.builder().likes(1).build();
-            return new ResponseRs<>("", data, null);
-        }
-        return null;
+        likeRepository.deleteLike(type, objectLikedId, personId);
+        LikeRs data = LikeRs.builder().likes(1).build();
+        return new ResponseRs<>("", data, null);
     }
 
-    public Integer getCountByPostId(Integer postId){
+    public ResponseRs<LikeRs> getLikeList(String type, Integer objectLikedId) {
 
-        return likeRepository.getLikesByPostId(postId).size();
-    }
-
-    public ResponseRs<LikeRs> getPostLikeList(String type, Integer postId) {
-
-        if (!type.equals("Post")){
-            return null;
-        }
-        List<Integer> likes = likeRepository.getUserListLikedPost(postId);
+        List<Integer> likes = likeRepository.getLikedUserList(objectLikedId, type);
         LikeRs data = LikeRs.builder().likes(likes.size()).users(likes).build();
         return new ResponseRs<>("", data, null);
     }
 
-    public Boolean isPostLikedByUser(Integer userId, Integer postId){
+    public Boolean isLikedByUser(Integer userId, Integer objectLikedId, String type){
 
-        List<Integer> likes = likeRepository.getLikesByPersonId(userId, postId);
+        List<Integer> likes = likeRepository.isLikedByUser(userId, objectLikedId, type);
         return !likes.isEmpty();
+    }
+
+    public Integer countLikes(Integer objectLikedId, String type) {
+        return likeRepository.getLikedUserList(objectLikedId, type).size();
+    }
+
+    public void deleteAllLikesByLikedObjectId(Integer objectLikedId, String type) {
+        likeRepository.deleteLike(type, objectLikedId, null);
     }
 }

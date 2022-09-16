@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -35,6 +36,20 @@ public class NotificationRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("notification for person_id = " + personId);
         }
+    }
+
+    public void updateReadStatus(Notification notification) {
+        String sql = "update notification SET is_read = ? WHERE id = ?";
+        jdbcTemplate.update(sql, notification.isRead(), notification.getId());
+    }
+
+    public void save(Notification notification) {
+        String sql = "insert into notification " +
+                "(notification_type, sent_time, person_id, entity_id, contact, is_read) values (?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql, notification.getNotificationType().name(), new Timestamp(notification.getSentTime()),
+                notification.getPersonId(), notification.getEntityId(),
+                notification.getContact(), notification.isRead());
     }
     
 }

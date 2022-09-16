@@ -29,6 +29,8 @@ public class RegisterService {
     private String firstName;
     private String lastName;
 
+    private String defaultPhoto = "https://dl.dropbox.com/s/ea3n2vw79u0s33u/default.jpg?dl=1";
+
 
     public ResponseEntity<RegisterRs> postRegister(RegisterRq request) {
         RegisterRs registerRS = new RegisterRs();
@@ -36,8 +38,8 @@ public class RegisterService {
 
         captchaSecret1 = captchaRepository.findByCode(request.getCode()).getSecretCode();
         captchaSecret2 = request.getCodeSecret();
-        password1 = request.getPasswd1();
-        password2 = request.getPasswd2();
+        password1 = request.getPassword1();
+        password2 = request.getPassword2();
 
         // Проверка введенных данных
         checkPassword();
@@ -56,7 +58,8 @@ public class RegisterService {
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setRegDate(LocalDateTime.now());
-        person.setPassword(request.getPasswd1());
+        person.setPassword(request.getPassword1());
+        person.setPhoto(defaultPhoto);
         person.setIsApproved(true);  // добавить проверку почты
         personRepository.save(person);
         // ответ успешной регистрации

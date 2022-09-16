@@ -9,6 +9,7 @@ import org.javaproteam27.socialnetwork.model.entity.Country;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -27,10 +28,11 @@ public class FriendsService {
     private final CityService cityService;
     private final CountryService countryService;
     private final PersonRepository personRepository;
+    private final JwtTokenProvider jwtTokenProvider;
     
-    public ListResponseRs<PersonRs> getRecommendations(String token, Integer offset, Integer itemPerPage) {
-        
-        Person person = personService.findById(1);
+    public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
+
+        Person person = personRepository.findByEmail(jwtTokenProvider.getUsername(token));
         Integer myId = person.getId();
         
         List<Integer> myFriendsIds = getMyFriendsIds(myId);

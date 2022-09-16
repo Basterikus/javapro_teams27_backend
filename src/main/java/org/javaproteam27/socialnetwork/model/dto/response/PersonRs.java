@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.model.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,9 +9,12 @@ import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
 import java.time.LocalDateTime;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Getter
 @Setter
 @Builder
+@JsonInclude(NON_NULL)
 public class PersonRs {
 
     private Integer id;
@@ -34,6 +38,6 @@ public class PersonRs {
     private LocalDateTime lastOnlineTime;
     @JsonProperty("is_blocked")
     private boolean isBlocked;
-    String token;
+    private String token;
 }
 

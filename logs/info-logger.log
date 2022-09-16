@@ -3641,3 +3641,747 @@ Caused by: org.postgresql.util.PSQLException: ОШИБКА: ошибка син�
 2022-09-16 13:52:42 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
 2022-09-16 13:52:42 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2022-09-16 13:52:42 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-16 14:04:10 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on DESKTOP-5144I2V with PID 1296 (C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes started by Mikhail in C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend)
+2022-09-16 14:04:10 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-16 14:04:12 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-16 14:04:12 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 63ms. Found 0 JDBC repository interfaces.
+2022-09-16 14:04:14 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-16 14:04:14 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:04:14 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-16 14:04:14 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-16 14:04:14 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-16 14:04:14 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3929 ms
+2022-09-16 14:04:15 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-16 14:04:15 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-16 14:04:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:04:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:04:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-16 14:04:17 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-16 14:04:17 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-16 14:04:17 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\controller\AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\service\RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ChangeLogParseException: Error parsing classpath:/db/changelog/db.changelog-master.yaml
+2022-09-16 14:04:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-16 14:04:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-16 14:04:17 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2022-09-16 14:04:17 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-09-16 14:04:17 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\controller\AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\service\RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ChangeLogParseException: Error parsing classpath:/db/changelog/db.changelog-master.yaml
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:897)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:402)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1247)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1236)
+	at org.javaproteam27.socialnetwork.SocialNetworkApplication.main(SocialNetworkApplication.java:13)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\service\RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ChangeLogParseException: Error parsing classpath:/db/changelog/db.changelog-master.yaml
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 20 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ChangeLogParseException: Error parsing classpath:/db/changelog/db.changelog-master.yaml
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 34 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ChangeLogParseException: Error parsing classpath:/db/changelog/db.changelog-master.yaml
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:311)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 48 common frames omitted
+Caused by: liquibase.exception.ChangeLogParseException: Error parsing classpath:/db/changelog/db.changelog-master.yaml
+	at liquibase.parser.core.yaml.YamlChangeLogParser.parse(YamlChangeLogParser.java:83)
+	at liquibase.Liquibase.getDatabaseChangeLog(Liquibase.java:217)
+	at liquibase.Liquibase.update(Liquibase.java:190)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1858)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1795)
+	... 61 common frames omitted
+Caused by: liquibase.exception.SetupException: java.io.FileNotFoundException: class path resource [db/changelog/migrations/017-edit-person.sql] cannot be resolved to URL because it does not exist
+	at liquibase.changelog.DatabaseChangeLog.handleChildNode(DatabaseChangeLog.java:356)
+	at liquibase.changelog.DatabaseChangeLog.load(DatabaseChangeLog.java:305)
+	at liquibase.parser.core.yaml.YamlChangeLogParser.parse(YamlChangeLogParser.java:77)
+	... 68 common frames omitted
+Caused by: liquibase.exception.ChangeLogParseException: java.io.FileNotFoundException: class path resource [db/changelog/migrations/017-edit-person.sql] cannot be resolved to URL because it does not exist
+	at liquibase.parser.core.sql.SqlChangeLogParser.parse(SqlChangeLogParser.java:44)
+	at liquibase.changelog.DatabaseChangeLog.include(DatabaseChangeLog.java:565)
+	at liquibase.changelog.DatabaseChangeLog.handleChildNode(DatabaseChangeLog.java:348)
+	... 70 common frames omitted
+Caused by: java.io.FileNotFoundException: class path resource [db/changelog/migrations/017-edit-person.sql] cannot be resolved to URL because it does not exist
+	at org.springframework.core.io.ClassPathResource.getURL(ClassPathResource.java:202)
+	at liquibase.integration.spring.SpringLiquibase$SpringResourceOpener.getResourcesAsStream(SpringLiquibase.java:613)
+	at liquibase.util.StreamUtil.singleInputStream(StreamUtil.java:186)
+	at liquibase.parser.core.sql.SqlChangeLogParser.parse(SqlChangeLogParser.java:37)
+	... 72 common frames omitted
+2022-09-16 14:05:43 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on DESKTOP-5144I2V with PID 6220 (C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes started by Mikhail in C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend)
+2022-09-16 14:05:43 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-16 14:05:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-16 14:05:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64ms. Found 0 JDBC repository interfaces.
+2022-09-16 14:05:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-16 14:05:46 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:05:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-16 14:05:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-16 14:05:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-16 14:05:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3779 ms
+2022-09-16 14:05:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-16 14:05:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-16 14:05:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:05:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:05:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-16 14:05:49 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-16 14:05:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-16 14:05:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-16 14:05:49 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-16 14:05:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-16 14:05:49 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-16 14:05:49 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\controller\AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\service\RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     5 change sets check sum
+          /db/changelog/migrations/001-create-person.sql::raw::includeAll was: 8:d8a47b3d8b16c997c2a7b250c3a4237e but is now: 8:3344edd928e2a3b94226bee86849c8e6
+          /db/changelog/migrations/002-create-post.sql::raw::includeAll was: 8:fc69d8c690987de5b4633e57ccc9ab2c but is now: 8:2e31f03646f1252beb8e3de88971b020
+          /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll was: 8:dddf5fdf0c4519ce4574da4f4628cd6a but is now: 8:694eabf684e5bbf4fcb886b789af5771
+          /db/changelog/migrations/004-create-post-like.sql::raw::includeAll was: 8:566e57775c45060038f7516d7cd8e1f9 but is now: 8:63fa7356663d06ea4f68812948ab5dee
+          db/changelog/migrations/017-edit-person.sql::raw::includeAll was: 8:f05d22edc873fc93d85bd47b31aad763 but is now: 8:54f6d5354646f35e66fb52331e60bd23
+
+2022-09-16 14:05:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-16 14:05:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-16 14:05:49 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2022-09-16 14:05:49 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-09-16 14:05:49 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\controller\AccountController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\service\RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     5 change sets check sum
+          /db/changelog/migrations/001-create-person.sql::raw::includeAll was: 8:d8a47b3d8b16c997c2a7b250c3a4237e but is now: 8:3344edd928e2a3b94226bee86849c8e6
+          /db/changelog/migrations/002-create-post.sql::raw::includeAll was: 8:fc69d8c690987de5b4633e57ccc9ab2c but is now: 8:2e31f03646f1252beb8e3de88971b020
+          /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll was: 8:dddf5fdf0c4519ce4574da4f4628cd6a but is now: 8:694eabf684e5bbf4fcb886b789af5771
+          /db/changelog/migrations/004-create-post-like.sql::raw::includeAll was: 8:566e57775c45060038f7516d7cd8e1f9 but is now: 8:63fa7356663d06ea4f68812948ab5dee
+          db/changelog/migrations/017-edit-person.sql::raw::includeAll was: 8:f05d22edc873fc93d85bd47b31aad763 but is now: 8:54f6d5354646f35e66fb52331e60bd23
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:897)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:402)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1247)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1236)
+	at org.javaproteam27.socialnetwork.SocialNetworkApplication.main(SocialNetworkApplication.java:13)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'registerService' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\service\RegisterService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     5 change sets check sum
+          /db/changelog/migrations/001-create-person.sql::raw::includeAll was: 8:d8a47b3d8b16c997c2a7b250c3a4237e but is now: 8:3344edd928e2a3b94226bee86849c8e6
+          /db/changelog/migrations/002-create-post.sql::raw::includeAll was: 8:fc69d8c690987de5b4633e57ccc9ab2c but is now: 8:2e31f03646f1252beb8e3de88971b020
+          /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll was: 8:dddf5fdf0c4519ce4574da4f4628cd6a but is now: 8:694eabf684e5bbf4fcb886b789af5771
+          /db/changelog/migrations/004-create-post-like.sql::raw::includeAll was: 8:566e57775c45060038f7516d7cd8e1f9 but is now: 8:63fa7356663d06ea4f68812948ab5dee
+          db/changelog/migrations/017-edit-person.sql::raw::includeAll was: 8:f05d22edc873fc93d85bd47b31aad763 but is now: 8:54f6d5354646f35e66fb52331e60bd23
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 20 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'personRepository' defined in file [C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes\org\javaproteam27\socialnetwork\repository\PersonRepository.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     5 change sets check sum
+          /db/changelog/migrations/001-create-person.sql::raw::includeAll was: 8:d8a47b3d8b16c997c2a7b250c3a4237e but is now: 8:3344edd928e2a3b94226bee86849c8e6
+          /db/changelog/migrations/002-create-post.sql::raw::includeAll was: 8:fc69d8c690987de5b4633e57ccc9ab2c but is now: 8:2e31f03646f1252beb8e3de88971b020
+          /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll was: 8:dddf5fdf0c4519ce4574da4f4628cd6a but is now: 8:694eabf684e5bbf4fcb886b789af5771
+          /db/changelog/migrations/004-create-post-like.sql::raw::includeAll was: 8:566e57775c45060038f7516d7cd8e1f9 but is now: 8:63fa7356663d06ea4f68812948ab5dee
+          db/changelog/migrations/017-edit-person.sql::raw::includeAll was: 8:f05d22edc873fc93d85bd47b31aad763 but is now: 8:54f6d5354646f35e66fb52331e60bd23
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:799)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:556)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 34 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     5 change sets check sum
+          /db/changelog/migrations/001-create-person.sql::raw::includeAll was: 8:d8a47b3d8b16c997c2a7b250c3a4237e but is now: 8:3344edd928e2a3b94226bee86849c8e6
+          /db/changelog/migrations/002-create-post.sql::raw::includeAll was: 8:fc69d8c690987de5b4633e57ccc9ab2c but is now: 8:2e31f03646f1252beb8e3de88971b020
+          /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll was: 8:dddf5fdf0c4519ce4574da4f4628cd6a but is now: 8:694eabf684e5bbf4fcb886b789af5771
+          /db/changelog/migrations/004-create-post-like.sql::raw::includeAll was: 8:566e57775c45060038f7516d7cd8e1f9 but is now: 8:63fa7356663d06ea4f68812948ab5dee
+          db/changelog/migrations/017-edit-person.sql::raw::includeAll was: 8:f05d22edc873fc93d85bd47b31aad763 but is now: 8:54f6d5354646f35e66fb52331e60bd23
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1799)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:311)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1307)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1227)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:886)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:790)
+	... 48 common frames omitted
+Caused by: liquibase.exception.ValidationFailedException: Validation Failed:
+     5 change sets check sum
+          /db/changelog/migrations/001-create-person.sql::raw::includeAll was: 8:d8a47b3d8b16c997c2a7b250c3a4237e but is now: 8:3344edd928e2a3b94226bee86849c8e6
+          /db/changelog/migrations/002-create-post.sql::raw::includeAll was: 8:fc69d8c690987de5b4633e57ccc9ab2c but is now: 8:2e31f03646f1252beb8e3de88971b020
+          /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll was: 8:dddf5fdf0c4519ce4574da4f4628cd6a but is now: 8:694eabf684e5bbf4fcb886b789af5771
+          /db/changelog/migrations/004-create-post-like.sql::raw::includeAll was: 8:566e57775c45060038f7516d7cd8e1f9 but is now: 8:63fa7356663d06ea4f68812948ab5dee
+          db/changelog/migrations/017-edit-person.sql::raw::includeAll was: 8:f05d22edc873fc93d85bd47b31aad763 but is now: 8:54f6d5354646f35e66fb52331e60bd23
+
+	at liquibase.changelog.DatabaseChangeLog.validate(DatabaseChangeLog.java:288)
+	at liquibase.Liquibase.update(Liquibase.java:198)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1858)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1795)
+	... 61 common frames omitted
+2022-09-16 14:07:08 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on DESKTOP-5144I2V with PID 13868 (C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes started by Mikhail in C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend)
+2022-09-16 14:07:08 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-16 14:07:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-16 14:07:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77ms. Found 0 JDBC repository interfaces.
+2022-09-16 14:07:12 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-16 14:07:12 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:07:12 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-16 14:07:12 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-16 14:07:12 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-16 14:07:12 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3640 ms
+2022-09-16 14:07:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-16 14:07:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-16 14:07:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:07:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE public.databasechangeloglock (ID INTEGER NOT NULL, LOCKED BOOLEAN NOT NULL, LOCKGRANTED TIMESTAMP WITHOUT TIME ZONE, LOCKEDBY VARCHAR(255), CONSTRAINT DATABASECHANGELOGLOCK_PKEY PRIMARY KEY (ID))
+2022-09-16 14:07:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:07:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - DELETE FROM public.databasechangeloglock
+2022-09-16 14:07:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangeloglock (ID, LOCKED) VALUES (1, FALSE)
+2022-09-16 14:07:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-16 14:07:15 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-16 14:07:15 [main] INFO  l.c.StandardChangeLogHistoryService - Creating database history table with name: public.databasechangelog
+2022-09-16 14:07:15 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE public.databasechangelog (ID VARCHAR(255) NOT NULL, AUTHOR VARCHAR(255) NOT NULL, FILENAME VARCHAR(255) NOT NULL, DATEEXECUTED TIMESTAMP WITHOUT TIME ZONE NOT NULL, ORDEREXECUTED INTEGER NOT NULL, EXECTYPE VARCHAR(10) NOT NULL, MD5SUM VARCHAR(35), DESCRIPTION VARCHAR(255), COMMENTS VARCHAR(255), TAG VARCHAR(255), LIQUIBASE VARCHAR(20), CONTEXTS VARCHAR(255), LABELS VARCHAR(255), DEPLOYMENT_ID VARCHAR(10))
+2022-09-16 14:07:15 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-16 14:07:15 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-16 14:07:15 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-16 14:07:15 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:07:15 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE person (
+                        id SERIAL PRIMARY KEY,
+                        first_name VARCHAR (255) NOT NULL,
+                        last_name VARCHAR (255) NOT NULL,
+                        reg_date TIMESTAMP NOT NULL,
+                        birth_date TIMESTAMP,
+                        email VARCHAR (255) UNIQUE NOT NULL,
+                        phone VARCHAR(255) UNIQUE,
+                        password VARCHAR(255) NOT NULL,
+                        photo VARCHAR(255),
+                        about VARCHAR (255),
+                        city VARCHAR (255),
+                        country VARCHAR (255),
+                        confirmation_code INT,
+                        is_approved BOOLEAN DEFAULT FALSE NOT NULL,
+                        messages_permission VARCHAR (255),
+                        last_online_time TIMESTAMP,
+                        is_blocked BOOLEAN DEFAULT FALSE
+)
+2022-09-16 14:07:15 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:15 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/001-create-person.sql::raw::includeAll ran successfully in 39ms
+2022-09-16 14:07:15 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MAX(ORDEREXECUTED) FROM public.databasechangelog
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/001-create-person.sql', NOW(), 1, '8:3344edd928e2a3b94226bee86849c8e6', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post (
+                      id SERIAL PRIMARY KEY,
+                      time TIMESTAMP NOT NULL,
+                      author_id INT,
+                      title VARCHAR (255),
+                      post_text TEXT,
+                      is_blocked BOOLEAN DEFAULT FALSE,
+                      is_deleted BOOLEAN DEFAULT FALSE,
+                      CONSTRAINT fk_person_post
+                            FOREIGN KEY (author_id)
+                                REFERENCES person (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/002-create-post.sql::raw::includeAll ran successfully in 19ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/002-create-post.sql', NOW(), 2, '8:2e31f03646f1252beb8e3de88971b020', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post_comment (
+                      id serial PRIMARY KEY,
+                      time TIMESTAMP NOT NULL,
+                      post_id INT,
+                      parent_id INT,
+                      author_id INT,
+                      comment_text TEXT,
+                      is_blocked BOOLEAN DEFAULT FALSE,
+                      is_deleted BOOLEAN DEFAULT FALSE,
+                        CONSTRAINT fk_comment_parent
+                            FOREIGN KEY (parent_id)
+                                REFERENCES post_comment (id),
+                        CONSTRAINT fk_comment_person
+                            FOREIGN KEY (author_id)
+                                REFERENCES person (id),
+                        CONSTRAINT fk_comment_post
+                            FOREIGN KEY (post_id)
+                                REFERENCES post (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/003-create-post-comment.sql::raw::includeAll ran successfully in 25ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/003-create-post-comment.sql', NOW(), 3, '8:694eabf684e5bbf4fcb886b789af5771', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post_like (
+                           id serial PRIMARY KEY,
+                           time TIMESTAMP NOT NULL,
+                           person_id INT,
+                           post_id INT,
+                           type VARCHAR (255),
+                           CONSTRAINT fk_person_like
+                                FOREIGN KEY (person_id)
+                                    REFERENCES person (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/004-create-post-like.sql::raw::includeAll ran successfully in 12ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/004-create-post-like.sql', NOW(), 4, '8:63fa7356663d06ea4f68812948ab5dee', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post_file (
+                           id serial PRIMARY KEY,
+                           post_id INT,
+                           name VARCHAR (255),
+                           path VARCHAR (255),
+                           CONSTRAINT fk_file_post
+                                FOREIGN KEY (post_id)
+                                    REFERENCES post (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/005-create-post-file.sql::raw::includeAll ran successfully in 14ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/005-create-post-file.sql', NOW(), 5, '8:edc3764f1a66da59686e3c8691bd2b1d', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE tag (
+                     id serial PRIMARY KEY,
+                     tag VARCHAR (255)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/006-create-tag.sql::raw::includeAll ran successfully in 9ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/006-create-tag.sql', NOW(), 6, '8:222ae51bcf8e1ed784c85f698182a70c', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE post2tag (
+                          id serial PRIMARY KEY,
+                          tag_id INT,
+                          post_id INT,
+                                CONSTRAINT fk_tag
+                                    FOREIGN KEY (tag_id)
+                                        REFERENCES tag (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/007-create-post2tag.sql::raw::includeAll ran successfully in 12ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/007-create-post2tag.sql', NOW(), 7, '8:d82ea7e5cc0ad1c4f9632f3ba7af0ee6', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE block_history (
+                               id serial PRIMARY KEY,
+                               time TIMESTAMP NOT NULL,
+                               person_id INT,
+                               post_id INT,
+                               comment_id INT,
+                               action VARCHAR (255),
+                               CONSTRAINT fk_block_person
+                                    FOREIGN KEY (person_id)
+                                        REFERENCES person (id),
+                               CONSTRAINT fk_block_post
+                                    FOREIGN KEY (post_id)
+                                        REFERENCES post (id),
+                               CONSTRAINT fk_block_comment
+                                    FOREIGN KEY (comment_id)
+                                        REFERENCES post_comment (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/008-create-block-history.sql::raw::includeAll ran successfully in 13ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/008-create-block-history.sql', NOW(), 8, '8:5b7f3ab9e19a135104d95fe2f1d21314', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE message (
+                         id serial PRIMARY KEY,
+                         time TIMESTAMP NOT NULL,
+                         author_id INT,
+                         recipient_id INT,
+                         message_text TEXT,
+                         read_status VARCHAR (255),
+                         CONSTRAINT fk_message_author
+                                FOREIGN KEY (author_id)
+                                    REFERENCES person (id),
+                         CONSTRAINT fk_message_recipient
+                                FOREIGN KEY (recipient_id)
+                                    REFERENCES person (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/009-create-message.sql::raw::includeAll ran successfully in 18ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/009-create-message.sql', NOW(), 9, '8:8c0bc5ef8b805672b0dd7dda093b8bce', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE notification (
+                              id serial PRIMARY KEY,
+                              notification_type VARCHAR (255),
+                              sent_time TIMESTAMP NOT NULL,
+                              person_id INT,
+                              entity_id INT,
+                              contact VARCHAR (255),
+                              is_read BOOLEAN DEFAULT FALSE,
+                              CONSTRAINT fk_person_notification
+                                    FOREIGN KEY (person_id)
+                                        REFERENCES person (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/010-create-notification.sql::raw::includeAll ran successfully in 18ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/010-create-notification.sql', NOW(), 10, '8:c5bd50cd8a751a64f8a910e9ab4f6282', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE friendship_status (
+                                   id serial PRIMARY KEY,
+                                   time TIMESTAMP NOT NULL,
+                                   name VARCHAR (255),
+                                   code VARCHAR (255)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/011-create-friendship-status.sql::raw::includeAll ran successfully in 16ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/011-create-friendship-status.sql', NOW(), 11, '8:ff5787c37005ebf4cf4aba612f9a480b', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE friendship (
+                            id serial PRIMARY KEY,
+                            status_id INT,
+                            sent_time TIMESTAMP NOT NULL,
+                            src_person_id INT,
+                            dst_person_id INT,
+                            CONSTRAINT fk_friendship
+                                FOREIGN KEY (status_id)
+                                    REFERENCES friendship_status (id),
+                            CONSTRAINT fk_sender_person
+                                FOREIGN KEY (src_person_id)
+                                    REFERENCES person (id),
+                            CONSTRAINT fk_recipient_person
+                                FOREIGN KEY (dst_person_id)
+                                    REFERENCES person (id)
+)
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:16 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/012-create-friendship.sql::raw::includeAll ran successfully in 16ms
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/012-create-friendship.sql', NOW(), 12, '8:678a9aff4585a850fe65e6830038e4db', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:16 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE "user" (
+                      id serial PRIMARY KEY,
+                      name VARCHAR (255) NOT NULL,
+                      e_mail VARCHAR (255),
+                      password VARCHAR (255) NOT NULL,
+                      type VARCHAR (255) NOT NULL
+)
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/013-create-user.sql::raw::includeAll ran successfully in 40ms
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/013-create-user.sql', NOW(), 13, '8:346a89a13410da301b5097d7762fb1c1', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE city (
+                      id serial PRIMARY KEY,
+                      title VARCHAR (255) NOT NULL,
+                      country_id INT
+)
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/014-create-city.sql::raw::includeAll ran successfully in 19ms
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/014-create-city.sql', NOW(), 14, '8:48226efc224da326e2ae33e05b0c7117', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE country (
+                      id serial PRIMARY KEY,
+                      title VARCHAR (255) NOT NULL
+)
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/015-create-country.sql::raw::includeAll ran successfully in 10ms
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/015-create-country.sql', NOW(), 15, '8:669a9e2f3e66755fbbb86be41bec15c1', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - CREATE TABLE captcha (
+                                   id serial PRIMARY KEY,
+                                   time TIMESTAMP NOT NULL,
+                                   code VARCHAR (255) NOT NULL,
+                                   secret_code VARCHAR (255) NOT NULL
+)
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet /db/changelog/migrations/016-create-captcha.sql::raw::includeAll ran successfully in 20ms
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', '/db/changelog/migrations/016-create-captcha.sql', NOW(), 16, '8:6c599d64a1ae8523bd6c322f9085d11a', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - ALTER TABLE person ALTER COLUMN photo TYPE text
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - Custom SQL executed
+2022-09-16 14:07:17 [main] INFO  liquibase.changelog.ChangeSet - ChangeSet db/changelog/migrations/017-edit-person.sql::raw::includeAll ran successfully in 4ms
+2022-09-16 14:07:17 [main] INFO  liquibase.executor.jvm.JdbcExecutor - INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('raw', 'includeAll', 'db/changelog/migrations/017-edit-person.sql', NOW(), 17, '8:54f6d5354646f35e66fb52331e60bd23', 'sql', '', 'EXECUTED', NULL, NULL, '3.8.9', '3326435098')
+2022-09-16 14:07:17 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-16 14:07:18 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-16 14:07:18 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-16 14:07:19 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@565bf1bb, org.springframework.security.web.context.SecurityContextPersistenceFilter@4c219c84, org.springframework.security.web.header.HeaderWriterFilter@1cdbc986, org.springframework.web.filter.CorsFilter@3638a852, org.springframework.security.web.authentication.logout.LogoutFilter@20dfe8b2, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@6010d0d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49620576, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7bbab46e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7ab20a7, org.springframework.security.web.session.SessionManagementFilter@74832504, org.springframework.security.web.access.ExceptionTranslationFilter@25d6ae3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7b0a69b9]
+2022-09-16 14:07:19 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-16 14:07:19 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:07:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-16 14:07:19 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 12.793 seconds (JVM running for 13.815)
+2022-09-16 14:07:33 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-16 14:07:33 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-16 14:07:33 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 40 ms
+2022-09-16 14:07:34 [http-nio-8086-exec-2] ERROR o.j.s.handler.LoginExceptionHandler - Entity with person email = pks52@mail.ru not found.
+org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entity with person email = pks52@mail.ru not found.
+	at org.javaproteam27.socialnetwork.aop.LoggerAspect.debugLogger(LoggerAspect.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at org.javaproteam27.socialnetwork.service.NotificationsService$$EnhancerBySpringCGLIB$$b611af29.getNotifications(<generated>)
+	at org.javaproteam27.socialnetwork.controller.NotificationsController.getNotifications(NotificationsController.java:22)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:34)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:34)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-09-16 14:07:35 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [logout], arguments: [] 
+2022-09-16 14:07:35 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [logout], return: [ResponseRs(error=, timestamp=1663326455044, offset=null, perPage=null, data={message=ok}, errorDescription=null)] 
+2022-09-16 14:07:37 [http-nio-8086-exec-6] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [captcha], arguments: [] 
+2022-09-16 14:07:37 [http-nio-8086-exec-6] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [captcha], return: [CaptchaRs(image=data:image/png;base64, /9j/4AAQSkZJRgABAgAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCABGAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0CiiigAooooAKKRmCjJOBUP2qEuEDgsaTaRLlGO7J6KSjOelMoWikJA6mjNAC0UjEhSRVS1u2mmaN0246Um0nYiVSMWovqXKKKKZYUUUlAC0UlLQAUUUUAFFFFABRRRQAUUUUAFFIaz7y+ki4RCo/vGplJRV2Z1Ksaa5pGhWbe3c8R24Cg9DVu0lWWEENlu9Q6mgdEHctUzd43RjXblS5oMmtJhcW4Y8noaqalB5ZE8YwQecUyydra7MDdCcVpyxiSMqe4pL34+ZEf9oo2e6/Mz2jkubcSxStnuCafpswwYnyHHrUVhIYbloCcjOBVm8td48yL5ZBzx3qY/zIzpptKrHdboluoleJieoHBzVSyNw8JKEdf4u9LBeebG0Mow4GPrUOnSSMxiWTaByOOtDknJNDlUhKpGUepZa8eBwk6df4h0q2GjwHBXB71WntpZo9rspz3x0qudPkEZUyEgdKq8l0NOerBvS6NMEEZHSlrKtbwxWzq3LJ0zViBZ54vMMpUt2pqaexcMQppcq1Lh4FZ8JN3LKpkZdp6CnSXMtqwWVd6H+KqYnWG98yM5RjzUymroxrV43SfzRa8i7glGxy6Z71oVClysjAKjY9SOKR7tFJCqz4/uirVl1N4ezpptPQsUVSGpQ7sMGX60PqUW4LH8xJo549x/WKVr8xcoDA5welVL4M0AKuQT2HemXWbexCjOT1ocrXCdblb00SJpbyOPOAWx1wKdbXSXIJTqOoNNg2CzUuMDHOazg/2W8DIDsY9Klzas2YzrSg4yb0ZtUUgOQD60VqdotRyxJKhVxkVJRQJpNWZiHzNPuePun9auBxd3EZX7qDJqXUIke3JbqOlLYwCGAf3jyaxUWpW6HDCjKNT2a+HcpahG8d0syKTVlJLm4GNgjU9z1q4QD1oquSzvc2WHtNtS0fQzm05jcb1bao/Or8aBFxkn606qxv4AzKWwRTSjAajSou+1ytqNuBIjx8MxxUFxC9pJG6A8Dk1dhBuZvOYYRfug1akjWVCrDINRyc12jB4dVeacdL7EMF5FLGCXAPcGhrlZH8uI7j1JqE6XEWzuIHpViOCOCMhF5x1qlz9TWHt3pOyMKY4lcDpmtyyP8Aosf0rHWFp2lKjLA5xWhps6iLynbDA9DWVLSWpxYN8tRt7Ms3aq9u4YZ4rAUnIHvW3fTBYCqnLNwAKy5YPJeJW6nk0VdXoPHLmmmuhoXk5itkQfecAZFSQybI1VIWPHWqepEpNEf4QK0oJkljBVh0rSLvJnTTk5VZK9rFSeya6k3kCP8ArSTaavk5U/Oo/OrE1yoYRxnc5447U0s0rCFW4X7zUOMQlTotvS7ZmQXDRSr5uSqnjNa8ksJhMjYZRzUN9bxtDkL8w6YrPNpdLF0O09qj3oabmCdTD3hbmRpQ5uSJW4QfdWqequhkQL1XrU1rFdGIIzeWo/OrTWsTkFlyRVWco2NnCValZKzfcbaymWJNo+UDBNFTqqoMKMCitUrI7IJqNmOqOWVIV3SMAKkqC5tkuVAY4xQ720FNyUXy7ld5BdzosZyinLGr1RW9ulupCd6mpRT3ZNKMkry3YUUUVRqJ1qt9hg83zNvPpVqik0nuTKEZfEriAADAGKWiimUNdwiFj0FQR3UU6MFbGBzmrB561A1lAxzswT6VLv0Mp89/d2K2loQ0rds4FWntIXYsVwx7ipI41jXagwKfSjFJWZNOiowUZakK26R8oo3epqpNYSyzeYZBn+VaNFNwT0HOhCas1oVJbMzIFlfJHQgVVGmSq3yy4FatFJ04smeGpzd2iqlr5MREWN56sadb23kfxk565qxRT5UjRUoJppbCUUtFUaCUtFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/9k=, code=rexazatuso)] 
+2022-09-16 14:08:04 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], arguments: [LoginRq(email=pks52@mail.ru, password=12345678)] 
+2022-09-16 14:08:04 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], return: [ResponseRs(error=, timestamp=1663326484586, offset=null, perPage=null, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@3f18bffa, errorDescription=null)] 
+2022-09-16 14:08:36 [http-nio-8086-exec-8] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], arguments: [UserRq(firstName=Михаил, lastName=Киселев, birthDate=1993-03-28T00:00:00+03:00, phone=79300707379, photoId=null, about=null, town=null, country=Россия, messagesPermission=null), eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2NDg0LCJleHAiOjE2NjMzMzAwODR9.uS_xnYglJJLRHhgC4Z_ke0pQUss45FLFiHkmCU5dASE] 
+2022-09-16 14:08:36 [http-nio-8086-exec-9] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2022-09-16 14:08:36 [http-nio-8086-exec-8] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], return: [<200 OK OK,UserRs(error=null, timestamp=0, data=null, errorDescription=null),[]>] 
+2022-09-16 14:09:08 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2NDg0LCJleHAiOjE2NjMzMzAwODR9.uS_xnYglJJLRHhgC4Z_ke0pQUss45FLFiHkmCU5dASE] 
+2022-09-16 14:09:09 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], return: [<200 OK OK,ResponseRs(error=string, timestamp=1663326549007, offset=0, perPage=20, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@13dcaf66, errorDescription=null),[]>] 
+2022-09-16 14:10:04 [http-nio-8086-exec-7] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], arguments: [UserRq(firstName=Михаил, lastName=Киселев, birthDate=1993-03-28T00:00:00+03:00, phone=9300707379, photoId=null, about=null, town=null, country=Россия, messagesPermission=null), eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2NDg0LCJleHAiOjE2NjMzMzAwODR9.uS_xnYglJJLRHhgC4Z_ke0pQUss45FLFiHkmCU5dASE] 
+2022-09-16 14:10:04 [http-nio-8086-exec-10] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2022-09-16 14:10:04 [http-nio-8086-exec-7] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], return: [<200 OK OK,UserRs(error=null, timestamp=0, data=null, errorDescription=null),[]>] 
+2022-09-16 14:13:03 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], arguments: [UserRq(firstName=Михаил, lastName=Киселев, birthDate=1993-03-28T00:00:00+03:00, phone=9300707379, photoId=null, about=null, town=null, country=Россия, messagesPermission=null), eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2NDg0LCJleHAiOjE2NjMzMzAwODR9.uS_xnYglJJLRHhgC4Z_ke0pQUss45FLFiHkmCU5dASE] 
+2022-09-16 14:13:03 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], return: [<200 OK OK,UserRs(error=null, timestamp=0, data=null, errorDescription=null),[]>] 
+2022-09-16 14:13:03 [http-nio-8086-exec-9] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2022-09-16 14:14:05 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [logout], arguments: [] 
+2022-09-16 14:14:05 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [logout], return: [ResponseRs(error=, timestamp=1663326845991, offset=null, perPage=null, data={message=ok}, errorDescription=null)] 
+2022-09-16 14:14:12 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-16 14:14:12 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-16 14:14:12 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-16 14:14:12 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-16 14:14:21 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on DESKTOP-5144I2V with PID 6560 (C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes started by Mikhail in C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend)
+2022-09-16 14:14:21 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-16 14:14:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-16 14:14:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 76ms. Found 0 JDBC repository interfaces.
+2022-09-16 14:14:25 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-16 14:14:25 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:14:25 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-16 14:14:25 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-16 14:14:25 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-16 14:14:25 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4397 ms
+2022-09-16 14:14:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-16 14:14:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-16 14:14:28 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:14:28 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:14:28 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-16 14:14:28 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-16 14:14:28 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-16 14:14:28 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-16 14:14:28 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-16 14:14:28 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-16 14:14:28 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-16 14:14:30 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-16 14:14:30 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-16 14:14:31 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7479cdf7, org.springframework.security.web.context.SecurityContextPersistenceFilter@9e2b199, org.springframework.security.web.header.HeaderWriterFilter@47bae235, org.springframework.web.filter.CorsFilter@71852f76, org.springframework.security.web.authentication.logout.LogoutFilter@12ce659, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@2443abd6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1df60140, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@78762e87, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@308f18c0, org.springframework.security.web.session.SessionManagementFilter@18f1260, org.springframework.security.web.access.ExceptionTranslationFilter@2e268c19, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@35c69e6b]
+2022-09-16 14:14:31 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-16 14:14:31 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:14:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-16 14:14:31 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 11.365 seconds (JVM running for 12.395)
+2022-09-16 14:14:41 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-16 14:14:41 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-16 14:14:41 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 49 ms
+2022-09-16 14:14:41 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], arguments: [LoginRq(email=pks52@mail.ru, password=12345678)] 
+2022-09-16 14:14:41 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], return: [ResponseRs(error=, timestamp=1663326881449, offset=null, perPage=null, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@19f60777, errorDescription=null)] 
+2022-09-16 14:14:41 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2ODgxLCJleHAiOjE2NjMzMzA0ODF9.zzxZfqX2jqZ_zPcVPYZ6RwXJxyaVUBvjClI7RGRvYi4] 
+2022-09-16 14:14:41 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], return: [<200 OK OK,ResponseRs(error=string, timestamp=1663326881629, offset=0, perPage=20, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@3643954d, errorDescription=null),[]>] 
+2022-09-16 14:14:53 [http-nio-8086-exec-5] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], arguments: [UserRq(firstName=Михаил, lastName=Киселев, birthDate=2000-01-01T00:00:00+03:00, phone=9300707379, photoId=null, about=null, town=null, country=Россия, messagesPermission=null), eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2ODgxLCJleHAiOjE2NjMzMzA0ODF9.zzxZfqX2jqZ_zPcVPYZ6RwXJxyaVUBvjClI7RGRvYi4] 
+2022-09-16 14:14:53 [http-nio-8086-exec-6] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2022-09-16 14:14:53 [http-nio-8086-exec-5] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], return: [<200 OK OK,UserRs(error=null, timestamp=0, data=null, errorDescription=null),[]>] 
+2022-09-16 14:15:29 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [logout], arguments: [] 
+2022-09-16 14:15:29 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [logout], return: [ResponseRs(error=, timestamp=1663326929834, offset=null, perPage=null, data={message=ok}, errorDescription=null)] 
+2022-09-16 14:15:32 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-16 14:15:32 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-16 14:15:32 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-16 14:15:32 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-16 14:15:41 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on DESKTOP-5144I2V with PID 13844 (C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend\target\classes started by Mikhail in C:\Users\Mikhail\Desktop\commandProject\javapro_teams27_backend)
+2022-09-16 14:15:41 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-16 14:15:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-16 14:15:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 65ms. Found 0 JDBC repository interfaces.
+2022-09-16 14:15:45 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-16 14:15:45 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:15:45 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-16 14:15:45 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-16 14:15:45 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-16 14:15:45 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3825 ms
+2022-09-16 14:15:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-16 14:15:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-16 14:15:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:15:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-16 14:15:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-16 14:15:48 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-16 14:15:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-16 14:15:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-16 14:15:48 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-16 14:15:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-16 14:15:48 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-16 14:15:49 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-16 14:15:49 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-16 14:15:50 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4c0989f7, org.springframework.security.web.context.SecurityContextPersistenceFilter@1899c7ae, org.springframework.security.web.header.HeaderWriterFilter@5c04685, org.springframework.web.filter.CorsFilter@384b718c, org.springframework.security.web.authentication.logout.LogoutFilter@77a14911, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5348d83c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e9e7a70, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7a458c73, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68b4e7b5, org.springframework.security.web.session.SessionManagementFilter@4446e1d9, org.springframework.security.web.access.ExceptionTranslationFilter@318ca53a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@19487d13]
+2022-09-16 14:15:50 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-16 14:15:50 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-16 14:15:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-16 14:15:50 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 10.126 seconds (JVM running for 11.319)
+2022-09-16 14:16:18 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-16 14:16:18 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-16 14:16:18 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 47 ms
+2022-09-16 14:16:18 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], arguments: [LoginRq(email=pks52@mail.ru, password=12345678)] 
+2022-09-16 14:16:18 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [login], return: [ResponseRs(error=, timestamp=1663326978889, offset=null, perPage=null, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@5afce43f, errorDescription=null)] 
+2022-09-16 14:16:19 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], arguments: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2OTc4LCJleHAiOjE2NjMzMzA1Nzh9.Ku6ry9ni6vULAJK6TEUuvtVs8LAgdgQqpHZ7H5fKTrc] 
+2022-09-16 14:16:19 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [profileResponse], return: [<200 OK OK,ResponseRs(error=string, timestamp=1663326979085, offset=0, perPage=20, data=org.javaproteam27.socialnetwork.model.dto.response.PersonRs@48d3ee67, errorDescription=null),[]>] 
+2022-09-16 14:16:30 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], arguments: [UserRq(firstName=Михаил, lastName=Киселев, birthDate=2000-01-01T00:00:00+03:00, phone=9300707379, photoId=null, about=null, town=null, country=Россия, messagesPermission=null), eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2OTc4LCJleHAiOjE2NjMzMzA1Nzh9.Ku6ry9ni6vULAJK6TEUuvtVs8LAgdgQqpHZ7H5fKTrc] 
+2022-09-16 14:16:30 [http-nio-8086-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2022-09-16 14:16:30 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], return: [<200 OK OK,UserRs(error=null, timestamp=0, data=null, errorDescription=null),[]>] 

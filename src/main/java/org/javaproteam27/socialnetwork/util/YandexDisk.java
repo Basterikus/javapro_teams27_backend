@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 public class YandexDisk {
 
     private final YandexDiskConfig yandexDiskConfig;
-    private String photoUploadPass = "photo/";
 
     public RestClient getRestClient() {
         Credentials credentials = new Credentials(yandexDiskConfig.getLogin(), yandexDiskConfig.getToken());

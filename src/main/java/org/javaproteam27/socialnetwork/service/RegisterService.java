@@ -3,15 +3,12 @@ package org.javaproteam27.socialnetwork.service;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.RegisterRq;
 import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
-import org.javaproteam27.socialnetwork.model.entity.Captcha;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.AssertTrue;
@@ -41,6 +38,8 @@ public class RegisterService {
     @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
 
+    private String defaultPhoto = "https://dl.dropbox.com/s/ea3n2vw79u0s33u/default.jpg?dl=1";
+
 
     public ResponseEntity<RegisterRs> postRegister(RegisterRq request) {
         RegisterRs registerRS = new RegisterRs();
@@ -48,8 +47,8 @@ public class RegisterService {
 
         captchaSecret1 = captchaRepository.findByCode(request.getCode()).getSecretCode();
         captchaSecret2 = request.getCodeSecret();
-        password1 = request.getPasswd1();
-        password2 = request.getPasswd2();
+        password1 = request.getPassword1();
+        password2 = request.getPassword2();
 
         // Проверка введенных данных
         checkPassword();
@@ -68,7 +67,8 @@ public class RegisterService {
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setRegDate(LocalDateTime.now());
-        person.setPassword(request.getPasswd1());
+        person.setPassword(request.getPassword1());
+        person.setPhoto(defaultPhoto);
         person.setIsApproved(true);  // добавить проверку почты
         personRepository.save(person);
         // ответ успешной регистрации

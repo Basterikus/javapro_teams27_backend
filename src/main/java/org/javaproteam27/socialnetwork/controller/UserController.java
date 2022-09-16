@@ -2,17 +2,15 @@ package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
+import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import org.javaproteam27.socialnetwork.model.dto.response.UserRs;
 import org.javaproteam27.socialnetwork.service.LoginService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.service.PersonService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -41,5 +39,10 @@ public class UserController {
     @GetMapping("me")
     public ResponseEntity<ResponseRs<PersonRs>> profileResponse(@RequestHeader("Authorization") String token) {
         return loginService.profileResponse(token);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UserRs> editUser(@RequestBody UserRq request, @RequestHeader("Authorization") String token) {
+        return personService.editUser(request, token);
     }
 }

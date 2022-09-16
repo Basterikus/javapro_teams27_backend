@@ -31,3 +31,5 @@ databaseChangeLog:
       file: /db/changelog/migrations/015-create-country.sql
   - include:
       file: /db/changelog/migrations/016-create-captcha.sql
+  - include:
+      file: db/changelog/migrations/017-edit-person.sql

@@ -3,13 +3,13 @@ server:
 
 spring:
     profiles:
-        active: aleksei
+        active: prod
 
 logging:
     level:
         root: info
     profiles:
-        active: aleksei
+        active: prod
 
 yandexprofile:
     login: javaproteams27@yandex.ru

@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
+import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
 import org.javaproteam27.socialnetwork.handler.exception.UnableUpdateEntityException;
 import org.javaproteam27.socialnetwork.mapper.MessageMapper;
 import org.javaproteam27.socialnetwork.model.entity.Message;
@@ -30,20 +31,26 @@ public class MessageRepository {
         String sql = "insert into message(time, author_id, recipient_id, message_text, read_status, dialog_id)" +
                 " values (?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
+    
+        try {
+            jdbcTemplate.update(connection -> {
         
-        jdbcTemplate.update(connection -> {
-            
-            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
-            
-            ps.setTimestamp(1, Timestamp.valueOf(message.getTime()));
-            ps.setInt(2, message.getAuthorId());
-            ps.setInt(3, message.getRecipientId());
-            ps.setString(4, message.getMessageText());
-            ps.setString(5, message.getReadStatus().toString());
-            ps.setInt(6, message.getDialogId());
-            
-            return ps;
-        }, keyHolder);
+                PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
+        
+                ps.setTimestamp(1, Timestamp.valueOf(message.getTime()));
+                ps.setInt(2, message.getAuthorId());
+                ps.setInt(3, message.getRecipientId());
+                ps.setString(4, message.getMessageText());
+                ps.setString(5, message.getReadStatus().toString());
+                ps.setInt(6, message.getDialogId());
+        
+                return ps;
+            }, keyHolder);
+        } catch (DataAccessException e) {
+            throw new UnableCreateEntityException("message with author id = " + message.getAuthorId() +
+                    ", recipient id = " + message.getRecipientId() + " with text '" + message.getMessageText() +
+                    "' cannot be sent");
+        }
         
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
@@ -108,7 +115,7 @@ public class MessageRepository {
         try {
             jdbcTemplate.update(sql, dialogId);
         } catch (DataAccessException e) {
-            throw new UnableUpdateEntityException(" message with dialog_id = " + dialogId);
+            throw new UnableUpdateEntityException("message with dialog_id = " + dialogId);
         }
     }
     
@@ -119,7 +126,7 @@ public class MessageRepository {
         try {
             jdbcTemplate.update(sql, messageId);
         } catch (DataAccessException e) {
-            throw new UnableUpdateEntityException(" message id = " + messageId);
+            throw new UnableUpdateEntityException("message id = " + messageId);
         }
     }
 }

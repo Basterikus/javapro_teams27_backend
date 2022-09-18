@@ -4385,3 +4385,884 @@ org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException: Entit
 2022-09-16 14:16:30 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], arguments: [UserRq(firstName=Михаил, lastName=Киселев, birthDate=2000-01-01T00:00:00+03:00, phone=9300707379, photoId=null, about=null, town=null, country=Россия, messagesPermission=null), eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa3M1MkBtYWlsLnJ1IiwiaWF0IjoxNjYzMzI2OTc4LCJleHAiOjE2NjMzMzA1Nzh9.Ku6ry9ni6vULAJK6TEUuvtVs8LAgdgQqpHZ7H5fKTrc] 
 2022-09-16 14:16:30 [http-nio-8086-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
 2022-09-16 14:16:30 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [editUser], return: [<200 OK OK,UserRs(error=null, timestamp=0, data=null, errorDescription=null),[]>] 
+2022-09-17 14:21:58 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 5674 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:21:58 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:21:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:21:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:21:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:21:58 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:21:58 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:21:58 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:21:58 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:21:58 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 680 ms
+2022-09-17 14:21:58 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:21:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:22:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:22:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:22:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:22:01 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:22:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:22:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:22:02 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:22:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:22:02 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:22:02 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:22:02 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:22:03 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55b7f9f1, org.springframework.security.web.context.SecurityContextPersistenceFilter@490f2fad, org.springframework.security.web.header.HeaderWriterFilter@1eaf4e77, org.springframework.web.filter.CorsFilter@273e622f, org.springframework.security.web.authentication.logout.LogoutFilter@30b0f674, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5426cb36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@55b5ce0f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72e5206, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@380cd266, org.springframework.security.web.session.SessionManagementFilter@23974cac, org.springframework.security.web.access.ExceptionTranslationFilter@119f035f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f59cb6f]
+2022-09-17 14:22:03 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:22:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:22:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:22:03 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 5.347 seconds (JVM running for 5.654)
+2022-09-17 14:22:08 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:22:08 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:22:08 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2022-09-17 14:22:08 [http-nio-8086-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2022-09-17 14:22:14 [http-nio-8086-exec-3] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.javaproteam27.socialnetwork.security.jwt.JwtAuthenticationException: JWT token is expired or invalid
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider.validateToken(JwtTokenProvider.java:79)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:27)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 14:22:14 [http-nio-8086-exec-3] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] threw exception
+org.javaproteam27.socialnetwork.security.jwt.JwtAuthenticationException: JWT token is expired or invalid
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider.validateToken(JwtTokenProvider.java:79)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:27)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:710)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:398)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:257)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:352)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:177)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 14:22:14 [http-nio-8086-exec-3] ERROR o.a.c.c.C.[Tomcat].[localhost] - Exception Processing ErrorPage[errorCode=0, location=/error]
+org.javaproteam27.socialnetwork.security.jwt.JwtAuthenticationException: JWT token is expired or invalid
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider.validateToken(JwtTokenProvider.java:79)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:27)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:710)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:398)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:257)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:352)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:177)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 14:22:21 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:22:21 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:22:21 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:22:21 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:22:42 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 5697 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:22:42 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:22:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:22:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:22:43 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:22:43 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:22:43 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:22:43 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:22:43 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:22:43 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 478 ms
+2022-09-17 14:22:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:22:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:22:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:22:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:22:45 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:22:45 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:22:46 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:22:46 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:22:46 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:22:46 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:22:47 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:22:47 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:22:47 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:22:47 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56afbace, org.springframework.security.web.context.SecurityContextPersistenceFilter@4f2a0909, org.springframework.security.web.header.HeaderWriterFilter@16422f27, org.springframework.web.filter.CorsFilter@40dcbf7, org.springframework.security.web.authentication.logout.LogoutFilter@4f1ea463, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@daf22f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e528476, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53bc6492, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@53850535, org.springframework.security.web.session.SessionManagementFilter@d60aa4, org.springframework.security.web.access.ExceptionTranslationFilter@2bfe4df9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@769c80d1]
+2022-09-17 14:22:47 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:22:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:22:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:22:47 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.919 seconds (JVM running for 5.139)
+2022-09-17 14:22:53 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:22:53 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:22:53 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2022-09-17 14:22:53 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], arguments: [] 
+2022-09-17 14:22:53 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], return: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjM0MTczNzMsImV4cCI6MTY2MzQyMDk3M30.hXZ94KXgqtqt2fFg_dkORmYtzrrj0jDhhl_0oDjCnmw] 
+2022-09-17 14:23:04 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, null, 12, 90, null, null, 0, 20] 
+2022-09-17 14:23:05 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663417385339, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@6c2d36c], errorDescription=null),[]>] 
+2022-09-17 14:23:39 [http-nio-8086-exec-4] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.javaproteam27.socialnetwork.security.jwt.JwtAuthenticationException: JWT token is expired or invalid
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider.validateToken(JwtTokenProvider.java:79)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:27)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 14:23:39 [http-nio-8086-exec-4] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] threw exception
+org.javaproteam27.socialnetwork.security.jwt.JwtAuthenticationException: JWT token is expired or invalid
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider.validateToken(JwtTokenProvider.java:79)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:27)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:710)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:398)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:257)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:352)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:177)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 14:23:39 [http-nio-8086-exec-4] ERROR o.a.c.c.C.[Tomcat].[localhost] - Exception Processing ErrorPage[errorCode=0, location=/error]
+org.javaproteam27.socialnetwork.security.jwt.JwtAuthenticationException: JWT token is expired or invalid
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider.validateToken(JwtTokenProvider.java:79)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:27)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:710)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:398)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:257)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:352)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:177)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 14:24:10 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:24:10 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:24:10 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:24:10 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:31:58 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 6970 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:31:58 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:31:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:31:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:31:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:31:58 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:31:58 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:31:58 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:31:58 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:31:58 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 502 ms
+2022-09-17 14:31:58 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:31:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:32:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:32:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:32:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:32:01 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:32:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:32:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:32:02 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:32:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:32:02 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:32:02 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:32:02 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:32:03 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a0f5141, org.springframework.security.web.context.SecurityContextPersistenceFilter@fdfd984, org.springframework.security.web.header.HeaderWriterFilter@23974cac, org.springframework.web.filter.CorsFilter@46059b73, org.springframework.security.web.authentication.logout.LogoutFilter@31ecb361, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@daf22f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23d0f6be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6079d219, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b446d7, org.springframework.security.web.session.SessionManagementFilter@5e6ad84c, org.springframework.security.web.access.ExceptionTranslationFilter@713c8cbb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@292b7a02]
+2022-09-17 14:32:03 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:32:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:32:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:32:03 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.844 seconds (JVM running for 5.081)
+2022-09-17 14:33:52 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:33:52 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:33:52 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:33:52 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:36:11 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 7316 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:36:11 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:36:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:36:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:36:11 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:36:11 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:36:11 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:36:11 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:36:11 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:36:11 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 495 ms
+2022-09-17 14:36:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:36:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:36:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:36:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:36:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:36:13 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:36:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:36:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:36:14 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:36:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:36:15 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:36:15 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:36:15 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:36:15 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a0f5141, org.springframework.security.web.context.SecurityContextPersistenceFilter@fdfd984, org.springframework.security.web.header.HeaderWriterFilter@23974cac, org.springframework.web.filter.CorsFilter@46059b73, org.springframework.security.web.authentication.logout.LogoutFilter@31ecb361, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@daf22f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23d0f6be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6079d219, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b446d7, org.springframework.security.web.session.SessionManagementFilter@5e6ad84c, org.springframework.security.web.access.ExceptionTranslationFilter@713c8cbb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@292b7a02]
+2022-09-17 14:36:15 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:36:15 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:36:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:36:15 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.902 seconds (JVM running for 5.116)
+2022-09-17 14:36:22 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:36:22 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:36:22 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2022-09-17 14:36:46 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], arguments: [] 
+2022-09-17 14:36:46 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], return: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjM0MTgyMDYsImV4cCI6MTY2MzQyMTgwNn0.p_114i_-MRjLFVNqEsxOqEL3DYZejeC5K0fBTmlcHXA] 
+2022-09-17 14:37:56 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:37:56 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:37:56 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:37:56 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:37:58 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 7419 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:37:58 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:37:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:37:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:37:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:37:58 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:37:58 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:37:58 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:37:58 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:37:58 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 471 ms
+2022-09-17 14:37:58 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:37:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:38:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:38:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:38:00 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:38:00 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:38:01 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:38:01 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:38:02 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:38:02 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:38:02 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:38:02 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:38:02 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:38:02 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ec67be1, org.springframework.security.web.context.SecurityContextPersistenceFilter@45c10678, org.springframework.security.web.header.HeaderWriterFilter@e9947af, org.springframework.web.filter.CorsFilter@64a00fe0, org.springframework.security.web.authentication.logout.LogoutFilter@21cb5648, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5426cb36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@313a3af8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7a8e484b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@347f0950, org.springframework.security.web.session.SessionManagementFilter@72e5206, org.springframework.security.web.access.ExceptionTranslationFilter@56e9126f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@752e50c6]
+2022-09-17 14:38:02 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:38:02 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:38:02 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:38:02 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.63 seconds (JVM running for 4.912)
+2022-09-17 14:38:06 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:38:06 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:38:06 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2022-09-17 14:38:31 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:38:31 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:38:31 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:38:31 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:38:47 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 7468 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:38:47 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:38:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:38:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:38:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:38:48 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:38:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:38:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:38:48 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:38:48 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 498 ms
+2022-09-17 14:38:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:38:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:38:50 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:38:50 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:38:50 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:38:50 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:38:51 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:38:51 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:38:51 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:38:51 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:38:52 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:38:52 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:38:52 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:38:52 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56afbace, org.springframework.security.web.context.SecurityContextPersistenceFilter@4f2a0909, org.springframework.security.web.header.HeaderWriterFilter@16422f27, org.springframework.web.filter.CorsFilter@40dcbf7, org.springframework.security.web.authentication.logout.LogoutFilter@4f1ea463, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5426cb36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e528476, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53bc6492, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@53850535, org.springframework.security.web.session.SessionManagementFilter@d60aa4, org.springframework.security.web.access.ExceptionTranslationFilter@2bfe4df9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@769c80d1]
+2022-09-17 14:38:52 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:38:52 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:38:52 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:38:52 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.945 seconds (JVM running for 5.16)
+2022-09-17 14:38:59 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:38:59 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:38:59 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2022-09-17 14:42:29 [http-nio-8086-exec-9] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, null, 12, 90, null, null, 0, 20] 
+2022-09-17 14:42:30 [http-nio-8086-exec-9] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418550073, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@45eefe30], errorDescription=null),[]>] 
+2022-09-17 14:42:37 [http-nio-8086-exec-10] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Test, null, null, null, null, null, 0, 20] 
+2022-09-17 14:42:37 [http-nio-8086-exec-10] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418557609, total=0, offset=0, perPage=20, data=[], errorDescription=null),[]>] 
+2022-09-17 14:42:53 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Тест, null, null, null, null, null, 0, 20] 
+2022-09-17 14:42:53 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418573296, total=0, offset=0, perPage=20, data=[], errorDescription=null),[]>] 
+2022-09-17 14:42:58 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Тест, null, null, null, null, null, 0, 20] 
+2022-09-17 14:42:58 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418578961, total=0, offset=0, perPage=20, data=[], errorDescription=null),[]>] 
+2022-09-17 14:43:06 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Михаил, null, null, null, null, null, 0, 20] 
+2022-09-17 14:43:07 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418587167, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@60bd2628], errorDescription=null),[]>] 
+2022-09-17 14:43:20 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, Тестов, null, null, null, null, 0, 20] 
+2022-09-17 14:43:20 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418600871, total=0, offset=0, perPage=20, data=[], errorDescription=null),[]>] 
+2022-09-17 14:43:40 [http-nio-8086-exec-5] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, null, 0, 100, null, null, 0, 20] 
+2022-09-17 14:43:40 [http-nio-8086-exec-5] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418620860, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@580f8512], errorDescription=null),[]>] 
+2022-09-17 14:43:56 [http-nio-8086-exec-6] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, null, null, null, null, Россия, 0, 20] 
+2022-09-17 14:43:57 [http-nio-8086-exec-6] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663418637296, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@6fe7fe50], errorDescription=null),[]>] 
+2022-09-17 14:44:03 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:44:03 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:44:03 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:44:03 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:50:31 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 8118 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:50:31 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:50:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:50:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:50:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:50:31 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:50:31 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:50:31 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:50:31 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:50:31 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 482 ms
+2022-09-17 14:50:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:50:32 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:50:33 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:50:33 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:50:33 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:50:33 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:50:34 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:50:34 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:50:34 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:50:34 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:50:35 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:50:35 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:50:35 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:50:35 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56afbace, org.springframework.security.web.context.SecurityContextPersistenceFilter@4f2a0909, org.springframework.security.web.header.HeaderWriterFilter@16422f27, org.springframework.web.filter.CorsFilter@40dcbf7, org.springframework.security.web.authentication.logout.LogoutFilter@4f1ea463, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@daf22f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e528476, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53bc6492, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@53850535, org.springframework.security.web.session.SessionManagementFilter@d60aa4, org.springframework.security.web.access.ExceptionTranslationFilter@2bfe4df9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@769c80d1]
+2022-09-17 14:50:35 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:50:35 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:50:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:50:35 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.763 seconds (JVM running for 4.988)
+2022-09-17 14:50:43 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:50:43 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:50:43 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2022-09-17 14:50:43 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [null, null, null, null, null, Россия, 0, 20] 
+2022-09-17 14:50:44 [http-nio-8086-exec-2] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663419044135, total=4, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@2e9769c, org.javaproteam27.socialnetwork.model.dto.response.PersonRs@79579a7e, org.javaproteam27.socialnetwork.model.dto.response.PersonRs@30113a82, org.javaproteam27.socialnetwork.model.dto.response.PersonRs@2000577f], errorDescription=null),[]>] 
+2022-09-17 14:51:34 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:51:34 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:51:34 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:51:34 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 14:51:46 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 8196 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 14:51:46 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 14:51:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 14:51:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 14:51:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 14:51:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:51:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 14:51:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 14:51:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 14:51:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 465 ms
+2022-09-17 14:51:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 14:51:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 14:51:48 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:51:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 14:51:49 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 14:51:49 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 14:51:51 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 14:51:51 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 14:51:51 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 14:51:51 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 14:51:52 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 14:51:52 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:51:52 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 14:51:52 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2ac7c683, org.springframework.security.web.context.SecurityContextPersistenceFilter@4117e0c9, org.springframework.security.web.header.HeaderWriterFilter@7680beac, org.springframework.web.filter.CorsFilter@407ff25f, org.springframework.security.web.authentication.logout.LogoutFilter@22ea09b7, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5426cb36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@45e49d3d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@19240b9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ba8fbc8, org.springframework.security.web.session.SessionManagementFilter@65067d37, org.springframework.security.web.access.ExceptionTranslationFilter@23ee31b8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@c680819]
+2022-09-17 14:51:52 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 14:51:52 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 14:51:52 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 14:51:52 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 6.167 seconds (JVM running for 6.374)
+2022-09-17 14:52:00 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 14:52:00 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 14:52:00 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2022-09-17 14:52:00 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Test, null, null, null, null, null, 0, 20] 
+2022-09-17 14:52:00 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663419120918, total=0, offset=0, perPage=20, data=[], errorDescription=null),[]>] 
+2022-09-17 14:52:12 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Pepe, null, null, null, null, null, 0, 20] 
+2022-09-17 14:52:12 [http-nio-8086-exec-3] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663419132676, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@372629ab], errorDescription=null),[]>] 
+2022-09-17 14:52:31 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], arguments: [Карина, null, null, null, null, null, 0, 20] 
+2022-09-17 14:52:31 [http-nio-8086-exec-4] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.UserController], method: [searchPeople], return: [<200 OK OK,ListResponseRs(error=, timestamp=1663419151541, total=1, offset=0, perPage=20, data=[org.javaproteam27.socialnetwork.model.dto.response.PersonRs@494d248d], errorDescription=null),[]>] 
+2022-09-17 14:53:01 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 14:53:01 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 14:53:01 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 14:53:01 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 18:24:55 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 15696 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 18:24:55 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 18:24:56 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 18:24:56 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11ms. Found 0 JDBC repository interfaces.
+2022-09-17 18:24:56 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 18:24:56 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:24:56 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 18:24:56 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 18:24:56 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 18:24:56 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 515 ms
+2022-09-17 18:24:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 18:24:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 18:24:58 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:24:58 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:24:58 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 18:24:58 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 18:24:59 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 18:24:59 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 18:24:59 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 18:24:59 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 18:25:00 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 18:25:00 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:25:00 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 18:25:00 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b71a12e, org.springframework.security.web.context.SecurityContextPersistenceFilter@37f75ebf, org.springframework.security.web.header.HeaderWriterFilter@579cfcc4, org.springframework.web.filter.CorsFilter@41c56930, org.springframework.security.web.authentication.logout.LogoutFilter@335a45a8, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@daf22f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e140753, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@531ed68e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@60660d21, org.springframework.security.web.session.SessionManagementFilter@56728f48, org.springframework.security.web.access.ExceptionTranslationFilter@3d6c7152, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@273e622f]
+2022-09-17 18:25:00 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 18:25:00 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:25:00 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 18:25:00 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.908 seconds (JVM running for 5.216)
+2022-09-17 18:25:07 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 18:25:07 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 18:25:07 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2022-09-17 18:25:07 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], arguments: [] 
+2022-09-17 18:25:07 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], return: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjM0MzE5MDcsImV4cCI6MTY2MzQzNTUwN30.8d19dNEGbe12NE5xGh65F3xfQ5zNlI8FjyhMds_g2Cs] 
+2022-09-17 18:28:16 [http-nio-8086-exec-6] INFO  o.a.coyote.http11.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in the request target [/api/v1/post?text=4444&tags=[tag1,%20tag2,%20tag3] ]. The valid characters are defined in RFC 7230 and RFC 3986
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:490)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:261)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 18:28:39 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 18:28:39 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:28:39 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 18:28:39 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 18:28:51 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 15935 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 18:28:51 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 18:28:51 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 18:28:51 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 18:28:52 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 18:28:52 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:28:52 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 18:28:52 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 18:28:52 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 18:28:52 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 471 ms
+2022-09-17 18:28:52 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 18:28:53 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 18:28:53 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:28:53 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:28:53 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 18:28:54 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 18:28:55 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 18:28:55 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 18:28:55 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 18:28:55 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 18:28:55 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 18:28:56 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:28:56 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 18:28:56 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b71a12e, org.springframework.security.web.context.SecurityContextPersistenceFilter@37f75ebf, org.springframework.security.web.header.HeaderWriterFilter@579cfcc4, org.springframework.web.filter.CorsFilter@41c56930, org.springframework.security.web.authentication.logout.LogoutFilter@335a45a8, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5426cb36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e140753, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@531ed68e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@60660d21, org.springframework.security.web.session.SessionManagementFilter@56728f48, org.springframework.security.web.access.ExceptionTranslationFilter@3d6c7152, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@273e622f]
+2022-09-17 18:28:56 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 18:28:56 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:28:56 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 18:28:56 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.766 seconds (JVM running for 4.979)
+2022-09-17 18:29:00 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 18:29:00 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 18:29:00 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2022-09-17 18:29:00 [http-nio-8086-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException: Cannot invoke "java.util.List.forEach(java.util.function.Consumer)" because "tags" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "java.util.List.forEach(java.util.function.Consumer)" because "tags" is null
+	at org.javaproteam27.socialnetwork.repository.PostRepository.findPost(PostRepository.java:103)
+	at org.javaproteam27.socialnetwork.repository.PostRepository$$FastClassBySpringCGLIB$$40ca5bb6.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at org.javaproteam27.socialnetwork.repository.PostRepository$$EnhancerBySpringCGLIB$$69fb3c6b.findPost(<generated>)
+	at org.javaproteam27.socialnetwork.service.PostService.findPost(PostService.java:98)
+	at org.javaproteam27.socialnetwork.service.PostService$$FastClassBySpringCGLIB$$91fa8684.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at org.javaproteam27.socialnetwork.service.PostService$$EnhancerBySpringCGLIB$$1ea76103.findPost(<generated>)
+	at org.javaproteam27.socialnetwork.controller.PostsController.findPost(PostsController.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:34)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter.doFilter(JwtTokenFilter.java:34)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-09-17 18:29:13 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 18:29:13 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:29:13 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 18:29:13 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 18:30:37 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 16034 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 18:30:37 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 18:30:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 18:30:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2022-09-17 18:30:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 18:30:37 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:30:37 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 18:30:37 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 18:30:37 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 18:30:37 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 485 ms
+2022-09-17 18:30:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 18:30:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 18:30:39 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:30:39 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:30:39 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 18:30:39 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 18:30:41 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 18:30:41 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 18:30:41 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 18:30:41 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 18:30:41 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 18:30:41 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:30:41 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 18:30:41 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a0f5141, org.springframework.security.web.context.SecurityContextPersistenceFilter@fdfd984, org.springframework.security.web.header.HeaderWriterFilter@23974cac, org.springframework.web.filter.CorsFilter@46059b73, org.springframework.security.web.authentication.logout.LogoutFilter@31ecb361, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@daf22f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23d0f6be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6079d219, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b446d7, org.springframework.security.web.session.SessionManagementFilter@5e6ad84c, org.springframework.security.web.access.ExceptionTranslationFilter@713c8cbb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@292b7a02]
+2022-09-17 18:30:42 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 18:30:42 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:30:42 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 18:30:42 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.938 seconds (JVM running for 5.161)
+2022-09-17 18:30:45 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 18:30:45 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 18:30:45 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2022-09-17 18:31:24 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 18:31:24 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:31:24 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 18:31:24 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-17 18:31:48 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on macbook-air-karina.home with PID 16115 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-17 18:31:48 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-17 18:31:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-17 18:31:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9ms. Found 0 JDBC repository interfaces.
+2022-09-17 18:31:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-17 18:31:48 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:31:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-17 18:31:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-17 18:31:48 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-17 18:31:48 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 491 ms
+2022-09-17 18:31:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-17 18:31:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-17 18:31:50 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:31:50 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-17 18:31:50 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-17 18:31:51 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-17 18:31:52 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-17 18:31:52 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-17 18:31:52 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-17 18:31:52 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-17 18:31:52 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-17 18:31:52 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:31:52 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-17 18:31:53 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a0f5141, org.springframework.security.web.context.SecurityContextPersistenceFilter@fdfd984, org.springframework.security.web.header.HeaderWriterFilter@23974cac, org.springframework.web.filter.CorsFilter@46059b73, org.springframework.security.web.authentication.logout.LogoutFilter@31ecb361, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@5426cb36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23d0f6be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6079d219, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b446d7, org.springframework.security.web.session.SessionManagementFilter@5e6ad84c, org.springframework.security.web.access.ExceptionTranslationFilter@713c8cbb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@292b7a02]
+2022-09-17 18:31:53 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-17 18:31:53 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-17 18:31:53 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-17 18:31:53 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 4.827 seconds (JVM running for 5.04)
+2022-09-17 18:31:56 [http-nio-8086-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-17 18:31:56 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-17 18:31:56 [http-nio-8086-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2022-09-17 18:32:16 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-17 18:32:16 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-17 18:32:16 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-17 18:32:16 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

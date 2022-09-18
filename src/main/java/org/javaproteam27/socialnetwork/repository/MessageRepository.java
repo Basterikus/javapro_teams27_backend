@@ -74,22 +74,28 @@ public class MessageRepository {
     public List<Message> findByDialogId(Integer dialogId, Integer offset, Integer limit) {
         
         String sql = "select * from message where dialog_id = ? " +
-                "order by time desc limit ? offset ?";
+                "order by time desc offset ? limit ?";
         
         try {
-            return jdbcTemplate.query(sql, rowMapper, dialogId, limit, offset);
+            return jdbcTemplate.query(sql, rowMapper, dialogId, offset, limit);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("dialogs with person id = " + dialogId);
         }
     }
     
-    public Integer getUnreadedCount(Integer recipientId) {
+    public Integer countUnreadedByRecipientId(Integer recipientId) {
         
         String sql = "select count(*) from message where recipient_id = ? and read_status like 'SENT'";
         return jdbcTemplate.queryForObject(sql, Integer.class, recipientId);
     }
     
-    public Integer getUnreadedCountByDialogId(Integer dialogId) {
+    public Integer countByDialogId(Integer dialogId) {
+        
+        String sql = "select count(*) from message where dialog_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, dialogId);
+    }
+    
+    public Integer countUnreadedByDialogId(Integer dialogId) {
         
         String sql = "select count(*) from message where dialog_id = ? and read_status like 'SENT'";
         return jdbcTemplate.queryForObject(sql, Integer.class, dialogId);

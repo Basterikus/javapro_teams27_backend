@@ -17,12 +17,10 @@ import org.javaproteam27.socialnetwork.repository.MessageRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,35 +79,45 @@ public class DialogsService {
         
         Person person = getPerson(token);
         Integer personId = person.getId();
-        
-        List<DialogRs> dialogRs = dialogRepository.findByPersonId(personId).stream()
-                .sorted(Comparator.reverseOrder())
-                .skip(offset)
-                .limit(itemPerPage)
-                .map(dialog -> {
-                    MessageRs messageRs = null;
-                    Integer lastMessageId = dialog.getLastMessageId();
     
-                    if (lastMessageId != null && lastMessageId != 0) {
-                        Message message = messageRepository.findById(lastMessageId);
-                        messageRs = buildMessageRs(message);
-                    }
-    
-                    return DialogRs.builder()
-                            .id(dialog.getId())
-                            .unreadCount(messageRepository.getUnreadedCountByDialogId(dialog.getId()))
-                            .lastMessage(messageRs)
-                            .build();
-                })
-                .collect(Collectors.toList());
+        Integer dialogsCount = dialogRepository.countByPersonId(personId);
+        List<DialogRs> data = Collections.emptyList();
         
-        return new ListResponseRs<>("", offset, itemPerPage, dialogRs);
+        if (dialogsCount > 0) {
+            List<Dialog> dialogs = dialogRepository.findByPersonId(personId, offset, itemPerPage);
+            data = dialogs.stream()
+                    .map(dialog -> {
+                        MessageRs messageRs = null;
+                        Integer lastMessageId = dialog.getLastMessageId();
+                
+                        if (lastMessageId != null && lastMessageId != 0) {
+                            Message message = messageRepository.findById(lastMessageId);
+                            messageRs = buildMessageRs(message);
+                        }
+                
+                        return DialogRs.builder()
+                                .id(dialog.getId())
+                                .unreadCount(messageRepository.countUnreadedByDialogId(dialog.getId()))
+                                .lastMessage(messageRs)
+                                .build();
+                    })
+                    .collect(Collectors.toList());
+        }
+        
+        return ListResponseRs.<DialogRs>builder()
+                .error("")
+                .timestamp(System.currentTimeMillis())
+                .total(dialogsCount)
+                .offset(offset)
+                .perPage(itemPerPage)
+                .data(data)
+                .build();
     }
     
     public ResponseRs<ComplexRs> getUnreaded(String token) {
         
         Integer personId = getPerson(token).getId();
-        Integer unreadedCount = messageRepository.getUnreadedCount(personId);
+        Integer unreadedCount = messageRepository.countUnreadedByRecipientId(personId);
         ComplexRs data = ComplexRs.builder().count(unreadedCount).build();
         
         return new ResponseRs<>(null, data, null);
@@ -160,11 +168,23 @@ public class DialogsService {
     
     public ListResponseRs<MessageRs> getMessagesByDialog(Integer id, Integer offset, Integer itemPerPage) {
     
-        List<MessageRs> data = messageRepository.findByDialogId(id, offset, itemPerPage).stream()
-                .map(DialogsService::buildMessageRs)
-                .collect(Collectors.toList());
+        Integer messagesCount = messageRepository.countByDialogId(id);
+        List<MessageRs> data = Collections.emptyList();
+    
+        if (messagesCount > 0) {
+            data = messageRepository.findByDialogId(id, offset, itemPerPage).stream()
+                    .map(DialogsService::buildMessageRs)
+                    .collect(Collectors.toList());
+        }
         
-        return new ListResponseRs<>("", offset, itemPerPage, data);
+        return  ListResponseRs.<MessageRs>builder()
+                .error("")
+                .timestamp(System.currentTimeMillis())
+                .total(messagesCount)
+                .offset(offset)
+                .perPage(itemPerPage)
+                .data(data)
+                .build();
     }
     
     public ResponseRs<MessageRs> editMessage(Integer dialogId, Integer messageId, MessageSendRequestBodyRs text) {

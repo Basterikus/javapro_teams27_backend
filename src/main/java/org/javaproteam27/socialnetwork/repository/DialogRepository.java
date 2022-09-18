@@ -64,11 +64,13 @@ public class DialogRepository {
         }
     }
     
-    public List<Dialog> findByPersonId(Integer id) {
+    public List<Dialog> findByPersonId(Integer id, Integer offset, Integer limit) {
     
+        String sql = "select * from dialog where first_person_id = ? or second_person_id = ?" +
+                "order by last_active_time desc offset ? limit ?";
+        
         try {
-            String sql ="select * from dialog where first_person_id = ? or second_person_id = ?";
-            return jdbcTemplate.query(sql, rowMapper, id, id);
+            return jdbcTemplate.query(sql, rowMapper, id, id, offset, limit);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("dialogs with person id = " + id);
         }
@@ -78,12 +80,7 @@ public class DialogRepository {
     
         List<Integer> sortedIds = sortIds(firstPersonId, secondPersonId);
     
-        String sql;
-        if (firstPersonId.equals(secondPersonId)) {
-            sql = "select * from dialog where first_person_id = ? and second_person_id = ?";
-        } else {
-            sql = "select * from dialog where first_person_id = ? or second_person_id = ?";
-        }
+        String sql = "select * from dialog where first_person_id = ? and second_person_id = ?";
         
         try {
             return jdbcTemplate.queryForObject(sql, rowMapper, sortedIds.get(0), sortedIds.get(1));
@@ -101,6 +98,19 @@ public class DialogRepository {
         }
     }
     
+    public Integer countByPersonId(Integer personId) {
+        
+        String sql = "select count(*) from dialog where first_person_id = ? or second_person_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, personId, personId);
+    }
+    
+    public Integer countByPersonIds(Integer firstPersonId, Integer secondPersonId) {
+    
+        List<Integer> sortedIds = sortIds(firstPersonId, secondPersonId);
+        String sql = "select count(*) from dialog where first_person_id = ? and second_person_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, sortedIds.get(0), sortedIds.get(1));
+    }
+    
     public void deleteById(Integer id) {
     
         String sql = "delete from dialog where id = ?";
@@ -112,5 +122,4 @@ public class DialogRepository {
         }
     }
     
-
 }

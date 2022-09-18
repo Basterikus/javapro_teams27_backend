@@ -7,7 +7,10 @@ import org.javaproteam27.socialnetwork.model.dto.response.DialogUserShortListDto
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.MessageRs;
 import org.javaproteam27.socialnetwork.model.dto.response.MessageSendRequestBodyRs;
+import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.service.DialogsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +32,7 @@ import java.util.List;
 public class DialogsController {
     
     private final DialogsService dialogsService;
+    private final PersonRepository personRepository;
     
     
     @PostMapping

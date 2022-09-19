@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +17,7 @@ public class ListResponseRs<T> {
     private Long timestamp;
     private Integer total;
     private Integer offset;
+    @JsonProperty("itemPerPage")
     private Integer perPage;
     private List<T> data;
     @JsonProperty("error_description")

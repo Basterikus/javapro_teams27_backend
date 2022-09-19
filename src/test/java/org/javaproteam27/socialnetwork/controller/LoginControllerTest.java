@@ -17,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,13 +36,9 @@ class LoginControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private DataSource dataSource;
-
     private final String loginUrl = "/api/v1/auth/login";
     private final String logoutUrl = "/api/v1/auth/logout";
     private final ObjectMapper objectMapper = new ObjectMapper();
-
 
     @Test
     public void correctLoginTest() throws Exception {

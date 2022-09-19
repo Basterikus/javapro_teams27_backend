@@ -2,15 +2,24 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 
+import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
+import org.javaproteam27.socialnetwork.model.dto.response.UserRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +28,8 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Person findById(int id) {
         return personRepository.findById(id);
@@ -32,9 +43,9 @@ public class PersonService {
                                                String city, String country, int offset, int itemPerPage) {
 
         Person authorizedPerson = getAuthorizedPerson();
-        return getResultJson(personRepository.findPeople(authorizedPerson, firstName, lastName, ageFrom, ageTo, city,
-                        country),
-                offset, itemPerPage);
+        List<Person> people = personRepository.findPeople(authorizedPerson, firstName, lastName,
+                ageFrom, ageTo, city, country);
+        return getResultJson(people, offset, itemPerPage);
     }
 
     public Person getAuthorizedPerson() {
@@ -78,5 +89,25 @@ public class PersonService {
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
                 .build();
+    }
+
+    public ResponseEntity<UserRs> editUser(UserRq request, String token) {
+        UserRs response = new UserRs();
+        Person person = personRepository.findByEmail(jwtTokenProvider.getUsername(token));
+        person.setFirstName(request.getFirstName());
+        person.setLastName(request.getLastName());
+        String birthDate = request.getBirthDate().split("T")[0];
+        LocalDate date = LocalDate.parse(birthDate, formatter);
+
+        person.setBirthDate(LocalDateTime.of(date, LocalTime.of(0,0,0,0)));
+        person.setPhone(request.getPhone());
+        person.setAbout(request.getAbout());
+        person.setCity(request.getTown());
+        person.setCountry(request.getCountry());
+        person.setMessagesPermission(request.getMessagesPermission() == null ?
+                MessagesPermission.ALL : MessagesPermission.valueOf(request.getMessagesPermission()));
+        personRepository.editPerson(person);
+
+        return ResponseEntity.ok(response);
     }
 }

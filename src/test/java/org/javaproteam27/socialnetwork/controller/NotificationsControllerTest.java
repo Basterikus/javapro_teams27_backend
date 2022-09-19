@@ -16,8 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,8 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Sql("classpath:sql/person/insert-person.sql")
+@Sql({"classpath:sql/notification/insert-notification.sql"})
 @Transactional
-public class UserControllerTest {
+public class NotificationsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,8 +37,25 @@ public class UserControllerTest {
     @Autowired
     private LoginService loginService;
 
-    private final static String meUrl = "/api/v1/users/me";
+    private final String notificationUrl = "/api/v1/notifications";
 
+
+    @Test
+    public void getNotifications() throws Exception {
+        this.mockMvc.perform(get(notificationUrl).header("Authorization", getTokenAuthorization()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void markAsReadNotifications() throws Exception {
+        this.mockMvc.perform(put(notificationUrl).header("Authorization", getTokenAuthorization())
+                        .param("all", "true"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
 
     private String getTokenAuthorization() {
         LoginRq rq = new LoginRq();
@@ -45,21 +63,5 @@ public class UserControllerTest {
         rq.setPassword("test1234");
         ResponseRs<PersonRs> loginRs = loginService.login(rq);
         return loginRs.getData().getToken();
-    }
-
-    @Test
-    public void authorizedMeTest() throws Exception {
-        this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
-    public void unAuthorizedMeTest() throws Exception {
-        this.mockMvc.perform(get(meUrl))
-                .andDo(print())
-                .andExpect(unauthenticated())
-                .andExpect(status().is4xxClientError());
     }
 }

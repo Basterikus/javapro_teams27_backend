@@ -11,9 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -28,14 +25,8 @@ public class RegisterService {
     private String captchaSecret2;
     private String password1;
     private String password2;
-
-    @Email
     private String email;
-
-    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введено имя")
     private String firstName;
-
-    @Pattern(regexp = "[A-Z][a-z]{2,15}|[А-ЯЁ][а-яё]{2,15}", message = "Неверно введена Фамилия")
     private String lastName;
 
     private String defaultPhoto = "https://dl.dropbox.com/s/ea3n2vw79u0s33u/default.jpg?dl=1";
@@ -80,12 +71,10 @@ public class RegisterService {
         return new ResponseEntity<>(registerRS, HttpStatus.OK);
     }
 
-    @AssertTrue(message = "Пароли не совпадают")
     private boolean checkPassword() {
         return password1.equals(password2);
     }
 
-    @AssertTrue(message = "Неверно введен код с картинки")
     private boolean checkCaptcha() {
         return captchaSecret1.equals(captchaSecret2);
     }

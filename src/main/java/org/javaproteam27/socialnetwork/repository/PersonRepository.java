@@ -1,6 +1,5 @@
 package org.javaproteam27.socialnetwork.repository;
 
-import ch.qos.logback.core.db.dialect.PostgreSQLDialect;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
@@ -12,12 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -71,12 +66,9 @@ public class PersonRepository {
     }
 
     public Integer count() {
-        try {
-            String sql = "select count(*) from person";
-            return jdbcTemplate.queryForObject(sql, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            return 0; // todo обработать исключение
-        }
+        
+        String sql = "select count(*) from person";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     public Person getPersonById(Integer id) {

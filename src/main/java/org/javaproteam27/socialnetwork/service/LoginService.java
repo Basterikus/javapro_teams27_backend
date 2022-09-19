@@ -22,11 +22,11 @@ public class LoginService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PersonRepository personRepository;
 
-    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(String token) {
+    public ResponseRs<PersonRs> profileResponse(String token) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
         PersonRs personRs = getPersonRs(person, token);
-        return ResponseEntity.ok(new ResponseRs<>("string", 0, 20, personRs));
+        return new ResponseRs<>("string", 0, 20, personRs);
     }
 
     public ResponseRs<PersonRs> login(LoginRq loginRq) {

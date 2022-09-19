@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("me")
-    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(@RequestHeader("Authorization") String token) {
+    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) {
         return loginService.profileResponse(token);
     }
 

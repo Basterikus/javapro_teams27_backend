@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
+import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.UserRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
@@ -88,6 +89,8 @@ public class PersonService {
                 .birthDate(person.getBirthDate())
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
+                .about(person.getAbout())
+                .lastOnlineTime(person.getLastOnlineTime())
                 .build();
     }
 
@@ -109,5 +112,9 @@ public class PersonService {
         personRepository.editPerson(person);
 
         return ResponseEntity.ok(response);
+    }
+
+    public ResponseRs<PersonRs> getUserInfo(int userId){
+        return new ResponseRs<>("", initialize(userId), null);
     }
 }

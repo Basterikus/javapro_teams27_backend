@@ -41,13 +41,16 @@ public class NotificationsServiceTest {
     private CommentRepository commentRepository;
     @Mock
     private LikeRepository likeRepository;
+    @Mock
+    private MessageRepository messageRepository;
 
     private NotificationsService notificationsService;
 
     @Before
     public void setUp() {
         notificationsService = new NotificationsService(personService, personRepository, jwtTokenProvider,
-                notificationRepository, friendshipRepository, postRepository, commentRepository, likeRepository);
+                notificationRepository, friendshipRepository, postRepository, commentRepository,
+                likeRepository, messageRepository);
     }
 
     @Test
@@ -65,6 +68,7 @@ public class NotificationsServiceTest {
         Friendship friendship = new Friendship();
         friendship.setSrcPersonId(1);
         PostLike postLike = PostLike.builder().personId(1).build();
+        Message message = Message.builder().authorId(1).messageText("text").build();
 
         List<Notification> expectedList = new ArrayList<>();
         expectedList.add(generateNotification(POST));
@@ -74,6 +78,7 @@ public class NotificationsServiceTest {
         expectedList.add(generateNotification(POST_LIKE));
         expectedList.add(generateNotification(COMMENT_LIKE));
         expectedList.add(generateNotification(MESSAGE));
+        expectedList.add(generateNotification(FRIEND_BIRTHDAY));
 
         when(jwtTokenProvider.getUsername(token)).thenReturn("email");
         when(personRepository.findByEmail("email")).thenReturn(person);
@@ -83,6 +88,7 @@ public class NotificationsServiceTest {
         when(commentRepository.getCommentById(anyInt())).thenReturn(comment);
         when(friendshipRepository.findById(anyInt())).thenReturn(friendship);
         when(likeRepository.findById(anyInt())).thenReturn(postLike);
+        when(messageRepository.findById(anyInt())).thenReturn(message);
 
         var response = notificationsService.getNotifications(token, offset, perPage);
 
@@ -91,15 +97,16 @@ public class NotificationsServiceTest {
         assertEquals("", response.getError());
         assertEquals(offset, response.getOffset());
         assertEquals(perPage, response.getPerPage());
-        assertEquals(7, response.getData().size());
+        assertEquals(8, response.getData().size());
         assertEquals("title", response.getData().get(0).getInfo());
         assertEquals("comment", response.getData().get(1).getInfo());
         assertEquals("comment", response.getData().get(2).getInfo());
         assertEquals("Test Testov", response.getData().get(3).getInfo());
         assertEquals("Test Testov", response.getData().get(4).getInfo());
         assertEquals("Test Testov", response.getData().get(5).getInfo());
-        assertNull(response.getData().get(6).getInfo());
-        for (int i = 0; i < response.getData().size() - 1; i++) {
+        assertEquals("text", response.getData().get(6).getInfo());
+        assertEquals("Test Testov", response.getData().get(7).getInfo());
+        for (int i = 0; i < response.getData().size(); i++) {
             assertEquals("Test", response.getData().get(i).getEntityAuthor().getFirstName());
         }
     }
@@ -381,6 +388,34 @@ public class NotificationsServiceTest {
     }
 
     @Test
+    public void createMessageNotification() {
+        Person person = new Person();
+        person.setId(1);
+        Message message = Message.builder().id(2).authorId(1).recipientId(4).build();
+
+        when(personService.getAuthorizedPerson()).thenReturn(person);
+        when(messageRepository.findById(anyInt())).thenReturn(message);
+
+        notificationsService.createMessageNotification(2, System.currentTimeMillis(), 4);
+
+        verify(notificationRepository, times(1)).save(any());
+    }
+
+    @Test
+    public void createMessageNotificationWithSameAuthorAndRecipient() {
+        Person person = new Person();
+        person.setId(1);
+        Message message = Message.builder().id(2).authorId(1).recipientId(1).build();
+
+        when(personService.getAuthorizedPerson()).thenReturn(person);
+        when(messageRepository.findById(anyInt())).thenReturn(message);
+
+        notificationsService.createMessageNotification(2, System.currentTimeMillis(), 1);
+
+        verify(notificationRepository, times(0)).save(any());
+    }
+
+    @Test
     public void createPostLIkeNotificationWhenTypeCommentWithSameLikeAuthorAndPerson() {
         Person person = new Person();
         person.setId(1);
@@ -391,6 +426,34 @@ public class NotificationsServiceTest {
 
         notificationsService.createPostLikeNotification(1, System.currentTimeMillis(), comment.getId(),
                 "Comment");
+
+        verify(notificationRepository, times(0)).save(any());
+    }
+
+    @Test
+    public void createFriendBirthDayNotification() {
+        Person person = new Person();
+        person.setId(1);
+        var personList = List.of(person);
+        Friendship friendship = new Friendship();
+        friendship.setDstPersonId(2);
+        friendship.setSrcPersonId(1);
+        friendship.setStatusId(3);
+        var friendShipList = List.of(friendship);
+
+        when(personRepository.getByBirthDay(anyString())).thenReturn(personList);
+        when(friendshipRepository.findAllFriendsByPersonId(anyInt())).thenReturn(friendShipList);
+
+        notificationsService.createFriendBirthdayNotification();
+
+        verify(notificationRepository, times(1)).save(any());
+    }
+
+    @Test
+    public void createFriendBirthDayNotificationWithEmptyList() {
+        when(personRepository.getByBirthDay(anyString())).thenReturn(new ArrayList<>());
+
+        notificationsService.createFriendBirthdayNotification();
 
         verify(notificationRepository, times(0)).save(any());
     }

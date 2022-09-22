@@ -26,7 +26,7 @@ import static org.javaproteam27.socialnetwork.model.enums.NotificationType.*;
 @Service
 @RequiredArgsConstructor
 @DebugLogger
-public class NotificationsService {
+public class NotificationService {
 
     private final PersonService personService;
     private final PersonRepository personRepository;

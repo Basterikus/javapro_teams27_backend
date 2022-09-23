@@ -18,8 +18,8 @@ services:
   db:
     image: postgres:12
     environment:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: sonar #tochange
+      POSTGRES_USER: javapro
+      POSTGRES_PASSWORD: admin
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data

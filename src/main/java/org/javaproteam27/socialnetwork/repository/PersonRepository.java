@@ -195,4 +195,13 @@ public class PersonRepository {
         }
         return retValue;
     }
+
+    public List<Person> getByBirthDay(String birthDay) {
+        try {
+            String sql = "SELECT * FROM person where birth_date = '" + birthDay + "'";
+            return jdbcTemplate.query(sql, rowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("birth_date = " + birthDay);
+        }
+    }
 }

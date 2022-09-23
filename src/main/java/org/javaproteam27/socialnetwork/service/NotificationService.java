@@ -12,8 +12,11 @@ import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.*;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +26,7 @@ import static org.javaproteam27.socialnetwork.model.enums.NotificationType.*;
 @Service
 @RequiredArgsConstructor
 @DebugLogger
-public class NotificationsService {
+public class NotificationService {
 
     private final PersonService personService;
     private final PersonRepository personRepository;
@@ -33,6 +36,7 @@ public class NotificationsService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final LikeRepository likeRepository;
+    private final MessageRepository messageRepository;
 
 
     public ListResponseRs<NotificationBaseRs> getNotifications(String token, int offset, int itemPerPage) {
@@ -127,8 +131,28 @@ public class NotificationsService {
         }
     }
 
-    public void createMessageNotification(int messageId, Long sentTime, int dstId) {
-        createNotification(dstId, MESSAGE, messageId, sentTime);
+    public void createMessageNotification(int messageId, Long sentTime, int recipientId) {
+        int messageAuthor = personService.getAuthorizedPerson().getId();
+        if (messageAuthor != recipientId) {
+            createNotification(recipientId, MESSAGE, messageId, sentTime);
+        }
+    }
+
+    @Scheduled(cron = "0 0 * * * *")
+    public void createFriendBirthdayNotification(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String today = now.format(formatter);
+        var personList = personRepository.getByBirthDay(today);
+        if (personList.size() != 0) {
+            for (Person person : personList) {
+                var friendList = friendshipRepository.findAllFriendsByPersonId(person.getId());
+                for (Friendship friendship : friendList) {
+                    var friendId = friendship.getDstPersonId();
+                    createNotification(friendId, FRIEND_BIRTHDAY, person.getId(), System.currentTimeMillis());
+                }
+            }
+        }
     }
 
     private void createNotification(int dstId, NotificationType notificationType, int entityId, Long sentTime) {
@@ -149,7 +173,6 @@ public class NotificationsService {
                 .info(getInfoFromType(notification))
                 .sentTime(notification.getSentTime())
                 .notificationType(notification.getNotificationType())
-                .entityId(notification.getEntityId())
                 .entityAuthor(getEntityAuthor(notification))
                 .build();
     }
@@ -171,6 +194,12 @@ public class NotificationsService {
             case POST_LIKE:
             case COMMENT_LIKE:
                 authorId = likeRepository.findById(entityId).getPersonId();
+                break;
+            case MESSAGE:
+                authorId = messageRepository.findById(entityId).getAuthorId();
+                break;
+            case FRIEND_BIRTHDAY:
+                authorId = entityId;
                 break;
         }
         if (authorId != null) {
@@ -196,6 +225,10 @@ public class NotificationsService {
             case COMMENT_LIKE:
                 var postLikePersonId = likeRepository.findById(entityId).getPersonId();
                 return getFullNameFromPerson(personRepository.findById(postLikePersonId));
+            case MESSAGE:
+                return messageRepository.findById(entityId).getMessageText();
+            case FRIEND_BIRTHDAY:
+                return getFullNameFromPerson(personRepository.findById(entityId));
         }
         return null;
     }

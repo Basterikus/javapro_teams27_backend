@@ -32,6 +32,7 @@ public class DialogsService {
     private final MessageRepository messageRepository;
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final NotificationService notificationService;
     
     
     private static MessageRs buildMessageRs(Message message) {
@@ -162,6 +163,7 @@ public class DialogsService {
         dialogRepository.update(dialog);
         
         MessageRs data = buildMessageRs(message);
+        notificationService.createMessageNotification(savedId, System.currentTimeMillis(), recipientId);
         
         return new ResponseRs<>("", data, null);
     }

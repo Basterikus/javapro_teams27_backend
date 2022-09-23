@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql("classpath:sql/person/insert-person.sql")
 @Sql({"classpath:sql/notification/insert-notification.sql"})
 @Transactional
-public class NotificationsControllerTest {
+public class NotificationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

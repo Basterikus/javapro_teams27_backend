@@ -11,10 +11,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,7 @@ public class PostRepository {
         List<Post> retList;
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId
-                    + " AND is_deleted is false" + " LIMIT " + limit + " OFFSET " + offset, new PostMapper());
+                    + " AND is_deleted is false ORDER BY time DESC" + " LIMIT " + limit + " OFFSET " + offset, new PostMapper());
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
@@ -85,7 +82,7 @@ public class PostRepository {
         List<Post> retList;
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP " +
-                    "AND is_deleted is false LIMIT " + limit + " OFFSET " + offset, new PostMapper());
+                    "AND is_deleted is false ORDER BY time DESC LIMIT " + limit + " OFFSET " + offset, new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());

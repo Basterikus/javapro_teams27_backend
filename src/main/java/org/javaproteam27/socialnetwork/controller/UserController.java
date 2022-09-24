@@ -23,10 +23,10 @@ public class UserController {
 
     @GetMapping("/search")
     public ResponseEntity<ListResponseRs<PersonRs>> searchPeople(
-            @RequestParam(value = "firstName", required = false) String firstName,
-            @RequestParam(value = "lastName", required = false) String lastName,
-            @RequestParam(value = "ageFrom", required = false) Integer ageFrom,
-            @RequestParam(value = "ageTo", required = false) Integer ageTo,
+            @RequestParam(value = "first_name", required = false) String firstName,
+            @RequestParam(value = "last_name", required = false) String lastName,
+            @RequestParam(value = "age_from", required = false) Integer ageFrom,
+            @RequestParam(value = "age_to", required = false) Integer ageTo,
             @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,

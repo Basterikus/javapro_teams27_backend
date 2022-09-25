@@ -64,4 +64,4 @@ sonarqube-check:
     - mvn verify sonar:sonar -Dsonar.projectKey=social_network
   allow_failure: true
   only:
-    - master # or the name of your main branch
+    - dev

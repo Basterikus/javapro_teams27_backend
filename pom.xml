@@ -18,6 +18,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
     </properties>
 
     <dependencies>

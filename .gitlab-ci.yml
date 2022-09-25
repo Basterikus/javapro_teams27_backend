@@ -30,7 +30,7 @@ build:
         - dev
 
 release:
-    stage: release
+    stage: sonarqube-check
     tags:
         - social-server-2
     before_script:
@@ -54,6 +54,9 @@ deploy:
         - dev
         
 sonarqube-check:
+    stage: deploy
+    tags:
+        - social-server-2
   image: maven:3.6.3-jdk-11
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache

@@ -30,7 +30,7 @@ build:
         - dev
 
 release:
-    stage: sonarqube-check
+    stage: release
     tags:
         - social-server-2
     before_script:

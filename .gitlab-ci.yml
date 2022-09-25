@@ -3,6 +3,7 @@ stages:
     - build
     - release
     - deploy
+    - sonarqube-check
 
 variables:
     IMAGE_NAME_COMMIT: ${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:build

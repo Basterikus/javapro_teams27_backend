@@ -39,7 +39,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void profileResponse() {
+    public void profileResponseAuthorizedRqAllDataIsOk() {
         String token = "token";
 
         Person person = new Person();
@@ -63,7 +63,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void login() {
+    public void loginCorrectRqAllDataIsOk() {
         LoginRq loginRq = new LoginRq();
         loginRq.setEmail("test@mail.ru");
         loginRq.setPassword("test");
@@ -88,7 +88,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void loginFail() {
+    public void loginBadPasswordRqIncorrectPasswordThrown() {
         LoginRq loginRq = new LoginRq();
         loginRq.setEmail("test@mail.ru");
         loginRq.setPassword("test");
@@ -110,7 +110,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void logout() {
+    public void logoutAuthorizedRqAllDataIsOk() {
         ResponseRs<Object> response = loginService.logout();
 
         HashMap<String, String> expectedData = new HashMap<>();

@@ -65,7 +65,7 @@ public class PersonRepository {
         }
     }
 
-    public Integer count() {
+    public Integer getCount() {
         
         String sql = "select count(*) from person";
         return jdbcTemplate.queryForObject(sql, Integer.class);

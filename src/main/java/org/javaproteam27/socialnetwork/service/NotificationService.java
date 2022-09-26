@@ -3,9 +3,9 @@ package org.javaproteam27.socialnetwork.service;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
-import org.javaproteam27.socialnetwork.model.dto.response.EntityAuthorRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseRs;
+import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.Notification;
 import org.javaproteam27.socialnetwork.model.entity.Person;
@@ -61,7 +61,7 @@ public class NotificationService {
         List<NotificationBaseRs> result = new ArrayList<>();
         if (all) {
             var notificationList = notificationRepository.findByPersonId(person.getId());
-            if (notificationList.size() != 0) {
+            if (!notificationList.isEmpty()) {
                 for (Notification notification : notificationList) {
                     if (!notification.isRead()) {
                         notification.setRead(true);
@@ -144,7 +144,7 @@ public class NotificationService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String today = now.format(formatter);
         var personList = personRepository.getByBirthDay(today);
-        if (personList.size() != 0) {
+        if (!personList.isEmpty()) {
             for (Person person : personList) {
                 var friendList = friendshipRepository.findAllFriendsByPersonId(person.getId());
                 for (Friendship friendship : friendList) {
@@ -177,7 +177,7 @@ public class NotificationService {
                 .build();
     }
 
-    private EntityAuthorRs getEntityAuthor(Notification notification) {
+    private PersonRs getEntityAuthor(Notification notification) {
         int entityId = notification.getEntityId();
         Integer authorId = null;
         switch (notification.getNotificationType()) {
@@ -204,7 +204,7 @@ public class NotificationService {
         }
         if (authorId != null) {
             var person = personRepository.findById(authorId);
-            return EntityAuthorRs.builder().firstName(person.getFirstName()).lastName(person.getLastName())
+            return PersonRs.builder().firstName(person.getFirstName()).lastName(person.getLastName())
                     .photo(person.getPhoto()).build();
         }
         return null;

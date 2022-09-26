@@ -41,7 +41,7 @@ public class NotificationControllerTest {
 
 
     @Test
-    public void getNotifications() throws Exception {
+    public void getNotificationsAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
         this.mockMvc.perform(get(notificationUrl).header("Authorization", getTokenAuthorization()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -49,7 +49,7 @@ public class NotificationControllerTest {
     }
 
     @Test
-    public void markAsReadNotifications() throws Exception {
+    public void markAsReadNotificationsAuthorizedPersonWithAllTrueIsOkResponseWithJsonContent() throws Exception {
         this.mockMvc.perform(put(notificationUrl).header("Authorization", getTokenAuthorization())
                         .param("all", "true"))
                 .andDo(print())

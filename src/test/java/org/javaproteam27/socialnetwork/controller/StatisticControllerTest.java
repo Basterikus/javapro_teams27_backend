@@ -44,7 +44,7 @@ public class StatisticControllerTest {
     }
 
     @Test
-    public void getStatistics_UnAuthorizedPerson_AccessDeniedResponse() throws Exception {
+    public void getStatisticsUnAuthorizedPersonAccessDeniedResponse() throws Exception {
         this.mockMvc.perform(get(statisticUrl))
                 .andDo(print())
                 .andExpect(unauthenticated())

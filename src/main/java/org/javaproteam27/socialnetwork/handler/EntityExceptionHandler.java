@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class EntityExceptionHandler {
+
+    private final static String INVALID_REQUEST = "invalid_request";
     
     @ExceptionHandler
     public ResponseEntity<ErrorRs> catchInvalidRequestException(InvalidRequestException e) {
         log.error(e.getMessage(), e);
         ErrorRs errorRs = ErrorRs.builder()
-                .error("invalid_request")
+                .error(INVALID_REQUEST)
                 .errorDescription(e.getMessage())
                 .build();
         return new ResponseEntity<>(errorRs, HttpStatus.BAD_REQUEST);
@@ -29,7 +31,7 @@ public class EntityExceptionHandler {
     public ResponseEntity<ErrorRs> catchEntityNotFoundException(EntityNotFoundException e) {
         log.error(e.getMessage(), e);
         ErrorRs errorRs = ErrorRs.builder()
-                .error("invalid_request")
+                .error(INVALID_REQUEST)
                 .errorDescription(e.getMessage())
                 .build();
         return new ResponseEntity<>(errorRs, HttpStatus.NOT_FOUND);
@@ -39,7 +41,7 @@ public class EntityExceptionHandler {
     public ResponseEntity<ErrorRs> catchUnableCreateEntityException(UnableCreateEntityException e) {
         log.error(e.getMessage(), e);
         ErrorRs errorRs = ErrorRs.builder()
-                .error("invalid_request")
+                .error(INVALID_REQUEST)
                 .errorDescription(e.getMessage())
                 .build();
         return new ResponseEntity<>(errorRs, HttpStatus.NOT_FOUND);
@@ -49,7 +51,7 @@ public class EntityExceptionHandler {
     public ResponseEntity<ErrorRs> catchUnableUpdateEntityException(UnableUpdateEntityException e) {
         log.error(e.getMessage(), e);
         ErrorRs errorRs = ErrorRs.builder()
-                .error("invalid_request")
+                .error(INVALID_REQUEST)
                 .errorDescription(e.getMessage())
                 .build();
         return new ResponseEntity<>(errorRs, HttpStatus.NOT_FOUND);

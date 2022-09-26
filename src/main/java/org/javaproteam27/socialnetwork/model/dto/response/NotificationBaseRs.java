@@ -16,5 +16,5 @@ public class NotificationBaseRs {
     private Long sentTime;
     private String info;
     @JsonProperty("entity_author")
-    private EntityAuthorRs entityAuthor;
+    private PersonRs entityAuthor;
 }

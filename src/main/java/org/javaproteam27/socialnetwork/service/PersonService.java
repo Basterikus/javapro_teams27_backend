@@ -89,6 +89,7 @@ public class PersonService {
                 .birthDate(person.getBirthDate())
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
+                .photo(person.getPhoto())
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .build();

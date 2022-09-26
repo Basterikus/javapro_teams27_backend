@@ -129,4 +129,13 @@ public class MessageRepository {
             throw new UnableUpdateEntityException("message id = " + messageId);
         }
     }
+
+    public Integer getPersonalCount(int id) {
+        try {
+            String sql = "select count(*) from message where author_id = ?";
+            return jdbcTemplate.queryForObject(sql, Integer.class, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("id = " + id);
+        }
+    }
 }

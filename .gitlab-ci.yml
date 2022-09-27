@@ -65,7 +65,7 @@ sonarqube-check:
         paths:
         - .sonar/cache
     script: 
-        - mvn verify sonar:sonar -Dsonar.projectKey=social_network
+        - mvn verify sonar:sonar -Dsonar.projectKey=social_network2.0
     allow_failure: true
     only:
         - dev

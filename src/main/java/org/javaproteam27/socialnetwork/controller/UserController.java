@@ -1,13 +1,18 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import com.dropbox.core.DbxException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
+import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.LoginService;
+import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.javaproteam27.socialnetwork.service.PersonService;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -35,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("me")
-    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) {
+    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) throws IOException, DbxException {
         return loginService.profileResponse(token);
     }
 
@@ -46,7 +51,7 @@ public class UserController {
 
     @PostMapping("/{id}/wall")
     public ResponseRs<PostRs> publishPost(@RequestParam(required = false) Long publish_date,
-                                          @RequestBody PostRq postRq,@PathVariable(value = "id") int authorId) {
+                                          @RequestBody PostRq postRq, @PathVariable(value = "id") int authorId) {
 
         return postService.publishPost(publish_date, postRq, authorId);
     }

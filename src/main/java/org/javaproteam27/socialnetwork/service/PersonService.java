@@ -86,7 +86,6 @@ public class PersonService {
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .regDate(person.getRegDate())
-                .birthDate(person.getBirthDate())
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
                 .photo(person.getPhoto())

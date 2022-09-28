@@ -27,11 +27,11 @@ public class LoginService {
     private final PersonRepository personRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(String token) throws IOException, DbxException {
+    public ResponseRs<PersonRs> profileResponse(String token) throws IOException, DbxException {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
         PersonRs personRs = getPersonRs(person, token);
-        return ResponseEntity.ok(new ResponseRs<>("string", 0, 20, personRs));
+        return new ResponseRs<>("string", 0, 20, personRs);
     }
 
     public ResponseRs<PersonRs> login(LoginRq loginRq) throws IOException, DbxException {

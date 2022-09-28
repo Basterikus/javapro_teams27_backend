@@ -102,7 +102,7 @@ public class PersonService {
         person.setBirthDate(LocalDateTime.of(date, LocalTime.of(0,0,0,0)));
         person.setPhone(request.getPhone());
         person.setAbout(request.getAbout());
-        person.setCity(request.getTown());
+        person.setCity(request.getCity());
         person.setCountry(request.getCountry());
         person.setMessagesPermission(request.getMessagesPermission() == null ?
                 MessagesPermission.ALL : MessagesPermission.valueOf(request.getMessagesPermission()));

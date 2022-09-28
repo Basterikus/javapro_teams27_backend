@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import com.dropbox.core.DbxException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.service.PersonService;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -36,8 +39,8 @@ public class UserController {
                 offset, itemPerPage));
     }
 
-    @GetMapping("me")
-    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(@RequestHeader("Authorization") String token) {
+    @GetMapping("/me")
+    public ResponseEntity<ResponseRs<PersonRs>> profileResponse(@RequestHeader("Authorization") String token) throws IOException, DbxException {
         return loginService.profileResponse(token);
     }
 

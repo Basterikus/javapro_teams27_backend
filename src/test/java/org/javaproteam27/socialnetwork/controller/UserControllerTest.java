@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import com.dropbox.core.DbxException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
@@ -14,6 +15,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.io.IOException;
 
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,7 +41,7 @@ public class UserControllerTest {
     private final static String meUrl = "/api/v1/users/me";
 
 
-    private String getTokenAuthorization() {
+    private String getTokenAuthorization() throws IOException, DbxException {
         LoginRq rq = new LoginRq();
         rq.setEmail("test@mail.ru");
         rq.setPassword("test1234");

@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
+import com.dropbox.core.DbxException;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -12,9 +13,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -31,15 +34,18 @@ public class LoginServiceTest {
     @Mock
     private JwtTokenProvider jwtTokenProvider;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     private LoginService loginService;
 
     @Before
     public void setUp() {
-        loginService = new LoginService(jwtTokenProvider, personRepository);
+        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder);
     }
 
     @Test
-    public void profileResponseAuthorizedRqAllDataIsOk() {
+    public void profileResponseAuthorizedRqAllDataIsOk() throws IOException, DbxException {
         String token = "token";
 
         Person person = new Person();
@@ -63,7 +69,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void loginCorrectRqAllDataIsOk() {
+    public void loginCorrectRqAllDataIsOk() throws IOException, DbxException {
         LoginRq loginRq = new LoginRq();
         loginRq.setEmail("test@mail.ru");
         loginRq.setPassword("test");

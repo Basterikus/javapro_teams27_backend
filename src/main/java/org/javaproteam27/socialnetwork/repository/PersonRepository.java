@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -210,5 +211,9 @@ public class PersonRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("birth_date = " + birthDay);
         }
+    }
+
+    public List<Person> findAll() {
+        return jdbcTemplate.query("select * from person", rowMapper);
     }
 }

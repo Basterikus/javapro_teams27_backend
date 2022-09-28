@@ -52,10 +52,11 @@ public class LoginService {
     private PersonRs getPersonRs(Person person, String token) throws IOException, DbxException {
         return PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
                 lastName(person.getLastName()).regDate(person.getRegDate()).birthDate(person.getBirthDate()).
-                email(person.getEmail()).phone(person.getPhone()).photo(DropBox.getLingImages(person.getPhoto())).about(person.getAbout()).
+                email(person.getEmail()).phone(person.getPhone()).photo(person.getPhoto()).about(person.getAbout()).
                 city(person.getCity()).country(person.getCountry()).messagesPermission(person.getMessagesPermission()).
                 lastOnlineTime(person.getLastOnlineTime()).isBlocked(person.getIsBlocked()).token(token)
                 .build();
+
     }
 
     public ResponseRs<Object> logout() {

@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Sql("classpath:sql/person/insert-person.sql")
-@Sql(value = "classpath:sql/person/delete-person.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Transactional
 public class UserControllerTest {
 
     @Autowired
@@ -50,7 +51,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void authorizedMeTest() throws Exception {
+    public void profileResponseAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
         this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -58,7 +59,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void unAuthorizedMeTest() throws Exception {
+    public void profileResponseUnAuthorizedPersonAccessDeniedResponse() throws Exception {
         this.mockMvc.perform(get(meUrl))
                 .andDo(print())
                 .andExpect(unauthenticated())

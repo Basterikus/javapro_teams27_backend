@@ -1,24 +1,19 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import com.dropbox.core.DbxException;
-import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
-import org.javaproteam27.socialnetwork.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -31,36 +26,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql("classpath:sql/person/insert-person.sql")
 @Transactional
-public class UserControllerTest {
+public class StatisticControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private LoginService loginService;
-
-    private final static String meUrl = "/api/v1/users/me";
-
-
-    private String getTokenAuthorization() throws IOException, DbxException {
-        LoginRq rq = new LoginRq();
-        rq.setEmail("test@mail.ru");
-        rq.setPassword("test1234");
-        ResponseRs<PersonRs> loginRs = loginService.login(rq);
-        return loginRs.getData().getToken();
-    }
+    private final String statisticUrl = "/api/v1/statistics";
 
     @Test
-    public void profileResponseAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
-        this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
+    @WithUserDetails("test@mail.ru")
+    public void getStatisticsAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
+        this.mockMvc.perform(get(statisticUrl))
                 .andDo(print())
+                .andExpect(authenticated())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    public void profileResponseUnAuthorizedPersonAccessDeniedResponse() throws Exception {
-        this.mockMvc.perform(get(meUrl))
+    public void getStatisticsUnAuthorizedPersonAccessDeniedResponse() throws Exception {
+        this.mockMvc.perform(get(statisticUrl))
                 .andDo(print())
                 .andExpect(unauthenticated())
                 .andExpect(status().is4xxClientError());

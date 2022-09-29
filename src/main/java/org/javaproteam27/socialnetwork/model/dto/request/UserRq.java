@@ -16,14 +16,12 @@ public class UserRq {
 
     @JsonProperty("birth_date")
     private String birthDate;
-
     private String phone;
 
     @JsonProperty("photo_id")
     private String photoId;
-
     private String about;
-    private String town;
+    private String city;
     private String country;
 
     @JsonProperty("messages_permission")

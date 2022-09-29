@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 public class Notification {

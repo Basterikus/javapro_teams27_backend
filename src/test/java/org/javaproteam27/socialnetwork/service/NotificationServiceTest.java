@@ -54,7 +54,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void getNotifications() {
+    public void getNotificationsAuthorizedRqAllDataIsOk() {
         String token = "token";
         Integer offset = 0;
         Integer perPage = 20;
@@ -112,7 +112,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void emptyGetNotifications() {
+    public void getNotificationsAuthorizedRqEmptyListReturning() {
         String token = "token";
         int offset = 0;
         int perPage = 20;
@@ -131,7 +131,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void markAsReadAllNotifications() {
+    public void markAsReadNotificationsAllParamIsTrueAllNotificationsSetsReadTrue() {
         String token = "token";
         Integer expectedOffset = 0;
         Integer expectedPerPage = 20;
@@ -169,7 +169,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void markAsReadOneNotification() {
+    public void markAsReadNotificationAllParamIsFalseOneNotificationSetReadTrue() {
         String token = "token";
         Integer expectedOffset = 0;
         Integer expectedPerPage = 1;
@@ -202,7 +202,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void markAsReadNotificationFail() {
+    public void markAsReadNotificationBadPersonIdRqNotificationsNotFoundThrown() {
         String token = "token";
 
         when(jwtTokenProvider.getUsername(token)).thenReturn("email");
@@ -221,7 +221,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createCommentNotification() {
+    public void createCommentNotificationCreatingWithParentIdSaveOnceTimes() {
         Post post = Post.builder().id(0).authorId(1).build();
         Person person = new Person();
         person.setId(5);
@@ -238,7 +238,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createCommentNotificationWithoutParentId() {
+    public void createCommentNotificationCreatingWithoutParentIdSaveOnceTimes() {
         Post post = Post.builder().id(0).authorId(1).build();
         Person person = new Person();
         person.setId(5);
@@ -255,7 +255,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createCommentNotificationWithSamePostAuthorAndPerson() {
+    public void createCommentNotificationWithSamePostAuthorAndPersonDoNotSaving() {
         Post post = Post.builder().id(0).authorId(1).build();
         Person person = new Person();
         person.setId(1);
@@ -272,7 +272,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createCommentNotificationWithSameCommentAuthorAndPostAuthor() {
+    public void createCommentNotificationWithSameCommentAuthorAndPostAuthorDoNotSaving() {
         Post post = Post.builder().id(0).authorId(1).build();
         Person person = new Person();
         person.setId(3);
@@ -289,7 +289,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createSubCommentNotification() {
+    public void createSubCommentNotificationCreatingWithCorrectDataSaveOnceTimes() {
         Comment comment = Comment.builder().id(2).authorId(3).parentId(4).build();
         Person person = new Person();
         person.setId(1);
@@ -304,7 +304,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createSubCommentNotificationWithSameCommentAuthorAndPerson() {
+    public void createSubCommentNotificationWithSameCommentAuthorAndPersonDoNotSaving() {
         Comment comment = Comment.builder().id(2).authorId(1).parentId(4).build();
         Person person = new Person();
         person.setId(1);
@@ -319,7 +319,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createFriendshipNotification() {
+    public void createFriendshipNotificationWithCorrectDataSaveOnceTimes() {
         Friendship friendship = new Friendship();
         friendship.setId(1);
 
@@ -331,7 +331,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createPostNotification() {
+    public void createPostNotificationWithCorrectDataSaveOnceTimes() {
         Friendship friendship = new Friendship();
         friendship.setDstPersonId(1);
 
@@ -345,7 +345,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createPostLikeNotificationWhenTypePost() {
+    public void createPostLikeNotificationWhenTypePostSaveOnceTimes() {
         Person person = new Person();
         person.setId(1);
         Post post = Post.builder().id(2).authorId(3).build();
@@ -359,7 +359,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createPostLikeNotificationWhenTypePostWithSameLikeAuthorAndPerson() {
+    public void createPostLikeNotificationWhenTypePostWithSameLikeAuthorAndPersonDoNotSaving() {
         Person person = new Person();
         person.setId(1);
         Post post = Post.builder().id(2).authorId(1).build();
@@ -373,7 +373,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createPostLIkeNotificationWhenTypeComment() {
+    public void createPostLIkeNotificationWhenTypeCommentSaveOnceTimes() {
         Person person = new Person();
         person.setId(1);
         Comment comment = Comment.builder().id(2).authorId(3).build();
@@ -388,7 +388,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createMessageNotification() {
+    public void createMessageNotificationWithCorrectDataSaveOnceTimes() {
         Person person = new Person();
         person.setId(1);
         Message message = Message.builder().id(2).authorId(1).recipientId(4).build();
@@ -402,7 +402,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createMessageNotificationWithSameAuthorAndRecipient() {
+    public void createMessageNotificationWithSameAuthorAndRecipientDoNotSaving() {
         Person person = new Person();
         person.setId(1);
         Message message = Message.builder().id(2).authorId(1).recipientId(1).build();
@@ -416,7 +416,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createPostLIkeNotificationWhenTypeCommentWithSameLikeAuthorAndPerson() {
+    public void createPostLIkeNotificationWhenTypeCommentWithSameLikeAuthorAndPersonDoNotSaving() {
         Person person = new Person();
         person.setId(1);
         Comment comment = Comment.builder().id(2).authorId(1).build();
@@ -431,7 +431,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createFriendBirthDayNotification() {
+    public void createFriendBirthDayNotificationWithCorrectDataSaveOnceTimes() {
         Person person = new Person();
         person.setId(1);
         var personList = List.of(person);
@@ -450,7 +450,7 @@ public class NotificationServiceTest {
     }
 
     @Test
-    public void createFriendBirthDayNotificationWithEmptyList() {
+    public void createFriendBirthDayNotificationWithEmptyListDoNotSaving() {
         when(personRepository.getByBirthDay(anyString())).thenReturn(new ArrayList<>());
 
         notificationService.createFriendBirthdayNotification();

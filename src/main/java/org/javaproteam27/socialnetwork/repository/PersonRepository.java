@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -65,7 +66,7 @@ public class PersonRepository {
         }
     }
 
-    public Integer count() {
+    public Integer getCount() {
         
         String sql = "select count(*) from person";
         return jdbcTemplate.queryForObject(sql, Integer.class);
@@ -185,15 +186,22 @@ public class PersonRepository {
         return retValue;
     }
 
-    public Boolean savePhoto(Person person) {
-        Boolean retValue;
+    public Boolean editPassword(Person person) {
         try {
-            retValue = (jdbcTemplate.update("UPDATE person SET photo = ? WHERE id = ?", person.getPhoto(),
+            return (jdbcTemplate.update("UPDATE person SET password = ? WHERE id = ?", person.getPassword(),
                     person.getId()) == 1);
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
-        return retValue;
+    }
+
+    public Boolean savePhoto(Person person) {
+        try {
+            return (jdbcTemplate.update("UPDATE person SET photo = ? WHERE id = ?", person.getPhoto(),
+                    person.getId()) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
     }
 
     public List<Person> getByBirthDay(String birthDay) {
@@ -203,5 +211,9 @@ public class PersonRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("birth_date = " + birthDay);
         }
+    }
+
+    public List<Person> findAll() {
+        return jdbcTemplate.query("select * from person", rowMapper);
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +108,12 @@ public class PostRepository {
         }
 
         if (dateFrom != null) {
-            LocalDateTime dateFromParsed = LocalDateTime.parse(dateFrom.toString(), formatter);
+            LocalDateTime dateFromParsed = Instant.ofEpochMilli(dateFrom).atZone(ZoneId.systemDefault()).toLocalDateTime();
             queryParts.add("p.time > '" + dateFromParsed + "'::date");
         }
 
         if (dateTo != null) {
-            LocalDateTime dateToParsed = LocalDateTime.parse(dateTo.toString(), formatter);
+            LocalDateTime dateToParsed = Instant.ofEpochMilli(dateTo).atZone(ZoneId.systemDefault()).toLocalDateTime();
             queryParts.add("p.time < '" + dateToParsed + "'::date");
         }
 

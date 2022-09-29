@@ -1,0 +1,69 @@
+2022-09-29 17:15:10 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on TL-WA850RE-1.home with PID 10663 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-29 17:15:10 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-29 17:15:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-29 17:15:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9ms. Found 0 JDBC repository interfaces.
+2022-09-29 17:15:11 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-29 17:15:11 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-29 17:15:11 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-29 17:15:11 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-29 17:15:11 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-29 17:15:11 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 503 ms
+2022-09-29 17:15:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-29 17:15:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-29 17:15:12 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-29 17:15:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-29 17:15:13 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-29 17:15:13 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-29 17:15:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-29 17:15:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-29 17:15:14 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-29 17:15:14 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-29 17:15:15 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-29 17:15:15 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-29 17:15:15 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-29 17:15:15 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@507e3e77, org.springframework.security.web.context.SecurityContextPersistenceFilter@4e9d1119, org.springframework.security.web.header.HeaderWriterFilter@5e6ad84c, org.springframework.web.filter.CorsFilter@73796ae5, org.springframework.security.web.authentication.logout.LogoutFilter@5799b8a2, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@535b1ae6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@531ed68e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3c070ade, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3956e933, org.springframework.security.web.session.SessionManagementFilter@1e834a5b, org.springframework.security.web.access.ExceptionTranslationFilter@55b5ce0f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3ba8fbc8]
+2022-09-29 17:15:15 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-29 17:15:15 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-29 17:15:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-29 17:15:15 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 5.024 seconds (JVM running for 5.35)
+2022-09-29 17:15:38 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-29 17:15:38 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-29 17:15:38 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-29 17:15:38 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2022-09-29 17:16:23 [main] INFO  o.j.s.SocialNetworkApplication - Starting SocialNetworkApplication on TL-WA850RE-1.home with PID 10710 (/Users/vareldzhyankarina/FinalProject/javapro_teams27_backend/target/classes started by vareldzhyankarina in /Users/vareldzhyankarina/FinalProject/javapro_teams27_backend)
+2022-09-29 17:16:23 [main] INFO  o.j.s.SocialNetworkApplication - The following profiles are active: prod
+2022-09-29 17:16:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-09-29 17:16:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9ms. Found 0 JDBC repository interfaces.
+2022-09-29 17:16:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8086 (http)
+2022-09-29 17:16:23 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2022-09-29 17:16:23 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-29 17:16:23 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.46]
+2022-09-29 17:16:23 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-09-29 17:16:23 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 479 ms
+2022-09-29 17:16:23 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-29 17:16:25 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-29 17:16:27 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-29 17:16:27 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangeloglock
+2022-09-29 17:16:27 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1
+2022-09-29 17:16:27 [main] INFO  l.lockservice.StandardLockService - Successfully acquired change log lock
+2022-09-29 17:16:29 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL LIMIT 1
+2022-09-29 17:16:30 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT COUNT(*) FROM public.databasechangelog
+2022-09-29 17:16:30 [main] INFO  l.c.StandardChangeLogHistoryService - Reading from public.databasechangelog
+2022-09-29 17:16:30 [main] INFO  liquibase.executor.jvm.JdbcExecutor - SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2022-09-29 17:16:30 [main] INFO  l.lockservice.StandardLockService - Successfully released change log lock
+2022-09-29 17:16:30 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-29 17:16:31 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2022-09-29 17:16:31 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3aebdb4, org.springframework.security.web.context.SecurityContextPersistenceFilter@7fda84cf, org.springframework.security.web.header.HeaderWriterFilter@65067d37, org.springframework.web.filter.CorsFilter@4fd70118, org.springframework.security.web.authentication.logout.LogoutFilter@779cda39, org.javaproteam27.socialnetwork.security.jwt.JwtTokenFilter@3b42121d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d1907fb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@20bf7206, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1db7c267, org.springframework.security.web.session.SessionManagementFilter@48cebb78, org.springframework.security.web.access.ExceptionTranslationFilter@3ed3e66d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@40dcbf7]
+2022-09-29 17:16:31 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-09-29 17:16:31 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2022-09-29 17:16:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8086 (http) with context path ''
+2022-09-29 17:16:31 [main] INFO  o.j.s.SocialNetworkApplication - Started SocialNetworkApplication in 7.922 seconds (JVM running for 8.376)
+2022-09-29 17:16:34 [http-nio-8086-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-29 17:16:34 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-09-29 17:16:34 [http-nio-8086-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2022-09-29 17:16:34 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Request = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], arguments: [] 
+2022-09-29 17:16:35 [http-nio-8086-exec-1] INFO  o.j.socialnetwork.aop.LoggerAspect - Response = path: [org.javaproteam27.socialnetwork.controller.LoginController], method: [getToken], return: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2NjQ0NjQ1OTUsImV4cCI6MTY2NDQ2ODE5NX0.nd3GUkZQcr7Uc4RPs0VfSTi40UBZ1df8-DGzsJTxTws] 
+2022-09-29 17:29:50 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2022-09-29 17:29:50 [SpringContextShutdownHook] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-29 17:29:50 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-29 17:29:50 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

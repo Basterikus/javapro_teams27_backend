@@ -1,9 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import com.dropbox.core.DbxException;
-import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.javaproteam27.socialnetwork.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
 
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,19 +37,20 @@ public class UserControllerTest {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     private final static String meUrl = "/api/v1/users/me";
 
 
-    private String getTokenAuthorization() throws IOException, DbxException {
-        LoginRq rq = new LoginRq();
-        rq.setEmail("test@mail.ru");
-        rq.setPassword("test1234");
-        ResponseRs<PersonRs> loginRs = loginService.login(rq);
-        return loginRs.getData().getToken();
+    private String getTokenAuthorization() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        JwtUser jwtUser = (JwtUser) auth.getPrincipal();
+        return jwtTokenProvider.createToken(jwtUser.getUsername());
     }
 
     @Test
+    @WithUserDetails("test@mail.ru")
     public void profileResponseAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
         this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
                 .andDo(print())

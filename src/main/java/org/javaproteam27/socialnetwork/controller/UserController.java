@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import com.dropbox.core.DbxException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
@@ -10,6 +11,8 @@ import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.javaproteam27.socialnetwork.service.PersonService;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -23,10 +26,10 @@ public class UserController {
 
     @GetMapping("/search")
     public ResponseEntity<ListResponseRs<PersonRs>> searchPeople(
-            @RequestParam(value = "firstName", required = false) String firstName,
-            @RequestParam(value = "lastName", required = false) String lastName,
-            @RequestParam(value = "ageFrom", required = false) Integer ageFrom,
-            @RequestParam(value = "ageTo", required = false) Integer ageTo,
+            @RequestParam(value = "first_name", required = false) String firstName,
+            @RequestParam(value = "last_name", required = false) String lastName,
+            @RequestParam(value = "age_from", required = false) Integer ageFrom,
+            @RequestParam(value = "age_to", required = false) Integer ageTo,
             @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
@@ -37,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("me")
-    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) {
+    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) throws IOException, DbxException {
         return loginService.profileResponse(token);
     }
 
@@ -48,7 +51,7 @@ public class UserController {
 
     @PostMapping("/{id}/wall")
     public ResponseRs<PostRs> publishPost(@RequestParam(required = false) Long publish_date,
-                                          @RequestBody PostRq postRq,@PathVariable(value = "id") int authorId) {
+                                          @RequestBody PostRq postRq, @PathVariable(value = "id") int authorId) {
 
         return postService.publishPost(publish_date, postRq, authorId);
     }

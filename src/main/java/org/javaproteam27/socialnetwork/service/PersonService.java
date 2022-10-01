@@ -15,6 +15,7 @@ import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Person findById(int id) {
@@ -71,6 +73,8 @@ public class PersonService {
                         .build())
                 .collect(Collectors.toList());
 
+
+
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
@@ -89,12 +93,14 @@ public class PersonService {
                 .birthDate(person.getBirthDate())
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
+                .photo(person.getPhoto())
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .build();
     }
 
     public ResponseEntity<UserRs> editUser(UserRq request, String token) {
+
         UserRs response = new UserRs();
         Person person = personRepository.findByEmail(jwtTokenProvider.getUsername(token));
         person.setFirstName(request.getFirstName());
@@ -105,7 +111,7 @@ public class PersonService {
         person.setBirthDate(LocalDateTime.of(date, LocalTime.of(0,0,0,0)));
         person.setPhone(request.getPhone());
         person.setAbout(request.getAbout());
-        person.setCity(request.getTown());
+        person.setCity(request.getCity());
         person.setCountry(request.getCountry());
         person.setMessagesPermission(request.getMessagesPermission() == null ?
                 MessagesPermission.ALL : MessagesPermission.valueOf(request.getMessagesPermission()));

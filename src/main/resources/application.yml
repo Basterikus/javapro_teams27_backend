@@ -4,6 +4,17 @@ server:
 spring:
     profiles:
         active: prod
+    mail:
+        host: smtp.yandex.ru
+        port: 465
+        username: javaproteams27
+        password: ddlmgyrcybsvjthu
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    ssl:
+                        enable: true
 
 logging:
     level:
@@ -17,3 +28,4 @@ yandexprofile:
 
 logsupload:
     enabled: false
+

@@ -1,10 +1,12 @@
 package org.javaproteam27.socialnetwork.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.javaproteam27.socialnetwork.mapper.PostMapper;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -120,7 +122,8 @@ public class PostRepository {
         if (tags != null) {
             queryParts.add(buildQueryTags(tags));
             query.insert(0, " JOIN post2tag AS pt ON p.id = pt.post_id JOIN tag AS t ON t.id = pt.tag_id");
-            query.insert(0, "SELECT p.id, count(*) FROM post AS p");
+            query.insert(0, "SELECT p.id, p.time, p.author_id, p.title, p.post_text, p.is_blocked, " +
+                    "count(*) FROM post AS p");
         } else {
             query.insert(0, "SELECT * FROM post AS p");
         }
@@ -128,6 +131,20 @@ public class PostRepository {
         String buildQuery = query + String.join(" AND ", queryParts) + ";";
 
         return jdbcTemplate.query(buildQuery, new PostMapper());
+    }
+
+    public Integer getCount() {
+        String sql = "select count(*) from post";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    public Integer getPersonalCount(int id) {
+        try {
+            String sql = "select count(*) from post where author_id = ?";
+            return jdbcTemplate.queryForObject(sql, Integer.class, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("id = " + id);
+        }
     }
 
     private String buildQueryTags(List<String> tags) {

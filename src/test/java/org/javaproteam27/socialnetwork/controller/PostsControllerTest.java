@@ -1,10 +1,8 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
-import org.javaproteam27.socialnetwork.service.LoginService;
-import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,16 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.TestPropertySources;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -31,42 +26,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 //@TestPropertySource("/application-test.yml")
-@WithUserDetails("test@mail.ru")
 @ActiveProfiles("test")
+@Sql(scripts = {"classpath:sql/person/insert-person.sql", "classpath:sql/post/insert-post.sql"})
 @Transactional
-@Sql(value = {"classpath:sql/person/insert-person.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class PostsControllerTest {
+@WithUserDetails("test@mail.ru")
+public class PostsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private PostsController postsController;
-
-    @Autowired
-    private LoginService loginService;
-
     private final String postUrl = "/api/v1/post/1";
 
-    @Test
-    public void deletePost() throws Exception {
-
-        this.mockMvc.perform(delete(postUrl))
-                .andDo(print()).andExpect(status().isOk());
-    }
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void updatePost() {
-    }
-
-    @Test
-    void getPost() throws Exception {
+    public void getPost() throws Exception {
 
         this.mockMvc.perform(get(postUrl))
                 .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
-    void findPost() {
+    public void deletePost() throws Exception {
+
+        this.mockMvc.perform(delete(postUrl))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void updatePost() throws Exception {
+
+        PostRq rq = PostRq.builder().postText("new test text").title("new test title").tags(List.of())
+                .getDeleted(false).build();
+        this.mockMvc.perform(put(postUrl).content(objectMapper.writeValueAsString(rq))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print()).andExpect(status().isOk());
     }
 }

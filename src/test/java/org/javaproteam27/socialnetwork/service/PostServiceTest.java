@@ -15,7 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -29,7 +28,7 @@ class PostServiceTest {
     @MockBean
     private TagRepository tagRepository;
     @MockBean
-    private NotificationsService notificationsService;
+    private NotificationService notificationService;
 
     @Autowired
     PostService postService;
@@ -37,7 +36,7 @@ class PostServiceTest {
     private void assertResponseRs(ResponseRs<PostRs> response){
         assertNotNull(response);
         assertEquals("", response.getError());
-        assertTrue(response.getTimestamp() instanceof Long);
+        assertNotNull(response.getTimestamp());
     }
 
     private void assertListResponseRs(ListResponseRs<PostRs> response, Integer offset, Integer itemPerPage){
@@ -45,12 +44,12 @@ class PostServiceTest {
         assertEquals(offset, response.getOffset());
         assertEquals(itemPerPage, response.getPerPage());
         assertEquals("", response.getError());
-        assertTrue(response.getTimestamp() instanceof Long);
+        assertNotNull(response.getTimestamp());
     }
 
     @Test
     void publishPost() {
-        PostRq testPost = PostRq.builder().postText("Test post").tags(Arrays.asList("test_post")).title("Test post").build();
+        PostRq testPost = PostRq.builder().postText("Test post").tags(List.of("test_post")).title("Test post").build();
         ResponseRs<PostRs> response = postService.publishPost(System.currentTimeMillis(), testPost, 1);
 
         assertResponseRs(response);

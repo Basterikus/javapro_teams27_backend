@@ -1,24 +1,18 @@
 package org.javaproteam27.socialnetwork.service;
 
-import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
 import org.javaproteam27.socialnetwork.model.dto.response.LikeRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
-import org.javaproteam27.socialnetwork.repository.CommentRepository;
 import org.javaproteam27.socialnetwork.repository.LikeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -32,7 +26,7 @@ class LikeServiceTest {
     LikeRepository likeRepository;
 
     @MockBean
-    NotificationsService notificationsService;
+    NotificationService notificationService;
 
     @Autowired
     private LikeService likeService;
@@ -41,16 +35,7 @@ class LikeServiceTest {
 
         assertNotNull(response);
         assertEquals("", response.getError());
-        assertTrue(response.getTimestamp() instanceof Long);
-    }
-
-    private void assertListResponseRs(ListResponseRs<LikeRs> response, Integer offset, Integer itemPerPage){
-
-        assertNotNull(response);
-        assertEquals(offset, response.getOffset());
-        assertEquals(itemPerPage, response.getPerPage());
-        assertEquals("", response.getError());
-        assertTrue(response.getTimestamp() instanceof Long);
+        assertNotNull(response.getTimestamp());
     }
 
     @Test

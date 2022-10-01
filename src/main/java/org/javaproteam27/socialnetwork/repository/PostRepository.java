@@ -48,17 +48,19 @@ public class PostRepository {
         return retList;
     }
 
-    public Boolean deletePostById(int postId) {
+    public void deletePostById(int postId) {
         Boolean retValue;
         try {
             retValue = (jdbcTemplate.update("UPDATE post SET is_deleted = true WHERE id = ?", postId) == 1);
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
-        return retValue;
+        if (!retValue) {
+            throw new ErrorException("Post not deleted");
+        }
     }
 
-    public Boolean updatePostById(int postId, String title, String postText) {
+    public void updatePostById(int postId, String title, String postText) {
         Boolean retValue;
         try {
             retValue = (jdbcTemplate.update("UPDATE post SET title = ?, post_text = ? WHERE id = ?", title,
@@ -66,7 +68,9 @@ public class PostRepository {
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
-        return retValue;
+        if (!retValue) {
+            throw new ErrorException("Post not updated");
+        }
     }
 
     public Post findPostById(int postId) {

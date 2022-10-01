@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -29,7 +28,7 @@ class CommentServiceTest {
     CommentRepository commentRepository;
 
     @MockBean
-    NotificationsService notificationsService;
+    NotificationService notificationsService;
 
     @Autowired
     CommentService commentService;
@@ -38,7 +37,7 @@ class CommentServiceTest {
 
         assertNotNull(response);
         assertEquals("", response.getError());
-        assertTrue(response.getTimestamp() instanceof Long);
+        assertNotNull(response.getTimestamp());
     }
 
     private void assertListResponseRs(ListResponseRs<CommentRs> response, Integer offset, Integer itemPerPage){
@@ -47,7 +46,7 @@ class CommentServiceTest {
         assertEquals(offset, response.getOffset());
         assertEquals(itemPerPage, response.getPerPage());
         assertEquals("", response.getError());
-        assertTrue(response.getTimestamp() instanceof Long);
+        assertNotNull(response.getTimestamp());
     }
 
     @Test

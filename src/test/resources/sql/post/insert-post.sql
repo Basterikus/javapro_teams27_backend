@@ -1,0 +1,1 @@
+INSERT INTO post (id, time, author_id, title, post_text) VALUES (1, '2022-10-01 12:21:50.857', 1, 'Test Post', '<p>test!</p>');

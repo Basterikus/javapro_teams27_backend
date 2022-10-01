@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.service.PostService;
@@ -37,7 +38,7 @@ public class PostsController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findPost(
+    public ListResponseRs<PostRs> findPost(
             @RequestParam(value = "text") String text,
             @RequestParam(value = "dateFrom", required = false) Long dateFrom,
             @RequestParam(value = "dateTo", required = false) Long dateTo,

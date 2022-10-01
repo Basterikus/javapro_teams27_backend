@@ -71,7 +71,7 @@ public class TagRepository {
         return retValue;
     }
 
-    public Boolean updateTagsPostId(int postId, ArrayList<String> tags) {
+    public Boolean updateTagsPostId(int postId, List<String> tags) {
         Boolean retValue = null;
         if (deleteTagsByPostId(postId)) {
             tags.forEach(tag -> addTag(tag, postId));

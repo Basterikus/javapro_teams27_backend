@@ -1,7 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
@@ -64,7 +63,7 @@ public class CommentService {
     }
 
     public ListResponseRs<CommentRs> getCommentsByPostIdInResponse(int postId, int offset, int itemPerPage) {
-        return new ListResponseRs<>("", offset, itemPerPage, InitializeCommentsToPost(postId, offset, itemPerPage));
+        return new ListResponseRs<>("", offset, itemPerPage, initializeCommentsToPost(postId, offset, itemPerPage));
     }
 
     public void deleteAllCommentsToPost(int postId) {
@@ -80,7 +79,7 @@ public class CommentService {
         return new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
     }
 
-    public List<CommentRs> InitializeCommentsToPost(Integer postId, Integer offset, Integer limit){
+    public List<CommentRs> initializeCommentsToPost(Integer postId, Integer offset, Integer limit){
         List<Comment> commentList = commentRepository.getAllCommentsByPostIdAndParentId(postId, null, offset, limit);
         List<CommentRs> commentRsList = commentList.stream().map(this::convertToCommentRs).collect(Collectors.toList());
         commentRsList.forEach(commentRs -> setSubCommentsToComments(commentRs, commentRs.getId()));

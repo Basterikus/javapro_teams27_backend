@@ -1,5 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.javaproteam27.socialnetwork.service.LoginService;
@@ -18,8 +20,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Sql("classpath:sql/person/insert-person.sql")
+@Sql(scripts = {"classpath:sql/person/insert-person.sql", "classpath:sql/post/insert-post.sql"})
 @Transactional
 public class UserControllerTest {
 
@@ -40,7 +45,11 @@ public class UserControllerTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    private final static String meUrl = "/api/v1/users/me";
+    private final Long dayInMillis = 86_400_000L;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private final static String userUrl = "/api/v1/users";
 
 
     private String getTokenAuthorization() {
@@ -52,7 +61,7 @@ public class UserControllerTest {
     @Test
     @WithUserDetails("test@mail.ru")
     public void profileResponseAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
-        this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
+        this.mockMvc.perform(get(userUrl + "/me").header("Authorization", getTokenAuthorization()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -60,9 +69,43 @@ public class UserControllerTest {
 
     @Test
     public void profileResponseUnAuthorizedPersonAccessDeniedResponse() throws Exception {
-        this.mockMvc.perform(get(meUrl))
+        this.mockMvc.perform(get(userUrl + "/me"))
                 .andDo(print())
                 .andExpect(unauthenticated())
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    @WithUserDetails("test@mail.ru")
+    public void publishPost() throws Exception {
+
+        PostRq rq = PostRq.builder().postText("New post from test").tags(List.of()).title("Test post").build();
+        Long pubDate = System.currentTimeMillis() + dayInMillis;
+        this.mockMvc.perform(post(userUrl + "/1/wall").param("publish_date", pubDate.toString())
+                .content(objectMapper.writeValueAsString(rq))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    @WithUserDetails("test@mail.ru")
+    public void getUserPosts() throws Exception {
+
+        this.mockMvc.perform(get(userUrl + "/1/wall").param("offset", "0").param("perPage", "10"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    @WithUserDetails("test@mail.ru")
+    public void getUserInfo() throws Exception {
+
+        this.mockMvc.perform(get(userUrl + "/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }

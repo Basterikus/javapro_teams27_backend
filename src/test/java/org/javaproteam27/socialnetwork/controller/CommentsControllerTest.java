@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
+import org.javaproteam27.socialnetwork.model.dto.request.CommentRq;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -27,41 +25,51 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 //@TestPropertySource("/application-test.yml")
 @ActiveProfiles("test")
-@Sql(scripts = {"classpath:sql/person/insert-person.sql", "classpath:sql/post/insert-post.sql"})
+@Sql(scripts = {"classpath:sql/person/insert-person.sql",
+                "classpath:sql/post/insert-post.sql",
+        "classpath:sql/post/insert-comment.sql"})
 @Transactional
 @WithUserDetails("test@mail.ru")
-public class PostsControllerTest {
+public class CommentsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    private final String postUrl = "/api/v1/post/1";
-
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    public void getPost() throws Exception {
+    private final String commentToPostUrl = "/api/v1/post/1/comments";
 
-        this.mockMvc.perform(get(postUrl))
+    @Test
+    public void createComment() throws Exception {
+
+        CommentRq rq = CommentRq.builder().commentText("Added in test comment to post 1").build();
+        this.mockMvc.perform(post(commentToPostUrl).content(objectMapper.writeValueAsString(rq))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    public void deletePost() throws Exception {
+    public void getComments() throws Exception {
 
-        this.mockMvc.perform(delete(postUrl))
+        this.mockMvc.perform(get(commentToPostUrl).param("offset", "0").param("perPage", "10"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    public void updatePost() throws Exception {
+    public void deleteComment() throws Exception {
 
-        PostRq rq = PostRq.builder().postText("new test text").title("new test title").tags(List.of())
-                .getDeleted(false).build();
-        this.mockMvc.perform(put(postUrl).content(objectMapper.writeValueAsString(rq))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(delete(commentToPostUrl + "/1")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void editComment() throws Exception {
+
+        CommentRq rq = CommentRq.builder().commentText("New comment from test to post 1").build();
+        this.mockMvc.perform(put(commentToPostUrl + "/1").content(objectMapper.writeValueAsString(rq))
+                        .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }

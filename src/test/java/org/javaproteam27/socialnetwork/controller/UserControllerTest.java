@@ -1,13 +1,9 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.dropbox.core.DbxException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
-import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
-import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
-import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.javaproteam27.socialnetwork.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +19,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
 
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,6 +44,7 @@ public class UserControllerTest {
     @Autowired
     private LoginService loginService;
 
+
     private final static String meUrl = "/api/v1/users/me";
     @Autowired
     private ObjectMapper objectMapper;
@@ -62,6 +57,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithUserDetails("test@mail.ru")
     public void profileResponseAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
         this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
                 .andDo(print())

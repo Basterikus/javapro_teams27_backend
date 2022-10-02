@@ -41,7 +41,7 @@ public class PostRepository {
         List<Post> retList;
         try {
             retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId
-                    + " AND is_deleted is false ORDER BY time DESC" + " LIMIT " + limit + " OFFSET " + offset, new PostMapper());
+                    + " ORDER BY time DESC" + " LIMIT " + limit + " OFFSET " + offset, new PostMapper());
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
@@ -162,4 +162,15 @@ public class PostRepository {
         return sb.toString();
     }
 
+    public void recoverPostById(int postId) {
+        Boolean retValue;
+        try {
+            retValue = (jdbcTemplate.update("UPDATE post SET is_deleted = false WHERE id = ?", postId) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+        if (!retValue) {
+            throw new ErrorException("Post not recovered");
+        }
+    }
 }

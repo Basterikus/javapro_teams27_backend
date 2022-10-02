@@ -35,14 +35,14 @@ public class PostsControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final String postUrl = "/api/v1/post/1";
+    private final String postUrl = "/api/v1/post";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     public void getPost() throws Exception {
 
-        this.mockMvc.perform(get(postUrl))
+        this.mockMvc.perform(get(postUrl + "/1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -50,7 +50,7 @@ public class PostsControllerTest {
     @Test
     public void deletePost() throws Exception {
 
-        this.mockMvc.perform(delete(postUrl))
+        this.mockMvc.perform(delete(postUrl + "/1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -60,8 +60,14 @@ public class PostsControllerTest {
 
         PostRq rq = PostRq.builder().postText("new test text").title("new test title").tags(List.of())
                 .getDeleted(false).build();
-        this.mockMvc.perform(put(postUrl).content(objectMapper.writeValueAsString(rq))
+        this.mockMvc.perform(put(postUrl + "/1").content(objectMapper.writeValueAsString(rq))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void recoverPost() throws Exception {
+
+        this.mockMvc.perform(put(postUrl + "/2/recover")).andDo(print()).andExpect(status().isOk());
     }
 }

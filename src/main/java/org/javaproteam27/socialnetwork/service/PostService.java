@@ -30,7 +30,7 @@ public class PostService {
 
         if (post == null) return null;
         long timestamp = post.getTime();
-        String type = (!post.getIsDeleted()) ? "DELETED" : ((timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED");
+        String type = (post.getIsDeleted()) ? "DELETED" : ((timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED");
         List<CommentRs> comments = commentService.initializeCommentsToPost(post.getId(), null, null);
         return PostRs.builder()
                 .id(post.getId())
@@ -100,6 +100,14 @@ public class PostService {
     }
 
     public ResponseRs<PostRs> getPost(int postId) {
+        Post post = postRepository.findPostById(postId);
+        PostRs data = (post != null) ? convertToPostRs(post) : null;
+        return new ResponseRs<>("", data, null);
+    }
+
+    @Transactional
+    public ResponseRs<PostRs> recoverPost(int postId) {
+        postRepository.recoverPostById(postId);
         Post post = postRepository.findPostById(postId);
         PostRs data = (post != null) ? convertToPostRs(post) : null;
         return new ResponseRs<>("", data, null);

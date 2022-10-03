@@ -22,7 +22,10 @@ logsupload:
     enabled: false
 
 management:
-  endpoints.web.exposure.include: 'prometheus, health'
+  endpoints:
+      web:
+          exposure:
+              include: 'prometheus, health'
   metrics:
     export:
       prometheus:

@@ -20,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,13 +43,16 @@ public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private LoginService loginService;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private final static String meUrl = "/api/v1/users/me";
+    private final static String userUrl = "/api/v1/users";
+    private final Long dayInMillis = 86_400_000L;
 
 
     private String getTokenAuthorization() {
@@ -85,12 +90,13 @@ public class UserControllerTest {
         userRq.setPhone("8064581946");
 
         this.mockMvc.perform(put(meUrl).header("Authorization", getTokenAuthorization())
-                .content(objectMapper.writeValueAsString(userRq))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(userRq))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
+
 
     @Test
     @WithUserDetails("test@mail.ru")

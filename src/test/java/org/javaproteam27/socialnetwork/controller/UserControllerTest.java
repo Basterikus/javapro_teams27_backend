@@ -1,9 +1,9 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import com.dropbox.core.DbxException;
-import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
+import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.javaproteam27.socialnetwork.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class UserControllerTest {
 
+    private final static String meUrl = "/api/v1/users/me";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -44,8 +46,6 @@ public class UserControllerTest {
     @Autowired
     private LoginService loginService;
 
-
-    private final static String meUrl = "/api/v1/users/me";
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -59,7 +59,7 @@ public class UserControllerTest {
     @Test
     @WithUserDetails("test@mail.ru")
     public void profileResponseAuthorizedPersonIsOkResponseWithJsonContent() throws Exception {
-        this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
+         this.mockMvc.perform(get(meUrl).header("Authorization", getTokenAuthorization()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -74,6 +74,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithUserDetails("test@mail.ru")
     public void profileEditInformation() throws Exception {
         UserRq userRq = new UserRq();
         userRq.setFirstName("Тест");

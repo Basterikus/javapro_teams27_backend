@@ -8,11 +8,14 @@ import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.javaproteam27.socialnetwork.util.DropBox;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -34,14 +37,17 @@ public class LoginServiceTest {
     @Mock
     private JwtTokenProvider jwtTokenProvider;
 
-    @Mock
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private DropBox dropBox;
 
     private LoginService loginService;
 
     @Before
     public void setUp() {
-        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder);
+        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, dropBox);
     }
 
     @Test
@@ -70,13 +76,14 @@ public class LoginServiceTest {
 
     @Test
     public void loginCorrectRqAllDataIsOk() throws IOException, DbxException {
+        var password = passwordEncoder.encode("test1234");
         LoginRq loginRq = new LoginRq();
         loginRq.setEmail("test@mail.ru");
-        loginRq.setPassword("test");
+        loginRq.setPassword("test1234");
 
         Person person = new Person();
         person.setEmail("test@mail.ru");
-        person.setPassword("test");
+        person.setPassword(password);
         person.setIsBlocked(false);
 
         when(personRepository.findByEmail(loginRq.getEmail())).thenReturn(person);

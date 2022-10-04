@@ -39,8 +39,8 @@ public class PostsController {
     @GetMapping
     public ResponseEntity<?> findPost(
             @RequestParam(value = "text") String text,
-            @RequestParam(value = "date_from", required = false) Long dateFrom,
-            @RequestParam(value = "date_to", required = false) Long dateTo,
+            @RequestParam(value = "date_from", required = false) String dateFrom,
+            @RequestParam(value = "date_to", required = false) String dateTo,
             @RequestParam(value = "author", required = false) String authorName,
             @RequestParam(value = "tag", required = false) List<String> tags,
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,

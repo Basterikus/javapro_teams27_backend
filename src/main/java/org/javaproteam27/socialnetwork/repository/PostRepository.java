@@ -96,9 +96,8 @@ public class PostRepository {
     }
 
 
-    public List<Post> findPost(String text, Long dateFrom, Long dateTo, String authorName, List<String> tags) {
+    public List<Post> findPost(String text, String dateFrom, String dateTo, String authorName, List<String> tags) {
         ArrayList<String> queryParts = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
         StringBuilder query = new StringBuilder();
 
         if (authorName != null) {
@@ -110,12 +109,14 @@ public class PostRepository {
         }
 
         if (dateFrom != null) {
-            LocalDateTime dateFromParsed = Instant.ofEpochMilli(dateFrom).atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime dateFromParsed = Instant.ofEpochMilli(Long.parseLong(dateFrom))
+                    .atZone(ZoneId.systemDefault()).toLocalDateTime();
             queryParts.add("p.time > '" + dateFromParsed + "'::date");
         }
 
         if (dateTo != null) {
-            LocalDateTime dateToParsed = Instant.ofEpochMilli(dateTo).atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime dateToParsed = Instant.ofEpochMilli(Long.parseLong(dateTo))
+                    .atZone(ZoneId.systemDefault()).toLocalDateTime();
             queryParts.add("p.time < '" + dateToParsed + "'::date");
         }
 

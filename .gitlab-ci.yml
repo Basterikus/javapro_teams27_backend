@@ -56,7 +56,9 @@ sonarqube-check:
     stage: sonarqube-check
     tags:
         - social-server-2
-    image: maven:3.6.3-jdk-11
+    image: 
+        name: sonarsource/sonar-scanner-cli:latest
+        entrypoint: [""]
     variables:
         SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  
         GIT_DEPTH: "0"  

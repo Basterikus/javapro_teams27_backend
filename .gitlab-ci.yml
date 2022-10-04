@@ -71,7 +71,3 @@ sonarqube-check:
     allow_failure: true
     only:
         - dev
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0

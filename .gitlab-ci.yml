@@ -71,6 +71,3 @@ sonarqube-check:
     allow_failure: true
     only:
         - dev
-    qualitygate:
-        wait: false
-    

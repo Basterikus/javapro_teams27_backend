@@ -19,7 +19,7 @@ public class PostsController {
     @DeleteMapping("/{id}")
     public ResponseRs<PostRs> deletePost(@PathVariable(value = "id") int postId){
 
-        return postService.deletePost(postId);
+        return postService.softDeletePost(postId);
     }
 
     @PutMapping("/{id}")
@@ -51,6 +51,7 @@ public class PostsController {
 
     @PutMapping("/{id}/recover")
     public ResponseRs<PostRs> recoverPost(@PathVariable(value = "id") int postId) {
+
         return postService.recoverPost(postId);
     }
 }

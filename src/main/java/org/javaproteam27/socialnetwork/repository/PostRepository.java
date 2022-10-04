@@ -13,7 +13,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,9 +119,8 @@ public class PostRepository {
     }
 
 
-    public List<Post> findPost(String text, Long dateFrom, Long dateTo, String authorName, List<String> tags) {
+    public List<Post> findPost(String text, String dateFrom, String dateTo, String authorName, List<String> tags) {
         ArrayList<String> queryParts = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
         StringBuilder query = new StringBuilder();
 
         if (authorName != null) {
@@ -131,12 +132,14 @@ public class PostRepository {
         }
 
         if (dateFrom != null) {
-            LocalDateTime dateFromParsed = LocalDateTime.parse(dateFrom.toString(), formatter);
+            LocalDateTime dateFromParsed = Instant.ofEpochMilli(Long.parseLong(dateFrom))
+                    .atZone(ZoneId.systemDefault()).toLocalDateTime();
             queryParts.add("p.time > '" + dateFromParsed + "'::date");
         }
 
         if (dateTo != null) {
-            LocalDateTime dateToParsed = LocalDateTime.parse(dateTo.toString(), formatter);
+            LocalDateTime dateToParsed = Instant.ofEpochMilli(Long.parseLong(dateTo))
+                    .atZone(ZoneId.systemDefault()).toLocalDateTime();
             queryParts.add("p.time < '" + dateToParsed + "'::date");
         }
 

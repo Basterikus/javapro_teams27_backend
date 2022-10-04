@@ -103,8 +103,8 @@ class PostServiceTest {
         List<String> tags = new ArrayList<>();
         int offset = 0;
         int itemPerPage = 20;
-        ListResponseRs<PostRs> response = postService.findPost(text, dateFrom, dateTo, authorName, tags,
-                offset, itemPerPage);
+        ListResponseRs<PostRs> response = postService.findPost(text, dateFrom.toString(), dateTo.toString(),
+                authorName, tags, offset, itemPerPage);
 
         assertListResponseRs(response, offset, itemPerPage);
     }

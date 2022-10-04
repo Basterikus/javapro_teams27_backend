@@ -99,7 +99,8 @@ public class PostService {
         return (new ResponseRs<>("", convertToPostRs(postRepository.findPostById(postId)),null));
     }
 
-    public ListResponseRs<PostRs> findPost (String text, Long dateFrom, Long dateTo, String authorName, List<String> tags,
+    public ListResponseRs<PostRs> findPost (String text, String dateFrom, String dateTo, String authorName,
+                                            List<String> tags,
                                        int offset, int itemPerPage) {
 
         List<Post> postsFound = postRepository.findPost(text, dateFrom, dateTo, authorName, tags);

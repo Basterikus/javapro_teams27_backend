@@ -30,13 +30,13 @@ public class EmailService {
         Person person = personRepository.findByEmail(email);
         String newToken = UUID.randomUUID().toString();
         person.setChangePasswordToken(newToken);
-        personRepository.editPerson(person);
+        personRepository.editPasswordToken(person);
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(email);
         message.setSubject("Subject: Simple Mail");
-        message.setText("Ссылка для восстановления eMail: ");
+        message.setText("Ссылка для восстановления eMail: " + url + newToken);
 
         mailSender.send(message);
 

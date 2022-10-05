@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.model.dto.request.PasswordRq;
 import org.javaproteam27.socialnetwork.model.dto.request.RegisterRq;
 import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
 import org.javaproteam27.socialnetwork.service.EmailService;
@@ -29,14 +30,14 @@ public class AccountController {
     }
 
     @PutMapping("/password/recovery")
-    public RegisterRs putPassword(@RequestHeader("Authorization") String token) {
+    public RegisterRs putEmailPassword(@RequestHeader("Authorization") String token) {
         return emailService.putEmail(token);
     }
 
     @PutMapping("/password/set")
     public RegisterRs putPassword(@RequestHeader("Authorization") String token,
-                                  @RequestParam(value = "password") String password) {
-        return passwordService.putPassword(token, password);
+                                  @RequestBody PasswordRq rq) {
+        return passwordService.putPassword(token, rq.getPassword());
     }
 
 }

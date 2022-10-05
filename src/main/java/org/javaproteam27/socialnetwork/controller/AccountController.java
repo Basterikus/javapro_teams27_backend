@@ -23,9 +23,14 @@ public class AccountController {
         return registerService.postRegister(request);
     }
 
-    @PutMapping("/email")
-    public RegisterRs putEmail(@RequestParam(value = "email") String email) {
-        return emailService.putEmail(email);
+    @PutMapping("/email/recovery")
+    public RegisterRs putEmail(@RequestHeader("Authorization") String token) {
+        return emailService.putEmail(token);
+    }
+
+    @PutMapping("/password/recovery")
+    public RegisterRs putPassword(@RequestHeader("Authorization") String token) {
+        return emailService.putEmail(token);
     }
 
     @PutMapping("/password/set")

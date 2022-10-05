@@ -196,4 +196,14 @@ public class PostRepository {
             throw new ErrorException("Post not recovered");
         }
     }
+
+    public List<Integer> getPostIdOlderThan(String interval) {
+
+        try {
+            return jdbcTemplate.query("SELECT * FROM post WHERE time < now() - interval '" + interval +"'",
+                   (rs, rowNum) -> rs.getInt("id"));
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+    }
 }

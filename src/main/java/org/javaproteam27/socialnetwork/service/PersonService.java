@@ -124,7 +124,8 @@ public class PersonService {
         return ResponseEntity.ok(response);
     }
 
-    public ResponseRs<PersonRs> getUserInfo(int userId){
+    public ResponseRs<PersonRs> getUserInfo(int userId) {
+
         return new ResponseRs<>("", initialize(userId), null);
     }
 }

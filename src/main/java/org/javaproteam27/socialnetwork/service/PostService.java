@@ -74,7 +74,7 @@ public class PostService {
     @Transactional
     public void finalDeletePost() {
 
-        List<Integer> postIdListForDelete = postRepository.getPostIdOlderThan("30 days");
+        List<Integer> postIdListForDelete = postRepository.getDeletedPostIdsOlderThan("30 days");
         postIdListForDelete.forEach(postId -> {
             tagRepository.deleteTagsByPostId(postId);
             List<Integer> commentIds = commentService.getAllCommentsToPost(postId);

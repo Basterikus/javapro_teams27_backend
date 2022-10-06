@@ -1,7 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.response.FriendshipRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -35,18 +34,18 @@ public class FriendsController {
     }
 
     @GetMapping
-    private ListResponseRs<PersonRs> getListFriends(@RequestParam(value = "name",required = false) String name,
-                                                    @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
-                                                    @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage){
+    private ResponseEntity<ListResponseRs<PersonRs>> getListFriends(
+            @RequestParam(value = "name",required = false) String name,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage){
 
         ListResponseRs<PersonRs> listFriends = friendsService.getListFriends(name,offset,itemPerPage);
 
-        return  listFriends;
+        return  ResponseEntity.ok(listFriends);
     }
 
     @PostMapping("/{id}")
-    private ResponseEntity<FriendshipRs> addFriends(@PathVariable int id,
-                                                    @RequestHeader(value = "Authorization") String token){
+    private ResponseEntity<FriendshipRs> addFriends(@PathVariable int id){
 
         int friendshipStatusId = friendshipStatusService.addStatus();
         Person person = personService.getAuthorizedPerson();
@@ -55,8 +54,7 @@ public class FriendsController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<FriendshipRs> deleteFriends(@PathVariable int id,
-                                                       @RequestHeader(value = "Authorization") String token){
+    private ResponseEntity<FriendshipRs> deleteFriends(@PathVariable int id){
 
         Person person = personService.getAuthorizedPerson();
         int srcPersonId = person.getId();
@@ -68,26 +66,25 @@ public class FriendsController {
     }
 
     @GetMapping("/request")
-    private ListResponseRs<PersonRs> getListApplicationsFriends( @RequestParam(value = "name",required = false) String name,
-                                                                 @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
-                                                                 @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage){
+    private ResponseEntity<ListResponseRs<PersonRs>> getListApplicationsFriends(
+             @RequestParam(value = "name",required = false) String name,
+             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+             @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage){
 
         ListResponseRs<PersonRs> listFriends = friendsService.getListApplicationsFriends(name,offset,itemPerPage);
 
-        return  listFriends;
+        return  ResponseEntity.ok(listFriends);
     }
 
     @PostMapping("/request/{id}")
-    private ResponseEntity<FriendshipRs> addApplicationsFriends(@PathVariable int id,
-                                                                @RequestHeader(value = "Authorization") String token){
+    private ResponseEntity<FriendshipRs> addApplicationsFriends(@PathVariable int id){
 
         Person person = personService.getAuthorizedPerson();
         return ResponseEntity.ok(friendshipStatusService.updateStatus(person.getId(), id, FriendshipStatusCode.FRIEND));
     }
 
     @DeleteMapping("/request/{id}")
-    private ResponseEntity<FriendshipRs> deleteApplicationsFriends(@PathVariable int id,
-                                                                   @RequestHeader(value = "Authorization") String token){
+    private ResponseEntity<FriendshipRs> deleteApplicationsFriends(@PathVariable int id){
 
         Person person = personService.getAuthorizedPerson();
         return ResponseEntity.ok(friendshipStatusService.updateStatus(person.getId(), id, FriendshipStatusCode.DECLINED));

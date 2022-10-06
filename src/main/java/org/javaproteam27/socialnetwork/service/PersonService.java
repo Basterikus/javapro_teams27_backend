@@ -61,6 +61,7 @@ public class PersonService {
 
         List<PersonRs> data = people.stream()
                 .map(person -> PersonRs.builder()
+                        .id(person.getId())
                         .firstName(person.getFirstName())
                         .lastName(person.getLastName())
                         .photo(person.getPhoto())

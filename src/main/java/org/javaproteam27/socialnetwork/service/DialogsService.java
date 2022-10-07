@@ -60,8 +60,8 @@ public class DialogsService {
         }
 
         Dialog newDialog = Dialog.builder()
-                .firstPersonId(getPerson(token).getId())
-                .secondPersonId(userIds.get(0))
+                .firstPersonId(firstPersonId)
+                .secondPersonId(secondPersonId)
                 .lastActiveTime(LocalDateTime.now())
                 .build();
 
@@ -82,7 +82,7 @@ public class DialogsService {
         if (!dialogList.isEmpty()) {
             for (Dialog dialog : dialogList) {
                 Integer unreadCount = messageRepository.countUnreadByDialogId(dialog.getId());
-                if (dialog.getLastMessageId() != null) {
+                if (dialog.getLastMessageId() != 0) {
                     var lastMessage = messageRepository.findById(dialog.getLastMessageId());
                     boolean isSentByMe = getSentMessageAuthor(lastMessage, person);
                     var recipientPerson = personRepository.findById(lastMessage.getRecipientId());
@@ -96,7 +96,15 @@ public class DialogsService {
                             .readStatus(lastMessage.getReadStatus())
                             .build());
                 } else {
-                    result.add(DialogRs.builder().id(dialog.getId()).unreadCount(unreadCount).build());
+                    Integer recipientId = dialog.getFirstPersonId().equals(personId) ?
+                            dialog.getSecondPersonId() :
+                            dialog.getFirstPersonId();
+                    result.add(DialogRs.builder()
+                            .id(dialog.getId())
+                            .unreadCount(unreadCount)
+                            .authorId(personId)
+                            .recipientId(recipientId)
+                            .build());
                 }
             }
         }

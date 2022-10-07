@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/friends")
 @RequiredArgsConstructor
 public class FriendsController {
-    
+
     private final FriendsService friendsService;
     private final FriendshipStatusService friendshipStatusService;
     private final FriendshipService friendshipService;
@@ -28,7 +28,7 @@ public class FriendsController {
             @RequestHeader("Authorization") String token,
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "perPage", defaultValue = "10") int itemPerPage) {
-        
+
         ListResponseRs<PersonRs> recommendations = friendsService.getRecommendations(token, offset, itemPerPage);
         return ResponseEntity.ok(recommendations);
     }
@@ -46,9 +46,14 @@ public class FriendsController {
 
     @PostMapping("/{id}")
     private ResponseEntity<FriendshipRs> addFriends(@PathVariable int id){
-
-        int friendshipStatusId = friendshipStatusService.addStatus();
         Person person = personService.getAuthorizedPerson();
+        int friendshipStatusId = 0;
+        if (friendshipService.requestVerification(id, person.getId()).size() == 0){
+            friendshipStatusId = friendshipStatusService.addStatus();
+            return ResponseEntity.ok(friendshipService.addFriendShip(id, friendshipStatusId,person.getId()));
+        }else {
+            friendshipStatusId = -1;
+        }
 
         return ResponseEntity.ok(friendshipService.addFriendShip(id, friendshipStatusId,person.getId()));
     }
@@ -67,9 +72,9 @@ public class FriendsController {
 
     @GetMapping("/request")
     private ResponseEntity<ListResponseRs<PersonRs>> getListApplicationsFriends(
-             @RequestParam(value = "name",required = false) String name,
-             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
-             @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage){
+            @RequestParam(value = "name",required = false) String name,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage){
 
         ListResponseRs<PersonRs> listFriends = friendsService.getListApplicationsFriends(name,offset,itemPerPage);
 

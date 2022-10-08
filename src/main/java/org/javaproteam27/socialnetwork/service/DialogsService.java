@@ -82,6 +82,9 @@ public class DialogsService {
         if (!dialogList.isEmpty()) {
             for (Dialog dialog : dialogList) {
                 Integer unreadCount = messageRepository.countUnreadByDialogId(dialog.getId());
+                Integer recipientId = dialog.getFirstPersonId().equals(personId) ?
+                        dialog.getSecondPersonId() :
+                        dialog.getFirstPersonId();
                 if (dialog.getLastMessageId() != 0) {
                     var lastMessage = messageRepository.findById(dialog.getLastMessageId());
                     boolean isSentByMe = getSentMessageAuthor(lastMessage, person);
@@ -91,17 +94,16 @@ public class DialogsService {
                             .id(dialog.getId())
                             .unreadCount(unreadCount)
                             .lastMessage(buildLastMessageRs(lastMessage, isSentByMe, buildRecipientPerson(recipientPerson)))
-                            .authorId(lastMessage.getAuthorId())
-                            .recipientId(lastMessage.getRecipientId())
+                            .authorId(personId)
+                            .recipientId(recipientId)
                             .readStatus(lastMessage.getReadStatus())
                             .build());
                 } else {
-                    Integer recipientId = dialog.getFirstPersonId().equals(personId) ?
-                            dialog.getSecondPersonId() :
-                            dialog.getFirstPersonId();
+                    var recipientPerson = personRepository.findById(recipientId);
                     result.add(DialogRs.builder()
                             .id(dialog.getId())
                             .unreadCount(unreadCount)
+                            .lastMessage(MessageRs.builder().recipient(buildRecipientPerson(recipientPerson)).build())
                             .authorId(personId)
                             .recipientId(recipientId)
                             .build());

@@ -132,7 +132,8 @@ public class DialogsServiceTest {
         var rq = dialogsService.getDialogs("token", 0, 10);
         int total = rq.getTotal();
         assertEquals(1, total);
-        assertNull(rq.getData().get(0).getLastMessage());
+        assertNotNull(rq.getData().get(0).getLastMessage().getRecipient());
+        assertNull(rq.getData().get(0).getLastMessage().getAuthorId());
     }
 
     @Test

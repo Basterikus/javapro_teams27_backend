@@ -24,32 +24,32 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class FriendsService {
-    
+
     private final PersonService personService;
     private final FriendshipService friendshipService;
-//    private final CityService cityService;
+    //    private final CityService cityService;
 //    private final CountryService countryService;
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final DropBox dropBox;
-    
+
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
 
         Person person = personRepository.findByEmail(jwtTokenProvider.getUsername(token));
         Integer myId = person.getId();
-        
+
         List<Integer> myFriendsIds = getMyFriendsIds(myId);
         List<Integer> friendsIdsForFriends = getFriendsIdsForFriends(myFriendsIds, myId);
         Map<Integer, Integer> recommendationsCounts = getRecommendationsCounts(friendsIdsForFriends);
         List<Integer> sortedRecommendationsByCount = getSortedRecommendationsByCount(recommendationsCounts);
         List<Integer> limitedRecommendations = limitRecommendations(sortedRecommendationsByCount, offset, itemPerPage);
         List<Person> persons = getPersons(limitedRecommendations);
-        
+
         return getResultJson(persons, friendsIdsForFriends.size(), offset, itemPerPage);
     }
-    
+
     private List<Integer> getMyFriendsIds(Integer myId) {
-        
+
         return friendshipService
                 .findByPersonIdAndStatus(myId, FriendshipStatusCode.FRIEND).stream()
                 .flatMap(friendship -> Stream.of(
@@ -58,7 +58,7 @@ public class FriendsService {
                 .filter(id -> !id.equals(myId))
                 .collect(Collectors.toList());
     }
-    
+
     private List<Integer> getFriendsIdsForFriends(List<Integer> friendsIds, Integer myId) {
 
         return friendsIds.stream()
@@ -69,19 +69,19 @@ public class FriendsService {
                         .filter(personId -> !personId.equals(myId)))
                 .collect(Collectors.toList());
     }
-    
+
     private Map<Integer, Integer> getRecommendationsCounts(List<Integer> friendsIdsForFriends) {
-        
+
         Map<Integer, Integer> friendshipsCount = new HashMap<>();
-        
+
         friendsIdsForFriends.forEach(id -> {
             Integer count = friendshipsCount.getOrDefault(id, 0);
             friendshipsCount.put(id, count + 1);
         });
-        
+
         return friendshipsCount;
     }
-    
+
     private List<Integer> getSortedRecommendationsByCount(Map<Integer, Integer> recommendationsCounts) {
 
         return recommendationsCounts.keySet().stream()
@@ -89,7 +89,7 @@ public class FriendsService {
                         recommendationsCounts.get(ffc2).compareTo(recommendationsCounts.get(ffc1)))
                 .collect(Collectors.toList());
     }
-    
+
     private List<Integer> limitRecommendations(List<Integer> sortedRecommendationsByCount,
                                                int offset, int itemPerPage) {
         return sortedRecommendationsByCount.stream()
@@ -97,9 +97,9 @@ public class FriendsService {
                 .limit(itemPerPage)
                 .collect(Collectors.toList());
     }
-    
+
     private List<Person> getPersons(List<Integer> limitedRecommendations) {
-        
+
         return limitedRecommendations.stream()
                 .map(id -> {
                     try {
@@ -113,10 +113,10 @@ public class FriendsService {
                 .map(optional -> (Person) optional)
                 .collect(Collectors.toList());
     }
-    
+
     private ListResponseRs<PersonRs> getResultJson(List<Person> persons, Integer total,
                                                    Integer offset, Integer itemPerPage) {
-        
+
         List<PersonRs> data = persons.stream()
                 .map(person -> PersonRs.builder()
                         .id(person.getId())
@@ -135,7 +135,7 @@ public class FriendsService {
                         .isBlocked(person.getIsBlocked())
                         .build())
                 .collect(Collectors.toList());
-        
+
         return ListResponseRs.<PersonRs>builder()
                 .error("")
                 .timestamp(System.currentTimeMillis())
@@ -147,8 +147,13 @@ public class FriendsService {
     }
 
     public ListResponseRs<PersonRs> getListFriends(String name, Integer offset, Integer itemPerPage) {
-        
+
         List<Person> person = personRepository.getFriendsPersonById(name,personService.getAuthorizedPerson().getId());
+        for (int i = 0; i < person.size(); i++ ){
+            if (person.get(i).getId() == personService.getAuthorizedPerson().getId()){
+                person.remove(i);
+            }
+        }
         return getResultJson(person, 0, offset, itemPerPage);
     }
 
@@ -157,5 +162,5 @@ public class FriendsService {
         List<Person> personList = personRepository.getApplicationsFriendsPersonById(name,personService.getAuthorizedPerson().getId());
         return getResultJson(personList, 0, offset, itemPerPage);
     }
-    
+
 }

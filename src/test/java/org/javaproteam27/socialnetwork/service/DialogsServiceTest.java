@@ -121,7 +121,7 @@ public class DialogsServiceTest {
         Person person2 = new Person();
         person2.setId(2);
         person2.setIsBlocked(false);
-        Dialog dialog = Dialog.builder().id(1).firstPersonId(1).secondPersonId(2).lastMessageId(null).build();
+        Dialog dialog = Dialog.builder().id(1).firstPersonId(1).secondPersonId(2).lastMessageId(0).build();
 
         when(jwtTokenProvider.getUsername(anyString())).thenReturn(email);
         when(personRepository.findByEmail(anyString())).thenReturn(person);
@@ -132,7 +132,8 @@ public class DialogsServiceTest {
         var rq = dialogsService.getDialogs("token", 0, 10);
         int total = rq.getTotal();
         assertEquals(1, total);
-        assertNull(rq.getData().get(0).getLastMessage());
+        assertNotNull(rq.getData().get(0).getLastMessage().getRecipient());
+        assertNull(rq.getData().get(0).getLastMessage().getAuthorId());
     }
 
     @Test

@@ -9,6 +9,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
 import org.javaproteam27.socialnetwork.repository.PostRepository;
 import org.javaproteam27.socialnetwork.repository.TagRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,7 @@ public class PostService {
         if (post == null) return null;
         long timestamp = post.getTime();
         String type = (post.getIsDeleted()) ? "DELETED" : ((timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED");
-        List<CommentRs> comments = commentService.initializeCommentsToPost(post.getId(), null, null);
+        List<CommentRs> comments = commentService.getAllUserCommentsToPost(post.getId(), null, null);
         return PostRs.builder()
                 .id(post.getId())
                 .time(timestamp)//.toLocalDateTime())
@@ -42,12 +43,13 @@ public class PostService {
                 .commentRs(comments)
                 .type(type)
                 .postText(post.getPostText())
-                .isBlocked(post.getIsBlocked()).myLike(false) //TODO: привязать к таблице post_like
+                .isBlocked(post.getIsBlocked())
                 .myLike(likeService.isLikedByUser(personService.getAuthorizedPerson().getId(), post.getId(), POST_MARKER))
                 .build();
     }
 
     public ListResponseRs<PostRs> findAllPosts(int offset, int itemPerPage) {
+
         List<Post> posts = postRepository.findAllPublishedPosts(offset, itemPerPage);
         List<PostRs> data = (posts != null) ? posts.stream().map(this::convertToPostRs).
                 collect(Collectors.toList()) : null;
@@ -55,33 +57,44 @@ public class PostService {
     }
 
     public ListResponseRs<PostRs> findAllUserPosts(int authorId, int offset, int itemPerPage) {
+
         List<Post> posts = postRepository.findAllUserPosts(authorId, offset, itemPerPage);
         List<PostRs> data = (posts != null) ? posts.stream().map(this::convertToPostRs).
                 collect(Collectors.toList()) : null;
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
-    @Transactional
-    public ResponseRs<PostRs> deletePost(int postId) {
+    public ResponseRs<PostRs> softDeletePost(int postId) {
 
-        tagRepository.deleteTagsByPostId(postId);
-        List<Integer> commentIds = commentService.initializeCommentsToPost(postId, null, null).stream().
-                map(CommentRs::getId).collect(Collectors.toList());
-        commentIds.forEach(commentId -> likeService.deleteAllLikesByLikedObjectId(commentId,
-                commentService.COMMENT_MARKER));
-        likeService.deleteAllLikesByLikedObjectId(postId, POST_MARKER);
-        commentService.deleteAllCommentsToPost(postId);
-        postRepository.deletePostById(postId);
+        postRepository.softDeletePostById(postId);
         return new ResponseRs<>("", PostRs.builder().id(postId).build(),null);
     }
 
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
+    public void finalDeletePost() {
+
+        List<Integer> postIdListForDelete = postRepository.getDeletedPostIdsOlderThan("30 days");
+        postIdListForDelete.forEach(postId -> {
+            tagRepository.deleteTagsByPostId(postId);
+            List<Integer> commentIds = commentService.getAllCommentsToPost(postId);
+            commentIds.forEach(commentId -> likeService.deleteAllLikesByLikedObjectId(commentId,
+                    commentService.COMMENT_MARKER));
+            likeService.deleteAllLikesByLikedObjectId(postId, POST_MARKER);
+            commentService.deleteAllCommentsToPost(postId);
+            postRepository.finalDeletePostById(postId);
+        });
+    }
+
     public ResponseRs<PostRs> updatePost(int postId, String title, String postText, List<String> tags) {
+
         tagRepository.updateTagsPostId(postId, tags);
         postRepository.updatePostById(postId, title, postText);
         return new ResponseRs<>("", convertToPostRs(postRepository.findPostById(postId)),null);
     }
 
     public ResponseRs<PostRs> publishPost(Long publishDate, PostRq postRq, int authorId) {
+
         long publishDateTime = (publishDate == null) ? System.currentTimeMillis() : publishDate;
         int postId = postRepository.addPost(publishDateTime, authorId, postRq.getTitle(), postRq.getPostText());
         postRq.getTags().forEach(tag -> tagRepository.addTag(tag, postId));
@@ -89,7 +102,8 @@ public class PostService {
         return (new ResponseRs<>("", convertToPostRs(postRepository.findPostById(postId)),null));
     }
 
-    public ListResponseRs<PostRs> findPost (String text, Long dateFrom, Long dateTo, String authorName, List<String> tags,
+    public ListResponseRs<PostRs> findPost (String text, String dateFrom, String dateTo, String authorName,
+                                            List<String> tags,
                                        int offset, int itemPerPage) {
 
         List<Post> postsFound = postRepository.findPost(text, dateFrom, dateTo, authorName, tags);
@@ -100,6 +114,7 @@ public class PostService {
     }
 
     public ResponseRs<PostRs> getPost(int postId) {
+
         Post post = postRepository.findPostById(postId);
         PostRs data = (post != null) ? convertToPostRs(post) : null;
         return new ResponseRs<>("", data, null);
@@ -107,6 +122,7 @@ public class PostService {
 
     @Transactional
     public ResponseRs<PostRs> recoverPost(int postId) {
+
         postRepository.recoverPostById(postId);
         Post post = postRepository.findPostById(postId);
         PostRs data = (post != null) ? convertToPostRs(post) : null;

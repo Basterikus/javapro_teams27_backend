@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
+import org.javaproteam27.socialnetwork.model.dto.request.WebSocketMessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.MessageSendRequestBodyRs;
 import org.javaproteam27.socialnetwork.model.entity.Dialog;
 import org.javaproteam27.socialnetwork.model.entity.Message;
@@ -38,13 +39,15 @@ public class DialogsServiceTest {
     private JwtTokenProvider jwtTokenProvider;
     @Mock
     private NotificationService notificationService;
+    @Mock
+    private PersonService personService;
 
     private DialogsService dialogsService;
 
     @Before
     public void setUp() {
         this.dialogsService = new DialogsService(dialogRepository, messageRepository, personRepository,
-                jwtTokenProvider, notificationService);
+                jwtTokenProvider, notificationService, personService);
     }
 
     @Test
@@ -170,14 +173,15 @@ public class DialogsServiceTest {
         Person person = new Person();
         person.setId(1);
         Dialog dialog = Dialog.builder().id(1).firstPersonId(1).secondPersonId(2).lastMessageId(1).build();
-        MessageSendRequestBodyRs messageSendRequestBodyRs = new MessageSendRequestBodyRs();
-        messageSendRequestBodyRs.setMessageText("text");
+        WebSocketMessageRq webSocketMessageRq = new WebSocketMessageRq();
+        webSocketMessageRq.setMessageText("text");
+        webSocketMessageRq.setDialogId(1);
 
         when(jwtTokenProvider.getUsername(anyString())).thenReturn(email);
-        when(personRepository.findByEmail(anyString())).thenReturn(person);
+        when(personService.getAuthorizedPerson()).thenReturn(person);
         when(dialogRepository.findById(anyInt())).thenReturn(dialog);
 
-        var rq = dialogsService.sendMessage("token", 1, messageSendRequestBodyRs);
+        var rq = dialogsService.sendMessage(webSocketMessageRq);
         int authorId = rq.getData().getAuthorId();
         int recipientId = rq.getData().getRecipientId();
 

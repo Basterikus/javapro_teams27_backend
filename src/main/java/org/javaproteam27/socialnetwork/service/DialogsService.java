@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
+import org.javaproteam27.socialnetwork.model.dto.request.WebSocketMessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.model.entity.Dialog;
 import org.javaproteam27.socialnetwork.model.entity.Message;
@@ -29,6 +30,7 @@ public class DialogsService {
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final NotificationService notificationService;
+    private final PersonService personService;
 
 
     private static MessageRs buildMessageRs(Message message) {
@@ -136,10 +138,11 @@ public class DialogsService {
         return new ResponseRs<>("", data, null);
     }
 
-    public ResponseRs<MessageRs> sendMessage(String token, Integer dialogId, MessageSendRequestBodyRs text) {
+    public ResponseRs<MessageRs> sendMessage(WebSocketMessageRq messageRq) {
 
-        Integer authorId = getPerson(token).getId();
-        Dialog dialog = dialogRepository.findById(dialogId);
+        Person person = personService.getAuthorizedPerson();
+        Integer authorId = person.getId();
+        Dialog dialog = dialogRepository.findById(messageRq.getDialogId());
         Integer recipientId = dialog.getFirstPersonId().equals(authorId) ?
                 dialog.getSecondPersonId() :
                 dialog.getFirstPersonId();
@@ -148,9 +151,9 @@ public class DialogsService {
                 .time(LocalDateTime.now())
                 .authorId(authorId)
                 .recipientId(recipientId)
-                .messageText(text.getMessageText())
+                .messageText(messageRq.getMessageText())
                 .readStatus(ReadStatus.SENT)
-                .dialogId(dialogId)
+                .dialogId(messageRq.getDialogId())
                 .build();
 
         Integer savedId = messageRepository.save(message);

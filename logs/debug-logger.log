@@ -1,4 +1,0 @@
-2022-10-11 06:23:32 [scheduling-1] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.NotificationService], method: [createFriendBirthdayNotification], arguments: [] 
-2022-10-11 06:23:33 [scheduling-1] DEBUG DebugLogging - Response = path: [org.javaproteam27.socialnetwork.service.NotificationService], method: [createFriendBirthdayNotification], return: [null] 
-2022-10-11 07:00:00 [scheduling-1] DEBUG DebugLogging - Request = path: [org.javaproteam27.socialnetwork.service.NotificationService], method: [createFriendBirthdayNotification], arguments: [] 
-2022-10-11 07:00:00 [scheduling-1] DEBUG DebugLogging - Response = path: [org.javaproteam27.socialnetwork.service.NotificationService], method: [createFriendBirthdayNotification], return: [null] 

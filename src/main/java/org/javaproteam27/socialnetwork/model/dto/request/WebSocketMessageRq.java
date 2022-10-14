@@ -9,4 +9,5 @@ public class WebSocketMessageRq {
     private Integer dialogId;
     @JsonProperty("message_text")
     private String messageText;
+    private String token;
 }

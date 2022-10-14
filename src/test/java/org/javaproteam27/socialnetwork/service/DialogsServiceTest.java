@@ -39,15 +39,13 @@ public class DialogsServiceTest {
     private JwtTokenProvider jwtTokenProvider;
     @Mock
     private NotificationService notificationService;
-    @Mock
-    private PersonService personService;
 
     private DialogsService dialogsService;
 
     @Before
     public void setUp() {
         this.dialogsService = new DialogsService(dialogRepository, messageRepository, personRepository,
-                jwtTokenProvider, notificationService, personService);
+                jwtTokenProvider, notificationService);
     }
 
     @Test
@@ -176,9 +174,10 @@ public class DialogsServiceTest {
         WebSocketMessageRq webSocketMessageRq = new WebSocketMessageRq();
         webSocketMessageRq.setMessageText("text");
         webSocketMessageRq.setDialogId(1);
+        webSocketMessageRq.setToken("t");
 
         when(jwtTokenProvider.getUsername(anyString())).thenReturn(email);
-        when(personService.getAuthorizedPerson()).thenReturn(person);
+        when(personRepository.findByEmail(anyString())).thenReturn(person);
         when(dialogRepository.findById(anyInt())).thenReturn(dialog);
 
         var rq = dialogsService.sendMessage(webSocketMessageRq);
@@ -192,7 +191,7 @@ public class DialogsServiceTest {
         verify(messageRepository, times(1)).save(any());
         verify(dialogRepository, times(1)).update(any());
         verify(notificationService, times(1))
-                .createMessageNotification(anyInt(), anyLong(), anyInt());
+                .createMessageNotification(anyInt(), anyLong(), anyInt(), anyString());
     }
 
     @Test

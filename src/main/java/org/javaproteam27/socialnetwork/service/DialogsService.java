@@ -30,8 +30,6 @@ public class DialogsService {
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final NotificationService notificationService;
-    private final PersonService personService;
-
 
     private static MessageRs buildMessageRs(Message message) {
         return MessageRs.builder()
@@ -139,8 +137,8 @@ public class DialogsService {
     }
 
     public ResponseRs<MessageRs> sendMessage(WebSocketMessageRq messageRq) {
-
-        Person person = personService.getAuthorizedPerson();
+        var token = messageRq.getToken();
+        Person person = getPerson(token);
         Integer authorId = person.getId();
         Dialog dialog = dialogRepository.findById(messageRq.getDialogId());
         Integer recipientId = dialog.getFirstPersonId().equals(authorId) ?
@@ -164,7 +162,7 @@ public class DialogsService {
         dialogRepository.update(dialog);
 
         MessageRs data = buildMessageRs(message);
-        notificationService.createMessageNotification(savedId, System.currentTimeMillis(), recipientId);
+        notificationService.createMessageNotification(savedId, System.currentTimeMillis(), recipientId, token);
 
         return new ResponseRs<>("", data, null);
     }

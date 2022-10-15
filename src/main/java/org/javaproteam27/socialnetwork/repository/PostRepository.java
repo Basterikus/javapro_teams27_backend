@@ -148,10 +148,9 @@ public class PostRepository {
         if (tags != null) {
             queryParts.add(buildQueryTags(tags));
             query.insert(0, " JOIN post2tag AS pt ON p.id = pt.post_id JOIN tag AS t ON t.id = pt.tag_id");
-            query.insert(0, "SELECT p.id, p.time, p.author_id, p.title, p.post_text, p.is_blocked, " +
-                    "count(*) FROM post AS p");
+            query.insert(0, "SELECT p.*, count(*) FROM post AS p");
         } else {
-            query.insert(0, "SELECT * FROM post AS p");
+            query.insert(0, "SELECT p.* FROM post AS p");
         }
 
         String buildQuery = query + String.join(" AND ", queryParts) + ";";

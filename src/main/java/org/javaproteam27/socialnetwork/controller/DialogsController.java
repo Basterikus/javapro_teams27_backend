@@ -17,7 +17,7 @@ public class DialogsController {
     private final DialogsService dialogsService;
 
 
-    @MessageMapping("/chat")
+    @MessageMapping("/dialogs/chat")
     @SendTo("/topic/activity")
     public ResponseRs<MessageRs> webSocket(@Payload WebSocketMessageRq webSocketMessageRq) {
         return dialogsService.sendMessage(webSocketMessageRq);

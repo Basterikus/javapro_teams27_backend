@@ -30,8 +30,8 @@ public class RedisConfig {
         connection.set(String.valueOf(id), url);
     }
 
-    public String getUrl(String id) {
-        return connection.get(id);
+    public String getUrl(Integer id) {
+        return connection.get(String.valueOf(id));
     }
 
     @Scheduled(fixedDelayString = "PT24H")
@@ -40,10 +40,8 @@ public class RedisConfig {
         if (connection == null) {
             init();
         }
-        System.out.println("Работает updateUrl");
         personRepository.findAll().forEach(person ->
             add(person.getId(), dropBox.getLinkImages(person.getPhoto())));
-        System.out.println("сработал updateUrl");
     }
 
     public void shutdown() {

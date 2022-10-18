@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javaproteam27.socialnetwork.config.RedisConfig;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -49,6 +53,8 @@ public class UserControllerTest {
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private ObjectMapper objectMapper;
+    @MockBean
+    private RedisConfig redisConfig;
 
     private final static String meUrl = "/api/v1/users/me";
     private final static String userUrl = "/api/v1/users";
@@ -58,6 +64,7 @@ public class UserControllerTest {
     private String getTokenAuthorization() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         JwtUser jwtUser = (JwtUser) auth.getPrincipal();
+        when(redisConfig.getUrl(anyInt())).thenReturn("test");
         return jwtTokenProvider.createToken(jwtUser.getUsername());
     }
 

@@ -162,7 +162,7 @@ public class DialogsService {
         dialogRepository.update(dialog);
 
         MessageRs data = buildMessageRs(message);
-        notificationService.createMessageNotification(savedId, System.currentTimeMillis(), recipientId, token);
+        notificationService.createMessageNotification(message.getId(), System.currentTimeMillis(), recipientId, token);
 
         return new ResponseRs<>("", data, null);
     }

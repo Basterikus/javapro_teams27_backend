@@ -6,7 +6,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.DialogsService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,9 +16,19 @@ public class DialogsController {
 
     private final DialogsService dialogsService;
 
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/dialogs/chat")
-    @SendTo("/topic/activity")
+
+    /*@MessageMapping("/secured/room")
+    public void sendSpecific(@Payload Message msg,
+                             Principal user,
+                             @Header("simpSessionId") String sessionId) throws Exception {
+//                OutputMessage out = new OutputMessage(msg.getFrom(),msg.getText(),new SimpleDateFormat("HH:mm").format(new Date()));
+                    simpMessagingTemplate.convertAndSendToUser(msg.getTo(), "/secured/user/queue/specific-user", out);
+    }*/
+
+    @MessageMapping("dialogs/chat")
+//    @SendTo("/topic/activity")
     public ResponseRs<MessageRs> webSocket(@Payload WebSocketMessageRq webSocketMessageRq) {
         return dialogsService.sendMessage(webSocketMessageRq);
     }

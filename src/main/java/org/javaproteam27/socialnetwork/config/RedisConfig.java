@@ -21,9 +21,13 @@ public class RedisConfig {
     private final DropBox dropBox;
 
     private void init() {
+        try {
             redisClient = new RedisClient(
                     RedisURI.create("redis://127.0.0.1:6379"));
             connection = redisClient.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void add(Integer id, String url) {

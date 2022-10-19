@@ -1,6 +1,8 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -13,7 +15,6 @@ import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
-import org.javaproteam27.socialnetwork.util.DropBox;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +35,7 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
-    private final DropBox dropBox;
+    private final Redis redis;
     private final FriendshipStatusRepository friendshipStatusRepository;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -98,7 +99,7 @@ public class PersonService {
                 .birthDate(person.getBirthDate())
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
-                .photo(dropBox.getLinkImages(person.getPhoto()))
+                .photo(redis.getUrl(person.getId()))
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .friendshipStatusCode(getFriendshipStatus(personId))

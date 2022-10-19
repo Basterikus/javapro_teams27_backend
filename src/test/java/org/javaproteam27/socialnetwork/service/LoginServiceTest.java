@@ -1,6 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
-import com.dropbox.core.DbxException;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -8,14 +8,12 @@ import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
-import org.javaproteam27.socialnetwork.util.DropBox;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -41,17 +39,17 @@ public class LoginServiceTest {
     private PasswordEncoder passwordEncoder;
 
     @Mock
-    private DropBox dropBox;
+    private Redis redis;
 
     private LoginService loginService;
 
     @Before
     public void setUp() {
-        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, dropBox);
+        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, redis);
     }
 
     @Test
-    public void profileResponseAuthorizedRqAllDataIsOk() throws IOException, DbxException {
+    public void profileResponseAuthorizedRqAllDataIsOk() throws IOException {
         String token = "token";
 
         Person person = new Person();
@@ -75,7 +73,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void loginCorrectRqAllDataIsOk() throws IOException, DbxException {
+    public void loginCorrectRqAllDataIsOk() throws IOException {
         var password = passwordEncoder.encode("test1234");
         LoginRq loginRq = new LoginRq();
         loginRq.setEmail("test@mail.ru");

@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -8,7 +9,6 @@ import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
-import org.javaproteam27.socialnetwork.util.DropBox;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,7 +23,7 @@ public class FriendsService {
     private final FriendshipService friendshipService;
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final DropBox dropBox;
+    private final Redis redis;
 
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
 
@@ -118,7 +118,7 @@ public class FriendsService {
                         .birthDate(person.getBirthDate())
                         .email(person.getEmail())
                         .phone(person.getPhone())
-                        .photo(dropBox.getLinkImages(person.getPhoto()))
+                        .photo(redis.getUrl(person.getId()))
                         .about(person.getAbout())
                         .city(person.getCity())
                         .country(person.getCountry())

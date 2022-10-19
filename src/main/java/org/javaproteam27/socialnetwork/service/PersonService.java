@@ -1,15 +1,15 @@
 package org.javaproteam27.socialnetwork.service;
 
-import com.dropbox.core.DbxException;
 import lombok.RequiredArgsConstructor;
-
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.UserRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
+import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
@@ -20,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,6 +35,7 @@ public class PersonService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final DropBox dropBox;
+    private final FriendshipStatusRepository friendshipStatusRepository;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Person findById(int id) {
@@ -101,6 +101,7 @@ public class PersonService {
                 .photo(dropBox.getLinkImages(person.getPhoto()))
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
+                .friendshipStatusCode(getFriendshipStatus(personId))
                 .build();
     }
 
@@ -123,6 +124,14 @@ public class PersonService {
         personRepository.editPerson(person);
 
         return ResponseEntity.ok(response);
+    }
+
+    private FriendshipStatusCode getFriendshipStatus(Integer dstId) {
+        var srcId = getAuthorizedPerson().getId();
+        var friendStatus = friendshipStatusRepository.findByPersonId(dstId, srcId);
+        if (!friendStatus.isEmpty()) {
+            return friendStatus.get(0).getCode();
+        } else return null;
     }
 
     public ResponseRs<PersonRs> getUserInfo(int userId) {

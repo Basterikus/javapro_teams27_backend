@@ -37,7 +37,7 @@ public class Redis {
         return connection.get(String.valueOf(id));
     }
 
-    @Scheduled(fixedDelayString = "PT24H")
+    @Scheduled(initialDelay = 6000, fixedDelayString = "PT24H")
     @Async
     private void updateUrl() {
         if (connection == null) {

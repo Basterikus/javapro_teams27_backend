@@ -1,6 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import org.javaproteam27.socialnetwork.config.RedisConfig;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +35,13 @@ public class FeedsControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private RedisConfig redisConfig;
+    private Redis redis;
 
     private static final String feedsUrl = "/api/v1/feeds";
 
     @Test
     public void getAllPost() throws Exception {
-        when(redisConfig.getUrl(anyInt())).thenReturn("test");
+        when(redis.getUrl(anyInt())).thenReturn("test");
         this.mockMvc.perform(get(feedsUrl).param("offset", "0").param("perPage", "10"))
                 .andDo(print())
                 .andExpect(status().isOk())

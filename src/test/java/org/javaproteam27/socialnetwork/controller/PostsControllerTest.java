@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.javaproteam27.socialnetwork.config.RedisConfig;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +39,7 @@ public class PostsControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private RedisConfig redisConfig;
+    private Redis redis;
 
     private final String postUrl = "/api/v1/post";
 
@@ -48,7 +48,7 @@ public class PostsControllerTest {
     @Test
     public void getPost() throws Exception {
 
-        when(redisConfig.getUrl(anyInt())).thenReturn("test");
+        when(redis.getUrl(anyInt())).thenReturn("test");
         this.mockMvc.perform(get(postUrl + "/1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -65,7 +65,7 @@ public class PostsControllerTest {
     @Test
     public void updatePost() throws Exception {
 
-        when(redisConfig.getUrl(anyInt())).thenReturn("test");
+        when(redis.getUrl(anyInt())).thenReturn("test");
         PostRq rq = PostRq.builder().postText("new test text").title("new test title").tags(List.of())
                 .getDeleted(false).build();
         this.mockMvc.perform(put(postUrl + "/1").content(objectMapper.writeValueAsString(rq))
@@ -76,7 +76,7 @@ public class PostsControllerTest {
     @Test
     public void recoverPost() throws Exception {
 
-        when(redisConfig.getUrl(anyInt())).thenReturn("test");
+        when(redis.getUrl(anyInt())).thenReturn("test");
         this.mockMvc.perform(put(postUrl + "/2/recover")).andDo(print()).andExpect(status().isOk());
     }
 }

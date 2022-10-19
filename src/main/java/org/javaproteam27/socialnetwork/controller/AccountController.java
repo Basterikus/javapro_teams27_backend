@@ -20,7 +20,7 @@ public class AccountController {
     private final PasswordService passwordService;
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterRq request) {
+    public RegisterRs register(@RequestBody RegisterRq request) {
         return registerService.postRegister(request);
     }
 

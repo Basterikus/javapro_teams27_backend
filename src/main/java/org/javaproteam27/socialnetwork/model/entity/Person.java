@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +29,6 @@ public class Person {
     private Boolean isBlocked;
     private String token;
     private String changePasswordToken;
-
-    public void setBirthDate(LocalDateTime parse, int i, ZoneOffset utc) {
-    }
+    private String notificationsSessionId;
+    private String notificationsWebsocketUserId;
 }

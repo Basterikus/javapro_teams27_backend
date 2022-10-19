@@ -102,10 +102,11 @@ public class MessageRepository {
         return jdbcTemplate.queryForObject(sql, Integer.class, dialogId);
     }
 
-    public Integer countUnreadByDialogId(Integer dialogId) {
+    public Integer countUnreadByDialogIdAndRecipientId(Integer dialogId, Integer recipientId) {
 
-        String sql = "select count(*) from message where dialog_id = ? and read_status like 'SENT'";
-        return jdbcTemplate.queryForObject(sql, Integer.class, dialogId);
+        String sql = "select count(*) from message where dialog_id = ? and recipient_id = ? " +
+                "and read_status like 'SENT'";
+        return jdbcTemplate.queryForObject(sql, Integer.class, dialogId, recipientId);
     }
 
     public void deleteByDialogId(Integer dialogId) {

@@ -4,6 +4,7 @@ import com.lambdaworks.redis.RedisClient;
 import com.lambdaworks.redis.RedisConnection;
 import com.lambdaworks.redis.RedisURI;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.javaproteam27.socialnetwork.config.RedisConfig;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.util.DropBox;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-
+@Slf4j
 public class Redis {
 
     private RedisClient redisClient;
@@ -29,8 +30,8 @@ public class Redis {
             connection = redisClient.connect();
     }
 
-    private void add(Integer id, String url) {
-        connection.set(String.valueOf(id), url);
+    public void add(Integer id, String url) {
+        connection.set(String.valueOf(id), dropBox.getLinkImages(url));
     }
 
     public String getUrl(Integer id) {
@@ -44,7 +45,7 @@ public class Redis {
             init();
         }
         personRepository.findAll().forEach(person ->
-            add(person.getId(), dropBox.getLinkImages(person.getPhoto())));
+            add(person.getId(), person.getPhoto()));
     }
 
     public void shutdown() {

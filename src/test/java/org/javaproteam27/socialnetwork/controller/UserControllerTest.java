@@ -1,9 +1,8 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.javaproteam27.socialnetwork.config.RedisConfig;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
@@ -22,7 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -54,7 +52,7 @@ public class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     @MockBean
-    private RedisConfig redisConfig;
+    private Redis redis;
 
     private final static String meUrl = "/api/v1/users/me";
     private final static String userUrl = "/api/v1/users";
@@ -64,7 +62,7 @@ public class UserControllerTest {
     private String getTokenAuthorization() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         JwtUser jwtUser = (JwtUser) auth.getPrincipal();
-        when(redisConfig.getUrl(anyInt())).thenReturn("test");
+        when(redis.getUrl(anyInt())).thenReturn("test");
         return jwtTokenProvider.createToken(jwtUser.getUsername());
     }
 

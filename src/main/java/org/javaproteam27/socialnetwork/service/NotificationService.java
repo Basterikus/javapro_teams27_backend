@@ -1,13 +1,10 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
-import org.javaproteam27.socialnetwork.model.dto.request.WebSocketNotificationRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.Notification;
 import org.javaproteam27.socialnetwork.model.entity.Person;
@@ -28,7 +25,6 @@ import static org.javaproteam27.socialnetwork.model.enums.NotificationType.*;
 
 @Service
 @RequiredArgsConstructor
-@DebugLogger
 public class NotificationService {
 
     private final PersonService personService;
@@ -40,7 +36,7 @@ public class NotificationService {
     private final CommentRepository commentRepository;
     private final LikeRepository likeRepository;
     private final MessageRepository messageRepository;
-//    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
 
     public ListResponseRs<NotificationBaseRs> getNotifications(String token, int offset, int itemPerPage) {
@@ -160,13 +156,15 @@ public class NotificationService {
         }
     }
 
-//    public ResponseRs<NotificationBaseRs> sendNotification(WebSocketNotificationRq rq) {
-//        switch (rq.getType()) {
-//            case "POST":
-//
-//        }
-//        simpMessagingTemplate.convertAndSendToUser(rq.getUserId(), "/topic/notifications", );
-//    }
+    private void notifyUser(Notification notification) {
+        var rs = List.of(getNotificationRs(notification));
+        var person = personRepository.findById(notification.getPersonId());
+        var listRs = new ListResponseRs<>("", 0, 1, rs);
+        if (person.getNotificationsWebsocketUserId() != null) {
+            var userId = person.getNotificationsWebsocketUserId();
+            simpMessagingTemplate.convertAndSendToUser(userId, "/queue/notifications", listRs);
+        }
+    }
 
     private void createNotification(int dstId, NotificationType notificationType, int entityId, Long sentTime) {
         Notification notification = Notification.builder()
@@ -178,6 +176,7 @@ public class NotificationService {
                 .isRead(false)
                 .build();
         notificationRepository.save(notification);
+        notifyUser(notification);
     }
 
     private NotificationBaseRs getNotificationRs(Notification notification) {

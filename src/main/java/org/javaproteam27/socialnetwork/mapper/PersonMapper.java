@@ -1,9 +1,7 @@
 package org.javaproteam27.socialnetwork.mapper;
 
 import org.javaproteam27.socialnetwork.model.entity.Person;
-import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +30,8 @@ public class PersonMapper implements RowMapper<Person> {
 //        person.setMessagesPermission(MessagesPermission.valueOf(rs.getString("messages_permission")));
 //        person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
         person.setIsBlocked(rs.getBoolean("is_blocked"));
+        person.setNotificationsSessionId(rs.getString("notifications_session_id"));
+        person.setNotificationsWebsocketUserId(rs.getString("notifications_websocket_user_id"));
     
         return person;
     }

@@ -16,7 +16,7 @@ public class DialogsController {
 
     private final DialogsService dialogsService;
 
-    private final SimpMessagingTemplate simpMessagingTemplate;
+//    private final SimpMessagingTemplate simpMessagingTemplate;
 
 
     /*@MessageMapping("/secured/room")
@@ -27,10 +27,10 @@ public class DialogsController {
                     simpMessagingTemplate.convertAndSendToUser(msg.getTo(), "/secured/user/queue/specific-user", out);
     }*/
 
-    @MessageMapping("dialogs/chat")
+    @MessageMapping("/dialogs/chat")
 //    @SendTo("/topic/activity")
-    public ResponseRs<MessageRs> webSocket(@Payload WebSocketMessageRq webSocketMessageRq) {
-        return dialogsService.sendMessage(webSocketMessageRq);
+    public void webSocket(@Payload WebSocketMessageRq webSocketMessageRq) {
+        dialogsService.sendMessage(webSocketMessageRq);
     }
 
     @PostMapping

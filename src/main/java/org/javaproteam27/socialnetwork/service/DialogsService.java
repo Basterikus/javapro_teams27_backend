@@ -12,6 +12,7 @@ import org.javaproteam27.socialnetwork.repository.DialogRepository;
 import org.javaproteam27.socialnetwork.repository.MessageRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -30,6 +31,9 @@ public class DialogsService {
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final NotificationService notificationService;
+
+    private final SimpMessagingTemplate messagingTemplate;
+
 
     private static MessageRs buildMessageRs(Message message) {
         return MessageRs.builder()
@@ -136,7 +140,7 @@ public class DialogsService {
         return new ResponseRs<>("", data, null);
     }
 
-    public ResponseRs<MessageRs> sendMessage(WebSocketMessageRq messageRq) {
+    public void sendMessage(WebSocketMessageRq messageRq) {
         var token = messageRq.getToken();
         Person person = getPerson(token);
         Integer authorId = person.getId();
@@ -164,7 +168,9 @@ public class DialogsService {
         MessageRs data = buildMessageRs(message);
         notificationService.createMessageNotification(message.getId(), System.currentTimeMillis(), recipientId, token);
 
-        return new ResponseRs<>("", data, null);
+        messagingTemplate.convertAndSendToUser(messageRq.getDialogId().toString(),
+                "/queue/messages", new ResponseRs<>("", data, null));
+//        return new ResponseRs<>("", data, null);
     }
 
     public ListResponseRs<MessageRs> getMessagesByDialog(Integer id, Integer offset, Integer itemPerPage) {

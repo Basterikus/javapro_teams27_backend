@@ -48,7 +48,7 @@ public class FriendsController {
     public ResponseEntity<FriendshipRs> addFriends(@PathVariable int id) {
         Person person = personService.getAuthorizedPerson();
         int friendshipStatusId;
-        if (friendshipService.requestVerification(id, person.getId()).isEmpty()) {
+        if (friendshipService.requestVerification(id, person.getId()).isEmpty() && person.getId() != id) {
             friendshipStatusId = friendshipStatusService.addStatus();
             return ResponseEntity.ok(friendshipService.addFriendShip(id, friendshipStatusId, person.getId()));
         } else {

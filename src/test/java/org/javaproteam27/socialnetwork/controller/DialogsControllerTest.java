@@ -3,9 +3,8 @@ package org.javaproteam27.socialnetwork.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
-import org.javaproteam27.socialnetwork.model.dto.request.WebSocketMessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.DialogUserShortListDto;
-import org.javaproteam27.socialnetwork.model.dto.response.MessageSendRequestBodyRs;
+import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.junit.Test;
@@ -121,7 +120,7 @@ public class DialogsControllerTest {
     @Test
     @WithUserDetails("test@mail.ru")
     public void editMessageWithCorrectDataIsOkResponse() throws Exception {
-        var rq = new MessageSendRequestBodyRs();
+        var rq = new MessageRq();
         rq.setMessageText("Text");
 
         this.mockMvc.perform(put(url + "/1/messages/1").content(objectMapper.writeValueAsString(rq))

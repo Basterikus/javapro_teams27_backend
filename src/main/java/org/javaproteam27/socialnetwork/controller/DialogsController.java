@@ -1,12 +1,9 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.model.dto.request.WebSocketMessageRq;
+import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.DialogsService;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,23 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class DialogsController {
 
     private final DialogsService dialogsService;
-
-//    private final SimpMessagingTemplate simpMessagingTemplate;
-
-
-    /*@MessageMapping("/secured/room")
-    public void sendSpecific(@Payload Message msg,
-                             Principal user,
-                             @Header("simpSessionId") String sessionId) throws Exception {
-//                OutputMessage out = new OutputMessage(msg.getFrom(),msg.getText(),new SimpleDateFormat("HH:mm").format(new Date()));
-                    simpMessagingTemplate.convertAndSendToUser(msg.getTo(), "/secured/user/queue/specific-user", out);
-    }*/
-
-    @MessageMapping("/dialogs/chat")
-//    @SendTo("/topic/activity")
-    public void webSocket(@Payload WebSocketMessageRq webSocketMessageRq) {
-        dialogsService.sendMessage(webSocketMessageRq);
-    }
 
     @PostMapping
     public ResponseRs<ComplexRs> createDialogs(
@@ -58,13 +38,13 @@ public class DialogsController {
         return dialogsService.deleteDialog(id);
     }
 
-//    @PostMapping("/{id}/messages")
-//    public ResponseRs<MessageRs> sendMessage(
-//            @RequestHeader("Authorization") String token,
-//            @PathVariable Integer id,
-//            @RequestBody MessageSendRequestBodyRs text) {
-//        return dialogsService.sendMessage(token, id, text);
-//    }
+    @PostMapping("/{id}/messages")
+    public ResponseRs<MessageRs> sendMessage(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Integer id,
+            @RequestBody MessageRq text) {
+        return dialogsService.sendMessage(token, id, text);
+    }
 
     @GetMapping("/{id}/messages")
     public ListResponseRs<MessageRs> getMessagesByDialog(
@@ -77,7 +57,7 @@ public class DialogsController {
     @PutMapping("/{dialog_id}/messages/{message_id}")
     public ResponseRs<MessageRs> editMessage(
             @PathVariable("message_id") Integer messageId,
-            @RequestBody MessageSendRequestBodyRs text) {
+            @RequestBody MessageRq text) {
         return dialogsService.editMessage(messageId, text);
     }
 

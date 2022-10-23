@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -79,6 +78,7 @@ public class NotificationServiceTest {
 
         Post post = Post.builder().authorId(1).title("title").build();
         Person person = new Person();
+        person.setId(1);
         person.setFirstName("Test");
         person.setLastName("Testov");
         person.setPhoto("photo");
@@ -134,13 +134,17 @@ public class NotificationServiceTest {
         String token = "token";
         int offset = 0;
         int perPage = 20;
+        Person person = new Person();
+        person.setId(1);
+        person.setFirstName("Test");
+        person.setLastName("Testov");
 
         List<Notification> expectedList = new ArrayList<>();
         expectedList.add(generateNotification(POST));
         expectedList.get(0).setRead(true);
 
         when(jwtTokenProvider.getUsername(token)).thenReturn("email");
-        when(personRepository.findByEmail("email")).thenReturn(new Person());
+        when(personRepository.findByEmail("email")).thenReturn(person);
         when(notificationRepository.findByPersonId(anyInt())).thenReturn(expectedList);
 
         var response = notificationService.getNotifications(token, offset, perPage);
@@ -156,6 +160,7 @@ public class NotificationServiceTest {
 
         Comment comment = Comment.builder().authorId(1).build();
         Person person = new Person();
+        person.setId(1);
         person.setFirstName("Test");
         person.setLastName("Testov");
         person.setPhoto("photo");
@@ -222,10 +227,13 @@ public class NotificationServiceTest {
     @Test
     public void markAsReadNotificationBadPersonIdRqNotificationsNotFoundThrown() {
         String token = "token";
+        Person person = new Person();
+        person.setId(1);
 
         when(jwtTokenProvider.getUsername(token)).thenReturn("email");
-        when(personRepository.findByEmail("email")).thenReturn(new Person());
+        when(personRepository.findByEmail("email")).thenReturn(person);
         when(notificationRepository.findByPersonId(anyInt())).thenReturn(new ArrayList<>());
+        when(personRepository.findById(anyInt())).thenReturn(person);
 
         InvalidRequestException thrown = assertThrows(InvalidRequestException.class,
                 () -> notificationService.markAsReadNotification(token, 1, true));

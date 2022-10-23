@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Component
@@ -36,7 +37,9 @@ public class WeatherService {
                     .build();
         } else {
             var cityMoscow = cityRepository.findByTitle("Москва");
-            return WeatherRs.builder()
+            if (cityMoscow.isEmpty()) {
+                return WeatherRs.builder().build();
+            } else return WeatherRs.builder()
                     .city(cityMoscow.get(0).getTitle())
                     .clouds(cityMoscow.get(0).getClouds())
                     .temp(cityMoscow.get(0).getTemp())
@@ -70,10 +73,13 @@ public class WeatherService {
         log.info("Requesting weather started");
         var cityList = getAllCity();
         for (String city : cityList) {
-            var weather = getWeatherFromSite(city);
+            WeatherRq weatherRq;
+            if (Objects.equals(city, "Санкт-Петербург")) {
+                weatherRq = getWeatherFromSite("Sankt-Peterburg");
+            } else weatherRq = getWeatherFromSite(city);
             City cityEntity = new City();
-            cityEntity.setTemp(weather.getTemp());
-            cityEntity.setClouds(weather.getClouds());
+            cityEntity.setTemp(weatherRq.getTemp());
+            cityEntity.setClouds(weatherRq.getClouds());
             cityEntity.setTitle(city);
             cityEntity.setCountryId(1);
             cityRepository.saveOrUpdate(cityEntity);
@@ -86,7 +92,7 @@ public class WeatherService {
         Set<String> cityList = new HashSet<>();
         for (Person person : personList) {
             String city = person.getCity();
-            if (city != null) {
+            if (city != null && !city.equals("")) {
                 cityList.add(city);
             }
         }

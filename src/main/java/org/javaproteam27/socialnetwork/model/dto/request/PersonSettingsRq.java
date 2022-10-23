@@ -7,18 +7,8 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonSettingsRq {
-    @JsonProperty("post_comment_notification")
-    private Boolean postCommentNotification;
-    @JsonProperty("comment_comment_notification")
-    private Boolean commentCommentNotification;
-    @JsonProperty("friend_request_notification")
-    private Boolean friendRequestNotification;
-    @JsonProperty("message_notification")
-    private Boolean messageNotification;
-    @JsonProperty("friend_birthday_notification")
-    private Boolean friendBirthdayNotification;
-    @JsonProperty("like_notification")
-    private Boolean likeNotification;
-    @JsonProperty("post_notification")
-    private Boolean postNotification;
+    @JsonProperty("notification_type")
+    private String type;
+    @JsonProperty("enable")
+    private Boolean enable;
 }

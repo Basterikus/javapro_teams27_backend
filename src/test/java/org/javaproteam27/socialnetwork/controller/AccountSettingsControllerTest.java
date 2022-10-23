@@ -27,13 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:sql/person/insert-person.sql", "classpath:sql/person/insert-person-settings.sql"})
 @Transactional
-public class PersonSettingsControllerTest {
+public class AccountSettingsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String url = "/api/v1/settings";
+    private final String url = "/api/v1/account/notifications";
 
     @Test
     @WithUserDetails("test@mail.ru")
@@ -49,7 +49,8 @@ public class PersonSettingsControllerTest {
     @WithUserDetails("test@mail.ru")
     public void putPersonSettingsCorrectRqIsOkResponse() throws Exception {
         var rq = new PersonSettingsRq();
-        rq.setFriendBirthdayNotification(true);
+        rq.setType("POST_COMMENT");
+        rq.setEnable(false);
 
         this.mockMvc.perform(put(url).content(objectMapper.writeValueAsString(rq))
                 .contentType(MediaType.APPLICATION_JSON))

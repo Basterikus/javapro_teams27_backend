@@ -3,6 +3,7 @@ package org.javaproteam27.socialnetwork.service;
 import org.javaproteam27.socialnetwork.model.dto.request.PersonSettingsRq;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.entity.PersonSettings;
+import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,15 @@ public class PersonSettingsServiceTest {
     public void getPersonSettingsAuthorizedRqAllDataIsOk() {
         var person = new Person();
         person.setId(1);
-        var ps = PersonSettings.builder().personId(1).messageNotification(true).build();
+        var ps = PersonSettings.builder().personId(1)
+                .postNotification(false)
+                .postCommentNotification(true)
+                .likeNotification(true)
+                .messageNotification(true)
+                .commentCommentNotification(true)
+                .friendBirthdayNotification(true)
+                .friendRequestNotification(true)
+                .build();
 
         when(personService.getAuthorizedPerson()).thenReturn(person);
         when(personSettingsRepository.findByPersonId(anyInt())).thenReturn(ps);
@@ -45,8 +54,8 @@ public class PersonSettingsServiceTest {
         var rs = personSettingsService.getPersonSettings();
 
         assertNotNull(rs.getData());
-        assertEquals(1, rs.getData().getPersonId());
-        assertEquals(true, rs.getData().getMessageNotification());
+        assertEquals(NotificationType.POST, rs.getData().get(0).getNotificationType());
+        assertEquals(false, rs.getData().get(0).getEnable());
     }
 
     @Test
@@ -58,7 +67,8 @@ public class PersonSettingsServiceTest {
                 .likeNotification(true)
                 .build();
         var rq = new PersonSettingsRq();
-        rq.setLikeNotification(false);
+        rq.setType("POST");
+        rq.setEnable(false);
 
         when(personService.getAuthorizedPerson()).thenReturn(person);
         when(personSettingsRepository.findByPersonId(anyInt())).thenReturn(ps);

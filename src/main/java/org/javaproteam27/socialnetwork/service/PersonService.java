@@ -1,8 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-
-import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -15,10 +13,10 @@ import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,7 +32,7 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final Redis redis;
     private final FriendshipStatusRepository friendshipStatusRepository;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -84,9 +82,8 @@ public class PersonService {
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
-    public PersonRs initialize(Integer personId){
+    public PersonRs getPersonRs(Person person){
 
-        Person person = findById(personId);
         return PersonRs.builder()
                 .id(person.getId())
                 .email(person.getEmail())
@@ -102,8 +99,14 @@ public class PersonService {
                 .photo(redis.getUrl(person.getId()))
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
-                .friendshipStatusCode(getFriendshipStatus(personId))
+                .friendshipStatusCode(getFriendshipStatus(person.getId()))
                 .build();
+    }
+
+    public PersonRs initialize(Integer personId){
+
+        Person person = findById(personId);
+        return getPersonRs(person);
     }
 
     public ResponseEntity<UserRs> editUser(UserRq request, String token) {
@@ -138,5 +141,10 @@ public class PersonService {
     public ResponseRs<PersonRs> getUserInfo(int userId) {
 
         return new ResponseRs<>("", initialize(userId), null);
+    }
+
+    public Person getPersonByToken(String token) {
+        String email = jwtTokenProvider.getUsername(token);
+        return personRepository.findByEmail(email);
     }
 }

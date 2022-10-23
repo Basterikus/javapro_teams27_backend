@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Person {
 
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private LocalDateTime regDate;

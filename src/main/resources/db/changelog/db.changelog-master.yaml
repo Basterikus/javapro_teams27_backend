@@ -42,6 +42,8 @@ databaseChangeLog:
   - include:
       file: /db/changelog/migrations/021-edit-person.sql
   - include:
+      file: /db/changelog/migrations/022-edit-post.sql
+  - include:
       file: /db/changelog/migrations/022-edit-person.sql
   - include:
       file: /db/changelog/migrations/023-edit-city.sql

@@ -104,7 +104,7 @@ public class DialogsServiceTest {
         when(jwtTokenProvider.getUsername(anyString())).thenReturn(email);
         when(personRepository.findByEmail(anyString())).thenReturn(person);
         when(dialogRepository.findByPersonId(anyInt(), anyInt(), anyInt())).thenReturn(List.of(dialog));
-        when(messageRepository.countUnreadByDialogId(anyInt())).thenReturn(1);
+        when(messageRepository.countUnreadByDialogIdAndRecipientId(anyInt(), anyInt())).thenReturn(1);
         when(messageRepository.findById(anyInt())).thenReturn(message);
         when(personRepository.findById(anyInt())).thenReturn(person2);
 
@@ -127,7 +127,7 @@ public class DialogsServiceTest {
         when(jwtTokenProvider.getUsername(anyString())).thenReturn(email);
         when(personRepository.findByEmail(anyString())).thenReturn(person);
         when(dialogRepository.findByPersonId(anyInt(), anyInt(), anyInt())).thenReturn(List.of(dialog));
-        when(messageRepository.countUnreadByDialogId(anyInt())).thenReturn(1);
+        when(messageRepository.countUnreadByDialogIdAndRecipientId(anyInt(), anyInt())).thenReturn(1);
         when(personRepository.findById(anyInt())).thenReturn(person2);
 
         var rq = dialogsService.getDialogs("token", 0, 10);

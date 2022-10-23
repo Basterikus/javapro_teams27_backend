@@ -39,7 +39,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Sql(scripts = {"classpath:sql/person/insert-person.sql", "classpath:sql/post/insert-post.sql"})
+@Sql(scripts = {"classpath:sql/person/insert-person.sql",
+                "classpath:sql/post/insert-post.sql",
+                "classpath:sql/city/insert-city.sql"})
 @Transactional
 public class UserControllerTest {
 

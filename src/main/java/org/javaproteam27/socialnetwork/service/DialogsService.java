@@ -85,14 +85,14 @@ public class DialogsService {
         List<DialogRs> result = new ArrayList<>();
         if (!dialogList.isEmpty()) {
             for (Dialog dialog : dialogList) {
-                Integer unreadCount = messageRepository.countUnreadByDialogId(dialog.getId());
+                Integer unreadCount = messageRepository.countUnreadByDialogIdAndRecipientId(dialog.getId(), personId);
                 Integer recipientId = dialog.getFirstPersonId().equals(personId) ?
                         dialog.getSecondPersonId() :
                         dialog.getFirstPersonId();
                 if (dialog.getLastMessageId() != 0) {
                     var lastMessage = messageRepository.findById(dialog.getLastMessageId());
                     boolean isSentByMe = getSentMessageAuthor(lastMessage, person);
-                    var recipientPerson = personRepository.findById(lastMessage.getRecipientId());
+                    var recipientPerson = personRepository.findById(recipientId);
 
                     result.add(DialogRs.builder()
                             .id(dialog.getId())

@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.javaproteam27.socialnetwork.config.RedisConfig;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
-import org.javaproteam27.socialnetwork.util.DropBox;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

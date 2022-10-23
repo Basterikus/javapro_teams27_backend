@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,17 +40,20 @@ public class LoginServiceTest {
     private PasswordEncoder passwordEncoder;
 
     @Mock
+    private WeatherService weatherService;
+
+    @Mock
     private Redis redis;
 
     private LoginService loginService;
 
     @Before
     public void setUp() {
-        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, redis);
+        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, weatherService, redis);
     }
 
     @Test
-    public void profileResponseAuthorizedRqAllDataIsOk() throws IOException {
+    public void profileResponseAuthorizedRqAllDataIsOk() {
         String token = "token";
 
         Person person = new Person();
@@ -73,7 +77,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void loginCorrectRqAllDataIsOk() throws IOException {
+    public void loginCorrectRqAllDataIsOk() {
         var password = passwordEncoder.encode("test1234");
         LoginRq loginRq = new LoginRq();
         loginRq.setEmail("test@mail.ru");

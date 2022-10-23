@@ -30,4 +30,6 @@ public class NotificationController {
 
         return notificationService.markAsReadNotification(token, id, all);
     }
+
+
 }

@@ -42,5 +42,6 @@ public class PersonRs {
     private String token;
     @JsonProperty("friend_status")
     private FriendshipStatusCode friendshipStatusCode;
+    private WeatherRs weather;
 }
 

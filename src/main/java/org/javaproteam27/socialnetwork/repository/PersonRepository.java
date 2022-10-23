@@ -9,6 +9,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -23,16 +25,16 @@ public class PersonRepository {
     private final JdbcTemplate jdbcTemplate;
 
 
-    public void save(Person person) {
+    public Integer save(Person person) {
+        String sql = "insert into person(first_name, last_name, reg_date, email, " +
+                "password, photo, is_approved)" +
+                "values ('%s','%s','%s','%s','%s','%s','%b')";
+        String sqlFormat = String.format(sql, person.getFirstName(), person.getLastName(), person.getRegDate(),
+                person.getEmail(), person.getPassword(), person.getPhoto(), person.getIsApproved());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        String sql = "insert into person(first_name, last_name, reg_date, birth_date, email, phone, " +
-                "password, photo, about, city, country, confirmation_code, is_approved, messages_permission, " +
-                "last_online_time, is_blocked) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, person.getFirstName(), person.getLastName(), person.getRegDate(),
-                person.getBirthDate(), person.getEmail(), person.getPhone(), person.getPassword(),
-                person.getPhoto(), person.getAbout(), person.getCity(), person.getCountry(), person.getConfirmationCode(),
-                person.getIsApproved(), person.getMessagesPermission(), person.getLastOnlineTime(),
-                person.getIsBlocked());
+        jdbcTemplate.update(connection -> connection.prepareStatement(sqlFormat, new String[]{"id"}), keyHolder);
+        return (Integer) keyHolder.getKey();
     }
 
     public Person findById(int id) {

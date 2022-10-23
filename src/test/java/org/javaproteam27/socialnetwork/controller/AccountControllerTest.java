@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.model.entity.Captcha;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.javaproteam27.socialnetwork.service.CaptchaService;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -54,6 +55,8 @@ public class AccountControllerTest {
     private CaptchaService captchaService;
     @MockBean
     private CaptchaRepository captchaRepository;
+    @MockBean
+    private PersonSettingsRepository personSettingsRepository;
     @Autowired
     private ObjectMapper objectMapper;
 

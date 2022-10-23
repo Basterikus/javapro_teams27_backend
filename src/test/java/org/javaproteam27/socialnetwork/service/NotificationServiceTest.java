@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -46,6 +47,8 @@ public class NotificationServiceTest {
     private MessageRepository messageRepository;
     @Mock
     private SimpMessagingTemplate simpMessagingTemplate;
+    @Mock
+    private PersonSettingsRepository personSettingsRepository;
 
     private NotificationService notificationService;
 
@@ -53,7 +56,19 @@ public class NotificationServiceTest {
     public void setUp() {
         notificationService = new NotificationService(personService, personRepository, jwtTokenProvider,
                 notificationRepository, friendshipRepository, postRepository, commentRepository,
-                likeRepository, messageRepository, simpMessagingTemplate);
+                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository);
+
+        var ps = PersonSettings.builder()
+                .postNotification(true)
+                .postCommentNotification(true)
+                .commentCommentNotification(true)
+                .friendRequestNotification(true)
+                .likeNotification(true)
+                .friendBirthdayNotification(true)
+                .messageNotification(true)
+                .build();
+
+        when(personSettingsRepository.findByPersonId(anyInt())).thenReturn(ps);
     }
 
     @Test

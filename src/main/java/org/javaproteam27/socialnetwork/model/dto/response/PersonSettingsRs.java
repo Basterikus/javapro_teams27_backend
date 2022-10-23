@@ -8,8 +8,8 @@ import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 @Data
 @Builder
 public class PersonSettingsRs {
-    @JsonProperty("notification_type")
-    private NotificationType notificationType;
+    @JsonProperty("type")
+    private NotificationType type;
     @JsonProperty("enable")
     private Boolean enable;
 }

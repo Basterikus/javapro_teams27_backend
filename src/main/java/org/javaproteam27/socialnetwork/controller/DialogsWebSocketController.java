@@ -3,6 +3,7 @@ package org.javaproteam27.socialnetwork.controller;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.DialogUserShortListDto;
+import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.service.DialogsService;
 import org.javaproteam27.socialnetwork.service.PersonService;
 import org.springframework.messaging.handler.annotation.Header;
@@ -65,11 +66,16 @@ public class DialogsWebSocketController {
 
     @MessageMapping("/dialogs/send_message")
     public void sendMessage(@Header("token") String token,
-                            @Header("id_dialog") Integer dialogId,
+                            @Header("dialog_id") Integer dialogId,
                             @Payload MessageRq text) {
 
-        messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
-                "/queue/messages", dialogsService.sendMessage(token, dialogId, text));
+        Person person = personService.getPersonByToken(token);
+        //var listRs = new ListResponseRs<>("", 0, 1, rs);
+        if (person.getNotificationsWebsocketUserId() != null) {
+            var userId = person.getNotificationsWebsocketUserId();
+            messagingTemplate.convertAndSendToUser(userId,
+                    "/queue/messages", dialogsService.sendMessage(token, dialogId, text));
+        }
     }
 
     @MessageMapping("/dialogs/get_messages")

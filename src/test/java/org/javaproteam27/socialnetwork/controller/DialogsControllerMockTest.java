@@ -89,7 +89,10 @@ public class DialogsControllerMockTest {
     @WithUserDetails("test@mail.ru")
     public void getMessagesByDialogWithCorrectDataIsOkResponse() throws Exception {
         var message = Message.builder().id(1).messageText("text").authorId(1).recipientId(2).build();
+        Person person = new Person();
+        person.setId(1);
         when(messageRepository.findByDialogId(anyInt(), anyInt(), anyInt())).thenReturn(List.of(message));
+        when(personService.getAuthorizedPerson()).thenReturn(person);
 
         this.mockMvc.perform(get(url + "/1/messages").header("Authorization", getTokenAuthorization()))
                 .andDo(print()).andExpect(status().isOk())

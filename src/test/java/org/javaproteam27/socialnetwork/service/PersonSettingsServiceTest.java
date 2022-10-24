@@ -54,7 +54,7 @@ public class PersonSettingsServiceTest {
         var rs = personSettingsService.getPersonSettings();
 
         assertNotNull(rs.getData());
-        assertEquals(NotificationType.POST, rs.getData().get(0).getNotificationType());
+        assertEquals(NotificationType.POST, rs.getData().get(0).getType());
         assertEquals(false, rs.getData().get(0).getEnable());
     }
 

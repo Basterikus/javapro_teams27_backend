@@ -1,14 +1,20 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.PersonSettingsRq;
+import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonSettingsRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
-import org.javaproteam27.socialnetwork.model.entity.PersonSettings;
+import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import static org.javaproteam27.socialnetwork.model.enums.NotificationType.*;
 
 @Service
 @RequiredArgsConstructor
@@ -17,50 +23,56 @@ public class PersonSettingsService {
     private final PersonSettingsRepository personSettingsRepository;
     private final PersonService personService;
 
-    public ResponseRs<PersonSettingsRs> getPersonSettings() {
+    public ListResponseRs<PersonSettingsRs> getPersonSettings() {
         var personId = personService.getAuthorizedPerson().getId();
         var ps = personSettingsRepository.findByPersonId(personId);
-        var data = convertToResponse(ps);
-        return new ResponseRs<>("", data, null);
+        List<PersonSettingsRs> data = new ArrayList<>();
+        data.add(convertToResponse(POST, ps.getPostNotification()));
+        data.add(convertToResponse(POST_COMMENT, ps.getPostCommentNotification()));
+        data.add(convertToResponse(COMMENT_COMMENT, ps.getCommentCommentNotification()));
+        data.add(convertToResponse(FRIEND_REQUEST, ps.getFriendRequestNotification()));
+        data.add(convertToResponse(MESSAGE, ps.getMessageNotification()));
+        data.add(convertToResponse(FRIEND_BIRTHDAY, ps.getFriendBirthdayNotification()));
+        data.add(convertToResponse(POST_LIKE, ps.getLikeNotification()));
+
+        return new ListResponseRs<>("", 0, 20, data);
     }
 
     public ResponseRs<Object> editPersonSettings(PersonSettingsRq rq) {
         var personId = personService.getAuthorizedPerson().getId();
         var ps = personSettingsRepository.findByPersonId(personId);
-        PersonSettings personSettings = PersonSettings.builder()
-                .personId(personId)
-                .postCommentNotification(rq.getPostCommentNotification() == null ?
-                        ps.getPostCommentNotification() : rq.getPostCommentNotification())
-                .commentCommentNotification(rq.getCommentCommentNotification() == null ?
-                        ps.getCommentCommentNotification() : rq.getCommentCommentNotification())
-                .friendRequestNotification(rq.getFriendRequestNotification() == null ?
-                        ps.getFriendRequestNotification() : rq.getFriendRequestNotification())
-                .messageNotification(rq.getMessageNotification() == null ?
-                        ps.getMessageNotification() : rq.getMessageNotification())
-                .friendBirthdayNotification(rq.getFriendBirthdayNotification() == null ?
-                        ps.getFriendBirthdayNotification() : rq.getFriendBirthdayNotification())
-                .likeNotification(rq.getLikeNotification() == null ?
-                        ps.getLikeNotification() : rq.getLikeNotification())
-                .postNotification(rq.getPostNotification() == null ?
-                        ps.getPostNotification() : rq.getPostNotification())
-                .build();
-        personSettingsRepository.update(personSettings);
+        switch (rq.getType()) {
+            case "POST":
+                ps.setPostNotification(rq.getEnable());
+                break;
+            case "POST_COMMENT":
+                ps.setPostCommentNotification(rq.getEnable());
+                break;
+            case "COMMENT_COMMENT":
+                ps.setCommentCommentNotification(rq.getEnable());
+                break;
+            case "FRIEND_REQUEST":
+                ps.setFriendRequestNotification(rq.getEnable());
+                break;
+            case "MESSAGE":
+                ps.setMessageNotification(rq.getEnable());
+                break;
+            case "FRIEND_BIRTHDAY":
+                ps.setFriendBirthdayNotification(rq.getEnable());
+                break;
+            case "POST_LIKE":
+                ps.setLikeNotification(rq.getEnable());
+                break;
+            default:
+                throw new InvalidRequestException("Request with - " + rq.getType() + " not found");
+        }
+        personSettingsRepository.update(ps);
         HashMap<String, String> data = new HashMap<>();
         data.put("message", "ok");
         return new ResponseRs<>("", data, null);
     }
 
-    private PersonSettingsRs convertToResponse(PersonSettings ps) {
-        return PersonSettingsRs.builder()
-                .id(ps.getId())
-                .personId(ps.getPersonId())
-                .postCommentNotification(ps.getPostCommentNotification())
-                .commentCommentNotification(ps.getCommentCommentNotification())
-                .friendRequestNotification(ps.getFriendRequestNotification())
-                .messageNotification(ps.getMessageNotification())
-                .friendBirthdayNotification(ps.getFriendBirthdayNotification())
-                .likeNotification(ps.getLikeNotification())
-                .postNotification(ps.getPostNotification())
-                .build();
+    private PersonSettingsRs convertToResponse(NotificationType notificationType, boolean enable) {
+        return PersonSettingsRs.builder().type(notificationType).enable(enable).build();
     }
 }

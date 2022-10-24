@@ -179,12 +179,15 @@ public class NotificationService {
 
     private void notifyUser(Notification notification) {
         var rs = List.of(getNotificationRs(notification));
-        var person = personRepository.findById(notification.getPersonId());
+//        var person = personRepository.findById(notification.getPersonId());
         var listRs = new ListResponseRs<>("", 0, 1, rs);
-        if (person.getNotificationsWebsocketUserId() != null) {
+        /*if (person.getNotificationsWebsocketUserId() != null) {
             var userId = person.getNotificationsWebsocketUserId();
             simpMessagingTemplate.convertAndSendToUser(userId, "/queue/notifications", listRs);
-        }
+        }*/
+
+        simpMessagingTemplate.convertAndSendToUser(notification.getPersonId().toString(),
+                "/queue/notifications", listRs);
     }
 
     private void createNotification(int dstId, NotificationType notificationType, int entityId, Long sentTime) {

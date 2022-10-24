@@ -65,9 +65,16 @@ public class DialogsWebSocketController {
 
     @MessageMapping("/dialogs/send_message")
     public void sendMessage(@Header("token") String token,
-                            @Header("id_dialog") Integer dialogId,
+                            @Header("dialog_id") Integer dialogId,
                             @Payload MessageRq text) {
 
+        /*Person person = personService.getPersonByToken(token);
+        //var listRs = new ListResponseRs<>("", 0, 1, rs);
+        if (person.getNotificationsWebsocketUserId() != null) {
+            var userId = person.getNotificationsWebsocketUserId();
+            messagingTemplate.convertAndSendToUser(userId,
+                    "/queue/messages", dialogsService.sendMessage(token, dialogId, text));
+        }*/
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
                 "/queue/messages", dialogsService.sendMessage(token, dialogId, text));
     }

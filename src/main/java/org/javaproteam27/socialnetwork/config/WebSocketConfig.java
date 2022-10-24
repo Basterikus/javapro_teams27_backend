@@ -2,7 +2,6 @@ package org.javaproteam27.socialnetwork.config;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.service.AuthChannelInterceptor;
-import org.javaproteam27.socialnetwork.util.CustomHandshakeHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -19,15 +18,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/user", "/queue");
+        config.enableSimpleBroker("/user");//, "/queue");
         config.setApplicationDestinationPrefixes("/api/v1");
-//        config.setUserDestinationPrefix("/user");
+        config.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/api/v1/ws")
-                .setHandshakeHandler(new CustomHandshakeHandler())
+//                .setHandshakeHandler(new CustomHandshakeHandler())
                 .setAllowedOrigins("*")
                 .withSockJS();
     }

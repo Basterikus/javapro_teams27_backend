@@ -213,7 +213,7 @@ public class DialogsServiceTest {
         when(messageRepository.countByDialogId(anyInt())).thenReturn(1);
         when(messageRepository.findByDialogId(anyInt(), anyInt(), anyInt())).thenReturn(List.of(message));
 
-        var rq = dialogsService.getMessagesByDialog(1, 0, 10);
+        var rq = dialogsService.getMessagesByDialog(1, 0, 10, 1);
         int total = rq.getTotal();
 
         assertNotNull(rq.getData());

@@ -73,6 +73,6 @@ public class PersonSettingsService {
     }
 
     private PersonSettingsRs convertToResponse(NotificationType notificationType, boolean enable) {
-        return PersonSettingsRs.builder().notificationType(notificationType).enable(enable).build();
+        return PersonSettingsRs.builder().type(notificationType).enable(enable).build();
     }
 }

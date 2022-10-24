@@ -57,7 +57,7 @@ public class DialogsWebSocketController {
 
     @MessageMapping("/dialogs/delete_dialog")
     public void deleteDialog(@Header("token") String token,
-                             @Header("id_dialog") Integer dialogId) {
+                             @Header("dialog_id") Integer dialogId) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
                 "/queue/messages", dialogsService.deleteDialog(dialogId));
@@ -81,7 +81,7 @@ public class DialogsWebSocketController {
 
     @MessageMapping("/dialogs/get_messages")
     public void getMessages(@Header("token") String token,
-                            @Header("id_dialog") Integer dialogId) {
+                            @Header("dialog_id") Integer dialogId) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
                 "/queue/messages", dialogsService.getMessagesByDialog(dialogId, 0, 100));
@@ -89,7 +89,7 @@ public class DialogsWebSocketController {
 
     @MessageMapping("/dialogs/edit_message")
     public void editMessage(@Header("token") String token,
-                            @Header("id_message") Integer messageId,
+                            @Header("dialog_id") Integer messageId,
                             @Payload MessageRq text) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
@@ -98,7 +98,7 @@ public class DialogsWebSocketController {
 
     @MessageMapping("/dialogs/mark_readed")
     public void markReaded(@Header("token") String token,
-                            @Header("id_message") Integer messageId) {
+                            @Header("dialog_id") Integer messageId) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
                 "/queue/messages", dialogsService.markAsReadMessage(messageId));
@@ -107,7 +107,7 @@ public class DialogsWebSocketController {
     @MessageMapping("/dialogs/delete_message")
     public void deleteMessage(@Header("token") String token,
                            @Header("id_message") Integer messageId,
-                           @Header("id_dialog") Integer dialogId) {
+                           @Header("dialog_id") Integer dialogId) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
                 "/queue/messages", dialogsService.deleteMessage(dialogId, messageId));
@@ -116,7 +116,7 @@ public class DialogsWebSocketController {
     @MessageMapping("/dialogs/recover_message")
     public void recoverMessage(@Header("token") String token,
                               @Header("id_message") Integer messageId,
-                              @Header("id_dialog") Integer dialogId) {
+                              @Header("dialog_id") Integer dialogId) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
                 "/queue/messages", dialogsService.recoverMessage(dialogId, messageId));

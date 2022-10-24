@@ -238,6 +238,7 @@ public class DialogsService {
     public MessageRs getMessageRs(Message message) {
         return MessageRs.builder().id(message.getId()).messageText(message.getMessageText())
                 .recipientId(message.getRecipientId()).time(Timestamp.valueOf(message.getTime()).getTime())
-                .authorId(message.getAuthorId()).readStatus(message.getReadStatus()).build();
+                .authorId(message.getAuthorId()).readStatus(message.getReadStatus())
+                .isSentByMe(message.getAuthorId().equals(message.getRecipientId())).build();
     }
 }

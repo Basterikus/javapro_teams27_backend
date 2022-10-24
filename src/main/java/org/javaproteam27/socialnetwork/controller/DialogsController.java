@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.DialogsService;
+import org.javaproteam27.socialnetwork.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class DialogsController {
 
     private final DialogsService dialogsService;
+    private final PersonService personService;
 
     @PostMapping
     public ResponseRs<ComplexRs> createDialogs(
@@ -51,7 +53,7 @@ public class DialogsController {
             @PathVariable Integer id,
             @RequestParam(value = "offset", defaultValue = "0") Integer offset,
             @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage) {
-        return dialogsService.getMessagesByDialog(id, offset, itemPerPage);
+        return dialogsService.getMessagesByDialog(id, offset, itemPerPage, personService.getAuthorizedPerson().getId());
     }
 
     @PutMapping("/{dialog_id}/messages/{message_id}")

@@ -140,20 +140,24 @@ public class DialogsService {
         dialogRepository.update(dialog);
 
         MessageRs data = getMessageRs(message);
+        data.setIsSentByMe(true);
         notificationService.createMessageNotification(message.getId(), System.currentTimeMillis(), recipientId, token);
 
         return new ResponseRs<>("", data, null);
     }
 
-    public ListResponseRs<MessageRs> getMessagesByDialog(Integer id, Integer offset, Integer itemPerPage) {
+    public ListResponseRs<MessageRs> getMessagesByDialog(Integer id, Integer offset,
+                                                         Integer itemPerPage, Integer personId) {
 
         Integer messagesCount = messageRepository.countByDialogId(id);
         List<MessageRs> data = Collections.emptyList();
 
         if (messagesCount > 0) {
+
             data = messageRepository.findByDialogId(id, offset, itemPerPage).stream()
                     .map(this::getMessageRs)
                     .collect(Collectors.toList());
+            data.forEach(messageRs -> messageRs.setIsSentByMe(messageRs.getAuthorId().equals(personId)));
         }
 
         return ListResponseRs.<MessageRs>builder()
@@ -176,6 +180,7 @@ public class DialogsService {
         messageRepository.update(message);
 
         MessageRs data = getMessageRs(message);
+        data.setIsSentByMe(true);
 
         return new ResponseRs<>("", data, null);
     }
@@ -235,10 +240,10 @@ public class DialogsService {
                 .build();
     }
 
-    public MessageRs getMessageRs(Message message) {
+    private MessageRs getMessageRs(Message message) {
         return MessageRs.builder().id(message.getId()).messageText(message.getMessageText())
                 .recipientId(message.getRecipientId()).time(Timestamp.valueOf(message.getTime()).getTime())
                 .authorId(message.getAuthorId()).readStatus(message.getReadStatus())
-                .isSentByMe(message.getAuthorId().equals(message.getRecipientId())).build();
+                .build();
     }
 }

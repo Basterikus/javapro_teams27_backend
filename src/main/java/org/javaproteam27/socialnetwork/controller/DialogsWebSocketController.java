@@ -84,7 +84,8 @@ public class DialogsWebSocketController {
                             @Header("dialog_id") Integer dialogId) {
 
         messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
-                "/queue/messages", dialogsService.getMessagesByDialog(dialogId, 0, 100));
+                "/queue/messages", dialogsService.getMessagesByDialog(dialogId, 0, 100,
+                        personService.getPersonByToken(token).getId()));
     }
 
     @MessageMapping("/dialogs/edit_message")

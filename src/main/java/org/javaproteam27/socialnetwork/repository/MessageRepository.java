@@ -81,7 +81,7 @@ public class MessageRepository {
     public List<Message> findByDialogId(Integer dialogId, Integer offset, Integer limit) {
 
         String sql = "select * from message where dialog_id = ? order by time desc";
-        sql = ((offset != null)&&(limit != null)) ? sql + "offset ? limit ?" : sql;
+        sql = ((offset != null)&&(limit != null)) ? sql + " offset ? limit ?" : sql;
 
         try {
             return jdbcTemplate.query(sql, rowMapper, dialogId, offset, limit);

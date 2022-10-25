@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
+import org.javaproteam27.socialnetwork.model.dto.response.CurrencyRateRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.WeatherRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.repository.CurrencyRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.util.Redis;
@@ -27,6 +29,7 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final WeatherService weatherService;
     private final Redis redis;
+    private final CurrencyRepository currencyRepository;
 
     public ResponseRs<PersonRs> profileResponse(String token) {
         String email = jwtTokenProvider.getUsername(token);
@@ -37,8 +40,14 @@ public class LoginService {
         } else {
             weatherRs = weatherService.getWeather("Москва");
         }
+        var currencyUsd = currencyRepository.findByName("USD");
+        var currencyEuro = currencyRepository.findByName("EUR");
         PersonRs personRs = getPersonRs(person, token);
         personRs.setWeather(weatherRs);
+        personRs.setCurrency(CurrencyRateRs.builder()
+                .usd(currencyUsd.getPrice())
+                .euro(currencyEuro.getPrice())
+                .build());
         return new ResponseRs<>("string", 0, 20, personRs);
     }
 

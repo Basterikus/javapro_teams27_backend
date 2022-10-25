@@ -2,18 +2,17 @@ package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
-import org.javaproteam27.socialnetwork.model.dto.response.UserRs;
+import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
+import org.javaproteam27.socialnetwork.repository.CurrencyRepository;
 import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
 import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,9 +31,10 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
-//    private final PasswordEncoder passwordEncoder;
     private final Redis redis;
     private final FriendshipStatusRepository friendshipStatusRepository;
+    private final WeatherService weatherService;
+    private final CurrencyRepository currencyRepository;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Person findById(int id) {
@@ -97,6 +97,8 @@ public class PersonService {
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
                 .photo(redis.getUrl(person.getId()))
+                .weather(getWeather(person))
+                .currency(getCurrency())
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .friendshipStatusCode(getFriendshipStatus(person.getId()))
@@ -135,7 +137,7 @@ public class PersonService {
         var friendStatus = friendshipStatusRepository.findByPersonId(dstId, srcId);
         if (!friendStatus.isEmpty()) {
             return friendStatus.get(0).getCode();
-        } else return null;
+        } else return FriendshipStatusCode.UNKNOWN;
     }
 
     public ResponseRs<PersonRs> getUserInfo(int userId) {
@@ -146,5 +148,21 @@ public class PersonService {
     public Person getPersonByToken(String token) {
         String email = jwtTokenProvider.getUsername(token);
         return personRepository.findByEmail(email);
+    }
+
+    private CurrencyRateRs getCurrency() {
+        var euro = currencyRepository.findByName("EUR");
+        var usd = currencyRepository.findByName("USD");
+       return CurrencyRateRs.builder().euro(euro.getPrice()).usd(usd.getPrice()).build();
+    }
+
+    private WeatherRs getWeather(Person person) {
+        WeatherRs weatherRs;
+        if (person.getCity() != null) {
+            weatherRs = weatherService.getWeather(person.getCity());
+        } else {
+            weatherRs = weatherService.getWeather("Москва");
+        }
+        return weatherRs;
     }
 }

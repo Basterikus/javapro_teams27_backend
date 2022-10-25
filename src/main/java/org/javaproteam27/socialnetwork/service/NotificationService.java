@@ -87,10 +87,10 @@ public class NotificationService {
             var personId = personService.getAuthorizedPerson().getId();
             if (parentId != null) {
                 var commentAuthor = commentRepository.getCommentById(parentId).getAuthorId();
-                if (!Objects.equals(commentAuthor, postAuthor) && postAuthor != personId) {
+                if (!Objects.equals(commentAuthor, postAuthor) && !Objects.equals(postAuthor, personId)) {
                     createNotification(postAuthor, POST_COMMENT, commentId, sentTime);
                 }
-            } else if (postAuthor != personId) {
+            } else if (!Objects.equals(postAuthor, personId)) {
                 createNotification(postAuthor, POST_COMMENT, commentId, sentTime);
             }
         }
@@ -101,7 +101,7 @@ public class NotificationService {
         var ps = personSettingsRepository.findByPersonId(commentAuthor);
         if (Boolean.TRUE.equals(ps.getCommentCommentNotification())) {
             var personId = personService.getAuthorizedPerson().getId();
-            if (commentAuthor != personId) {
+            if (!Objects.equals(commentAuthor, personId)) {
                 createNotification(commentAuthor, COMMENT_COMMENT, commentId, sentTime);
             }
         }
@@ -179,13 +179,7 @@ public class NotificationService {
 
     private void notifyUser(Notification notification) {
         var rs = List.of(getNotificationRs(notification));
-//        var person = personRepository.findById(notification.getPersonId());
         var listRs = new ListResponseRs<>("", 0, 1, rs);
-        /*if (person.getNotificationsWebsocketUserId() != null) {
-            var userId = person.getNotificationsWebsocketUserId();
-            simpMessagingTemplate.convertAndSendToUser(userId, "/queue/notifications", listRs);
-        }*/
-
         simpMessagingTemplate.convertAndSendToUser(notification.getPersonId().toString(),
                 "/queue/notifications", listRs);
     }

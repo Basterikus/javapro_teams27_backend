@@ -5,6 +5,7 @@ import org.javaproteam27.socialnetwork.model.entity.*;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.*;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +49,8 @@ public class NotificationServiceTest {
     private SimpMessagingTemplate simpMessagingTemplate;
     @Mock
     private PersonSettingsRepository personSettingsRepository;
+    @Mock
+    private Redis redis;
 
     private NotificationService notificationService;
 
@@ -55,7 +58,7 @@ public class NotificationServiceTest {
     public void setUp() {
         notificationService = new NotificationService(personService, personRepository, jwtTokenProvider,
                 notificationRepository, friendshipRepository, postRepository, commentRepository,
-                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository);
+                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository, redis);
 
         var ps = PersonSettings.builder()
                 .postNotification(true)

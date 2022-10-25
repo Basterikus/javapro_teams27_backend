@@ -1,6 +1,5 @@
 package org.javaproteam27.socialnetwork.service;
 
-import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
 import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
 import org.javaproteam27.socialnetwork.model.entity.Dialog;
@@ -56,13 +55,13 @@ public class DialogsServiceTest {
         String email = "email";
         Person person = new Person();
         person.setId(1);
-        Dialog dialog = Dialog.builder().id(1).firstPersonId(1).secondPersonId(2).build();
 
         when(jwtTokenProvider.getUsername(anyString())).thenReturn(email);
         when(personRepository.findByEmail(anyString())).thenReturn(person);
         when(dialogRepository.existsByPersonIds(anyInt(), anyInt())).thenReturn(false);
-        when(dialogRepository.findByPersonIds(anyInt(), anyInt())).thenReturn(dialog);
+        when(dialogRepository.findByPersonIds(anyInt(), anyInt())).thenReturn(null);
         when(personService.getPersonByToken(anyString())).thenReturn(person);
+        when(dialogRepository.save(any())).thenReturn(1);
 
         var rq = dialogsService.createDialog("token", List.of(2));
         int dialogId = rq.getData().getId();
@@ -73,7 +72,7 @@ public class DialogsServiceTest {
     }
 
     @Test
-    public void createDialogWithExistsDataThrowingException() {
+    public void createDialogWithExistsData() {
         String email = "email";
         Person person = new Person();
         person.setId(1);
@@ -85,13 +84,8 @@ public class DialogsServiceTest {
         when(dialogRepository.findByPersonIds(anyInt(), anyInt())).thenReturn(dialog);
         when(personService.getPersonByToken(anyString())).thenReturn(person);
 
-        UnableCreateEntityException thrown = assertThrows(UnableCreateEntityException.class,
-                () -> dialogsService.createDialog("token", List.of(2)));
-
-        assertEquals("Unable to create entity: dialog with person ids = 1 and 2 already exists.",
-                thrown.getMessage());
-
-        verify(dialogRepository, times(0)).save(any());
+        var rq = dialogsService.createDialog("token", List.of(2));
+        assertNotNull(rq.getData());
     }
 
     @Test

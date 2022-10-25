@@ -22,7 +22,7 @@ redis:
   url: redis://195.133.48.174:6379
 
 logsupload:
-    enabled: false
+    enabled: true
 
 management:
   endpoints:

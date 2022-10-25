@@ -43,5 +43,6 @@ public class PersonRs {
     @JsonProperty("friend_status")
     private FriendshipStatusCode friendshipStatusCode;
     private WeatherRs weather;
+    private CurrencyRateRs currency;
 }
 

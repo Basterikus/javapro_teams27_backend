@@ -1,5 +1,8 @@
 package org.javaproteam27.socialnetwork.service;
 
+import org.javaproteam27.socialnetwork.model.dto.response.CurrencyRateRs;
+import org.javaproteam27.socialnetwork.model.entity.Currency;
+import org.javaproteam27.socialnetwork.repository.CurrencyRepository;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
@@ -45,11 +48,15 @@ public class LoginServiceTest {
     @Mock
     private Redis redis;
 
+    @Mock
+    private CurrencyRepository currencyRepository;
+
     private LoginService loginService;
 
     @Before
     public void setUp() {
-        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, weatherService, redis);
+        loginService = new LoginService(jwtTokenProvider, personRepository, passwordEncoder, weatherService,
+                redis, currencyRepository);
     }
 
     @Test
@@ -60,12 +67,14 @@ public class LoginServiceTest {
         person.setEmail("email");
         person.setPassword("pass");
         person.setIsBlocked(false);
+        Currency currency = Currency.builder().build();
 
         Integer expectedOffset = 0;
         Integer expectedPerPage = 20;
 
         when(jwtTokenProvider.getUsername(token)).thenReturn("email");
         when(personRepository.findByEmail("email")).thenReturn(person);
+        when(currencyRepository.findByName(anyString())).thenReturn(currency);
 
         var response = loginService.profileResponse(token);
 

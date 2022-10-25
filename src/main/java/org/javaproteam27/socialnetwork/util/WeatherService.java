@@ -11,6 +11,7 @@ import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class WeatherService {
 
     private final PersonRepository personRepository;
     private final CityRepository cityRepository;
-    private static final String WEATHER_TOKEN = "ba32af4386a04094824121145222110";
+    private static final String WEATHER_TOKEN = "b392316d11d749cca0251337222510";
 
     public WeatherRs getWeather(String city) {
         var cityEntity = cityRepository.findByTitle(city);
@@ -60,15 +61,18 @@ public class WeatherService {
             JSONObject clouds = (JSONObject) currentWeather.get("condition");
             rq.setTemp(currentWeather.get("temp_c").toString());
             rq.setClouds(clouds.get("text").toString());
-            Thread.sleep(200);
-        } catch (Exception e) {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return rq;
     }
 
     @Scheduled(initialDelay = 5000, fixedRateString = "PT2H")
+    @Async
     private void refreshWeather() {
         log.info("Requesting weather started");
         var cityList = getAllCity();
@@ -77,12 +81,14 @@ public class WeatherService {
             if (Objects.equals(city, "Санкт-Петербург")) {
                 weatherRq = getWeatherFromSite("Sankt-Peterburg");
             } else weatherRq = getWeatherFromSite(city);
-            City cityEntity = new City();
-            cityEntity.setTemp(weatherRq.getTemp());
-            cityEntity.setClouds(weatherRq.getClouds());
-            cityEntity.setTitle(city);
-            cityEntity.setCountryId(1);
-            cityRepository.saveOrUpdate(cityEntity);
+            if (weatherRq.getTemp() != null) {
+                City cityEntity = new City();
+                cityEntity.setTemp(weatherRq.getTemp());
+                cityEntity.setClouds(weatherRq.getClouds());
+                cityEntity.setTitle(city);
+                cityEntity.setCountryId(1);
+                cityRepository.saveOrUpdate(cityEntity);
+            } else log.info(String.format("An error occurred while getting the weather from '%s'", city));
         }
         log.info("Weather in cities has been updated");
     }

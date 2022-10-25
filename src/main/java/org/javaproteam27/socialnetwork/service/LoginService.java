@@ -26,7 +26,7 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final Redis redis;
 
-    public ResponseRs<PersonRs> profileResponse(String token) throws IOException {
+    public ResponseRs<PersonRs> profileResponse(String token) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
         PersonRs personRs = getPersonRs(person, token);

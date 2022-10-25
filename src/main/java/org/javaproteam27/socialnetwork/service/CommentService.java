@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
 import org.javaproteam27.socialnetwork.model.entity.Comment;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CommentRepository;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,12 +23,13 @@ public class CommentService {
     private final LikeService likeService;
     private final NotificationService notificationService;
     public final String COMMENT_MARKER = "Comment";
+    private final Redis redis;
 
     private CommentRs convertToCommentRs(Comment comment) {
 
         Person person = personService.findById(comment.getAuthorId());
         PersonRs author = PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
-                lastName(person.getLastName()).photo(person.getPhoto()).build();
+                lastName(person.getLastName()).photo(redis.getUrl(person.getId())).build();
         return CommentRs.builder().isDeleted(false).parentId(comment.getParentId()).
                 commentText(comment.getCommentText()).id(comment.getId()).postId(comment.getPostId()).
                 time(comment.getTime()).author(author).isBlocked(person.getIsBlocked()).subComments(new ArrayList<>())

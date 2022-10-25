@@ -42,8 +42,6 @@ public class RegisterService {
         password1 = request.getPassword1();
         password2 = request.getPassword2();
 
-        // Проверка введенных данных
-        checkPassword();
         if (!checkCaptcha()) {
             return new  ResponseEntity(RegisterRs.builder().error("invalid_captcha")
                     .errorDescription("невверно введена капча").build(), HttpStatus.BAD_REQUEST);
@@ -60,7 +58,7 @@ public class RegisterService {
         person.setRegDate(LocalDateTime.now());
         person.setPassword(passwordEncoder.encode(password1));
         person.setPhoto(defaultPhoto);
-        person.setIsApproved(true);  // добавить проверку почты
+        person.setIsApproved(true);
         personRepository.save(person);
         // ответ успешной регистрации
         data.put( "message","ok");
@@ -68,10 +66,6 @@ public class RegisterService {
         return new ResponseEntity<>(RegisterRs.builder().error("string")
                 .timestamp(System.currentTimeMillis())
                 .data(data).build(), HttpStatus.OK);
-    }
-
-    private boolean checkPassword() {
-        return password1.equals(password2);
     }
 
     private boolean checkCaptcha() {

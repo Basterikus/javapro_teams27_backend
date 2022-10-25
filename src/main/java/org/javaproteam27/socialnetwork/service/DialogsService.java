@@ -1,7 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.handler.exception.UnableCreateEntityException;
 import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.model.entity.Dialog;
@@ -32,22 +31,20 @@ public class DialogsService {
 
         Integer firstPersonId = personService.getPersonByToken(token).getId();
         Integer secondPersonId = userIds.get(0);
-
-        if (Boolean.TRUE.equals(dialogRepository.existsByPersonIds(firstPersonId, secondPersonId))) {
-            throw new UnableCreateEntityException("dialog with person ids = " + firstPersonId +
-                    " and " + secondPersonId + " already exists");
-        }
-
-        Dialog newDialog = Dialog.builder()
-                .firstPersonId(firstPersonId)
-                .secondPersonId(secondPersonId)
-                .lastActiveTime(LocalDateTime.now())
-                .build();
-
-        dialogRepository.save(newDialog);
         Dialog dialog = dialogRepository.findByPersonIds(firstPersonId, secondPersonId);
-        ComplexRs data = ComplexRs.builder().id(dialog.getId()).build();
+        Integer dialogId;
+        if (dialog == null) {
+            Dialog newDialog = Dialog.builder()
+                    .firstPersonId(firstPersonId)
+                    .secondPersonId(secondPersonId)
+                    .lastActiveTime(LocalDateTime.now())
+                    .build();
 
+            dialogId = dialogRepository.save(newDialog);
+        } else {
+            dialogId = dialog.getId();
+        }
+        ComplexRs data = ComplexRs.builder().id(dialogId).build();
         return new ResponseRs<>("", data, null);
     }
 
@@ -189,11 +186,9 @@ public class DialogsService {
 
         Message message = messageRepository.findById(messageId);
         message.setReadStatus(ReadStatus.READ);
-
         messageRepository.update(message);
 
         ComplexRs data = ComplexRs.builder().message("ok").build();
-
         return new ResponseRs<>("", data, null);
     }
 
@@ -245,5 +240,13 @@ public class DialogsService {
                 .recipientId(message.getRecipientId()).time(Timestamp.valueOf(message.getTime()).getTime())
                 .authorId(message.getAuthorId()).readStatus(message.getReadStatus())
                 .build();
+    }
+
+    public ResponseRs<ComplexRs> markDialogAsReadMessage(Integer dialogId) {
+
+        List<Message> messages = messageRepository.findByDialogId(dialogId, null, null);
+        messages.forEach(message -> markAsReadMessage(message.getId()));
+        ComplexRs data = ComplexRs.builder().message("ok").build();
+        return new ResponseRs<>("", data, null);
     }
 }

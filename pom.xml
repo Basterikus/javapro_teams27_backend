@@ -124,9 +124,9 @@
             <version>2.7.3</version>
         </dependency>
         <dependency>
-            <groupId>biz.paluch.redis</groupId>
-            <artifactId>lettuce</artifactId>
-            <version>3.2.Final</version>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.11.4</version>
         </dependency>
 
         <!-- Web Socket -->

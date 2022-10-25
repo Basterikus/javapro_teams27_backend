@@ -69,7 +69,7 @@ public class CommentService {
 
     public ListResponseRs<CommentRs> getCommentsByPostIdInResponse(int postId, int offset, int itemPerPage) {
 
-        return new ListResponseRs<>("", offset, itemPerPage, getAllUserCommentsToPost(postId, offset, itemPerPage));
+        return new ListResponseRs<>("", offset, itemPerPage, getAllUserCommentsToPost(postId, null, null));
     }
 
     public void deleteAllCommentsToPost(int postId) {

@@ -31,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:sql/person/insert-person.sql",
                 "classpath:sql/post/insert-post.sql",
-        "classpath:sql/post/insert-comment.sql"})
+                "classpath:sql/post/insert-comment.sql",
+                "classpath:sql/person/insert-person-settings.sql"})
 @Transactional
 @WithUserDetails("test@mail.ru")
 public class CommentsControllerTest {

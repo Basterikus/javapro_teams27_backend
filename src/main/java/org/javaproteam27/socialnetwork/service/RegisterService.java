@@ -9,6 +9,8 @@ import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

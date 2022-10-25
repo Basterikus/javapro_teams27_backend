@@ -11,6 +11,7 @@ import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.*;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class NotificationService {
     private final MessageRepository messageRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final PersonSettingsRepository personSettingsRepository;
+    private final Redis redis;
 
 
     public ListResponseRs<NotificationBaseRs> getNotifications(String token, int offset, int itemPerPage) {
@@ -235,7 +237,7 @@ public class NotificationService {
         if (authorId != null) {
             var person = personRepository.findById(authorId);
             return PersonRs.builder().firstName(person.getFirstName()).lastName(person.getLastName())
-                    .photo(person.getPhoto()).build();
+                    .photo(redis.getUrl(person.getId())).build();
         }
         return null;
     }

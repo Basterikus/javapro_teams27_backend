@@ -66,12 +66,24 @@ public class LoginService {
         } else throw new InvalidRequestException("Incorrect password");
     }
 
-    private PersonRs getPersonRs(Person person, String token){
-        return PersonRs.builder().id(person.getId()).firstName(person.getFirstName()).
-                lastName(person.getLastName()).regDate(person.getRegDate()).birthDate(person.getBirthDate()).
-                email(person.getEmail()).phone(person.getPhone()).photo(redis.getUrl(person.getId())).about(person.getAbout()).
-                city(person.getCity()).country(person.getCountry()).messagesPermission(person.getMessagesPermission()).
-                lastOnlineTime(person.getLastOnlineTime()).isBlocked(person.getIsBlocked()).token(token)
+    private PersonRs getPersonRs(Person person, String token) {
+        return PersonRs.builder()
+                .id(person.getId())
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .regDate(person.getRegDate())
+                .birthDate(person.getBirthDate())
+                .email(person.getEmail())
+                .phone(person.getPhone())
+                .photo(redis.getUrl(person.getId()))
+                .about(person.getAbout())
+                .city(person.getCity())
+                .country(person.getCountry())
+                .messagesPermission(person.getMessagesPermission())
+                .lastOnlineTime(person.getLastOnlineTime())
+                .isBlocked(person.getIsBlocked())
+                .token(token)
+                .status("ONLINE")
                 .build();
 
     }

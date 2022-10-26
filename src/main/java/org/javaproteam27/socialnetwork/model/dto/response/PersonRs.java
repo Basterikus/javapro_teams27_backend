@@ -44,5 +44,6 @@ public class PersonRs {
     private FriendshipStatusCode friendshipStatusCode;
     private WeatherRs weather;
     private CurrencyRateRs currency;
+    private String status;
 }
 

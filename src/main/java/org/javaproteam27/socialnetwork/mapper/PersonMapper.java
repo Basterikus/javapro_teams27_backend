@@ -31,7 +31,7 @@ public class PersonMapper implements RowMapper<Person> {
 //        person.setLastOnlineTime(rs.getTimestamp("last_online_time").toLocalDateTime());
         person.setIsBlocked(rs.getBoolean("is_blocked"));
         person.setNotificationsSessionId(rs.getString("notifications_session_id"));
-        person.setNotificationsWebsocketUserId(rs.getString("notifications_websocket_user_id"));
+        person.setOnlineStatus(rs.getString("online_status"));
     
         return person;
     }

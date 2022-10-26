@@ -30,5 +30,5 @@ public class Person {
     private String token;
     private String changePasswordToken;
     private String notificationsSessionId;
-    private String notificationsWebsocketUserId;
+    private String onlineStatus;
 }

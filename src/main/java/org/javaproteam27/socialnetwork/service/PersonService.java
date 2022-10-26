@@ -6,7 +6,6 @@ import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
-import org.javaproteam27.socialnetwork.repository.CurrencyRepository;
 import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
@@ -34,7 +33,6 @@ public class PersonService {
     private final Redis redis;
     private final FriendshipStatusRepository friendshipStatusRepository;
     private final WeatherService weatherService;
-    private final CurrencyRepository currencyRepository;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Person findById(int id) {
@@ -98,10 +96,10 @@ public class PersonService {
                 .isBlocked(person.getIsBlocked())
                 .photo(redis.getUrl(person.getId()))
                 .weather(getWeather(person))
-                .currency(getCurrency())
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .friendshipStatusCode(getFriendshipStatus(person.getId()))
+                .status(person.getOnlineStatus())
                 .build();
     }
 
@@ -148,12 +146,6 @@ public class PersonService {
     public Person getPersonByToken(String token) {
         String email = jwtTokenProvider.getUsername(token);
         return personRepository.findByEmail(email);
-    }
-
-    private CurrencyRateRs getCurrency() {
-        var euro = currencyRepository.findByName("EUR");
-        var usd = currencyRepository.findByName("USD");
-       return CurrencyRateRs.builder().euro(euro.getPrice()).usd(usd.getPrice()).build();
     }
 
     private WeatherRs getWeather(Person person) {

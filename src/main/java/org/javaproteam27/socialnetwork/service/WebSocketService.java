@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
-import java.security.Principal;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class WebSocketService {
@@ -22,12 +19,12 @@ public class WebSocketService {
     public void getSessionSubscribeInfo(SessionSubscribeEvent event) {
         var messageHeaders = event.getMessage().getHeaders();
         var destination = SimpMessageHeaderAccessor.getDestination(messageHeaders);
-        Optional<Principal> user = Optional.ofNullable(SimpMessageHeaderAccessor.getUser(messageHeaders));
-        if ("/user/queue/notifications".equals(destination) && user.isPresent()) {
-            var personId = SimpMessageHeaderAccessor.getSubscriptionId(messageHeaders);
+        var personId = SimpMessageHeaderAccessor.getSubscriptionId(messageHeaders);
+        String subscribe = String.format("/user/%s/queue/notifications", personId);
+        if (subscribe.equals(destination)) {
             var person = personRepository.findById(Integer.parseInt(personId));
-            person.setNotificationsWebsocketUserId(user.get().getName());
             person.setNotificationsSessionId(SimpMessageHeaderAccessor.getSessionId(messageHeaders));
+            person.setOnlineStatus("ONLINE");
             personRepository.updateNotificationsSessionId(person);
         }
     }

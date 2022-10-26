@@ -64,7 +64,7 @@ public class DialogsService {
                 if (dialog.getLastMessageId() != 0) {
                     var lastMessage = messageRepository.findById(dialog.getLastMessageId());
                     boolean isSentByMe = (lastMessage.getAuthorId().equals(person.getId()));
-                    var recipientPerson = personService.findById(lastMessage.getRecipientId());
+                    var recipientPerson = personService.findById(recipientId);
 
                     result.add(DialogRs.builder()
                             .id(dialog.getId())

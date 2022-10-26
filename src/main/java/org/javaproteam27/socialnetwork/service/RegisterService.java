@@ -9,12 +9,9 @@ import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 @Service
@@ -64,10 +61,11 @@ public class RegisterService {
         person.setEmail(email);
         person.setFirstName(firstName);
         person.setLastName(lastName);
-        person.setRegDate(LocalDateTime.now());
+        person.setRegDate(System.currentTimeMillis());
         person.setPassword(passwordEncoder.encode(password1));
         person.setPhoto(defaultPhoto);
         person.setIsApproved(true);  // добавить проверку почты
+        person.setLastOnlineTime(System.currentTimeMillis());
         var personId = personRepository.save(person);
         personSettingsRepository.save(personId);
         // ответ успешной регистрации

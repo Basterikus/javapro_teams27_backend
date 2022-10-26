@@ -25,6 +25,7 @@ public class WebSocketService {
             var person = personRepository.findById(Integer.parseInt(personId));
             person.setNotificationsSessionId(SimpMessageHeaderAccessor.getSessionId(messageHeaders));
             person.setOnlineStatus("ONLINE");
+            person.setLastOnlineTime(System.currentTimeMillis());
             personRepository.updateNotificationsSessionId(person);
         }
     }
@@ -36,6 +37,7 @@ public class WebSocketService {
         var personList = personRepository.findBySessionId(sessionId);
         if (!personList.isEmpty()) {
             for (Person person : personList) {
+                person.setLastOnlineTime(System.currentTimeMillis());
                 personRepository.deleteSessionId(person);
             }
         }

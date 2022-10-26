@@ -18,10 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,7 +98,7 @@ public class PersonService {
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
                 .friendshipStatusCode(getFriendshipStatus(person.getId()))
-                .status(person.getOnlineStatus())
+                .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
                 .build();
     }
 
@@ -118,7 +117,7 @@ public class PersonService {
         String birthDate = request.getBirthDate().split("T")[0];
         LocalDate date = LocalDate.parse(birthDate, formatter);
 
-        person.setBirthDate(LocalDateTime.of(date, LocalTime.of(0,0,0,0)));
+        person.setBirthDate(date.toEpochDay());
         person.setPhone(request.getPhone());
         person.setAbout(request.getAbout());
         person.setCity(request.getCity());

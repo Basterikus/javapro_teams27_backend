@@ -125,7 +125,7 @@ public class FriendsService {
                         .messagesPermission(person.getMessagesPermission())
                         .lastOnlineTime(person.getLastOnlineTime())
                         .isBlocked(person.getIsBlocked())
-                        .status(person.getOnlineStatus())
+                        .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
                         .build())
                 .collect(Collectors.toList());
 

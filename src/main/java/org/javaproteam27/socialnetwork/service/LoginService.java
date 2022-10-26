@@ -83,7 +83,7 @@ public class LoginService {
                 .lastOnlineTime(person.getLastOnlineTime())
                 .isBlocked(person.getIsBlocked())
                 .token(token)
-                .status("ONLINE")
+                .online(true)
                 .build();
 
     }

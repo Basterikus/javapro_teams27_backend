@@ -80,11 +80,11 @@ public class MessageRepository {
 
     public List<Message> findByDialogId(Integer dialogId, Integer offset, Integer limit) {
 
-        String sql = "select * from message where dialog_id = ? order by time desc";
-        sql = ((offset != null)&&(limit != null)) ? sql + " offset ? limit ?" : sql;
+        String sql = "select * from message where dialog_id = " + dialogId + " order by time desc";
+        sql = ((offset != null)&&(limit != null)) ? sql + " offset " + offset + " limit " + limit : sql;
 
         try {
-            return jdbcTemplate.query(sql, rowMapper, dialogId, offset, limit);
+            return jdbcTemplate.query(sql, rowMapper);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("dialogs with person id = " + dialogId);
         }

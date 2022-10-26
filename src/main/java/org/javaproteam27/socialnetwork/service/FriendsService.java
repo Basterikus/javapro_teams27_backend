@@ -125,6 +125,7 @@ public class FriendsService {
                         .messagesPermission(person.getMessagesPermission())
                         .lastOnlineTime(person.getLastOnlineTime())
                         .isBlocked(person.getIsBlocked())
+                        .status(person.getOnlineStatus())
                         .build())
                 .collect(Collectors.toList());
 
@@ -143,7 +144,7 @@ public class FriendsService {
         List<Person> personList = personRepository.getFriendsPersonById(name, person.getId());
         List<Person> result = new ArrayList<>();
         for (Person p : personList) {
-            if (p.getId() != person.getId()) {
+            if (!Objects.equals(p.getId(), person.getId())) {
                 result.add(p);
             }
         }

@@ -66,6 +66,7 @@ public class FriendsController {
 
         List<Friendship> friendshipList = friendshipService.findByFriendShip(srcPersonId, id);
         friendshipService.deleteFriendShip(srcPersonId, id);
+        friendshipService.deleteFriendShip(id, srcPersonId);
 
         return ResponseEntity.ok(friendshipStatusService.deleteStatus(friendshipList));
     }

@@ -221,10 +221,10 @@ public class PersonRepository {
     }
 
     public void updateNotificationsSessionId(Person person) {
-        String sql = "update person set notifications_session_id = ?, notifications_websocket_user_id = ? " +
+        String sql = "update person set notifications_session_id = ?, online_status = ? " +
                 "where id = ?";
         jdbcTemplate.update(sql, person.getNotificationsSessionId(),
-                person.getNotificationsWebsocketUserId(), person.getId());
+                person.getOnlineStatus(), person.getId());
     }
 
     public List<Person> findBySessionId(String sessionId) {
@@ -233,7 +233,7 @@ public class PersonRepository {
     }
 
     public void deleteSessionId(Person person) {
-        String sql = "update person set notifications_session_id = null, notifications_websocket_user_id = null " +
+        String sql = "update person set notifications_session_id = null, online_status = 'OFFLINE' " +
                 "where id = ?";
         jdbcTemplate.update(sql, person.getId());
     }

@@ -37,7 +37,7 @@ public class DialogsWebSocketController {
     }*/
 
     @MessageMapping("/dialogs/start_typing")
-    public void startTyping(@Header("dialogId") Integer dialogId, @Payload DialogUserShortListDto userIds) {
+    public void startTyping(@Header("dialog_id") Integer dialogId, @Payload DialogUserShortListDto userIds) {
 
         Map<String, Object> header = new HashMap<>();
         header.put("type", "start_typing");
@@ -45,7 +45,7 @@ public class DialogsWebSocketController {
     }
 
     @MessageMapping("/dialogs/stop_typing")
-    public void stopTyping(@Header("dialogId") Integer dialogId, @Payload DialogUserShortListDto userIds) {
+    public void stopTyping(@Header("dialog_id") Integer dialogId, @Payload DialogUserShortListDto userIds) {
 
         Map<String, Object> header = new HashMap<>();
         header.put("type", "stop_typing");

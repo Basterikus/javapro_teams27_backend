@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "redis")
 public class RedisConfig {
     private String url;
+    private boolean enabled;
 }

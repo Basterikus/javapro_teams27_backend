@@ -33,9 +33,9 @@ public class Redis {
         config.useSingleServer().setAddress(redisConfig.getUrl());
         try {
             redisson = Redisson.create(config);
-        } catch (RedisConnectionException Exc) {
-            System.out.println("Не удалось подключиться к Redis");
-            System.out.println(Exc.getMessage());
+        } catch (RedisConnectionException e) {
+            log.info("Не удалось подключиться к Redis");
+            log.info(e.getMessage());
         }
         usersPhoto = redisson.getMap(name);
     }
@@ -51,7 +51,11 @@ public class Redis {
     }
 
     public String getUrl(Integer id) {
-        return usersPhoto.get(String.valueOf(id));
+        if (redisConfig.isEnabled()) {
+            return usersPhoto.get(String.valueOf(id));
+        } else {
+            return "https://i.imgur.com/RioIkGD.png";
+        }
     }
 
     @Scheduled(initialDelay = 6000, fixedDelayString = "PT24H")

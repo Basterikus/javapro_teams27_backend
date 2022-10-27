@@ -49,11 +49,11 @@ public class LoggerAspect {
             logDebug.debug("Response = path: [{}], method: [{}], return: [{}] ",
                     joinPoint.getSignature().getDeclaringTypeName(),
                     joinPoint.getSignature().getName(), result);
-
+            return joinPoint.proceed();
         } catch (Exception e) {
             logDebug.debug("An error has occurred", e.fillInStackTrace());
             e.printStackTrace();
+            return joinPoint.proceed();
         }
-        return joinPoint.proceed();
     }
 }

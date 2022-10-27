@@ -145,4 +145,14 @@ public class MessageRepository {
                 "(select max(id) from message where is_deleted = false and dialog_id = ?)";
         return jdbcTemplate.query(sql, rowMapper, dialogId);
     }
+
+    public List<Message> findByDialogIdAndRecipientId(Integer dialogId, Integer recipientId) {
+
+        String sql = "SELECT * FROM message WHERE dialog_id = " + dialogId + " AND recipient_id = " + recipientId;
+        try {
+            return jdbcTemplate.query(sql, rowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("dialogs with person id = " + dialogId);
+        }
+    }
 }

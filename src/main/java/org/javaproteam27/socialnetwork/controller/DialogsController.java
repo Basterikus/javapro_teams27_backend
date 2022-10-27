@@ -72,7 +72,7 @@ public class DialogsController {
 
     @PutMapping("/{dialog_id}/read")
     public ResponseRs<ComplexRs> markDialogAsReadMessage(@PathVariable("dialog_id") Integer dialogId) {
-        return dialogsService.markDialogAsReadMessage(dialogId);
+        return dialogsService.markDialogAsReadMessage(dialogId, null);
     }
 
     @DeleteMapping("/{dialog_id}/messages/{message_id}")

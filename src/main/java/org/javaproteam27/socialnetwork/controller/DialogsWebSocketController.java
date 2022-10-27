@@ -36,6 +36,35 @@ public class DialogsWebSocketController {
                 "/queue/messages", dialogsService.sendMessage(token, dialogId, messageRq));
     }*/
 
+    @MessageMapping("/dialogs/start_typing")
+    public void startTyping(@Header("dialogId") Integer dialogId, @Payload DialogUserShortListDto userIds) {
+
+        Map<String, Object> header = new HashMap<>();
+        header.put("type", "start_typing");
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", userIds, header);
+    }
+
+    @MessageMapping("/dialogs/stop_typing")
+    public void stopTyping(@Header("dialogId") Integer dialogId, @Payload DialogUserShortListDto userIds) {
+
+        Map<String, Object> header = new HashMap<>();
+        header.put("type", "stop_typing");
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", userIds, header);
+    }
+
+    @MessageMapping("/dialogs/send_messages")
+    public void sendMessages(@Header("token") String token,
+                            @Header("dialog_id") Integer dialogId,
+                            @Payload MessageRq text) {
+
+        String authorId = personService.getPersonByToken(token).getId().toString();
+        Map<String, Object> header = new HashMap<>();
+        header.put("type", "send_messages");
+        header.put("author_id", authorId);
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", text, header);
+        dialogsService.sendMessage(token, dialogId, text);
+    }
+
     @MessageMapping("/dialogs/create_dialog")
     public void createDialog(@Header("token") String token,
                              @Payload DialogUserShortListDto userIds) {
@@ -121,13 +150,14 @@ public class DialogsWebSocketController {
 
         Map<String, Object> header = new HashMap<>();
         header.put("type", "mark_readed");
+        Integer authorId = personService.getPersonByToken(token).getId();
         if (messageId >= 0){
-            messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
-                    "/queue/messages", dialogsService.markAsReadMessage(messageId), header);
+            messagingTemplate.convertAndSendToUser(authorId.toString(), "/queue/messages",
+                    dialogsService.markAsReadMessage(messageId), header);
 
         } else {
-            messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
-                    "/queue/messages", dialogsService.markDialogAsReadMessage(dialogId), header);
+            messagingTemplate.convertAndSendToUser(authorId.toString(),
+                    "/queue/messages", dialogsService.markDialogAsReadMessage(dialogId, authorId), header);
         }
     }
 

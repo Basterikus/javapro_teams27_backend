@@ -20,6 +20,7 @@ yandexprofile:
 
 redis:
   url: redis://195.133.48.174:6379
+  enabled: true
 
 logsupload:
     enabled: true

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
@@ -30,31 +31,32 @@ public class Redis {
     // Объект для работы с Redis
     private RedissonClient redisson;
     //хэшмеп для фоток
-    private RMap<String, String> usersPhoto;
+//    private RMap<String, String> usersPhoto;
+    private ConcurrentHashMap<String, String> usersPhoto;
     private final String name = "USER_PHOTO";
     private final PersonRepository personRepository;
     private final DropBox dropBox;
     private final RedisConfig redisConfig;
 
     private void init() {
-        Config config = new Config();
-        config.useSingleServer().setAddress(redisConfig.getUrl());
-        try {
-            redisson = Redisson.create(config);
-        } catch (RedisConnectionException e) {
-            log.info("Не удалось подключиться к Redis");
-            log.info(e.getMessage());
-        }
-        usersPhoto = redisson.getMap(name);
+//        Config config = new Config();
+//        config.useSingleServer().setAddress(redisConfig.getUrl());
+//        try {
+//            redisson = Redisson.create(config);
+//        } catch (RedisConnectionException e) {
+//            log.info("Не удалось подключиться к Redis");
+//            log.info(e.getMessage());
+//        }
+        usersPhoto = new ConcurrentHashMap<>();
     }
 
     public void add(Integer id, String url) {
         String currentUrl = dropBox.getLinkImages(url);
         if (!usersPhoto.containsKey(String.valueOf(id))) {
-            usersPhoto.fastPut(String.valueOf(id), currentUrl);
+            usersPhoto.put(String.valueOf(id), currentUrl);
         }
         else {
-            usersPhoto.fastReplace(String.valueOf(id), currentUrl);
+            usersPhoto.replace(String.valueOf(id), currentUrl);
         }
     }
 

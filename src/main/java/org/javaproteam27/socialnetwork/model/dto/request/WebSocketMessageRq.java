@@ -18,4 +18,6 @@ public class WebSocketMessageRq {
     private String typing;
     @JsonProperty("user_id")
     private String userId;
+    @JsonProperty("author_id")
+    private String authorId;
 }

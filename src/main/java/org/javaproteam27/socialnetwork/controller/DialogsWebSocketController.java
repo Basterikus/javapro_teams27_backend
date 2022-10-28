@@ -2,8 +2,7 @@ package org.javaproteam27.socialnetwork.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
-import org.javaproteam27.socialnetwork.model.dto.response.DialogUserShortListDto;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
+import org.javaproteam27.socialnetwork.model.dto.request.WebSocketMessageRq;
 import org.javaproteam27.socialnetwork.service.DialogsService;
 import org.javaproteam27.socialnetwork.service.PersonService;
 import org.springframework.messaging.handler.annotation.Header;
@@ -12,7 +11,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,19 +27,17 @@ public class DialogsWebSocketController {
 
 
     @MessageMapping("/dialogs/start_typing")
-    public void startTyping(@Header("dialog_id") Integer dialogId, @Payload DialogUserShortListDto userIds) {
+    public void startTyping(@Header("dialog_id") Integer dialogId, @Payload WebSocketMessageRq body) {
 
-        Map<String, Object> header = new HashMap<>();
-        header.put("type", "start_typing");
-        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", userIds, header);
+        Map<String, Object> header = Collections.singletonMap("type", "start_typing");
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", body, header);
     }
 
     @MessageMapping("/dialogs/stop_typing")
-    public void stopTyping(@Header("dialog_id") Integer dialogId, @Payload DialogUserShortListDto userIds) {
+    public void stopTyping(@Header("dialog_id") Integer dialogId, @Payload WebSocketMessageRq body) {
 
-        Map<String, Object> header = new HashMap<>();
-        header.put("type", "stop_typing");
-        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", userIds, header);
+        Map<String, Object> header = Collections.singletonMap("type", "stop_typing");
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", body, header);
     }
 
     @MessageMapping("/dialogs/send_message")
@@ -52,10 +49,8 @@ public class DialogsWebSocketController {
         Map<String, Object> header = new HashMap<>();
         header.put("type", "send_messages");
         header.put("author_id", authorId);
-        ListResponseRs<MessageRq> response = new ListResponseRs<>();
-        response.setData(new ArrayList<>());
-        response.getData().add(text);
-        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", response, header);
+//        ListResponseRs<Object> response = ListResponseRs.builder().data(Arrays.asList(text)).build();
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", text, header);
         dialogsService.sendMessage(token, dialogId, text);
     }
 

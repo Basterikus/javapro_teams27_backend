@@ -67,9 +67,12 @@ public class FriendshipService {
         Friendship friendship = new Friendship();
         friendship.setSrcPersonId(srcPersonId);
         friendship.setDstPersonId(dstPersonId);
-        var entityId = friendshipRepository.findByFriendShip(srcPersonId, dstPersonId).get(0).getId();
+        var friendshipList = friendshipRepository.findByFriendShip(srcPersonId, dstPersonId);
         friendshipRepository.delete(friendship);
-        notificationService.deleteNotification(NotificationType.FRIEND_REQUEST, dstPersonId, entityId);
+        if (!friendshipList.isEmpty()) {
+            var entityId = friendshipList.get(0).getId();
+            notificationService.deleteNotification(NotificationType.FRIEND_REQUEST, dstPersonId, entityId);
+        }
     }
 
     public List<Friendship> findByFriendShip(int srcPersonId, int dstPersonId) {

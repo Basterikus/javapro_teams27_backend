@@ -5,6 +5,7 @@ import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException
 import org.javaproteam27.socialnetwork.model.dto.response.FriendshipRs;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
+import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.FriendshipRepository;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +67,12 @@ public class FriendshipService {
         Friendship friendship = new Friendship();
         friendship.setSrcPersonId(srcPersonId);
         friendship.setDstPersonId(dstPersonId);
+        var friendshipList = friendshipRepository.findByFriendShip(srcPersonId, dstPersonId);
         friendshipRepository.delete(friendship);
+        if (!friendshipList.isEmpty()) {
+            var entityId = friendshipList.get(0).getId();
+            notificationService.deleteNotification(NotificationType.FRIEND_REQUEST, dstPersonId, entityId);
+        }
     }
 
     public List<Friendship> findByFriendShip(int srcPersonId, int dstPersonId) {

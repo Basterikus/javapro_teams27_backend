@@ -51,6 +51,17 @@ public class PostRepository {
         return retList;
     }
 
+    public List<Post> findAllUserPosts(int authorId) {
+
+        List<Post> retList;
+        try {
+            retList = jdbcTemplate.query("SELECT * FROM post WHERE author_id = " + authorId, new PostMapper());
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+        return retList;
+    }
+
     public void softDeletePostById(int postId) {
 
         boolean retValue;

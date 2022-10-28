@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.NotificationBaseRs;
@@ -26,6 +27,7 @@ import static org.javaproteam27.socialnetwork.model.enums.NotificationType.*;
 
 @Service
 @RequiredArgsConstructor
+@DebugLogger
 public class NotificationService {
 
     private final PersonService personService;
@@ -175,6 +177,18 @@ public class NotificationService {
                         createNotification(friendId, FRIEND_BIRTHDAY, person.getId(), System.currentTimeMillis());
                     }
                 }
+            }
+        }
+    }
+
+    public void deleteNotification(NotificationType notificationType, Integer personId, Integer entityId) {
+        if (notificationType != POST) {
+            notificationRepository.deleteFromType(notificationType, personId, entityId);
+        } else {
+            var post = postRepository.findPostById(entityId);
+            var friends = friendshipRepository.findAllFriendsByPersonId(post.getAuthorId());
+            for (Friendship friendship : friends) {
+                notificationRepository.deleteFromType(notificationType, friendship.getDstPersonId(), entityId);
             }
         }
     }

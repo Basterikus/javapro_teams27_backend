@@ -1,16 +1,15 @@
 package org.javaproteam27.socialnetwork.controller;
 
-import com.dropbox.core.DbxException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.LoginService;
+import org.javaproteam27.socialnetwork.service.PersonService;
 import org.javaproteam27.socialnetwork.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.javaproteam27.socialnetwork.service.PersonService;
 
 import java.io.IOException;
 

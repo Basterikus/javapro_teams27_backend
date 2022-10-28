@@ -34,10 +34,22 @@ public class FriendsService {
         List<Integer> friendsIdsForFriends = getFriendsIdsForFriends(myFriendsIds, myId);
         Map<Integer, Integer> recommendationsCounts = getRecommendationsCounts(friendsIdsForFriends);
         List<Integer> sortedRecommendationsByCount = getSortedRecommendationsByCount(recommendationsCounts);
-        List<Integer> limitedRecommendations = limitRecommendations(sortedRecommendationsByCount, offset, itemPerPage);
+        List<Integer> filteredFriendsIds = filterFriendsIds(sortedRecommendationsByCount, myId);
+        List<Integer> limitedRecommendations = limitRecommendations(filteredFriendsIds, offset, itemPerPage);
         List<Person> persons = getPersons(limitedRecommendations);
 
         return getResultJson(persons, friendsIdsForFriends.size(), offset, itemPerPage);
+    }
+
+    private List<Integer> filterFriendsIds(List<Integer> list, int myId) {
+        List<Integer> result = new ArrayList<>();
+        for (Integer dstId : list) {
+            var friendship = friendshipService.findByFriendShip(myId, dstId);
+            if (friendship.isEmpty()) {
+                result.add(dstId);
+            }
+        }
+        return result;
     }
 
     private List<Integer> getMyFriendsIds(Integer myId) {
@@ -125,6 +137,7 @@ public class FriendsService {
                         .messagesPermission(person.getMessagesPermission())
                         .lastOnlineTime(person.getLastOnlineTime())
                         .isBlocked(person.getIsBlocked())
+                        .friendshipStatusCode(FriendshipStatusCode.UNKNOWN)
                         .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
                         .build())
                 .collect(Collectors.toList());

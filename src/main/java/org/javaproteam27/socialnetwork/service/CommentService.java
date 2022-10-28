@@ -7,7 +7,9 @@ import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.CommentRs;
 import org.javaproteam27.socialnetwork.model.entity.Comment;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.CommentRepository;
+import org.javaproteam27.socialnetwork.repository.PostRepository;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class CommentService {
     private final NotificationService notificationService;
     public final String COMMENT_MARKER = "Comment";
     private final Redis redis;
+    private final PostRepository postRepository;
 
     private CommentRs convertToCommentRs(Comment comment) {
 
@@ -81,7 +84,14 @@ public class CommentService {
     }
 
     public ResponseRs<CommentRs> deleteComment(int postId, int commentId) {
-
+        var comment = commentRepository.getCommentById(commentId);
+        if (comment.getParentId() != 0) {
+            var authorId = commentRepository.getCommentById(comment.getParentId()).getAuthorId();
+            notificationService.deleteNotification(NotificationType.COMMENT_COMMENT, authorId, commentId);
+        } else {
+            var authorId = postRepository.findPostById(postId).getAuthorId();
+            notificationService.deleteNotification(NotificationType.POST_COMMENT, authorId, commentId);
+        }
         commentRepository.deleteComment(postId, commentId);
         return new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
     }

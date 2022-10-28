@@ -7,6 +7,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PostRs;
 import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
 import org.javaproteam27.socialnetwork.model.entity.Post;
+import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.PostRepository;
 import org.javaproteam27.socialnetwork.repository.TagRepository;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -83,6 +84,7 @@ public class PostService {
             likeService.deleteAllLikesByLikedObjectId(postId, POST_MARKER);
             commentService.deleteAllCommentsToPost(postId);
             postRepository.finalDeletePostById(postId);
+            notificationService.deleteNotification(NotificationType.POST, null, postId);
         });
     }
 

@@ -78,6 +78,8 @@ public class PersonService {
                         .lastOnlineTime(person.getLastOnlineTime())
                         .country(person.getCountry())
                         .city(person.getCity())
+                        .friendshipStatusCode(getFriendshipStatus(person.getId()))
+                        .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
                         .build())
                 .collect(Collectors.toList());
 

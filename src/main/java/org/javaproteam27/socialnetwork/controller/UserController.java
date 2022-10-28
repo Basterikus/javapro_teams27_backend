@@ -69,4 +69,9 @@ public class UserController {
 
         return personService.getUserInfo(userId);
     }
+
+    @DeleteMapping("/me")
+    public ErrorRs deleteUser(@RequestHeader("Authorization") String token) {
+        return personService.deleteUser(token);
+    }
 }

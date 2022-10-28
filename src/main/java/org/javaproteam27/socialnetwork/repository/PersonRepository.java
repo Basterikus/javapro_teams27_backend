@@ -5,6 +5,8 @@ import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException
 import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
 import org.javaproteam27.socialnetwork.mapper.PersonMapper;
 import org.javaproteam27.socialnetwork.model.entity.Person;
+import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +16,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,13 @@ public class PersonRepository {
     public static final String PERSON_ID = "person id = ";
     private final RowMapper<Person> rowMapper = new PersonMapper();
     private final JdbcTemplate jdbcTemplate;
+    private final FriendshipRepository friendshipRepository;
+    private final DialogRepository dialogRepository;
+    private final MessageRepository messageRepository;
+    private final PersonSettingsRepository personSettingsRepository;
+    private final PostRepository postRepository;
+    private final TagRepository tagRepository;
+
 
 
     public Integer save(Person person) {
@@ -229,6 +239,26 @@ public class PersonRepository {
         }
     }
 
+    public Boolean fullDeletePerson(Person person) {
+        try {
+            dialogRepository.findByPersonId(person.getId()).forEach(dialog -> {
+                messageRepository.deleteByDialogId(dialog.getId());
+                dialogRepository.deleteById(dialog.getId());
+            });
+
+            friendshipRepository.findByPersonId(person.getId()).forEach(friendshipRepository::delete);
+            personSettingsRepository.delete(person.getId());
+            postRepository.findAllUserPosts(person.getId()).forEach(post -> {
+                tagRepository.deleteTagsByPostId(post.getId());
+                postRepository.finalDeletePostById(post.getId());
+            });
+
+            return (jdbcTemplate.update("DELETE FROM person WHERE id = ?", person.getId()) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+    }
+
     public void updateNotificationsSessionId(Person person) {
         String sql = "update person set notifications_session_id = ?, online_status = ?, last_online_time = ? " +
                 "where id = ?";
@@ -251,5 +281,14 @@ public class PersonRepository {
         String sql = "select * from person where email = ?";
         var rs = jdbcTemplate.query(sql, rowMapper, email);
         return !rs.isEmpty();
+    }
+
+    public boolean setPersonIsDeleted(Person person) {
+        try {
+            return (jdbcTemplate.update("UPDATE person SET is_deleted = TRUE, deleted_time = ? WHERE id = ?",
+                    LocalDateTime.now(), person.getId()) == 1);
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
     }
 }

@@ -52,9 +52,11 @@ public class DialogsWebSocketController {
         request.setAuthorId(authorId);
         request.setDialogId(dialogId);
         request.setToken(token);
+        MessageRq response = new MessageRq();
+        response.setMessageText(request.getMessageText());
 //        ListResponseRs<Object> response = ListResponseRs.builder().data(Arrays.asList(text)).build();
         messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", request, header);
-        dialogsService.sendMessage(token, dialogId, MessageRq.builder().messageText(request.getMessageText()).build());
+        dialogsService.sendMessage(token, dialogId, response);
     }
 
     /*@MessageMapping("/dialogs/get_unreaded")

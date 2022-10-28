@@ -3,6 +3,7 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.mapper.PersonSettingsMapper;
+import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.PersonSettings;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -43,5 +44,15 @@ public class PersonSettingsRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("person_id = " + personId);
         }
+    }
+
+    public void delete(Integer personId) {
+        try {
+            String sql = "delete from person_settings where person_id = " + personId;
+            jdbcTemplate.update(sql);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("person_id = " + personId);
+        }
+
     }
 }

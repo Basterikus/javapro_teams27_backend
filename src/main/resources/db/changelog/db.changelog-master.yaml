@@ -53,3 +53,5 @@ databaseChangeLog:
       file: /db/changelog/migrations/025-create-currency.sql
   - include:
       file: /db/changelog/migrations/026-edit-person.sql
+  - include:
+      file: /db/changelog/migrations/027-edit-person.sql

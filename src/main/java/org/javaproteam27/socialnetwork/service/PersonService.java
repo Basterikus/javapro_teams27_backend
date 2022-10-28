@@ -6,19 +6,25 @@ import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.model.enums.MessagesPermission;
-import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
-import org.javaproteam27.socialnetwork.repository.PersonRepository;
+import org.javaproteam27.socialnetwork.repository.*;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
+import org.javaproteam27.socialnetwork.util.DropBox;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -32,6 +38,7 @@ public class PersonService {
     private final Redis redis;
     private final FriendshipStatusRepository friendshipStatusRepository;
     private final WeatherService weatherService;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Person findById(int id) {
@@ -157,5 +164,27 @@ public class PersonService {
             weatherRs = weatherService.getWeather("Москва");
         }
         return weatherRs;
+    }
+
+    public ErrorRs deleteUser(String token) {
+        String email = jwtTokenProvider.getUsername(token);
+        Person person = personRepository.findByEmail(email);
+        personRepository.setPersonIsDeleted(person);
+        return ErrorRs.builder()
+                .error("string")
+                .timestamp(System.currentTimeMillis())
+                .data((HashMap<String, String>) new HashMap<>().put("message","ok"))
+                .build();
+    }
+
+//    @Scheduled(fixedDelayString = "PT24H")
+//    @Async
+    public void fullDeleteUser(Person person) {
+        personRepository.findAll().stream().filter(Person::getIsBlocked)
+                        .filter(person1 -> {
+                            LocalDate deletedDate = Instant.ofEpochMilli(person1.getDeletedTime())
+                                    .atZone(ZoneId.systemDefault()).toLocalDate();
+                            return deletedDate.isBefore(deletedDate.plusMonths(1));
+                        }).forEach(personRepository::fullDeletePerson);
     }
 }

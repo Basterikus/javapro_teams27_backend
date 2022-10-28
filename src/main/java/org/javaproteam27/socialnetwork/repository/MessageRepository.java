@@ -90,6 +90,17 @@ public class MessageRepository {
         }
     }
 
+    public List<Message> findByDialogId(Integer dialogId) {
+
+        String sql = "select * from message where dialog_id = ? order by time desc";
+
+        try {
+            return jdbcTemplate.query(sql, rowMapper, dialogId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("dialogs with person id = " + dialogId);
+        }
+    }
+
     public Integer countUnreadByRecipientId(Integer recipientId) {
 
         String sql = "select count(*) from message where recipient_id = ? and read_status like 'SENT'";

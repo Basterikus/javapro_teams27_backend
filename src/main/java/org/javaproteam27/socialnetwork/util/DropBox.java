@@ -69,6 +69,15 @@ public class DropBox {
         return photo;
     }
 
+    public void deletePhoto(String photo) {
+        try {
+            getClient().files().deleteV2(getClient().files().getTemporaryLink(photo).getLink());
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static DbxClientV2 getClient() throws IOException, DbxException {
         String token = getRefreshToken();
         DbxRequestConfig config = DbxRequestConfig.newBuilder(dropboxPath).build();

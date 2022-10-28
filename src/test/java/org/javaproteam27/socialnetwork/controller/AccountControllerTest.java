@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.javaproteam27.socialnetwork.service.CaptchaService;
+import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.runner.RunWith;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,6 +55,8 @@ public class AccountControllerTest {
     private CaptchaRepository captchaRepository;
     @MockBean
     private PersonSettingsRepository personSettingsRepository;
+    @MockBean
+    private Redis redis;
     @Autowired
     private ObjectMapper objectMapper;
 

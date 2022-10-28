@@ -181,6 +181,18 @@ public class NotificationService {
         }
     }
 
+    public void deleteNotification(NotificationType notificationType, Integer personId, Integer entityId) {
+        if (notificationType != POST) {
+            notificationRepository.deleteFromType(notificationType, personId, entityId);
+        } else {
+            var post = postRepository.findPostById(entityId);
+            var friends = friendshipRepository.findAllFriendsByPersonId(post.getAuthorId());
+            for (Friendship friendship : friends) {
+                notificationRepository.deleteFromType(notificationType, friendship.getDstPersonId(), entityId);
+            }
+        }
+    }
+
     private void notifyUser(Notification notification) {
         var rs = List.of(getNotificationRs(notification));
         var listRs = new ListResponseRs<>("", 0, 1, rs);

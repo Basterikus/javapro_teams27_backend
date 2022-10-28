@@ -64,13 +64,15 @@ public class PersonService {
                         .id(person.getId())
                         .firstName(person.getFirstName())
                         .lastName(person.getLastName())
-                        .photo(person.getPhoto())
+                        .photo(redis.getUrl(person.getId()))
                         .birthDate(person.getBirthDate())
                         .about(person.getAbout())
                         .phone(person.getPhone())
                         .lastOnlineTime(person.getLastOnlineTime())
                         .country(person.getCountry())
                         .city(person.getCity())
+                        .friendshipStatusCode(getFriendshipStatus(person.getId()))
+                        .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
                         .build())
                 .collect(Collectors.toList());
 

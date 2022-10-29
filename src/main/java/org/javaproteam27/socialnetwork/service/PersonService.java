@@ -19,10 +19,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -127,7 +130,7 @@ public class PersonService {
         String birthDate = request.getBirthDate().split("T")[0];
         LocalDate date = LocalDate.parse(birthDate, formatter);
 
-        person.setBirthDate(date.toEpochDay());
+        person.setBirthDate(date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
         person.setPhone(request.getPhone());
         person.setAbout(request.getAbout());
         person.setCity(request.getCity());

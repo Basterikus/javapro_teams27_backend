@@ -145,13 +145,13 @@ public class PostRepository {
         if (dateFrom != null) {
             LocalDateTime dateFromParsed = Instant.ofEpochMilli(Long.parseLong(dateFrom))
                     .atZone(ZoneId.systemDefault()).toLocalDateTime();
-            queryParts.add("p.time > '" + dateFromParsed + "'::date");
+            queryParts.add("p.time > '" + dateFromParsed + "'::timestamp");
         }
 
         if (dateTo != null) {
             LocalDateTime dateToParsed = Instant.ofEpochMilli(Long.parseLong(dateTo))
                     .atZone(ZoneId.systemDefault()).toLocalDateTime();
-            queryParts.add("p.time < '" + dateToParsed + "'::date");
+            queryParts.add("p.time < '" + dateToParsed + "'::timestamp");
         }
 
         queryParts.add("(p.post_text ILIKE '%" + text + "%' OR p.title ILIKE '%" + text + "%')");

@@ -68,6 +68,7 @@ public class RegisterService {
         person.setPhoto(defaultPhoto);
         person.setIsApproved(true);  // добавить проверку почты
         person.setLastOnlineTime(System.currentTimeMillis());
+        person.setIsDeleted(false);
         var personId = personRepository.save(person);
         redis.add(personId, defaultPhoto);
         personSettingsRepository.save(personId);

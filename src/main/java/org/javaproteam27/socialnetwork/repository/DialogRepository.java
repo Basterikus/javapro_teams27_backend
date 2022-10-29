@@ -74,6 +74,17 @@ public class DialogRepository {
             throw new EntityNotFoundException("dialogs with person id = " + id);
         }
     }
+
+    public List<Dialog> findByPersonId(Integer id) {
+
+        String sql = "select * from dialog where first_person_id = ? or second_person_id = ? ";
+
+        try {
+            return jdbcTemplate.query(sql, rowMapper, id, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("dialogs with person id = " + id);
+        }
+    }
     
     public Dialog findByPersonIds(Integer firstPersonId, Integer secondPersonId) {
     

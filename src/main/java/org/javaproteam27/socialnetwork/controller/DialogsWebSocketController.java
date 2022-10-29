@@ -43,15 +43,20 @@ public class DialogsWebSocketController {
     @MessageMapping("/dialogs/send_message")
     public void sendMessages(@Header("token") String token,
                             @Header("dialog_id") Integer dialogId,
-                            @Payload MessageRq text) {
+                            @Payload WebSocketMessageRq request) {
 
         String authorId = personService.getPersonByToken(token).getId().toString();
         Map<String, Object> header = new HashMap<>();
         header.put("type", "send_messages");
         header.put("author_id", authorId);
+        request.setAuthorId(authorId);
+        request.setDialogId(dialogId);
+        request.setToken(token);
+        MessageRq response = new MessageRq();
+        response.setMessageText(request.getMessageText());
 //        ListResponseRs<Object> response = ListResponseRs.builder().data(Arrays.asList(text)).build();
-        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", text, header);
-        dialogsService.sendMessage(token, dialogId, text);
+        messagingTemplate.convertAndSendToUser(dialogId.toString(), "/queue/messages", request, header);
+        dialogsService.sendMessage(token, dialogId, response);
     }
 
     /*@MessageMapping("/dialogs/get_unreaded")

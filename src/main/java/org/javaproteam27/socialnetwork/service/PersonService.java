@@ -108,6 +108,7 @@ public class PersonService {
                 .lastOnlineTime(person.getLastOnlineTime())
                 .friendshipStatusCode(getFriendshipStatus(person.getId()))
                 .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
+                .isDeleted(person.getIsDeleted())
                 .build();
     }
 
@@ -186,5 +187,19 @@ public class PersonService {
                                     .atZone(ZoneId.systemDefault()).toLocalDate();
                             return deletedDate.isBefore(deletedDate.plusMonths(1));
                         }).forEach(personRepository::fullDeletePerson);
+    }
+
+    public ErrorRs recoverUser(String token) {
+
+        String email = jwtTokenProvider.getUsername(token);
+        Person person = personRepository.findByEmail(email);
+        person.setIsDeleted(false);
+        personRepository.setPersonIsDeleted(person);
+
+        return ErrorRs.builder()
+                .error("string")
+                .timestamp(System.currentTimeMillis())
+                .data((HashMap<String, String>) new HashMap<>().put("message","ok"))
+                .build();
     }
 }

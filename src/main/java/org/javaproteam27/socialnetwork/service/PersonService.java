@@ -138,7 +138,7 @@ public class PersonService {
         return ResponseEntity.ok(response);
     }
 
-    private FriendshipStatusCode getFriendshipStatus(Integer dstId) {
+    public FriendshipStatusCode getFriendshipStatus(Integer dstId) {
         var srcId = getAuthorizedPerson().getId();
         var friendStatus = friendshipStatusRepository.findByPersonId(dstId, srcId);
         if (!friendStatus.isEmpty()) {

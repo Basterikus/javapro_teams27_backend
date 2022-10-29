@@ -137,7 +137,7 @@ public class FriendsService {
                         .messagesPermission(person.getMessagesPermission())
                         .lastOnlineTime(person.getLastOnlineTime())
                         .isBlocked(person.getIsBlocked())
-                        .friendshipStatusCode(FriendshipStatusCode.UNKNOWN)
+                        .friendshipStatusCode(personService.getFriendshipStatus(person.getId()))
                         .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
                         .build())
                 .collect(Collectors.toList());
@@ -169,5 +169,4 @@ public class FriendsService {
         List<Person> personList = personRepository.getApplicationsFriendsPersonById(name, personService.getAuthorizedPerson().getId());
         return getResultJson(personList, 0, offset, itemPerPage);
     }
-
 }

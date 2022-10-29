@@ -7,6 +7,7 @@ import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.enums.FriendshipStatusCode;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.FriendshipRepository;
+import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class FriendshipService {
 
     private final FriendshipRepository friendshipRepository;
     private final NotificationService notificationService;
+    private final FriendshipStatusRepository friendshipStatusRepository;
 
 
     public void save(Friendship friendship) {
@@ -46,10 +48,12 @@ public class FriendshipService {
             friendship.setSentTime(localDateTime);
             friendship.setSrcPersonId(srcPersonId);
             friendship.setDstPersonId(id);
-
             friendshipRepository.save(friendship);
-            notificationService.createFriendshipNotification(id, friendshipStatusId, srcPersonId);
 
+            var status = friendshipStatusRepository.findById(friendshipStatusId);
+            if (status.getCode() == FriendshipStatusCode.REQUEST) {
+                notificationService.createFriendshipNotification(id, friendshipStatusId, srcPersonId);
+            }
 
             messageMap.put("message", "ok");
 

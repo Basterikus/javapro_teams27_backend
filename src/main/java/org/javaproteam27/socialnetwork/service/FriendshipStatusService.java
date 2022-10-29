@@ -17,18 +17,26 @@ import java.util.List;
 public class FriendshipStatusService {
 
     private final FriendshipStatusRepository friendshipStatusRepository;
-    private final FriendshipService friendshipService;
 
     public FriendshipStatus findById(int id) {
         return friendshipStatusRepository.findById(id);
     }
 
-    public int addStatus() {
+    public int addRequestStatus() {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         FriendshipStatus friendshipStatus = new FriendshipStatus();
         friendshipStatus.setTime(localDateTime);
         friendshipStatus.setCode(FriendshipStatusCode.REQUEST);
+        return friendshipStatusRepository.save(friendshipStatus);
+    }
+
+    public int addReceivedRequestStatus() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        FriendshipStatus friendshipStatus = new FriendshipStatus();
+        friendshipStatus.setTime(localDateTime);
+        friendshipStatus.setCode(FriendshipStatusCode.RECEIVED_REQUEST);
         return friendshipStatusRepository.save(friendshipStatus);
     }
 
@@ -38,7 +46,6 @@ public class FriendshipStatusService {
 
         for (FriendshipStatus friendshipStatus : friendshipStatusList) {
             friendshipStatusRepository.updateCode(friendshipStatus.getId(), friendshipStatusCode);
-            friendshipService.addFriendShip(srcPersonId, friendshipStatus.getId(), id);
         }
 
         String error = "";

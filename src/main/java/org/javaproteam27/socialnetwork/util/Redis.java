@@ -68,7 +68,7 @@ public class Redis {
         }
     }
 
-    @Scheduled(initialDelay = 6000, fixedDelayString = "PT24H")
+    @Scheduled(initialDelay = 6000, fixedDelayString = "PT6H")
     @Async
     private void updateUrl() {
         if (redisson == null) {

@@ -20,4 +20,5 @@ public class WebSocketMessageRq {
     private String userId;
     @JsonProperty("author_id")
     private String authorId;
+    private Long time;
 }

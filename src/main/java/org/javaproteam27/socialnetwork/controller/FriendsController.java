@@ -49,7 +49,9 @@ public class FriendsController {
         Person person = personService.getAuthorizedPerson();
         int friendshipStatusId;
         if (friendshipService.requestVerification(id, person.getId()).isEmpty() && person.getId() != id) {
-            friendshipStatusId = friendshipStatusService.addStatus();
+            friendshipStatusId = friendshipStatusService.addRequestStatus();
+            var friendshipStatusReceivedId = friendshipStatusService.addReceivedRequestStatus();
+            friendshipService.addFriendShip(person.getId(), friendshipStatusReceivedId, id);
             return ResponseEntity.ok(friendshipService.addFriendShip(id, friendshipStatusId, person.getId()));
         } else {
             friendshipStatusId = -1;
@@ -86,6 +88,7 @@ public class FriendsController {
     public ResponseEntity<FriendshipRs> addApplicationsFriends(@PathVariable int id) {
 
         Person person = personService.getAuthorizedPerson();
+        friendshipStatusService.updateStatus(person.getId(), id, FriendshipStatusCode.FRIEND);
         return ResponseEntity.ok(friendshipStatusService.updateStatus(id, person.getId(), FriendshipStatusCode.FRIEND));
     }
 
@@ -93,6 +96,7 @@ public class FriendsController {
     public ResponseEntity<FriendshipRs> deleteApplicationsFriends(@PathVariable int id) {
 
         Person person = personService.getAuthorizedPerson();
+        friendshipStatusService.updateStatus(person.getId(), id, FriendshipStatusCode.SUBSCRIBED);
         return ResponseEntity.ok(friendshipStatusService.updateStatus(id, person.getId(), FriendshipStatusCode.DECLINED));
     }
 }

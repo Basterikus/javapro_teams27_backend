@@ -90,14 +90,18 @@ public class DialogRepository {
     
 //        List<Integer> sortedIds = sortIds(firstPersonId, secondPersonId);
     
-        String sql = "select * from dialog where first_person_id = " + firstPersonId + " or first_person_id = " +
-                secondPersonId + " and second_person_id = " + secondPersonId + " or second_person_id = " + firstPersonId;
+//        String sql = "select * from dialog where first_person_id = ? and second_person_id = ?";
         
         try {
-            return jdbcTemplate.queryForObject(sql, rowMapper);
+            return jdbcTemplate.queryForObject("select * from dialog where first_person_id = ? and second_person_id = ?",
+                    rowMapper, firstPersonId, secondPersonId);
         } catch (EmptyResultDataAccessException e) {
-            return null;
-//            throw new EntityNotFoundException("dialog with person ids = " + firstPersonId + " and " + secondPersonId);
+            try {
+                return jdbcTemplate.queryForObject("select * from dialog where first_person_id = ? and second_person_id = ?",
+                        rowMapper, secondPersonId, firstPersonId);
+            } catch (EmptyResultDataAccessException e2) {
+                return null;
+            }
         }
     }
     

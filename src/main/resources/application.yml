@@ -15,6 +15,18 @@ spring:
                     auth: true
                     ssl:
                         enable: true
+    kafka:
+        consumer:
+            bootstrap-servers: 127.0.0.1:9092
+            group-id: consumer
+            maxPollIntervalMs: 30000
+            maxPollRecords: 10
+            consumers.count: 3
+            pollTimeout: 5000
+        producer:
+            bootstrap-servers: 127.0.0.1:9092
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 logging:
     level:

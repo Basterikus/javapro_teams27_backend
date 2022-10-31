@@ -96,19 +96,23 @@ public class DialogRepository {
             return jdbcTemplate.queryForObject("select * from dialog where first_person_id = ? and second_person_id = ?",
                     rowMapper, firstPersonId, secondPersonId);
         } catch (EmptyResultDataAccessException e) {
-            return null;
-//            throw new EntityNotFoundException("dialog with person ids = " + firstPersonId + " and " + secondPersonId);
+            try {
+                return jdbcTemplate.queryForObject("select * from dialog where first_person_id = ? and second_person_id = ?",
+                        rowMapper, secondPersonId, firstPersonId);
+            } catch (EmptyResultDataAccessException e2) {
+                return null;
+            }
         }
     }
     
-    public Boolean existsByPersonIds(Integer firstPersonId, Integer secondPersonId) {
+    /*public Boolean existsByPersonIds(Integer firstPersonId, Integer secondPersonId) {
     
         try {
             return findByPersonIds(firstPersonId, secondPersonId) != null;
         } catch (EntityNotFoundException e) {
             return false;
         }
-    }
+    }*/
     
     /*public Integer countByPersonId(Integer personId) {
         

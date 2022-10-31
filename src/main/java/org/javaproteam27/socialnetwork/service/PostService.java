@@ -26,17 +26,22 @@ public class PostService {
     private final LikeService likeService;
     private final NotificationService notificationService;
     private final PersonService personService;
-    private final String POST_MARKER = "Post";
+    private static final String POST_MARKER = "Post";
 
     private PostRs convertToPostRs(Post post){
 
         if (post == null) return null;
         long timestamp = post.getTime();
-        String type = (post.getIsDeleted()) ? "DELETED" : ((timestamp > System.currentTimeMillis()) ? "QUEUED" : "POSTED");
+        String type;
+        if (Boolean.TRUE.equals(post.getIsDeleted())) {
+            type = "DELETED";
+        } else {
+            type = timestamp > System.currentTimeMillis() ? "QUEUED" : "POSTED";
+        }
         List<CommentRs> comments = commentService.getAllUserCommentsToPost(post.getId(), null, null);
         return PostRs.builder()
                 .id(post.getId())
-                .time(timestamp)//.toLocalDateTime())
+                .time(timestamp)
                 .author(personService.initialize(post.getAuthorId()))
                 .title(post.getTitle())
                 .likes(likeService.countLikes(post.getId(), POST_MARKER))
@@ -80,7 +85,7 @@ public class PostService {
             tagRepository.deleteTagsByPostId(postId);
             List<Integer> commentIds = commentService.getAllCommentsToPost(postId);
             commentIds.forEach(commentId -> likeService.deleteAllLikesByLikedObjectId(commentId,
-                    commentService.COMMENT_MARKER));
+                    CommentService.COMMENT_MARKER));
             likeService.deleteAllLikesByLikedObjectId(postId, POST_MARKER);
             commentService.deleteAllCommentsToPost(postId);
             postRepository.finalDeletePostById(postId);
@@ -130,4 +135,5 @@ public class PostService {
         PostRs data = (post != null) ? convertToPostRs(post) : null;
         return new ResponseRs<>("", data, null);
     }
+
 }

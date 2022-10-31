@@ -3,7 +3,6 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.mapper.PersonSettingsMapper;
-import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.PersonSettings;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

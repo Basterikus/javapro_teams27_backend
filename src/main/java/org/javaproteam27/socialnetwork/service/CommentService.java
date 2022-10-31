@@ -24,7 +24,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final LikeService likeService;
     private final NotificationService notificationService;
-    public final String COMMENT_MARKER = "Comment";
+    public static final String COMMENT_MARKER = "Comment";
     private final Redis redis;
     private final PostRepository postRepository;
 

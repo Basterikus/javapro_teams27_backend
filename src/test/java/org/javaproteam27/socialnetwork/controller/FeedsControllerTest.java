@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import org.javaproteam27.socialnetwork.service.KafkaProducerService;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +38,8 @@ public class FeedsControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private Redis redis;
+    @MockBean
+    private KafkaProducerService kafkaProducerService;
 
     private static final String feedsUrl = "/api/v1/feeds";
 

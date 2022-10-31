@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
@@ -17,6 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth/")
 @InfoLogger
+@Tag(name = "auth", description = "Взаимодействие с авторизацией")
 public class LoginController {
 
     private final LoginService loginService;

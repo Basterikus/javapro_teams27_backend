@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.controller;
 
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
+import org.javaproteam27.socialnetwork.service.KafkaProducerService;
 import org.javaproteam27.socialnetwork.service.LoginService;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Test;
@@ -46,6 +47,8 @@ public class NotificationControllerTest {
     private JwtTokenProvider jwtTokenProvider;
     @MockBean
     private Redis redis;
+    @MockBean
+    private KafkaProducerService kafkaProducerService;
 
     private final String notificationUrl = "/api/v1/notifications";
 

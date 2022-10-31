@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javaproteam27.socialnetwork.service.KafkaProducerService;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
 import org.junit.Test;
@@ -41,6 +42,8 @@ public class PostsControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private Redis redis;
+    @MockBean
+    private KafkaProducerService kafkaProducerService;
 
     private final String postUrl = "/api/v1/post";
 

@@ -25,6 +25,9 @@ redis:
 logs-upload:
     enabled: true
 
+parser:
+  enabled: true
+
 mailing-service:
   email: javaproteams27@yandex.ru
 

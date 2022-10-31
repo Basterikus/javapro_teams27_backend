@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/me/recover")
-    public ErrorRs publishPost(@RequestHeader("Authorization") String token) {
+    public ResponseRs<ComplexRs> publishPost(@RequestHeader("Authorization") String token) {
 
         return personService.recoverUser(token);
     }

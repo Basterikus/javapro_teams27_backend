@@ -16,14 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalField;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -84,11 +80,10 @@ public class PersonService {
                 .collect(Collectors.toList());
 
 
-
         return new ListResponseRs<>("", offset, itemPerPage, data);
     }
 
-    public PersonRs getPersonRs(Person person){
+    public PersonRs getPersonRs(Person person) {
 
         return PersonRs.builder()
                 .id(person.getId())
@@ -112,7 +107,7 @@ public class PersonService {
                 .build();
     }
 
-    public PersonRs initialize(Integer personId){
+    public PersonRs initialize(Integer personId) {
 
         Person person = findById(personId);
         return getPersonRs(person);
@@ -178,28 +173,28 @@ public class PersonService {
         return response;
     }
 
-//    @Scheduled(fixedDelayString = "PT24H")
+    //    @Scheduled(fixedDelayString = "PT24H")
 //    @Async
     public void fullDeleteUser(Person person) {
         personRepository.findAll().stream().filter(Person::getIsBlocked)
-                        .filter(person1 -> {
-                            LocalDate deletedDate = Instant.ofEpochMilli(person1.getDeletedTime())
-                                    .atZone(ZoneId.systemDefault()).toLocalDate();
-                            return deletedDate.isBefore(deletedDate.plusMonths(1));
-                        }).forEach(personRepository::fullDeletePerson);
+                .filter(person1 -> {
+                    LocalDate deletedDate = Instant.ofEpochMilli(person1.getDeletedTime())
+                            .atZone(ZoneId.systemDefault()).toLocalDate();
+                    return deletedDate.isBefore(deletedDate.plusMonths(1));
+                }).forEach(personRepository::fullDeletePerson);
     }
 
-    public ErrorRs recoverUser(String token) {
+    public ResponseRs<ComplexRs> recoverUser(String token) {
 
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
         person.setIsDeleted(false);
         personRepository.setPersonIsDeleted(person);
 
-        return ErrorRs.builder()
-                .error("string")
-                .timestamp(System.currentTimeMillis())
-                .data((HashMap<String, String>) new HashMap<>().put("message","ok"))
-                .build();
+        var response = new ResponseRs<ComplexRs>();
+        response.setData(ComplexRs.builder().message("ok").build());
+        response.setError("");
+        response.setTimestamp(System.currentTimeMillis());
+        return response;
     }
 }

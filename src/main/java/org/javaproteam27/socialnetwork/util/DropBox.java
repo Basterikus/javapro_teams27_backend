@@ -24,7 +24,8 @@ public class DropBox {
     private static String refreshToken = "ZdM_cscUFxQAAAAAAAAAAaYgNW47F-G6ZADxwhWouthi_NbOtYP0h68pY9V3FIOu";
     private String photo = "";
 
-    public static String getRefreshToken() throws DbxException {
+    public static String getRefreshToken() {
+        try {
         DbxCredential credential = new DbxCredential(
                 "", System.currentTimeMillis(), refreshToken, DROPBOX_APP_KEY, DROPBOX_APP_SECRET);
         DbxRequestConfig config = new DbxRequestConfig(DROPBOX_APP_KEY);
@@ -35,7 +36,7 @@ public class DropBox {
         DbxWebAuth webAuth = new DbxWebAuth(config, appInfo);
         DbxAuthFinish authFinish = webAuth.finishFromCode(refreshToken);
         log.info(authFinish.getAccessToken());
-
+        } catch (Exception ignored) {}
         return refreshToken;
     }
 

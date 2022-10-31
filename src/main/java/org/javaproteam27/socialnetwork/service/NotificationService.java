@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.DebugLogger;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
@@ -42,6 +43,7 @@ public class NotificationService {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final PersonSettingsRepository personSettingsRepository;
     private final Redis redis;
+    private final KafkaProducerService kafkaProducer;
 
 
     public ListResponseRs<NotificationBaseRs> getNotifications(String token, int offset, int itemPerPage) {
@@ -209,8 +211,14 @@ public class NotificationService {
                 .contact("")
                 .isRead(false)
                 .build();
-        notificationRepository.save(notification);
+        //notificationRepository.save(notification);
         notifyUser(notification);
+
+        try {
+            kafkaProducer.sendNotificationToQueue(notification);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     private NotificationBaseRs getNotificationRs(Notification notification) {

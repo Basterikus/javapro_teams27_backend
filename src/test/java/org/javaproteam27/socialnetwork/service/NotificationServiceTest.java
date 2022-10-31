@@ -51,6 +51,8 @@ public class NotificationServiceTest {
     private PersonSettingsRepository personSettingsRepository;
     @Mock
     private Redis redis;
+    @Mock
+    private KafkaProducerService kafkaProducerService;
 
     private NotificationService notificationService;
 
@@ -58,7 +60,7 @@ public class NotificationServiceTest {
     public void setUp() {
         notificationService = new NotificationService(personService, personRepository, jwtTokenProvider,
                 notificationRepository, friendshipRepository, postRepository, commentRepository,
-                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository, redis);
+                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository, redis, kafkaProducerService);
 
         var ps = PersonSettings.builder()
                 .postNotification(true)

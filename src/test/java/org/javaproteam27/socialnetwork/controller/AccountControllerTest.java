@@ -8,6 +8,7 @@ import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
 import org.javaproteam27.socialnetwork.service.CaptchaService;
+import org.javaproteam27.socialnetwork.service.KafkaProducerService;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -57,6 +58,8 @@ public class AccountControllerTest {
     private PersonSettingsRepository personSettingsRepository;
     @MockBean
     private Redis redis;
+    @MockBean
+    private KafkaProducerService kafkaProducerService;
     @Autowired
     private ObjectMapper objectMapper;
 

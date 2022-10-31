@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.MessageRq;
 import org.javaproteam27.socialnetwork.model.dto.request.WebSocketMessageRq;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@Tag(name = "web-socket-dialogs", description = "Взаимодействие с диалогами и сообщениями по веб сокетам")
 public class DialogsWebSocketController {
 
     private final DialogsService dialogsService;

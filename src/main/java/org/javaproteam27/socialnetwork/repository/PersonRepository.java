@@ -3,10 +3,9 @@ package org.javaproteam27.socialnetwork.repository;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.ErrorException;
+import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.mapper.PersonMapper;
 import org.javaproteam27.socialnetwork.model.entity.Person;
-import org.javaproteam27.socialnetwork.util.Redis;
-import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -64,7 +63,7 @@ public class PersonRepository {
         }
     }
 
-    public List<Person> getFriendsPersonById(Integer id) {
+    public List<Person> getFriendsByPersonId(Integer id) {
         try {
             String sql = "SELECT * FROM friendship f\n" +
                     "join friendship_status fs on fs.id=f.status_id\n" +
@@ -82,7 +81,7 @@ public class PersonRepository {
             String sql = "select * from person where email like ?";
             return jdbcTemplate.queryForObject(sql, rowMapper, email);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("person email = " + email);
+            throw new InvalidRequestException("Пользователь с почтой - " + email + " не найден.");
         }
     }
 
@@ -147,7 +146,7 @@ public class PersonRepository {
         return peopleFound;
     }
 
-    public List<Person> getFriendsPersonById(String name, Integer id) {
+    public List<Person> getFriendsPersonById(Integer id) {
         try {
             String sql;
             sql = "SELECT * FROM person p \n" +
@@ -162,7 +161,7 @@ public class PersonRepository {
         }
     }
 
-    public List<Person> getApplicationsFriendsPersonById(String name, Integer id) {
+    public List<Person> getApplicationsFriendsPersonById(Integer id) {
         try {
             String sql;
             sql = "SELECT * FROM person p \n" +
@@ -177,7 +176,7 @@ public class PersonRepository {
     }
 
     public Boolean editPerson(Person person) {
-        Boolean retValue;
+        boolean retValue;
         try {
             retValue = (jdbcTemplate.update("UPDATE person SET first_name = ?, last_name = ?, " +
                             "birth_date = ?, phone = ?, about = ?, city = ?, country = ?, messages_permission = ? " +
@@ -200,19 +199,19 @@ public class PersonRepository {
         }
     }
 
-    public Boolean savePhoto(Person person) {
+    public void savePhoto(Person person) {
         try {
-            return (jdbcTemplate.update("UPDATE person SET photo = ? WHERE id = ?", person.getPhoto(),
-                    person.getId()) == 1);
+            jdbcTemplate.update("UPDATE person SET photo = ? WHERE id = ?", person.getPhoto(),
+                    person.getId());
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }
     }
 
-    public Boolean editPasswordToken(Person person) {
+    public void editPasswordToken(Person person) {
         try {
-            return (jdbcTemplate.update("UPDATE person SET change_password_token = ? WHERE id = ?",
-                    person.getChangePasswordToken(), person.getId()) == 1);
+            jdbcTemplate.update("UPDATE person SET change_password_token = ? WHERE id = ?",
+                    person.getChangePasswordToken(), person.getId());
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }

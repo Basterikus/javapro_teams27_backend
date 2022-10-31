@@ -21,6 +21,7 @@ public class DialogsController {
     public ResponseRs<ComplexRs> createDialogs(
             @RequestHeader("Authorization") String token,
             @RequestBody DialogUserShortListDto userIds) {
+
         return dialogsService.createDialog(token, userIds.getUserIds());
     }
 
@@ -29,16 +30,19 @@ public class DialogsController {
             @RequestHeader("Authorization") String token,
             @RequestParam(value = "offset", defaultValue = "0") Integer offset,
             @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage) {
+
         return dialogsService.getDialogs(token, offset, itemPerPage);
     }
 
     @GetMapping("/unreaded")
     public ResponseRs<ComplexRs> getUnread(@RequestHeader("Authorization") String token) {
+
         return dialogsService.getUnread(token);
     }
 
     @DeleteMapping("/{id}")
     public ResponseRs<ComplexRs> deleteDialog(@PathVariable Integer id) {
+
         return dialogsService.deleteDialog(id);
     }
 
@@ -47,6 +51,7 @@ public class DialogsController {
             @RequestHeader("Authorization") String token,
             @PathVariable Integer id,
             @RequestBody MessageRq text) {
+
         return dialogsService.sendMessage(token, id, text);
     }
 
@@ -55,6 +60,7 @@ public class DialogsController {
             @PathVariable Integer id,
             @RequestParam(value = "offset", defaultValue = "0") Integer offset,
             @RequestParam(value = "perPage", defaultValue = "10") Integer itemPerPage) {
+
         return dialogsService.getMessagesByDialog(id, offset, itemPerPage, personService.getAuthorizedPerson().getId());
     }
 
@@ -62,16 +68,19 @@ public class DialogsController {
     public ResponseRs<MessageRs> editMessage(
             @PathVariable("message_id") Integer messageId,
             @RequestBody MessageRq text) {
+
         return dialogsService.editMessage(messageId, text);
     }
 
     @PutMapping("/{dialog_id}/messages/{message_id}/read")
     public ResponseRs<ComplexRs> markAsReadMessage(@PathVariable("message_id") Integer messageId) {
+
         return dialogsService.markAsReadMessage(messageId);
     }
 
     @PutMapping("/{dialog_id}/read")
     public ResponseRs<ComplexRs> markDialogAsReadMessage(@PathVariable("dialog_id") Integer dialogId) {
+
         return dialogsService.markDialogAsReadMessage(dialogId, null);
     }
 
@@ -79,6 +88,7 @@ public class DialogsController {
     public ResponseRs<ComplexRs> deleteMessage(
             @PathVariable("dialog_id") Integer dialogId,
             @PathVariable("message_id") Integer messageId) {
+
         return dialogsService.deleteMessage(dialogId, messageId);
     }
 
@@ -86,6 +96,7 @@ public class DialogsController {
     public ResponseRs<MessageRs> recoverMessage(
             @PathVariable("dialog_id") Integer dialogId,
             @PathVariable("message_id") Integer messageId) {
+
         return dialogsService.recoverMessage(dialogId, messageId);
     }
 }

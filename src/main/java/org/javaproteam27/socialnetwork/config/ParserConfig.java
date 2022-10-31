@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "yandex-profile")
-public class YandexDiskConfig {
-    private String login;
-    private String token;
+@ConfigurationProperties(prefix = "parser")
+public class ParserConfig {
+    private boolean enabled;
 }

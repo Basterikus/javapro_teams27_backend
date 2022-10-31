@@ -8,10 +8,7 @@ import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.LoginService;
 import org.javaproteam27.socialnetwork.service.PersonService;
 import org.javaproteam27.socialnetwork.service.PostService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -24,7 +21,7 @@ public class UserController {
     private final PostService postService;
 
     @GetMapping("/search")
-    public ResponseEntity<ListResponseRs<PersonRs>> searchPeople(
+    public ListResponseRs<PersonRs> searchPeople(
             @RequestParam(value = "first_name", required = false) String firstName,
             @RequestParam(value = "last_name", required = false) String lastName,
             @RequestParam(value = "age_from", required = false) Integer ageFrom,
@@ -34,25 +31,25 @@ public class UserController {
             @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
             @RequestParam(value = "perPage", required = false, defaultValue = "20") int itemPerPage) {
 
-        return ResponseEntity.ok(personService.findPerson(firstName, lastName, ageFrom, ageTo, city, country,
-                offset, itemPerPage));
+        return personService.findPerson(firstName, lastName, ageFrom, ageTo, city, country,
+                offset, itemPerPage);
     }
 
     @GetMapping("me")
-    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) throws IOException {
+    public ResponseRs<PersonRs> profileResponse(@RequestHeader("Authorization") String token) {
         return loginService.profileResponse(token);
     }
 
     @PutMapping("/me")
-    public ResponseEntity<UserRs> editUser(@RequestBody UserRq request, @RequestHeader("Authorization") String token) {
+    public UserRs editUser(@RequestBody UserRq request, @RequestHeader("Authorization") String token) {
         return personService.editUser(request, token);
     }
 
     @PostMapping("/{id}/wall")
-    public ResponseRs<PostRs> publishPost(@RequestParam(required = false) Long publish_date,
+    public ResponseRs<PostRs> publishPost(@RequestParam(required = false) Long publishDate,
                                           @RequestBody PostRq postRq, @PathVariable(value = "id") int authorId) {
 
-        return postService.publishPost(publish_date, postRq, authorId);
+        return postService.publishPost(publishDate, postRq, authorId);
     }
 
     @GetMapping("/{id}/wall")
@@ -70,12 +67,12 @@ public class UserController {
     }
 
     @DeleteMapping("/me")
-    public ErrorRs deleteUser(@RequestHeader("Authorization") String token) {
+    public ResponseRs<ComplexRs> deleteUser(@RequestHeader("Authorization") String token) {
         return personService.deleteUser(token);
     }
 
     @PostMapping("/me/recover")
-    public ErrorRs publishPost(@RequestHeader("Authorization") String token) {
+    public ResponseRs<ComplexRs> publishPost(@RequestHeader("Authorization") String token) {
 
         return personService.recoverUser(token);
     }

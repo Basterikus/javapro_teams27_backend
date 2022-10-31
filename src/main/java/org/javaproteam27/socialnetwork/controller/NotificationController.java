@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.aop.InfoLogger;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/notifications")
 @RequiredArgsConstructor
 @InfoLogger
+@Tag(name = "notifications", description = "Взаимодействие с уведомлениями")
 public class NotificationController {
 
     private final NotificationService notificationService;

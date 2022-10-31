@@ -152,9 +152,9 @@ public class FriendsService {
                 .build();
     }
 
-    public ListResponseRs<PersonRs> getListFriends(String name, Integer offset, Integer itemPerPage) {
+    public ListResponseRs<PersonRs> getListFriends(Integer offset, Integer itemPerPage) {
         var person = personService.getAuthorizedPerson();
-        List<Person> personList = personRepository.getFriendsPersonById(name, person.getId());
+        List<Person> personList = personRepository.getFriendsByPersonId(person.getId());
         List<Person> result = new ArrayList<>();
         for (Person p : personList) {
             if (!Objects.equals(p.getId(), person.getId())) {
@@ -164,9 +164,9 @@ public class FriendsService {
         return getResultJson(result, 0, offset, itemPerPage);
     }
 
-    public ListResponseRs<PersonRs> getListApplicationsFriends(String name, Integer offset, Integer itemPerPage) {
+    public ListResponseRs<PersonRs> getListApplicationsFriends(Integer offset, Integer itemPerPage) {
 
-        List<Person> personList = personRepository.getApplicationsFriendsPersonById(name, personService.getAuthorizedPerson().getId());
+        List<Person> personList = personRepository.getApplicationsFriendsPersonById(personService.getAuthorizedPerson().getId());
         return getResultJson(personList, 0, offset, itemPerPage);
     }
 }

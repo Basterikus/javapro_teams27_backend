@@ -1,10 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
 import com.dropbox.core.DbxException;
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.FileMetadata;
-import com.yandex.disk.rest.exceptions.ServerException;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.response.StorageDataRs;
 import org.javaproteam27.socialnetwork.model.dto.response.StorageRs;
@@ -16,9 +12,6 @@ import org.javaproteam27.socialnetwork.util.Redis;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class StorageService {
@@ -26,10 +19,9 @@ public class StorageService {
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final Redis redis;
-    private final DropBox dropBox;
-    private String imageName;
 
-    public StorageRs postStorage(MultipartFile image, String token) throws  IOException, DbxException {
+    public StorageRs postStorage(MultipartFile image, String token) throws DbxException {
+        String imageName = null;
 
         StorageRs response = new StorageRs();
         response.setError("string");

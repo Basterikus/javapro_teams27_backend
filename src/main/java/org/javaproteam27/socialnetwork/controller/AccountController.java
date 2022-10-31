@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.PasswordRq;
 import org.javaproteam27.socialnetwork.model.dto.request.PersonSettingsRq;
 import org.javaproteam27.socialnetwork.model.dto.request.RegisterRq;
-import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
-import org.javaproteam27.socialnetwork.model.dto.response.PersonSettingsRs;
-import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
-import org.javaproteam27.socialnetwork.model.dto.response.ResponseRs;
+import org.javaproteam27.socialnetwork.model.dto.response.*;
 import org.javaproteam27.socialnetwork.service.EmailService;
 import org.javaproteam27.socialnetwork.service.PasswordService;
 import org.javaproteam27.socialnetwork.service.PersonSettingsService;
@@ -51,7 +48,7 @@ public class AccountController {
     }
 
     @PutMapping("/notifications")
-    public ResponseRs<Object> editPersonSettings(@RequestBody PersonSettingsRq ps) {
+    public ResponseRs<ComplexRs> editPersonSettings(@RequestBody PersonSettingsRq ps) {
         return personSettingsService.editPersonSettings(ps);
     }
 

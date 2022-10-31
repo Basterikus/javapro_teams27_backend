@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.service;
 
+import org.javaproteam27.socialnetwork.model.dto.response.ComplexRs;
 import org.javaproteam27.socialnetwork.model.dto.response.CurrencyRateRs;
 import org.javaproteam27.socialnetwork.model.entity.Currency;
 import org.javaproteam27.socialnetwork.repository.CurrencyRepository;
@@ -128,17 +129,16 @@ public class LoginServiceTest {
         InvalidRequestException thrown = assertThrows(InvalidRequestException.class,
                 () -> loginService.login(loginRq));
 
-        assertEquals("Incorrect password", thrown.getMessage());
+        assertEquals("Неверный пароль.", thrown.getMessage());
 
         verify(jwtTokenProvider, times(0)).createToken(loginRq.getEmail());
     }
 
     @Test
     public void logoutAuthorizedRqAllDataIsOk() {
-        ResponseRs<Object> response = loginService.logout();
+        ResponseRs<ComplexRs> response = loginService.logout();
 
-        HashMap<String, String> expectedData = new HashMap<>();
-        expectedData.put("message", "ok");
+        var expectedData = ComplexRs.builder().message("ok").build();
 
         assertNotNull(response);
         assertEquals("", response.getError());

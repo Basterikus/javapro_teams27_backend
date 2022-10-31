@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.model.dto.response.ComplexRs;
 import org.javaproteam27.socialnetwork.model.dto.response.FriendshipRs;
 import org.javaproteam27.socialnetwork.model.entity.Friendship;
 import org.javaproteam27.socialnetwork.model.entity.FriendshipStatus;
@@ -9,7 +10,6 @@ import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -48,33 +48,24 @@ public class FriendshipStatusService {
             friendshipStatusRepository.updateCode(friendshipStatus.getId(), friendshipStatusCode);
         }
 
-        String error = "";
-        HashMap<String, String> messageMap = new HashMap<>();
-        messageMap.put("message", "ok");
+        var data = ComplexRs.builder().message("ok").build();
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        return new FriendshipRs(
-                error,
-                localDateTime,
-                messageMap);
+        return new FriendshipRs("", localDateTime, data);
     }
 
 
     public FriendshipRs deleteStatus(List<Friendship> friendshipList) {
+
         for (Friendship friendship : friendshipList) {
             FriendshipStatus friendshipStatus = new FriendshipStatus();
             friendshipStatus.setId(friendship.getStatusId());
             friendshipStatusRepository.delete(friendshipStatus);
         }
         LocalDateTime localDateTime = LocalDateTime.now();
-        String error = "string";
-        HashMap<String, String> aa = new HashMap<>();
-        aa.put("message", "ok");
+        var data = ComplexRs.builder().message("ok").build();
 
-        return new FriendshipRs(
-                error,
-                localDateTime,
-                aa);
+        return new FriendshipRs("", localDateTime, data);
 
     }
 }

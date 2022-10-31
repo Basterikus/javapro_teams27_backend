@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.javaproteam27.socialnetwork.service.KafkaProducerService;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.javaproteam27.socialnetwork.model.dto.request.UserRq;
 import org.javaproteam27.socialnetwork.model.dto.request.PostRq;
@@ -56,6 +57,8 @@ public class UserControllerTest {
     private ObjectMapper objectMapper;
     @MockBean
     private Redis redis;
+    @MockBean
+    private KafkaProducerService kafkaProducerService;
 
     private final static String meUrl = "/api/v1/users/me";
     private final static String userUrl = "/api/v1/users";

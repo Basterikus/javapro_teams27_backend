@@ -1,5 +1,6 @@
 package org.javaproteam27.socialnetwork.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.javaproteam27.socialnetwork.model.dto.request.PasswordRq;
 import org.javaproteam27.socialnetwork.model.dto.request.PersonSettingsRq;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/account")
 @RequiredArgsConstructor
+@Tag(name = "account", description = "Взаимодействие с аккаунтом")
 public class AccountController {
 
     private final RegisterService registerService;

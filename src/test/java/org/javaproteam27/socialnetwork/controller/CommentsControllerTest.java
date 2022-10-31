@@ -2,6 +2,7 @@ package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.model.dto.request.CommentRq;
+import org.javaproteam27.socialnetwork.service.KafkaProducerService;
 import org.javaproteam27.socialnetwork.util.Redis;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +42,8 @@ public class CommentsControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private Redis redis;
+    @MockBean
+    private KafkaProducerService kafkaProducerService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 

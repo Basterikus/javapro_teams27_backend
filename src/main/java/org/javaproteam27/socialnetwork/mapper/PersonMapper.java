@@ -38,7 +38,7 @@ public class PersonMapper implements RowMapper<Person> {
         person.setOnlineStatus(rs.getString("online_status"));
         person.setIsDeleted(rs.getBoolean("is_deleted"));
         person.setDeletedTime(rs.getTimestamp("deleted_time") == null ? null :
-                rs.getTimestamp("birth_date").getTime());
+                rs.getTimestamp("deleted_time").getTime());
     
         return person;
     }

@@ -16,10 +16,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -103,6 +108,7 @@ public class PersonService {
                 .lastOnlineTime(person.getLastOnlineTime())
                 .friendshipStatusCode(getFriendshipStatus(person.getId()))
                 .online(Objects.equals(person.getOnlineStatus(), "ONLINE"))
+                .isDeleted(person.getIsDeleted())
                 .build();
     }
 
@@ -121,7 +127,7 @@ public class PersonService {
         String birthDate = request.getBirthDate().split("T")[0];
         LocalDate date = LocalDate.parse(birthDate, formatter);
 
-        person.setBirthDate(date.toEpochDay());
+        person.setBirthDate(date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
         person.setPhone(request.getPhone());
         person.setAbout(request.getAbout());
         person.setCity(request.getCity());
@@ -181,5 +187,19 @@ public class PersonService {
                                     .atZone(ZoneId.systemDefault()).toLocalDate();
                             return deletedDate.isBefore(deletedDate.plusMonths(1));
                         }).forEach(personRepository::fullDeletePerson);
+    }
+
+    public ErrorRs recoverUser(String token) {
+
+        String email = jwtTokenProvider.getUsername(token);
+        Person person = personRepository.findByEmail(email);
+        person.setIsDeleted(false);
+        personRepository.setPersonIsDeleted(person);
+
+        return ErrorRs.builder()
+                .error("string")
+                .timestamp(System.currentTimeMillis())
+                .data((HashMap<String, String>) new HashMap<>().put("message","ok"))
+                .build();
     }
 }

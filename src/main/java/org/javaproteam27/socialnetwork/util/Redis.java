@@ -54,28 +54,23 @@ public class Redis {
         String currentUrl = dropBox.getLinkImages(url);
         if (!usersPhoto.containsKey(String.valueOf(id))) {
             usersPhoto.put(String.valueOf(id), currentUrl);
-        }
-        else {
+        } else {
             usersPhoto.replace(String.valueOf(id), currentUrl);
         }
     }
 
     public String getUrl(Integer id) {
-        if (redisConfig.isEnabled()) {
-            return usersPhoto.get(String.valueOf(id));
-        } else {
-            return "https://i.imgur.com/RioIkGD.png";
-        }
+        return usersPhoto.get(String.valueOf(id));
     }
 
-    @Scheduled(initialDelay = 6000, fixedDelayString = "PT24H")
+    @Scheduled(initialDelay = 6000, fixedDelayString = "PT6H")
     @Async
     private void updateUrl() {
         if (redisson == null) {
             init();
         }
         personRepository.findAll().forEach(person ->
-            add(person.getId(), person.getPhoto()));
+                add(person.getId(), person.getPhoto()));
     }
 
     public void shutdown() {

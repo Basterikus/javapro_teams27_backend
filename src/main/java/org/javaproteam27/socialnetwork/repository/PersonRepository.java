@@ -37,8 +37,8 @@ public class PersonRepository {
 
     public Integer save(Person person) {
         String sql = "insert into person(first_name, last_name, reg_date, email, " +
-                "password, photo, is_approved, last_online_time)" +
-                "values ('%s','%s','%s','%s','%s','%s','%b','%s')";
+                "password, photo, is_approved, last_online_time, is_deleted)" +
+                "values ('%s','%s','%s','%s','%s','%s','%b','%s','%s')";
         String sqlFormat = String.format(sql,
                 person.getFirstName(),
                 person.getLastName(),
@@ -47,7 +47,8 @@ public class PersonRepository {
                 person.getPassword(),
                 person.getPhoto(),
                 person.getIsApproved(),
-                new Timestamp(person.getLastOnlineTime()));
+                new Timestamp(person.getLastOnlineTime()),
+                person.getIsDeleted());
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> connection.prepareStatement(sqlFormat, new String[]{"id"}), keyHolder);
@@ -284,8 +285,8 @@ public class PersonRepository {
 
     public boolean setPersonIsDeleted(Person person) {
         try {
-            return (jdbcTemplate.update("UPDATE person SET is_deleted = TRUE, deleted_time = ? WHERE id = ?",
-                    LocalDateTime.now(), person.getId()) == 1);
+            return (jdbcTemplate.update("UPDATE person SET is_deleted = ?, deleted_time = ? WHERE id = ?",
+                    person.getIsDeleted(), LocalDateTime.now(), person.getId()) == 1);
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());
         }

@@ -70,4 +70,10 @@ public class UserController {
     public ResponseRs<ComplexRs> deleteUser(@RequestHeader("Authorization") String token) {
         return personService.deleteUser(token);
     }
+
+    @PostMapping("/me/recover")
+    public ErrorRs publishPost(@RequestHeader("Authorization") String token) {
+
+        return personService.recoverUser(token);
+    }
 }

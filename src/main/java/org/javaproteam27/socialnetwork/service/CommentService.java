@@ -92,6 +92,11 @@ public class CommentService {
             var authorId = postRepository.findPostById(postId).getAuthorId();
             notificationService.deleteNotification(NotificationType.POST_COMMENT, authorId, commentId);
         }
+        List<Comment> subComments = commentRepository.getAllCommentsByPostIdAndParentId(postId, commentId, null, null);
+        subComments.forEach(subComment -> {
+            likeService.deleteAllLikesByLikedObjectId(subComment.getId(), "Comment");
+            deleteComment(subComment.getPostId(), subComment.getId());
+        });
         commentRepository.deleteComment(postId, commentId);
         return new ResponseRs<>("", CommentRs.builder().id(commentId).build(), null);
     }

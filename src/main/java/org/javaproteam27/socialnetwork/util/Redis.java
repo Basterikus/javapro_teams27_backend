@@ -29,6 +29,7 @@ public class Redis {
     private final DropBox dropBox;
     private final RedisConfig redisConfig;
 
+    @Async
     private void init() {
         Config config = new Config();
         config.useSingleServer().setAddress(redisConfig.getUrl());
@@ -54,13 +55,13 @@ public class Redis {
         return usersPhoto.get(String.valueOf(id));
     }
 
-    @Scheduled(initialDelay = 6000, fixedDelayString = "PT24H")
+    @Scheduled(fixedDelayString = "PT24H")
     @Async
     private void updateUrl() {
-        if (redisson != null) {
-            shutdown();
+        if (redisson == null) {
+            init();
         }
-        init();
+
         personRepository.findAll().forEach(person ->
                 add(person.getId(), person.getPhoto()));
     }

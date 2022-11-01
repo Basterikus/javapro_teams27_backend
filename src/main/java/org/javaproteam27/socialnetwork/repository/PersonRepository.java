@@ -162,7 +162,7 @@ public class PersonRepository {
             sql = "SELECT * FROM person p \n" +
                     "join friendship f on f.dst_person_id = p.id\n" +
                     "join friendship_status fs on fs.id = f.status_id\n" +
-                    "where fs.code = 'FRIEND' and is_deleted = false" +
+                    "where fs.code = 'FRIEND' and is_deleted is false " +
                     "and src_person_id = ? or dst_person_id = ?";
 
 
@@ -178,7 +178,7 @@ public class PersonRepository {
             sql = "SELECT * FROM person p \n" +
                     "join friendship f on f.src_person_id = p.id\n" +
                     "join friendship_status fs on fs.id = f.status_id\n" +
-                    "where fs.code = 'REQUEST' and dst_person_id = ? and is_deleted = false";
+                    "where fs.code = 'REQUEST' and dst_person_id = ? and is_deleted is false";
 
             return jdbcTemplate.query(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {

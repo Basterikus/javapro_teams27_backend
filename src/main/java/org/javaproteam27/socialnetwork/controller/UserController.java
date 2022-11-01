@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/wall")
-    public ResponseRs<PostRs> publishPost(@RequestParam(required = false) Long publishDate,
+    public ResponseRs<PostRs> publishPost(@RequestParam(required = false, name = "publish_date") Long publishDate,
                                           @RequestBody PostRq postRq, @PathVariable(value = "id") int authorId) {
 
         return postService.publishPost(publishDate, postRq, authorId);

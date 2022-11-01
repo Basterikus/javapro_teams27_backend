@@ -119,8 +119,11 @@ public class PostRepository {
 
         List<Post> retList;
         try {
-            retList = jdbcTemplate.query("SELECT * FROM post WHERE time <= CURRENT_TIMESTAMP " +
-                    "AND is_deleted is false ORDER BY time DESC LIMIT " + limit + " OFFSET " + offset, new PostMapper());
+            retList = jdbcTemplate.query("SELECT * FROM post " +
+                    "JOIN person AS per ON per.id = post.author_id " +
+                    "WHERE per.is_deleted is false " +
+                    "AND post.time <= CURRENT_TIMESTAMP  " +
+                    "AND post.is_deleted is false ORDER BY post.time DESC LIMIT " + limit + " OFFSET " + offset, new PostMapper());
             //                "SELECT * FROM post WHERE post_text LIKE '%" + postText + "%'"
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());

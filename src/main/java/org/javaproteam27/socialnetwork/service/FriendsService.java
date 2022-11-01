@@ -107,7 +107,7 @@ public class FriendsService {
         return limitedRecommendations.stream()
                 .map(id -> {
                     try {
-                        return Optional.of(personService.findById(id));
+                        return Optional.of(personRepository.findNotDeletedById(id));
                     } catch (EntityNotFoundException e) {
                         return Optional.empty();
                     }

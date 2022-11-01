@@ -165,6 +165,7 @@ public class PersonService {
     public ResponseRs<ComplexRs> deleteUser(String token) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
+        person.setIsDeleted(true);
         personRepository.setPersonIsDeleted(person);
         var response = new ResponseRs<ComplexRs>();
         response.setData(ComplexRs.builder().message("ok").build());

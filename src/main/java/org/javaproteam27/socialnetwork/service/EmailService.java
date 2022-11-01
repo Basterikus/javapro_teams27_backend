@@ -23,9 +23,35 @@ public class EmailService {
     @Value("${mailing-service.email}")
     private String fromEmail;
 
-    public RegisterRs putEmail(String token) {
+    public RegisterRs putPassword(String token) {
 
         String url = "http://195.133.48.174:8080/change-password?token=";
+
+        String email = jwtTokenProvider.getUsername(token);
+        Person person = personRepository.findByEmail(email);
+        String newToken = UUID.randomUUID().toString();
+        person.setChangePasswordToken(newToken);
+        personRepository.editPasswordToken(person);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(email);
+        message.setSubject("Subject: Simple Mail");
+        message.setText("Ссылка для восстановления пароля: " + url + newToken);
+
+        mailSender.send(message);
+
+        var data = ComplexRs.builder().message("ok").build();
+
+        return RegisterRs.builder()
+                .error("string")
+                .data(data)
+                .build();
+    }
+
+    public RegisterRs putEmail(String token) {
+
+        String url = "http://195.133.48.174:8080/shift-email?token=";
 
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);

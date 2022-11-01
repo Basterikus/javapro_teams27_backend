@@ -35,7 +35,7 @@ public class AccountController {
 
     @PutMapping("/password/recovery")
     public RegisterRs putEmailPassword(@RequestHeader("Authorization") String token) {
-        return emailService.putEmail(token);
+        return emailService.putPassword(token);
     }
 
     @PutMapping("/password/set")

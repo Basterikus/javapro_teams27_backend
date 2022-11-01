@@ -38,6 +38,7 @@ public class LoginService {
         var currencyUsd = currencyRepository.findByName("USD");
         var currencyEuro = currencyRepository.findByName("EUR");
         PersonRs personRs = getPersonRs(person, token);
+        personRs.setDeleted(person.getIsDeleted());
         personRs.setWeather(weatherRs);
         personRs.setCurrency(CurrencyRateRs.builder()
                 .usd(currencyUsd.getPrice())

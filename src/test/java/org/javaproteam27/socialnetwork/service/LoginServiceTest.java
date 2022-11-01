@@ -68,6 +68,7 @@ public class LoginServiceTest {
         person.setEmail("email");
         person.setPassword("pass");
         person.setIsBlocked(false);
+        person.setIsDeleted(false);
         Currency currency = Currency.builder().build();
 
         Integer expectedOffset = 0;

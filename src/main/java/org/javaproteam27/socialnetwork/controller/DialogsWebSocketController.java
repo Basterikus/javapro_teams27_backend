@@ -61,15 +61,6 @@ public class DialogsWebSocketController {
         dialogsService.sendMessage(token, dialogId, response);
     }
 
-    /*@MessageMapping("/dialogs/get_unreaded")
-    public void getUnread(@Header("token") String token) {
-
-        Map<String, Object> header = new HashMap<>();
-        header.put("type", "get_unreaded");
-        messagingTemplate.convertAndSendToUser(personService.getPersonByToken(token).getId().toString(),
-                "/queue/messages", dialogsService.getUnread(token), header);
-    }*/
-
     @MessageMapping("/dialogs/mark_readed")
     public void markReaded(@Header("token") String token,
                            @Header(value = "id_message", defaultValue = "-1") Integer messageId,

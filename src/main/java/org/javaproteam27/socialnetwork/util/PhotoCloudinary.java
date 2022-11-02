@@ -39,7 +39,7 @@ public class PhotoCloudinary {
         return usersPhoto.get(String.valueOf(id));
     }
 
-    @Scheduled(fixedDelayString = "PT12H")
+    @Scheduled(initialDelay = 6000, fixedDelayString = "PT2H")
     @Async
     private void updateUrl() {
         if (usersPhoto == null) {

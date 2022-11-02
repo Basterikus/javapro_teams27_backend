@@ -1,13 +1,12 @@
 package org.javaproteam27.socialnetwork.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.SneakyThrows;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.entity.*;
 import org.javaproteam27.socialnetwork.model.enums.NotificationType;
 import org.javaproteam27.socialnetwork.repository.*;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +51,7 @@ public class NotificationServiceTest {
     @Mock
     private PersonSettingsRepository personSettingsRepository;
     @Mock
-    private Redis redis;
+    private PhotoCloudinary photoCloudinary;
     @Mock
     private KafkaProducerService kafkaProducerService;
 
@@ -62,7 +61,7 @@ public class NotificationServiceTest {
     public void setUp() {
         notificationService = new NotificationService(personService, personRepository, jwtTokenProvider,
                 notificationRepository, friendshipRepository, postRepository, commentRepository,
-                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository, redis, kafkaProducerService);
+                likeRepository, messageRepository, simpMessagingTemplate, personSettingsRepository, photoCloudinary, kafkaProducerService);
 
         var ps = PersonSettings.builder()
                 .postNotification(true)

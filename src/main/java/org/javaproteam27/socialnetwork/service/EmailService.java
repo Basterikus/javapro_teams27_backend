@@ -1,6 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
+import org.javaproteam27.socialnetwork.model.dto.request.EmailRq;
 import org.javaproteam27.socialnetwork.model.dto.response.ComplexRs;
 import org.javaproteam27.socialnetwork.model.dto.response.RegisterRs;
 import org.javaproteam27.socialnetwork.model.entity.Person;
@@ -63,9 +64,23 @@ public class EmailService {
         message.setFrom(fromEmail);
         message.setTo(email);
         message.setSubject("Subject: Simple Mail");
-        message.setText("Ссылка для восстановления eMail: " + url + newToken);
+        message.setText("Ссылка для восстановления email: " + url + newToken);
 
         mailSender.send(message);
+
+        var data = ComplexRs.builder().message("ok").build();
+
+        return RegisterRs.builder()
+                .error("string")
+                .data(data)
+                .build();
+    }
+
+    public RegisterRs recoverEmail(String token, EmailRq rq) {
+
+        Person person = personRepository.findByEmail(jwtTokenProvider.getUsername(token));
+        person.setEmail(rq.getEmail());
+        personRepository.save(person);
 
         var data = ComplexRs.builder().message("ok").build();
 

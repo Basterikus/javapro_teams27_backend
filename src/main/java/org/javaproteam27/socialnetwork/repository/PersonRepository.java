@@ -219,6 +219,15 @@ public class PersonRepository {
         }
     }
 
+    public void updateEmail(Person person) {
+        try {
+            jdbcTemplate.update("UPDATE person SET email = ? WHERE id = ?", person.getEmail(),
+                    person.getId());
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+    }
+
     public void editPasswordToken(Person person) {
         try {
             jdbcTemplate.update("UPDATE person SET change_password_token = ? WHERE id = ?",

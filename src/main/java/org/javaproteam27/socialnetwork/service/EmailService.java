@@ -80,7 +80,7 @@ public class EmailService {
 
         Person person = personRepository.findByEmail(jwtTokenProvider.getUsername(token));
         person.setEmail(rq.getEmail());
-        personRepository.save(person);
+        personRepository.updateEmail(person);
 
         var data = ComplexRs.builder().message("ok").build();
 

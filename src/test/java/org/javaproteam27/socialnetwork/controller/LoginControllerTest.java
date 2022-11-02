@@ -2,7 +2,7 @@ package org.javaproteam27.socialnetwork.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.service.KafkaProducerService;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.handler.exception.InvalidRequestException;
 import org.javaproteam27.socialnetwork.model.dto.request.LoginRq;
@@ -47,7 +47,7 @@ public class LoginControllerTest {
     @Autowired
     private PersonRepository personRepository;
     @MockBean
-    private Redis redis;
+    private PhotoCloudinary photoCloudinary;
     @MockBean
     private KafkaProducerService kafkaProducerService;
 
@@ -68,7 +68,7 @@ public class LoginControllerTest {
         LoginRq rq = new LoginRq();
         rq.setEmail("test@mail.ru");
         rq.setPassword("test1234");
-        when(redis.getUrl(anyInt())).thenReturn("test");
+        when(photoCloudinary.getUrl(anyInt())).thenReturn("test");
         this.mockMvc.perform(post(loginUrl).content(objectMapper.writeValueAsString(rq))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

@@ -3,7 +3,7 @@ package org.javaproteam27.socialnetwork.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javaproteam27.socialnetwork.model.dto.request.CommentRq;
 import org.javaproteam27.socialnetwork.service.KafkaProducerService;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class CommentsControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private Redis redis;
+    private PhotoCloudinary photoCloudinary;
     @MockBean
     private KafkaProducerService kafkaProducerService;
 
@@ -62,7 +62,7 @@ public class CommentsControllerTest {
     @Test
     public void getComments() throws Exception {
 
-        when(redis.getUrl(anyInt())).thenReturn("test");
+        when(photoCloudinary.getUrl(anyInt())).thenReturn("test");
 
         this.mockMvc.perform(get(commentToPostUrl).param("offset", "0").param("perPage", "10"))
                 .andDo(print()).andExpect(status().isOk())

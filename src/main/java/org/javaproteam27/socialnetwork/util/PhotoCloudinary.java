@@ -2,44 +2,28 @@ package org.javaproteam27.socialnetwork.util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.javaproteam27.socialnetwork.config.RedisConfig;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
-import org.redisson.Redisson;
-import org.redisson.api.RMap;
-import org.redisson.api.RedissonClient;
-import org.redisson.client.RedisConnectionException;
-import org.redisson.config.Config;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class Redis {
+public class PhotoCloudinary {
 
-    // Объект для работы с Redis
-    private RedissonClient redisson;
     //хэшмеп для фоток
-    private RMap<String, String> usersPhoto;
-    private final String name = "USER_PHOTO";
+    private ConcurrentHashMap<String, String> usersPhoto;
     private final PersonRepository personRepository;
     private final DropBox dropBox;
-    private final RedisConfig redisConfig;
 
-    @Async
+
     private void init() {
-        Config config = new Config();
-        config.useSingleServer().setAddress(redisConfig.getUrl());
-        try {
-            redisson = Redisson.create(config);
-        } catch (RedisConnectionException e) {
-            log.info("Не удалось подключиться к Redis");
-            log.info(e.getMessage());
-        }
-        usersPhoto = redisson.getMap(name);
+        usersPhoto = new ConcurrentHashMap<>();
     }
 
     public void add(Integer id, String url) {
@@ -55,19 +39,18 @@ public class Redis {
         return usersPhoto.get(String.valueOf(id));
     }
 
-    @Scheduled(fixedDelayString = "PT24H")
+    @Scheduled(fixedDelayString = "PT12H")
     @Async
     private void updateUrl() {
-        if (redisson == null) {
+        if (usersPhoto == null) {
             init();
         }
 
         personRepository.findAll().forEach(person ->
                 add(person.getId(), person.getPhoto()));
+
     }
 
-    public void shutdown() {
-        redisson.shutdown();
-    }
+
 
 }

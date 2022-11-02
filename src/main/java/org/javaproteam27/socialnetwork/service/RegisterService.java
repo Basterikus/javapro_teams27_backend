@@ -9,7 +9,7 @@ import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CaptchaRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.repository.PersonSettingsRepository;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class RegisterService {
     private final CaptchaRepository captchaRepository;
     private final PasswordEncoder passwordEncoder;
     private final PersonSettingsRepository personSettingsRepository;
-    private final Redis redis;
+    private final PhotoCloudinary photoCloudinary;
     private String captchaSecret1;
     private String captchaSecret2;
     private String password1;
@@ -63,7 +63,7 @@ public class RegisterService {
         person.setLastOnlineTime(System.currentTimeMillis());
         person.setIsDeleted(false);
         var personId = personRepository.save(person);
-        redis.add(personId, defaultPhoto);
+        photoCloudinary.add(personId, defaultPhoto);
         personSettingsRepository.save(personId);
         // ответ успешной регистрации
         var data = ComplexRs.builder().message("ok").build();

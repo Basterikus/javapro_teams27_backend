@@ -57,3 +57,6 @@ scrape_configs:
     static_configs:
       - targets: ['195.133.48.174:8080']
 
+change-url:
+  change-password: http://195.133.48.174:8080/change-password?token=
+  change-email: http://195.133.48.174:8080/shift-email?token=

@@ -41,7 +41,7 @@ public class PhotoCloudinary {
 
     @Scheduled(initialDelay = 6000, fixedDelayString = "PT2H")
     @Async
-    private void updateUrl() {
+    public void updateUrl() {
         if (usersPhoto == null) {
             init();
         }

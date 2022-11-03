@@ -23,6 +23,10 @@ public class EmailService {
     private final PersonRepository personRepository;
     @Value("${mailing-service.email}")
     private String fromEmail;
+//    @Value("${change-url.change-password}")
+//    private String changePassword;
+//    @Value("${change-url.change-email}")
+//    private String changeEmail;
 
     public RegisterRs putPassword(String token) {
 

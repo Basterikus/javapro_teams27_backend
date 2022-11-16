@@ -64,6 +64,15 @@ public class PersonRepository {
         }
     }
 
+    public Person findNotDeletedById(int id) {
+        try {
+            String sql = "select * from person where is_deleted = false and id = ?";
+            return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(PERSON_ID + id);
+        }
+    }
+
     public List<Person> getFriendsByPersonId(Integer id) {
         try {
             String sql = "SELECT * FROM friendship f\n" +
@@ -153,7 +162,8 @@ public class PersonRepository {
             sql = "SELECT * FROM person p \n" +
                     "join friendship f on f.dst_person_id = p.id\n" +
                     "join friendship_status fs on fs.id = f.status_id\n" +
-                    "where fs.code = 'FRIEND' and src_person_id = ? or dst_person_id = ?";
+                    "where fs.code = 'FRIEND' and is_deleted is false " +
+                    "and src_person_id = ? or dst_person_id = ?";
 
 
             return jdbcTemplate.query(sql, rowMapper, id, id);
@@ -168,7 +178,7 @@ public class PersonRepository {
             sql = "SELECT * FROM person p \n" +
                     "join friendship f on f.src_person_id = p.id\n" +
                     "join friendship_status fs on fs.id = f.status_id\n" +
-                    "where fs.code = 'REQUEST' and dst_person_id = ?";
+                    "where fs.code = 'REQUEST' and dst_person_id = ? and is_deleted is false";
 
             return jdbcTemplate.query(sql, rowMapper, id);
         } catch (EmptyResultDataAccessException e) {
@@ -203,6 +213,15 @@ public class PersonRepository {
     public void savePhoto(Person person) {
         try {
             jdbcTemplate.update("UPDATE person SET photo = ? WHERE id = ?", person.getPhoto(),
+                    person.getId());
+        } catch (DataAccessException exception) {
+            throw new ErrorException(exception.getMessage());
+        }
+    }
+
+    public void updateEmail(Person person) {
+        try {
+            jdbcTemplate.update("UPDATE person SET email = ? WHERE id = ?", person.getEmail(),
                     person.getId());
         } catch (DataAccessException exception) {
             throw new ErrorException(exception.getMessage());

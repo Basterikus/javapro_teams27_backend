@@ -1,7 +1,7 @@
 package org.javaproteam27.socialnetwork.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.javaproteam27.socialnetwork.handler.exception.EntityNotFoundException;
 import org.javaproteam27.socialnetwork.model.dto.response.ListResponseRs;
 import org.javaproteam27.socialnetwork.model.dto.response.PersonRs;
@@ -23,7 +23,7 @@ public class FriendsService {
     private final FriendshipService friendshipService;
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final Redis redis;
+    private final PhotoCloudinary photoCloudinary;
 
     public ListResponseRs<PersonRs> getRecommendations(String token, int offset, int itemPerPage) {
 
@@ -107,7 +107,7 @@ public class FriendsService {
         return limitedRecommendations.stream()
                 .map(id -> {
                     try {
-                        return Optional.of(personService.findById(id));
+                        return Optional.of(personRepository.findNotDeletedById(id));
                     } catch (EntityNotFoundException e) {
                         return Optional.empty();
                     }
@@ -130,7 +130,7 @@ public class FriendsService {
                         .birthDate(person.getBirthDate())
                         .email(person.getEmail())
                         .phone(person.getPhone())
-                        .photo(redis.getUrl(person.getId()))
+                        .photo(photoCloudinary.getUrl(person.getId()))
                         .about(person.getAbout())
                         .city(person.getCity())
                         .country(person.getCountry())

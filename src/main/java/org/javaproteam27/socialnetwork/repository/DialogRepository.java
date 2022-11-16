@@ -22,16 +22,7 @@ public class DialogRepository {
     private final DialogMapper rowMapper = new DialogMapper();
     private final JdbcTemplate jdbcTemplate;
     
-    
-    /*private static List<Integer> sortIds(Integer firstPersonId, Integer secondPersonId) {
-        List<Integer> ids = new ArrayList<>();
-        ids.add(firstPersonId);
-        ids.add(secondPersonId);
-        ids.sort(Comparator.naturalOrder());
-        return ids;
-    }*/
-    
-    
+
     public Integer save(Dialog dialog) {
 
         String sqlQuery = "insert into dialog (first_person_id, second_person_id, last_message_id, last_active_time) " +
@@ -104,29 +95,7 @@ public class DialogRepository {
             }
         }
     }
-    
-    /*public Boolean existsByPersonIds(Integer firstPersonId, Integer secondPersonId) {
-    
-        try {
-            return findByPersonIds(firstPersonId, secondPersonId) != null;
-        } catch (EntityNotFoundException e) {
-            return false;
-        }
-    }*/
-    
-    /*public Integer countByPersonId(Integer personId) {
-        
-        String sql = "select count(*) from dialog where first_person_id = ? or second_person_id = ?";
-        return jdbcTemplate.queryForObject(sql, Integer.class, personId, personId);
-    }*/
-    
-    /*public Integer countByPersonIds(Integer firstPersonId, Integer secondPersonId) {
-    
-        List<Integer> sortedIds = sortIds(firstPersonId, secondPersonId);
-        String sql = "select count(*) from dialog where first_person_id = ? and second_person_id = ?";
-        return jdbcTemplate.queryForObject(sql, Integer.class, sortedIds.get(0), sortedIds.get(1));
-    }*/
-    
+
     public void deleteById(Integer id) {
     
         String sql = "delete from dialog where id = ?";

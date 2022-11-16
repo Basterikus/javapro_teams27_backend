@@ -9,7 +9,7 @@ import org.javaproteam27.socialnetwork.model.entity.Person;
 import org.javaproteam27.socialnetwork.repository.CurrencyRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class LoginService {
     private final PersonRepository personRepository;
     private final PasswordEncoder passwordEncoder;
     private final WeatherService weatherService;
-    private final Redis redis;
+    private final PhotoCloudinary photoCloudinary;
     private final CurrencyRepository currencyRepository;
 
     public ResponseRs<PersonRs> profileResponse(String token) {
@@ -38,6 +38,7 @@ public class LoginService {
         var currencyUsd = currencyRepository.findByName("USD");
         var currencyEuro = currencyRepository.findByName("EUR");
         PersonRs personRs = getPersonRs(person, token);
+        personRs.setDeleted(person.getIsDeleted());
         personRs.setWeather(weatherRs);
         personRs.setCurrency(CurrencyRateRs.builder()
                 .usd(currencyUsd.getPrice())
@@ -70,7 +71,7 @@ public class LoginService {
                 .birthDate(person.getBirthDate())
                 .email(person.getEmail())
                 .phone(person.getPhone())
-                .photo(redis.getUrl(person.getId()))
+                .photo(photoCloudinary.getUrl(person.getId()))
                 .about(person.getAbout())
                 .city(person.getCity())
                 .country(person.getCountry())

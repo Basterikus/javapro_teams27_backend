@@ -24,7 +24,8 @@ public class DropBox {
     private static String refreshToken = "ZdM_cscUFxQAAAAAAAAAAaYgNW47F-G6ZADxwhWouthi_NbOtYP0h68pY9V3FIOu";
     private String photo = "";
 
-    public static String getRefreshToken() throws DbxException {
+    public static String getRefreshToken() {
+        try {
         DbxCredential credential = new DbxCredential(
                 "", System.currentTimeMillis(), refreshToken, DROPBOX_APP_KEY, DROPBOX_APP_SECRET);
         DbxRequestConfig config = new DbxRequestConfig(DROPBOX_APP_KEY);
@@ -35,11 +36,11 @@ public class DropBox {
         DbxWebAuth webAuth = new DbxWebAuth(config, appInfo);
         DbxAuthFinish authFinish = webAuth.finishFromCode(refreshToken);
         log.info(authFinish.getAccessToken());
-
+        } catch (Exception ignored) {}
         return refreshToken;
     }
 
-    public static String dropBoxUploadImages(MultipartFile image) throws DbxException {
+    public static String dropBoxUploadImages(MultipartFile image) {
         Optional<String> originalName = Optional.ofNullable(image.getOriginalFilename());
         String imageName = "/" + UUID.randomUUID() + "." + originalName.orElse("").split("\\.")[1];
 
@@ -63,15 +64,8 @@ public class DropBox {
         return photo;
     }
 
-    public void deletePhoto(String photo) {
-        try {
-            getClient().files().deleteV2(getClient().files().getTemporaryLink(photo).getLink());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    public static DbxClientV2 getClient() throws DbxException {
+    public static DbxClientV2 getClient() {
         String token = getRefreshToken();
         DbxRequestConfig config = DbxRequestConfig.newBuilder(DROPBOX_PATH).build();
         return new DbxClientV2(config, token);

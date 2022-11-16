@@ -10,7 +10,7 @@ import org.javaproteam27.socialnetwork.repository.FriendshipStatusRepository;
 import org.javaproteam27.socialnetwork.repository.PersonRepository;
 import org.javaproteam27.socialnetwork.security.jwt.JwtTokenProvider;
 import org.javaproteam27.socialnetwork.security.jwt.JwtUser;
-import org.javaproteam27.socialnetwork.util.Redis;
+import org.javaproteam27.socialnetwork.util.PhotoCloudinary;
 import org.javaproteam27.socialnetwork.util.WeatherService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final Redis redis;
+    private final PhotoCloudinary photoCloudinary;
     private final FriendshipStatusRepository friendshipStatusRepository;
     private final WeatherService weatherService;
 
@@ -67,7 +66,7 @@ public class PersonService {
                         .id(person.getId())
                         .firstName(person.getFirstName())
                         .lastName(person.getLastName())
-                        .photo(redis.getUrl(person.getId()))
+                        .photo(photoCloudinary.getUrl(person.getId()))
                         .birthDate(person.getBirthDate())
                         .about(person.getAbout())
                         .phone(person.getPhone())
@@ -97,7 +96,7 @@ public class PersonService {
                 .birthDate(person.getBirthDate())
                 .messagesPermission(person.getMessagesPermission())
                 .isBlocked(person.getIsBlocked())
-                .photo(redis.getUrl(person.getId()))
+                .photo(photoCloudinary.getUrl(person.getId()))
                 .weather(getWeather(person))
                 .about(person.getAbout())
                 .lastOnlineTime(person.getLastOnlineTime())
@@ -165,6 +164,7 @@ public class PersonService {
     public ResponseRs<ComplexRs> deleteUser(String token) {
         String email = jwtTokenProvider.getUsername(token);
         Person person = personRepository.findByEmail(email);
+        person.setIsDeleted(true);
         personRepository.setPersonIsDeleted(person);
         var response = new ResponseRs<ComplexRs>();
         response.setData(ComplexRs.builder().message("ok").build());
